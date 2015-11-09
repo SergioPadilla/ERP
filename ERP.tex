@@ -2,7 +2,6 @@
 \usepackage{fourier}
 
 \usepackage{sectsty}
-\allsectionsfont{\normalfont\scshape}
 \setlength\parindent{0pt}
 
 \usepackage{fancyhdr}
@@ -123,6 +122,107 @@ Entrada: RD5
 Procesamiento:  Se busca entre todos los clientes almacenados aquellos que cumplan las condiciones impuestas por RD5
 
 Salida: RD6 (pudiendo aparecer una lista vacia)
+
+\section{Requisitos de datos}
+
+\section{Requisitos de datos}
+\setlength{\parindent}{0em}
+\textbf{RD11: \textit{ Datos necesarios para crear un nuevo cliente}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+
+	\item Tipo [cadena de caracteres]
+	
+	\item Nombre / Nombre Comercial [Cadena de caracteres]
+	
+	\item Apellido / Nombre Fiscal [Cadena de caracteres]
+	
+	\item NIF / CIF [Cadena de caracteres]
+	
+	\item Correo electrónico [Cadena de caracteres]
+
+\end{itemize}
+\setlength{\parindent}{0em}
+\textbf{RD12: \textit{Datos almacenado de cliente}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+	\item ID cliente
+	
+	\item Tipo [cadena de caracteres]
+	
+	\item Nombre / Nombre Comercial [Cadena de caracteres]
+	
+	\item Apellido / Nombre Fiscal [Cadena de caracteres]
+	
+	\item NIF / CIF [Cadena de caracteres]
+	
+	\item Correo electrónico [Cadena de caracteres]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD13: \textit{Datos necesarios para acceder a cliente}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+	\item ID tarea
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD14: \textit{Datos almacenado de cliente}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+	
+	\item Tipo [cadena de caracteres]
+	
+	\item Nombre / Nombre Comercial [Cadena de caracteres]
+	
+	\item Apellido / Nombre Fiscal [Cadena de caracteres]
+	
+	\item NIF / CIF [Cadena de caracteres]
+	
+	\item Correo electrónico [Cadena de caracteres]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD15: \textit{Parametros por los que clasificar nuestra lista de clientes}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+	\item Fecha de alta [DD-MM-AAAA]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD16: \textit{Lista de identificadores clientes}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+	\item Lista de clientes [Lista de IDs de clientes]
+\end{itemize}
+
+\section{Restricciones Semánticas}
+\setlength{\parindent}{0em}
+\textbf{RS5: \textit{Creación y modificación de clientes}}
+\setlength{\parindent}{2em}
+El administrador es el único que puede crear y modificar clientes, además el campo de tipo de cliente jamás puede quedar sin rellenar, el resto no poseen este tipo de restricciones 
+
+\setlength{\parindent}{0em}
+\textbf{RS6: \textit{eliminación de clientes}}
+\setlength{\parindent}{2em}
+El administrador es el único que puede eliminar clientes.
+
+\setlength{\parindent}{0em}
+\textbf{RS7: \textit{eliminación de clientes}}
+\setlength{\parindent}{2em}
+Un cliente puede ser tipo empresa y entonces tendrá relleno los datos de NIF y de nombre comercial o ser tipo autónomo en cuyo caso recogeremos los datos de nombre apellidos y DNI lugar de los mencionados anteriormente. El resto de datos son comunes para ambos tipos de clientes
+
+
+\setlength{\parindent}{0em}
+\textbf{RS8: \textit{Consultar}}
+\setlength{\parindent}{2em}
+Tanto el administrador como los empleados pueden consultar la información sobre los clientes
+
+
+\setlength{\parindent}{0em}
+\textbf{RS9: \textit{Tipo de Trabajador}}
+\setlength{\parindent}{2em}
+El administrador es un empleado más pero con algunos privilegios especiales.
 
 
 \end{document}
