@@ -147,6 +147,30 @@ Procesamiento: Asignación de tarea a la persona indicada
 
 Salida: Ninguna
 
+\setlength{\parindent}{0em}
+\textbf{RF8: \textit{Borrar tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD2
+
+Procesamiento: Borrar tarea y subtareas indicadas
+
+Salida: Ninguna, o mensaje de error.
+
+\setlength{\parindent}{0em}
+\textbf{RF9: \textit{Modificar tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD8
+
+Procesamiento: Modifica la tarea indicada
+
+Salida: Ninguna, o mensaje de error.
+
 \section{Requisitos de datos}
 \setlength{\parindent}{0em}
 \textbf{RD1: \textit{Datos opcionales para crear una tarea}}
@@ -158,7 +182,7 @@ Descripción [Cadena de caracteres]
 Tiempo estimado [número real]
 
 \setlength{\parindent}{0em}
-\textbf{RD2: \textit{Datos necesarios para asignar subtarea}}
+\textbf{RD2: \textit{Datos necesarios para identificar una tarea}}
 \setlength{\parindent}{2em}
 \begin{itemize}
 \item ID tarea
@@ -235,21 +259,25 @@ Tiempo estimado [número real]
 \setlength{\parindent}{0em}
 \textbf{RS1: \textit{Tareas y subtareas}}
 \setlength{\parindent}{2em}
+
 Cada tarea puede contener a su vez subtareas (lista de ids con las tareas que lo forman). Las subtareas son tareas en sí, tienen su propia id, diferente de la tarea de la que dependen, además del resto de datos de una tarea.
 
 \setlength{\parindent}{0em}
 \textbf{RS2: \textit{Asignación de tareas}}
 \setlength{\parindent}{2em}
+
 Cualquier empleado puede asignar una tareas.
 
 \setlength{\parindent}{0em}
 \textbf{RS3: \textit{Administrador y empleados}}
 \setlength{\parindent}{2em}
+
 El administrador es un empleado más pero con algunos privilegios especiales.
 
 \setlength{\parindent}{0em}
 \textbf{RS4: \textit{Creación de tareas}}
 \setlength{\parindent}{2em}
+
 El administrador es el único que puede crear tareas.
 
 
