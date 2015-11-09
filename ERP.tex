@@ -2,7 +2,7 @@
 \usepackage{fourier}
 
 \usepackage{sectsty}
-\allsectionsfont{\centering \normalfont\scshape}
+\allsectionsfont{\normalfont\scshape}
 \setlength\parindent{0pt}
 
 \usepackage{fancyhdr}
@@ -53,5 +53,98 @@ Iván Calle Gil\\}
 \begin{document}
 \maketitle
 
+\section{Funcionalidad del Sistema}
+
+\subsection{Funcionalidad “Gestión de tareas”}
+
+\subsubsection{Descripción}
+\setlength{\parindent}{3em} La gestión de tareas permite una supervisión cómoda y eficiente de una lista de trabajos asignables a los empleados para la estructuración interna de la empresa y el control del trabajo personal y colectivo.
+
+	Para llevar a cabo esta gestión, el administrador crea las tareas y se las asigna a sus empleados (o a él mismo). Además permite asignar una fecha de vencimiento de la tarea, tiempo empleado en llevarla a cabo, registro de horas trabajadas en la misma y comunicación entre administrador y empleado mediante comentarios en la propia tarea.
+
+\subsubsection{Requisitos funcionales}
+\setlength{\parindent}{0em}
+\textbf{RF1: \textit{Crear tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD1
+
+Procesamiento: Crea una nueva tarea
+
+Salida: ID tarea
+
+\setlength{\parindent}{0em}
+\textbf{RF2: \textit{Añadir subtarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD2
+
+Procesamiento: Añadir tarea a la lista de subtareas
+
+Salida; Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF3: \textit{Asignar fecha a tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD3
+
+Procesamiento: Se asigna fecha de vencimiento a la tarea en cuestión
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF4: \textit{Aumentar horas de trabajo en la tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Empleado
+
+Entrada: RD4
+
+Procesamiento: Se suman las horas a las ya trabajadas y se restan de las estimadas para completar la tarea
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF5: \textit{Añadir comentario}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD6
+
+Procesamiento: Añade un comentario a la tarea
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF6: \textit{Borrar comentario}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD7
+
+Procesamiento: Borra el comentario especificado
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF7: \textit{Asignar tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD5
+
+Procesamiento: Asignación de tarea a la persona indicada
+
+Salida: Ninguna
 
 \end{document}
