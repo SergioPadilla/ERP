@@ -147,4 +147,110 @@ Procesamiento: Asignación de tarea a la persona indicada
 
 Salida: Ninguna
 
+\section{Requisitos de datos}
+\setlength{\parindent}{0em}
+\textbf{RD1: \textit{Datos opcionales para crear una tarea}}
+\setlength{\parindent}{2em}
+Título [cadena de caracteres]
+
+Descripción [Cadena de caracteres]
+
+Tiempo estimado [número real]
+
+\setlength{\parindent}{0em}
+\textbf{RD2: \textit{Datos necesarios para asignar subtarea}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID tarea
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD3: \textit{Datos necesarios para asignar fecha a una tarea}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item Fecha [DD-MM-AAAA]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD4: \textit{Datos necesarios para aumentar las horas de trabajo en una tarea}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item Horas trabajadas
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD5: \textit{Datos necesarios para asignar tarea}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID trabajador (puede ser el administrador)
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD6: \textit{Datos necesarios para añadir comentario}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item Comentario [cadena de texto]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD7: \textit{Datos necesarios para borrar comentario}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID comentario
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD8: \textit{Datos almacenados en TAREA}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID tarea
+\item Fecha de vencimiento [DD-MM-AAAA]
+\item Subtareas [Lista de IDs de tareas]
+\item Comentarios [Lista de IDs de comentarios]
+\item Horas estimadas [HH-MM]
+\item Horas trabajas [HH-MM]
+\item ID registro [RD10]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD9: \textit{Datos almacenados en COMENTARIOS}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID comentario
+\item texto [cadena de caracteres]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD10: \textit{Datos almacenados en REGISTRO}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID registro
+\item ID empleado
+\item Horas trabajadas [HH-MM]
+\item Descripción [cadena de texto]
+\item Fecha [DD-MM-AAAA]
+\end{itemize}
+
+\section{Restricciones Semánticas}
+\setlength{\parindent}{0em}
+\textbf{RS1: \textit{Tareas y subtareas}}
+\setlength{\parindent}{2em}
+Cada tarea puede contener a su vez subtareas (lista de ids con las tareas que lo forman). Las subtareas son tareas en sí, tienen su propia id, diferente de la tarea de la que dependen, además del resto de datos de una tarea.
+
+\setlength{\parindent}{0em}
+\textbf{RS2: \textit{Asignación de tareas}}
+\setlength{\parindent}{2em}
+Cualquier empleado puede asignar una tareas.
+
+\setlength{\parindent}{0em}
+\textbf{RS3: \textit{Administrador y empleados}}
+\setlength{\parindent}{2em}
+El administrador es un empleado más pero con algunos privilegios especiales.
+
+\setlength{\parindent}{0em}
+\textbf{RS4: \textit{Creación de tareas}}
+\setlength{\parindent}{2em}
+El administrador es el único que puede crear tareas.
+
+
 \end{document}
