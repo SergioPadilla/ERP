@@ -240,6 +240,102 @@ Procesamiento:  Se busca entre todos los clientes almacenados aquellos que cumpl
 
 Salida: RD6 (pudiendo aparecer una lista vacia)
 
+\setlength{\parindent}{0em}
+\textbf{RF15: \textit{Crear producto}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD17
+
+Procesamiento: Crea un nuevo producto
+
+Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
+
+\setlength{\parindent}{0em}
+\textbf{RF16: \textit{Consultar producto}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD18
+
+Procesamiento: Consultar el estado de un producto
+
+Salida: ID, nombre, descripción, importe del producto, número de ventas (si el producto no existe, devuelve un mensaje de error)
+
+\setlength{\parindent}{0em}
+\textbf{RF17: \textit{Modificar producto}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD19
+
+Procesamiento: Se modifican los datos del producto en cuestión
+
+Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
+
+\setlength{\parindent}{0em}
+\textbf{RF18: \textit{Ordenar productos}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: Ninguna
+
+Procesamiento: Ordena los productos del más vendido al menos vendido
+
+Salida: Lista de productos (ID y nombre del producto)
+
+\setlength{\parindent}{0em}
+\textbf{RF19: \textit{Eliminar producto}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD20
+
+Procesamiento: Se elimina el producto en cuestión del conjunto de productos
+
+Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
+
+\setlength{\parindent}{0em}
+\textbf{RF20: \textit{Crear factura}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD21
+
+Procesamiento: Crea una factura de la compra de algún cliente
+
+Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
+
+\setlength{\parindent}{0em}
+\textbf{RF21: \textit{Consultar factura}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD22
+
+Procesamiento: Consulta una de las facturas ya creadas
+
+Salida: ID de factura, cliente correspondiente, fecha de emisión e importe total
+
+\setlength{\parindent}{0em}
+\textbf{RF22: \textit{Imprimir factura (opcional)}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD23
+
+Procesamiento: Se imprime la factura en cuestión
+
+Salida: Ninguna (si la factura no existe, devuelve un mensaje de error)
+
 \section{Requisitos de datos}
 \setlength{\parindent}{0em}
 \textbf{RD1: \textit{Datos opcionales para crear una tarea}}
@@ -390,6 +486,90 @@ Tiempo estimado [número real]
 \item Lista de clientes [Lista de IDs de clientes]
 \end{itemize}
 
+\setlength{\parindent}{0em}
+\textbf{RD17: \textit{Datos necesarios para crear un producto}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item Nombre del producto [cadena de caracteres]
+  \item Descripción [cadena de caracteres]
+  \item Importe
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD18: \textit{Datos necesarios para consultar un producto}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID del producto
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD19: \textit{Datos necesarios para modificar un producto}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID del producto
+  \item Dato a modificar (nombre del producto, descripción, importe)
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD20: \textit{Datos necesarios para eliminar un producto}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID de producto
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD21: \textit{Datos necesarios para crear una factura}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID de factura
+  \item Fecha de emisión [DD-MM-AAAA]
+  \item ID del cliente involucrado
+  \item Importe total [número real]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD22: \textit{Datos necesarios para consultar una factura}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID de factura
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD23: \textit{Datos necesarios para imprimir una factura}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID de factura
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD24: \textit{Datos almacenados en PRODUCTOS}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID de producto
+  \item Nombre del producto [cadena de caracteres]
+  \item Descripción [cadena de caracteres]
+  \item Importe [número real]
+  \item Número de ventas [número entero]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD25: \textit{Datos almacenados en FACTURAS}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID de factura
+  \item Fecha de emisión [DD-MM-AAAA]
+  \item ID cliente involucrado
+  \item Importe total [número real]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD26: \textit{Datos almacenados en COMPRAS}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID de factura
+  \item ID de producto
+\end{itemize}
+
 \section{Restricciones Semánticas}
 \setlength{\parindent}{0em}
 \textbf{RS1: \textit{Tareas y subtareas}}
@@ -447,5 +627,35 @@ Tanto el administrador como los empleados pueden consultar la información sobre
 \setlength{\parindent}{2em}
 
 El administrador es un empleado más pero con algunos privilegios especiales.
+
+\setlength{\parindent}{0em}
+\textbf{RS10: \textit{Creación y eliminación de productos}}
+\setlength{\parindent}{2em}
+
+El administrador es el único que puede crear y eliminar productos.
+
+\setlength{\parindent}{0em}
+\textbf{RS11: \textit{Consultar, modificar y ordenar productos}}
+\setlength{\parindent}{2em}
+Tanto el administrador como los empleados pueden consultar, modificar y ordenar productos.
+
+\setlength{\parindent}{0em}
+\textbf{RS12: \textit{Creación de facturas}}
+\setlength{\parindent}{2em}
+
+El administrador es el único capaz de crear facturas.
+
+
+\setlength{\parindent}{0em}
+\textbf{RS13: \textit{Consultar e imprimir(*) facturas}}
+\setlength{\parindent}{2em}
+
+Tanto el administrador como los empleados pueden consultar e imprimir facturas.
+
+\setlength{\parindent}{0em}
+\textbf{RS14: \textit{Facturas y productos eliminados}}
+\setlength{\parindent}{2em}
+
+Al eliminar un producto, no desaparecen las posibles relaciones que tenga dicho producto con las facturas de compras anteriores del mismo: el producto eliminado no desaparece de la tabla que relaciona cada factura con los productos involucrados.
 
 \end{document}
