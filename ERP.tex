@@ -85,7 +85,7 @@ Entrada: RD2
 
 Procesamiento: Añadir tarea a la lista de subtareas
 
-Salida; Ninguna
+Salida: Ninguna
 
 \setlength{\parindent}{0em}
 \textbf{RF3: \textit{Asignar fecha a tarea}}
@@ -339,7 +339,7 @@ Salida: Ninguna (si la factura no existe, devuelve un mensaje de error)
 \subsection{Funcionalidad “Gestión de Servidores y Dominios”}
 
 \subsubsection{Descripción}
-\setlength{\parindent}{3em} En esta funcionalidad se intenta solucionar el problema de almacenar de forma segura y ordenar de forma eficiente los datos referentes a los servidores y dominios del cliente, para que la empresa pueda acceder a esta información en el menor tiempo posible y así aumentar la productividad. 
+\setlength{\parindent}{3em} En esta funcionalidad se intenta solucionar el problema de almacenar de forma segura y ordenar de forma eficiente los datos referentes a los servidores y dominios del cliente, para que la empresa pueda acceder a esta información en el menor tiempo posible y así aumentar la productividad.
 
 Para solucionar este problema, el administrador podrá crear un servidor en la base de datos asociado a un cliente y crear dominios asociados a un servidor, el administrador también podra modificar los datos del servidor y de los dominios ya creados. Tanto los empleados como el administrador podran consultar los datos de los servidores y de los dominios, y solo el administrador podra borrar los datos.
 
@@ -709,7 +709,7 @@ Tiempo estimado [número real]
 \textbf{RD31: \textit{Datos necesarios para crear dominio}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-  \item ID servidor 
+  \item ID servidor
   \item Dirección web
 \end{itemize}
 
@@ -741,6 +741,17 @@ Tiempo estimado [número real]
   \item ID dominio [número entero]
   \item ID servidor [número entero]
   \item Dirección web [cadena de caracteres]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD35: \textit{Datos almacenados en EMPLEADOS}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+  \item ID empleado
+  \item DNI
+  \item Nombre
+  \item Apellidos
+  \item permisos [default: no] (solo tendra permisos el administrador)
 \end{itemize}
 
 \section{Restricciones Semánticas}
@@ -818,7 +829,6 @@ Tanto el administrador como los empleados pueden consultar, modificar y ordenar 
 
 El administrador es el único capaz de crear facturas.
 
-
 \setlength{\parindent}{0em}
 \textbf{RS13: \textit{Consultar e imprimir(*) facturas}}
 \setlength{\parindent}{2em}
@@ -835,7 +845,7 @@ Al eliminar un producto, no desaparecen las posibles relaciones que tenga dicho 
 \textbf{RS15: \textit{Creación, modificación  y eliminación de servidores}}
 \setlength{\parindent}{2em}
 
-El administrador es el único que puede crear, modificar y eliminar servidores. 
+El administrador es el único que puede crear, modificar y eliminar servidores.
 
 \setlength{\parindent}{0em}
 \textbf{RS16: \textit{Consultar y listar servidores}}
@@ -859,6 +869,6 @@ Tanto el administrador como los empleados pueden consultar dominios
 \textbf{RS19: \textit{servidores y dominios eliminados}}
 \setlength{\parindent}{2em}
 
-Al eliminar un servidor se eliminaran tambien los dominios asociados a ese servidor, pero si se elimina un dominio, solo se elimina el dominio. 
+Al eliminar un servidor se eliminaran tambien los dominios asociados a ese servidor, pero si se elimina un dominio, solo se elimina el dominio.
 
 \end{document}
