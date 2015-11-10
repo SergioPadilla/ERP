@@ -28,20 +28,20 @@
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
 
 \title{
-  \normalfont \normalsize
-  \textsc{Universidad de Granada.} \\ [25pt]
-  \horrule{0.5pt} \\[0.4cm]
-  \huge ERP \\
-  \horrule{2pt} \\[0.5cm]
+	\normalfont \normalsize
+	\textsc{Universidad de Granada.} \\ [25pt]
+	\horrule{0.5pt} \\[0.4cm]
+	\huge ERP \\
+	\horrule{2pt} \\[0.5cm]
 }
 
 \author{Marina Estévez Almenzar\\
-\and
-Jose Pimentel Mesones\\
-\and
-Sergio Padilla López\\
-\and
-Iván Calle Gil\\}
+	\and
+	Jose Pimentel Mesones\\
+	\and
+	Sergio Padilla López\\
+	\and
+	Iván Calle Gil\\}
 
 \date{\normalsize\today}
 
@@ -51,290 +51,449 @@ Iván Calle Gil\\}
 %----------------------------------------------------------------------------------------
 
 \begin{document}
-\maketitle
-
-\section{Funcionalidad del Sistema}
-
-\subsection{Funcionalidad “Gestión de tareas”}
-
-\subsubsection{Descripción}
-\setlength{\parindent}{3em} La gestión de tareas permite una supervisión cómoda y eficiente de una lista de trabajos asignables a los empleados para la estructuración interna de la empresa y el control del trabajo personal y colectivo.
-
+	\maketitle
+	
+	\section{Funcionalidad del Sistema}
+	
+	\subsection{Funcionalidad “Gestión de tareas”}
+	
+	\subsubsection{Descripción}
+	\setlength{\parindent}{3em} La gestión de tareas permite una supervisión cómoda y eficiente de una lista de trabajos asignables a los empleados para la estructuración interna de la empresa y el control del trabajo personal y colectivo.
+	
 	Para llevar a cabo esta gestión, el administrador crea las tareas y se las asigna a sus empleados (o a él mismo). Además permite asignar una fecha de vencimiento de la tarea, tiempo empleado en llevarla a cabo, registro de horas trabajadas en la misma y comunicación entre administrador y empleado mediante comentarios en la propia tarea.
-
-\subsubsection{Requisitos funcionales}
-\setlength{\parindent}{0em}
-\textbf{RF1: \textit{Crear tarea}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador
-
-Entrada: RD1
-
-Procesamiento: Crea una nueva tarea
-
-Salida: ID tarea
-
-\setlength{\parindent}{0em}
-\textbf{RF2: \textit{Añadir subtarea}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador
-
-Entrada: RD2
-
-Procesamiento: Añadir tarea a la lista de subtareas
-
-Salida; Ninguna
-
-\setlength{\parindent}{0em}
-\textbf{RF3: \textit{Asignar fecha a tarea}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador
-
-Entrada: RD3
-
-Procesamiento: Se asigna fecha de vencimiento a la tarea en cuestión
-
-Salida: Ninguna
-
-\setlength{\parindent}{0em}
-\textbf{RF4: \textit{Aumentar horas de trabajo en la tarea}}
-\setlength{\parindent}{2em}
-
-Actor: Empleado
-
-Entrada: RD4
-
-Procesamiento: Se suman las horas a las ya trabajadas y se restan de las estimadas para completar la tarea
-
-Salida: Ninguna
-
-\setlength{\parindent}{0em}
-\textbf{RF5: \textit{Añadir comentario}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador o empleado
-
-Entrada: RD6
-
-Procesamiento: Añade un comentario a la tarea
-
-Salida: Ninguna
-
-\setlength{\parindent}{0em}
-\textbf{RF6: \textit{Borrar comentario}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador o empleado
-
-Entrada: RD7
-
-Procesamiento: Borra el comentario especificado
-
-Salida: Ninguna
-
-\setlength{\parindent}{0em}
-\textbf{RF7: \textit{Asignar tarea}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador o empleado
-
-Entrada: RD5
-
-Procesamiento: Asignación de tarea a la persona indicada
-
-Salida: Ninguna
-
-\subsection{Funcionalidad “Gestión de facturas y productos”}
-
-\subsubsection{Descripción}
-\setlength{\parindent}{3em} La gestión de facturas y productos permite a la empresa un seguimiento fiable y un control eficiente de los productos ofrecidos por la misma, a la vez que proporciona una buena ordenación de las facturas emitidas en la compra de dichos productos. Como consecuencia, esta gestión también proporcionará las relaciones que se establecen entre los productos y las facturas.
-Para llevar a cabo esta gestión, el administrador creará los productos que desea ofrecer al cliente, añadiendo la opción de poder consultarlos, modificarlos e incluso eliminarlos de la lista de productos ofrecidos. En cuanto a las facturas, también el administrador será el responsable de crearlas y consultarlas, Cabe la posibilidad de añadir la opción de impresión de facturas.
-
-
-\subsubsection{Requisitos funcionales}
-\setlength{\parindent}{0em}
-\textbf{RF16: \textit{Crear producto}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador
-
-Entrada: RD16
-
-Procesamiento: Crea un nuevo producto
-
-Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
-
-\setlength{\parindent}{0em}
-\textbf{RF17: \textit{Consultar producto}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador o empleado
-
-Entrada: RD17
-
-Procesamiento: Consultar el estado de un producto
-
-Salida: ID, nombre, descripción, importe del producto, número de ventas (si el producto no existe, devuelve un mensaje de error)
-
-\setlength{\parindent}{0em}
-\textbf{RF18: \textit{Modificar producto}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador
-
-Entrada: RD18
-
-Procesamiento: Se modifican los datos del producto en cuestión
-
-Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
-
-\setlength{\parindent}{0em}
-\textbf{RF19: \textit{Ordenar productos}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador o empleado
-
-Entrada: Ninguna
-
-Procesamiento: Ordena los productos del más vendido al menos vendido
-
-Salida: Lista de productos (ID y nombre del producto)
-
-\setlength{\parindent}{0em}
-\textbf{RF20: \textit{Eliminar producto}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador
-
-Entrada: RD19
-
-Procesamiento: Se elimina el producto en cuestión del conjunto de productos 
-
-Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
-
-\setlength{\parindent}{0em}
-\textbf{RF21: \textit{Crear factura}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador o empleado
-
-Entrada: RD20
-
-Procesamiento: Crea una factura de la compra de algún cliente 
-
-Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
-
-\setlength{\parindent}{0em}
-\textbf{RF22: \textit{Consultar factura}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador o empleado
-
-Entrada: RD21
-
-Procesamiento: Consulta una de las facturas ya creadas 
-
-Salida: ID de factura, cliente correspondiente, fecha de emisión e importe total
-
-\setlength{\parindent}{0em}
-\textbf{RF23: \textit{Imprimir factura (opcional)}}
-\setlength{\parindent}{2em}
-
-Actor: Administrador o empleado
-
-Entrada: RD22
-
-Procesamiento: Se imprime la factura en cuestión
-
-Salida: Ninguna (si la factura no existe, devuelve un mensaje de error)
-
-
-\subsubsection{Requisitos de datos}
-\setlength{\parindent}{0em}
-\textbf{RD16: \textit{Datos necesarios para crear un producto}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item Nombre del producto [cadena de caracteres]
-	\item Descripción [cadena de caracteres]
-	\item Importe
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD17: \textit{Datos necesarios para consultar un producto}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID del producto
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD18: \textit{Datos necesarios para modificar un producto}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID del producto
-	\item Dato a modificar (nombre del producto, descripción, importe)
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD19: \textit{Datos necesarios para eliminar un producto}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID de producto
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD20: \textit{Datos necesarios para crear una factura}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID de factura
-	\item Fecha de emisión [DD-MM-AAAA]
-	\item ID del cliente involucrado
-	\item Importe total [número real]
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD21: \textit{Datos necesarios para consultar una factura}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID de factura
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD20: \textit{Datos necesarios para imprimir una factura}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID de factura
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD22: \textit{Datos almacenados en PRODUCTOS}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID de producto
-	\item Nombre del producto [cadena de caracteres]
-	\item Descripción [cadena de caracteres]
-	\item Importe [número real]
-	\item Número de ventas [número entero]
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD23: \textit{Datos almacenados en FACTURAS}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID de factura
-	\item Fecha de emisión [DD-MM-AAAA]
-	\item ID cliente involucrado
-	\item Importe total [número real]
-\end{itemize}
-
-\setlength{\parindent}{0em}
-\textbf{RD24: \textit{Datos almacenados en COMPRAS}}
-\setlength{\parindent}{2em}
-\begin{itemize}
-	\item ID de factura
-	\item ID de producto
-\end{itemize}
+	
+	\subsection{Funcionalidad “Gestión de facturas y productos”}
+	
+	\subsubsection{Descripción}
+	\setlength{\parindent}{3em} La gestión de facturas y productos permite a la empresa un seguimiento fiable y un control eficiente de los productos ofrecidos por la misma, a la vez que proporciona una buena ordenación de las facturas emitidas en la compra de dichos productos. Como consecuencia, esta gestión también proporcionará las relaciones que se establecen entre los productos y las facturas.
+	Para llevar a cabo esta gestión, el administrador creará los productos que desea ofrecer al cliente, añadiendo la opción de poder consultarlos, modificarlos e incluso eliminarlos de la lista de productos ofrecidos. En cuanto a las facturas, también el administrador será el responsable de crearlas y consultarlas, Cabe la posibilidad de añadir la opción de impresión de facturas.
+	
+	\subsubsection{Requisitos funcionales}
+	\setlength{\parindent}{0em}
+	\textbf{RF1: \textit{Crear tarea}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador
+	
+	Entrada: RD1
+	
+	Procesamiento: Crea una nueva tarea
+	
+	Salida: ID tarea
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF2: \textit{Añadir subtarea}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador
+	
+	Entrada: RD2
+	
+	Procesamiento: Añadir tarea a la lista de subtareas
+	
+	Salida; Ninguna
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF3: \textit{Asignar fecha a tarea}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador
+	
+	Entrada: RD3
+	
+	Procesamiento: Se asigna fecha de vencimiento a la tarea en cuestión
+	
+	Salida: Ninguna
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF4: \textit{Aumentar horas de trabajo en la tarea}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Empleado
+	
+	Entrada: RD4
+	
+	Procesamiento: Se suman las horas a las ya trabajadas y se restan de las estimadas para completar la tarea
+	
+	Salida: Ninguna
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF5: \textit{Añadir comentario}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD6
+	
+	Procesamiento: Añade un comentario a la tarea
+	
+	Salida: Ninguna
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF6: \textit{Borrar comentario}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD7
+	
+	Procesamiento: Borra el comentario especificado
+	
+	Salida: Ninguna
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF7: \textit{Asignar tarea}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD5
+	
+	Procesamiento: Asignación de tarea a la persona indicada
+	
+	Salida: Ninguna
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF8: \textit{Borrar tarea}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD2
+	
+	Procesamiento: Borrar tarea y subtareas indicadas
+	
+	Salida: Ninguna, o mensaje de error.
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF9: \textit{Modificar tarea}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD8
+	
+	Procesamiento: Modifica la tarea indicada
+	
+	Salida: Ninguna, o mensaje de error.
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF15: \textit{Crear producto}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador
+	
+	Entrada: RD17
+	
+	Procesamiento: Crea un nuevo producto
+	
+	Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF16: \textit{Consultar producto}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD18
+	
+	Procesamiento: Consultar el estado de un producto
+	
+	Salida: ID, nombre, descripción, importe del producto, número de ventas (si el producto no existe, devuelve un mensaje de error)
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF17: \textit{Modificar producto}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador
+	
+	Entrada: RD19
+	
+	Procesamiento: Se modifican los datos del producto en cuestión
+	
+	Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF18: \textit{Ordenar productos}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: Ninguna
+	
+	Procesamiento: Ordena los productos del más vendido al menos vendido
+	
+	Salida: Lista de productos (ID y nombre del producto)
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF19: \textit{Eliminar producto}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador
+	
+	Entrada: RD20
+	
+	Procesamiento: Se elimina el producto en cuestión del conjunto de productos 
+	
+	Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF20: \textit{Crear factura}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD21
+	
+	Procesamiento: Crea una factura de la compra de algún cliente 
+	
+	Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF21: \textit{Consultar factura}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD22
+	
+	Procesamiento: Consulta una de las facturas ya creadas 
+	
+	Salida: ID de factura, cliente correspondiente, fecha de emisión e importe total
+	
+	\setlength{\parindent}{0em}
+	\textbf{RF22: \textit{Imprimir factura (opcional)}}
+	\setlength{\parindent}{2em}
+	
+	Actor: Administrador o empleado
+	
+	Entrada: RD23
+	
+	Procesamiento: Se imprime la factura en cuestión
+	
+	Salida: Ninguna (si la factura no existe, devuelve un mensaje de error)
+	
+	\section{Requisitos de datos}
+	\setlength{\parindent}{0em}
+	\textbf{RD1: \textit{Datos opcionales para crear una tarea}}
+	\setlength{\parindent}{2em}
+	Título [cadena de caracteres]
+	
+	Descripción [Cadena de caracteres]
+	
+	Tiempo estimado [número real]
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD2: \textit{Datos necesarios para identificar una tarea}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID tarea
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD3: \textit{Datos necesarios para asignar fecha a una tarea}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item Fecha
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD4: \textit{Datos necesarios para aumentar las horas de trabajo en una tarea}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item Horas trabajadas
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD5: \textit{Datos necesarios para asignar tarea}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID empleado
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD6: \textit{Datos necesarios para añadir comentario}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item Comentario [cadena de texto]
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD7: \textit{Datos necesarios para borrar comentario}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID comentario
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD8: \textit{Datos almacenados en TAREA}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID tarea
+		\item Fecha de vencimiento
+		\item ID tarea\_padre
+		\item Horas estimadas 
+		\item Horas trabajas 
+		\item ID registro
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD9: \textit{Datos almacenados en COMENTARIOS}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID comentario
+		\item texto [cadena de caracteres]
+		\item ID Tarea
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD10: \textit{Datos almacenados en REGISTRO}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID registro
+		\item ID empleado
+		\item Horas trabajadas
+		\item Descripción [cadena de texto]
+		\item Fecha
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD17: \textit{Datos necesarios para crear un producto}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item Nombre del producto [cadena de caracteres]
+		\item Descripción [cadena de caracteres]
+		\item Importe
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD18: \textit{Datos necesarios para consultar un producto}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID del producto
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD19: \textit{Datos necesarios para modificar un producto}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID del producto
+		\item Dato a modificar (nombre del producto, descripción, importe)
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD20: \textit{Datos necesarios para eliminar un producto}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID de producto
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD21: \textit{Datos necesarios para crear una factura}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID de factura
+		\item Fecha de emisión [DD-MM-AAAA]
+		\item ID del cliente involucrado
+		\item Importe total [número real]
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD22: \textit{Datos necesarios para consultar una factura}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID de factura
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD23: \textit{Datos necesarios para imprimir una factura}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID de factura
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD24: \textit{Datos almacenados en PRODUCTOS}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID de producto
+		\item Nombre del producto [cadena de caracteres]
+		\item Descripción [cadena de caracteres]
+		\item Importe [número real]
+		\item Número de ventas [número entero]
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD25: \textit{Datos almacenados en FACTURAS}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID de factura
+		\item Fecha de emisión [DD-MM-AAAA]
+		\item ID cliente involucrado
+		\item Importe total [número real]
+	\end{itemize}
+	
+	\setlength{\parindent}{0em}
+	\textbf{RD26: \textit{Datos almacenados en COMPRAS}}
+	\setlength{\parindent}{2em}
+	\begin{itemize}
+		\item ID de factura
+		\item ID de producto
+	\end{itemize}
+	
+	\section{Restricciones Semánticas}
+	\setlength{\parindent}{0em}
+	\textbf{RS1: \textit{Tareas y subtareas}}
+	\setlength{\parindent}{2em}
+	
+	Las subtareas son tareas en sí, tienen su propia id, diferente de la tarea de la que dependen la cual se refleja en la base de datos para saber que es subtarea.
+	
+	\setlength{\parindent}{0em}
+	\textbf{RS2: \textit{Asignación de tareas}}
+	\setlength{\parindent}{2em}
+	
+	Cualquier empleado puede asignar tareas.
+	
+	\setlength{\parindent}{0em}
+	\textbf{RS3: \textit{Administrador y empleados}}
+	\setlength{\parindent}{2em}
+	
+	El administrador es un empleado más pero con algunos privilegios especiales.
+	
+	\setlength{\parindent}{0em}
+	\textbf{RS4: \textit{Creación de tareas}}
+	\setlength{\parindent}{2em}
+	
+	El administrador es el único que puede crear tareas.
+
+	\setlength{\parindent}{0em}
+	\textbf{RS10: \textit{Creación y eliminación de productos}}
+	\setlength{\parindent}{2em}
+
+	El administrador es el único que puede crear y eliminar productos. 
+
+	\setlength{\parindent}{0em}
+	\textbf{RS11: \textit{Consultar, modificar y ordenar productos}}
+	\setlength{\parindent}{2em}
+	Tanto el administrador como los empleados pueden consultar, modificar y ordenar productos.
+	
+	\setlength{\parindent}{0em}
+	\textbf{RS12: \textit{Creación de facturas}}
+	\setlength{\parindent}{2em}
+	
+	El administrador es el único capaz de crear facturas.
+	
+	
+	\setlength{\parindent}{0em}
+	\textbf{RS13: \textit{Consultar e imprimir(*) facturas}}
+	\setlength{\parindent}{2em}
+	
+	Tanto el administrador como los empleados pueden consultar e imprimir facturas.
+	
+	\setlength{\parindent}{0em}
+	\textbf{RS14: \textit{Facturas y productos eliminados}}
+	\setlength{\parindent}{2em}
+	
+	Al eliminar un producto, no desaparecen las posibles relaciones que tenga dicho producto con las facturas de compras anteriores del mismo: el producto eliminado no desaparece de la tabla que relaciona cada factura con los productos involucrados.
 
 \end{document}
