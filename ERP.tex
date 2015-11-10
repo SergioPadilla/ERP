@@ -192,7 +192,7 @@ Tiempo estimado [número real]
 \textbf{RD3: \textit{Datos necesarios para asignar fecha a una tarea}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-\item Fecha [DD-MM-AAAA]
+\item Fecha
 \end{itemize}
 
 \setlength{\parindent}{0em}
@@ -206,7 +206,7 @@ Tiempo estimado [número real]
 \textbf{RD5: \textit{Datos necesarios para asignar tarea}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-\item ID trabajador (puede ser el administrador)
+\item ID trabajador
 \end{itemize}
 
 \setlength{\parindent}{0em}
@@ -228,12 +228,11 @@ Tiempo estimado [número real]
 \setlength{\parindent}{2em}
 \begin{itemize}
 \item ID tarea
-\item Fecha de vencimiento [DD-MM-AAAA]
-\item Subtareas [Lista de IDs de tareas]
-\item Comentarios [Lista de IDs de comentarios]
-\item Horas estimadas [HH-MM]
-\item Horas trabajas [HH-MM]
-\item ID registro [RD10]
+\item Fecha de vencimiento
+\item ID tarea\_padre
+\item Horas estimadas 
+\item Horas trabajas 
+\item ID registro
 \end{itemize}
 
 \setlength{\parindent}{0em}
@@ -242,6 +241,7 @@ Tiempo estimado [número real]
 \begin{itemize}
 \item ID comentario
 \item texto [cadena de caracteres]
+\item ID Tarea
 \end{itemize}
 
 \setlength{\parindent}{0em}
@@ -250,9 +250,9 @@ Tiempo estimado [número real]
 \begin{itemize}
 \item ID registro
 \item ID empleado
-\item Horas trabajadas [HH-MM]
+\item Horas trabajadas
 \item Descripción [cadena de texto]
-\item Fecha [DD-MM-AAAA]
+\item Fecha
 \end{itemize}
 
 \section{Restricciones Semánticas}
@@ -260,13 +260,13 @@ Tiempo estimado [número real]
 \textbf{RS1: \textit{Tareas y subtareas}}
 \setlength{\parindent}{2em}
 
-Cada tarea puede contener a su vez subtareas (lista de ids con las tareas que lo forman). Las subtareas son tareas en sí, tienen su propia id, diferente de la tarea de la que dependen, además del resto de datos de una tarea.
+Las subtareas son tareas en sí, tienen su propia id, diferente de la tarea de la que dependen la cual se refleja en la base de datos para saber que es subtarea.
 
 \setlength{\parindent}{0em}
 \textbf{RS2: \textit{Asignación de tareas}}
 \setlength{\parindent}{2em}
 
-Cualquier empleado puede asignar una tareas.
+Cualquier empleado puede asignar tareas.
 
 \setlength{\parindent}{0em}
 \textbf{RS3: \textit{Administrador y empleados}}
