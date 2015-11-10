@@ -2,6 +2,7 @@
 \usepackage{fourier}
 
 \usepackage{sectsty}
+\allsectionsfont{\normalfont\scshape}
 \setlength\parindent{0pt}
 
 \usepackage{fancyhdr}
@@ -53,6 +54,122 @@ Iván Calle Gil\\}
 \maketitle
 
 \section{Funcionalidad del Sistema}
+
+\subsection{Funcionalidad “Gestión de tareas”}
+
+\subsubsection{Descripción}
+\setlength{\parindent}{3em} La gestión de tareas permite una supervisión cómoda y eficiente de una lista de trabajos asignables a los empleados para la estructuración interna de la empresa y el control del trabajo personal y colectivo.
+
+	Para llevar a cabo esta gestión, el administrador crea las tareas y se las asigna a sus empleados (o a él mismo). Además permite asignar una fecha de vencimiento de la tarea, tiempo empleado en llevarla a cabo, registro de horas trabajadas en la misma y comunicación entre administrador y empleado mediante comentarios en la propia tarea.
+
+\subsubsection{Requisitos funcionales}
+\setlength{\parindent}{0em}
+\textbf{RF1: \textit{Crear tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD1
+
+Procesamiento: Crea una nueva tarea
+
+Salida: ID tarea
+
+\setlength{\parindent}{0em}
+\textbf{RF2: \textit{Añadir subtarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD2
+
+Procesamiento: Añadir tarea a la lista de subtareas
+
+Salida; Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF3: \textit{Asignar fecha a tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador
+
+Entrada: RD3
+
+Procesamiento: Se asigna fecha de vencimiento a la tarea en cuestión
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF4: \textit{Aumentar horas de trabajo en la tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Empleado
+
+Entrada: RD4
+
+Procesamiento: Se suman las horas a las ya trabajadas y se restan de las estimadas para completar la tarea
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF5: \textit{Añadir comentario}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD6
+
+Procesamiento: Añade un comentario a la tarea
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF6: \textit{Borrar comentario}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD7
+
+Procesamiento: Borra el comentario especificado
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF7: \textit{Asignar tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD5
+
+Procesamiento: Asignación de tarea a la persona indicada
+
+Salida: Ninguna
+
+\setlength{\parindent}{0em}
+\textbf{RF8: \textit{Borrar tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD2
+
+Procesamiento: Borrar tarea y subtareas indicadas
+
+Salida: Ninguna, o mensaje de error.
+
+\setlength{\parindent}{0em}
+\textbf{RF9: \textit{Modificar tarea}}
+\setlength{\parindent}{2em}
+
+Actor: Administrador o empleado
+
+Entrada: RD8
+
+Procesamiento: Modifica la tarea indicada
+
+Salida: Ninguna, o mensaje de error.
 
 \subsection{Funcionalidad “Gestión de Clientes”}
 
@@ -123,97 +240,181 @@ Procesamiento:  Se busca entre todos los clientes almacenados aquellos que cumpl
 
 Salida: RD6 (pudiendo aparecer una lista vacia)
 
-
 \section{Requisitos de datos}
+\setlength{\parindent}{0em}
+\textbf{RD1: \textit{Datos opcionales para crear una tarea}}
+\setlength{\parindent}{2em}
+Título [cadena de caracteres]
+
+Descripción [Cadena de caracteres]
+
+Tiempo estimado [número real]
+
+\setlength{\parindent}{0em}
+\textbf{RD2: \textit{Datos necesarios para identificar una tarea}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID tarea
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD3: \textit{Datos necesarios para asignar fecha a una tarea}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item Fecha
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD4: \textit{Datos necesarios para aumentar las horas de trabajo en una tarea}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item Horas trabajadas
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD5: \textit{Datos necesarios para asignar tarea}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID empleado
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD6: \textit{Datos necesarios para añadir comentario}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item Comentario [cadena de texto]
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD7: \textit{Datos necesarios para borrar comentario}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID comentario
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD8: \textit{Datos almacenados en TAREA}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID tarea
+\item Fecha de vencimiento
+\item ID tarea\_padre
+\item Horas estimadas
+\item Horas trabajas
+\item ID registro
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD9: \textit{Datos almacenados en COMENTARIOS}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID comentario
+\item texto [cadena de caracteres]
+\item ID Tarea
+\end{itemize}
+
+\setlength{\parindent}{0em}
+\textbf{RD10: \textit{Datos almacenados en REGISTRO}}
+\setlength{\parindent}{2em}
+\begin{itemize}
+\item ID registro
+\item ID empleado
+\item Horas trabajadas
+\item Descripción [cadena de texto]
+\item Fecha
+\end{itemize}
+
 \setlength{\parindent}{0em}
 \textbf{RD11: \textit{ Datos necesarios para crear un nuevo cliente}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-
-	\item Tipo [cadena de caracteres]
-	
-	\item Nombre / Nombre Comercial [Cadena de caracteres]
-	
-	\item Apellido / Nombre Fiscal [Cadena de caracteres]
-	
-	\item NIF / CIF [Cadena de caracteres]
-	
-	\item Correo electrónico [Cadena de caracteres]
-
+\item Tipo [cadena de caracteres]
+\item Nombre / Nombre Comercial [Cadena de caracteres]
+\item Apellido / Nombre Fiscal [Cadena de caracteres]
+\item NIF / CIF [Cadena de caracteres]
+\item Correo electrónico [Cadena de caracteres]
 \end{itemize}
+
 \setlength{\parindent}{0em}
 \textbf{RD12: \textit{Datos almacenado de cliente}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-	\item ID cliente
-	
-	\item Tipo [cadena de caracteres]
-	
-	\item Nombre / Nombre Comercial [Cadena de caracteres]
-	
-	\item Apellido / Nombre Fiscal [Cadena de caracteres]
-	
-	\item NIF / CIF [Cadena de caracteres]
-	
-	\item Correo electrónico [Cadena de caracteres]
-	
-	\item fecha de alta
+\item ID cliente
+\item Tipo [cadena de caracteres]
+\item Nombre / Nombre Comercial [Cadena de caracteres]
+\item Apellido / Nombre Fiscal [Cadena de caracteres]
+\item NIF / CIF [Cadena de caracteres]
+\item Correo electrónico [Cadena de caracteres]
+\item fecha de alta
 \end{itemize}
 
 \setlength{\parindent}{0em}
 \textbf{RD13: \textit{Datos necesarios para acceder a cliente}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-	\item ID tarea
+\item ID tarea
 \end{itemize}
 
 \setlength{\parindent}{0em}
 \textbf{RD14: \textit{Datos necesarios para modificar el cliente}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-	
-	\item Tipo [cadena de caracteres]
-	
-	\item Nombre / Nombre Comercial [Cadena de caracteres]
-	
-	\item Apellido / Nombre Fiscal [Cadena de caracteres]
-	
-	\item NIF / CIF [Cadena de caracteres]
-	
-	\item Correo electrónico [Cadena de caracteres]
-	
+\item Tipo [cadena de caracteres]
+\item Nombre / Nombre Comercial [Cadena de caracteres]
+\item Apellido / Nombre Fiscal [Cadena de caracteres]
+\item NIF / CIF [Cadena de caracteres]
+\item Correo electrónico [Cadena de caracteres]
 \end{itemize}
 
 \setlength{\parindent}{0em}
 \textbf{RD15: \textit{Parametros por los que clasificar nuestra lista de clientes}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-	\item Tipo [cadena de caracteres]
-	
-	\item Nombre / Nombre Comercial [Cadena de caracteres]
-	
-	\item Apellido / Nombre Fiscal [Cadena de caracteres]
-	
-	\item NIF / CIF [Cadena de caracteres]
-	
-	\item Correo electrónico [Cadena de caracteres]
-	
-	\item fecha de alta
+\item Tipo [cadena de caracteres]
+\item Nombre / Nombre Comercial [Cadena de caracteres]
+\item Apellido / Nombre Fiscal [Cadena de caracteres]
+\item NIF / CIF [Cadena de caracteres]
+\item Correo electrónico [Cadena de caracteres]
+\item fecha de alta
 \end{itemize}
 
 \setlength{\parindent}{0em}
 \textbf{RD16: \textit{Lista de identificadores clientes}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-	\item Lista de clientes [Lista de IDs de clientes]
+\item Lista de clientes [Lista de IDs de clientes]
 \end{itemize}
 
 \section{Restricciones Semánticas}
 \setlength{\parindent}{0em}
+\textbf{RS1: \textit{Tareas y subtareas}}
+\setlength{\parindent}{2em}
+
+Las subtareas son tareas en sí, tienen su propia id, diferente de la tarea de la que dependen la cual se refleja en la base de datos para saber que es subtarea.
+
+\setlength{\parindent}{0em}
+\textbf{RS2: \textit{Asignación de tareas}}
+\setlength{\parindent}{2em}
+
+Cualquier empleado puede asignar tareas.
+
+\setlength{\parindent}{0em}
+\textbf{RS3: \textit{Administrador y empleados}}
+\setlength{\parindent}{2em}
+
+El administrador es un empleado más pero con algunos privilegios especiales.
+
+\setlength{\parindent}{0em}
+\textbf{RS4: \textit{Creación de tareas}}
+\setlength{\parindent}{2em}
+
+El administrador es el único que puede crear tareas.
+
+\setlength{\parindent}{0em}
 \textbf{RS5: \textit{Creación y modificación de clientes}}
 \setlength{\parindent}{2em}
 
-El administrador es el único que puede crear y modificar clientes, además el campo de tipo de cliente jamás puede quedar sin rellenar, el resto no poseen este tipo de restricciones 
+El administrador es el único que puede crear y modificar clientes, además el campo de tipo de cliente jamás puede quedar sin rellenar, el resto no poseen este tipo de restricciones
 
 
 \setlength{\parindent}{0em}
@@ -241,6 +442,5 @@ Tanto el administrador como los empleados pueden consultar la información sobre
 \setlength{\parindent}{2em}
 
 El administrador es un empleado más pero con algunos privilegios especiales.
-
 
 \end{document}
