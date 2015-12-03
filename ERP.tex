@@ -220,6 +220,18 @@ Procesamiento: Modifica la tarea indicada
 
 Salida: Ninguna, o mensaje de error.
 
+\setlength{\parindent}{0em}
+\textbf{RF10: \textit{Listar tareas}}
+\setlength{\parindent}{2em}
+
+Actor: Empleado
+
+Entrada: Ninguno
+
+Procesamiento: Lista las tareas
+
+Salida: Tareas listadas
+
 \subsection{Funcionalidad “Gestión de Clientes”}
 
 \subsubsection{Descripción}
@@ -229,7 +241,7 @@ Para llevar a cabo esta gestión, el empleado podrá dar de alta, modificar o bo
 
 \subsubsection{Requisitos funcionales}
 \setlength{\parindent}{0em}
-\textbf{RF10: \textit{Crear cliente}}
+\textbf{RF11: \textit{Crear cliente}}
 \setlength{\parindent}{2em}
 
 Actor: Empleado
@@ -241,7 +253,7 @@ Procesamiento: Crea un nuevo cliente
 Salida: RD12
 
 \setlength{\parindent}{0em}
-\textbf{RF11: \textit{Borrar cliente}}
+\textbf{RF12: \textit{Borrar cliente}}
 \setlength{\parindent}{2em}
 
 Actor: Empleado
@@ -253,7 +265,7 @@ Procesamiento:Se elimina los datos relacionados con el cliente de ID especificad
 Salida: Ninguna (si no existe el ID, devuelve mensaje de error)
 
 \setlength{\parindent}{0em}
-\textbf{RF12: \textit{Modificar cliente}}
+\textbf{RF13: \textit{Modificar cliente}}
 \setlength{\parindent}{2em}
 
 Actor: Empleado
@@ -265,7 +277,7 @@ Procesamiento: Se modifica los datos asociados al cliente con ID especificado en
 Salida: Ninguna (si no existe el ID, devuelve mensaje de error)
 
 \setlength{\parindent}{0em}
-\textbf{RF13: \textit{Consultar cliente}}
+\textbf{RF14: \textit{Consultar cliente}}
 \setlength{\parindent}{2em}
 
 Actor: Empleado
@@ -277,7 +289,7 @@ Procesamiento: Se muestra la información almacenado del cliente con identificad
 Salida:  RD12 (si no existe el ID, devuelve mensaje de error)
 
 \setlength{\parindent}{0em}
-\textbf{RF14: \textit{Clasificar clientes}}
+\textbf{RF15: \textit{Clasificar clientes}}
 \setlength{\parindent}{2em}
 
 Actor: Empleado
@@ -297,7 +309,7 @@ Salida: RD6 (pudiendo aparecer una lista vacia)
 	
 \subsubsection{Requisitos funcionales}
 \setlength{\parindent}{0em}
-	\textbf{RF15: \textit{Crear producto}}
+	\textbf{RF16: \textit{Crear producto}}
 	\setlength{\parindent}{2em}
 	
 	Actor: Empleado
@@ -309,7 +321,7 @@ Salida: RD6 (pudiendo aparecer una lista vacia)
 	Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
 	
 	\setlength{\parindent}{0em}
-	\textbf{RF16: \textit{Consultar producto}}
+	\textbf{RF17: \textit{Consultar producto}}
 	\setlength{\parindent}{2em}
 	
 	Actor: Empleado
@@ -321,7 +333,7 @@ Salida: RD6 (pudiendo aparecer una lista vacia)
 	Salida: ID, nombre, descripción, importe del producto, número de ventas (si el producto no existe, devuelve un mensaje de error)
 	
 	\setlength{\parindent}{0em}
-	\textbf{RF17: \textit{Modificar producto}}
+	\textbf{RF18: \textit{Modificar producto}}
 	\setlength{\parindent}{2em}
 	
 	Actor: Empleado
@@ -333,7 +345,7 @@ Salida: RD6 (pudiendo aparecer una lista vacia)
 	Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
 	
 	\setlength{\parindent}{0em}
-	\textbf{RF18: \textit{Ordenar productos}}
+	\textbf{RF19: \textit{Ordenar productos}}
 	\setlength{\parindent}{2em}
 	
 	Actor: Empleado
@@ -345,7 +357,7 @@ Salida: RD6 (pudiendo aparecer una lista vacia)
 	Salida: Lista de productos (ID y nombre del producto)
 	
 	\setlength{\parindent}{0em}
-	\textbf{RF19: \textit{Eliminar producto}}
+	\textbf{RF20: \textit{Eliminar producto}}
 	\setlength{\parindent}{2em}
 	
 	Actor: Empleado
@@ -357,7 +369,7 @@ Salida: RD6 (pudiendo aparecer una lista vacia)
 	Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
 	
 	\setlength{\parindent}{0em}
-	\textbf{RF20: \textit{Crear factura}}
+	\textbf{RF21: \textit{Crear factura}}
 	\setlength{\parindent}{2em}
 	
 	Actor: Empleado
@@ -369,7 +381,7 @@ Salida: RD6 (pudiendo aparecer una lista vacia)
 	Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
 	
 	\setlength{\parindent}{0em}
-	\textbf{RF21: \textit{Consultar factura}}
+	\textbf{RF22: \textit{Consultar factura}}
 	\setlength{\parindent}{2em}
 	
 	Actor: Empleado
@@ -381,7 +393,7 @@ Salida: RD6 (pudiendo aparecer una lista vacia)
 	Salida: ID de factura, cliente correspondiente, fecha de emisión e importe total
 	
 	\setlength{\parindent}{0em}
-	\textbf{RF22: \textit{Imprimir factura (opcional)}}
+	\textbf{RF23: \textit{Imprimir factura (opcional)}}
 	\setlength{\parindent}{2em}
 	
 	Actor: Empleado
@@ -401,7 +413,7 @@ Para solucionar este problema, los empleados podrán crear un servidor en la bas
 
 \subsubsection{Requisitos funcionales}
 \setlength{\parindent}{0em}
-\textbf{RF23:\textit{Crear servidor}}
+\textbf{RF24:\textit{Crear servidor}}
 \setlength{\parindent}{3em}
 
 Actor: Empleado
@@ -413,7 +425,7 @@ Procesamiento: Crea un nuevo servidor encriptando las contraseñas
 Salida: ID servidor
 
 \setlength{\parindent}{0em}
-\textbf{RF24:\textit{Consultar servidor}}
+\textbf{RF25:\textit{Consultar servidor}}
 \setlength{\parindent}{3em}
 
 Actor: Empleado
@@ -425,7 +437,7 @@ Procesamiento: Consultar el estado de un servidor desencriptando contraseñas
 Salida: ID servidor, ID cliente, nombre del servidor, url o ip de acceso, usuario (ftp),contraseña (ftp), usuario(host),contraseña(host)(si el servidor no existe, devuelve un mensaje de error)
 
 \setlength{\parindent}{0em}
-\textbf{RF25:\textit{Modificar servidor}}
+\textbf{RF26:\textit{Modificar servidor}}
 \setlength{\parindent}{3em}
 
 Actor: Empleado
@@ -437,7 +449,7 @@ Procesamiento: Se modifican los datos del servidor si modifica la contraseña en
 Salida: Ninguna (si el servidor no existe, devuelve un mensaje de error)
 
 \setlength{\parindent}{0em}
-\textbf{RF26:\textit{Listar servidores}}
+\textbf{RF27:\textit{Listar servidores}}
 \setlength{\parindent}{3em}
 
 Actor: Empleado
@@ -449,7 +461,7 @@ Procesamiento: Lista los servidores de un cliente
 Salida: Lista de servidores(nombre del del servidor)
 
 \setlength{\parindent}{0em}
-\textbf{RF27:\textit{Borrar servidor}}
+\textbf{RF28:\textit{Borrar servidor}}
 \setlength{\parindent}{3em}
 
 Actor: Empleado
@@ -461,7 +473,7 @@ Procesamiento: Se elimina los datos del servidor
 Salida: Ninguna  (si el servidor no existe, devuelve un mensaje de error)
 
 \setlength{\parindent}{0em}
-\textbf{RF28:\textit{Crear dominio}}
+\textbf{RF29:\textit{Crear dominio}}
 \setlength{\parindent}{3em}
 
 Actor: Empleado
@@ -473,7 +485,7 @@ Procesamiento: Crea crea un dominio asociado a un servidor
 Salida: ID del dominio
 
 \setlength{\parindent}{0em}
-\textbf{RF29:\textit{Consultar dominio}}
+\textbf{RF30:\textit{Consultar dominio}}
 \setlength{\parindent}{3em}
 
 Actor: Empleado
@@ -485,7 +497,7 @@ Procesamiento: Consulta un dominio
 Salida: ID dominio, ID servidor, Dirección web
 
 \setlength{\parindent}{0em}
-\textbf{RF30:\textit{Borrar dominio}}
+\textbf{RF31:\textit{Borrar dominio}}
 \setlength{\parindent}{3em}
 
 Actor: Empleado
