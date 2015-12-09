@@ -5,7 +5,7 @@
  */
 package PLSQL;
 
-import PLSQL.TypeClient;
+import sekegex.TypeClient;
 import java.sql.Date;
 import sekegex.StatusTask;
 import sekegex.DataProduct;
