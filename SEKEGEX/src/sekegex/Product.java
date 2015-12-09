@@ -5,7 +5,7 @@
  */
 package sekegex;
 
-import sekegex.DataType.java;
+import sekegex.DataProduct;
 import PLSQL.PlSQLTools;
 
 /**
