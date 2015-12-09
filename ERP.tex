@@ -301,113 +301,113 @@ Procesamiento:  Se busca entre todos los clientes almacenados aquellos que cumpl
 Salida: RD6 (pudiendo aparecer una lista vacia)
 
 \subsection{Funcionalidad “Gestión de facturas y productos”}
-	
+
 \subsubsection{Descripción}
 \setlength{\parindent}{3em} La gestión de facturas y productos permite a la empresa un seguimiento fiable y un control eficiente de los productos ofrecidos por la misma, a la vez que proporciona una buena ordenación de las facturas emitidas en la compra de dichos productos. Como consecuencia, esta gestión también proporcionará las relaciones que se establecen entre los productos y las facturas.
 
 	Para llevar a cabo esta gestión, se crearán los productos que desea ofrecer al cliente, añadiendo la opción de poder consultarlos, modificarlos e incluso eliminarlos de la lista de productos ofrecidos. En cuanto a las facturas se gestionarán igual. Cabe la posibilidad de añadir la opción de impresión de facturas.
-	
+
 \subsubsection{Requisitos funcionales}
 \setlength{\parindent}{0em}
 	\textbf{RF16: \textit{Crear producto}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: RD17
-	
+
 	Procesamiento: Crea un nuevo producto
-	
+
 	Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RF17: \textit{Consultar producto}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: RD18
-	
+
 	Procesamiento: Consultar el estado de un producto
-	
+
 	Salida: ID, nombre, descripción, importe del producto, número de ventas (si el producto no existe, devuelve un mensaje de error)
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RF18: \textit{Modificar producto}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: RD19
-	
+
 	Procesamiento: Se modifican los datos del producto en cuestión
-	
+
 	Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RF19: \textit{Ordenar productos}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: Ninguna
-	
+
 	Procesamiento: Ordena los productos del más vendido al menos vendido
-	
+
 	Salida: Lista de productos (ID y nombre del producto)
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RF20: \textit{Eliminar producto}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: RD20
-	
-	Procesamiento: Se elimina el producto en cuestión del conjunto de productos 
-	
+
+	Procesamiento: Se elimina el producto en cuestión del conjunto de productos
+
 	Salida: Ninguna (si el producto no existe, devuelve un mensaje de error)
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RF21: \textit{Crear factura}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: RD21
-	
-	Procesamiento: Crea una factura de la compra de algún cliente 
-	
+
+	Procesamiento: Crea una factura de la compra de algún cliente
+
 	Salida: Ninguna (si falta algún dato de entrada, devuelve un mensaje de error)
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RF22: \textit{Consultar factura}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: RD22
-	
-	Procesamiento: Consulta una de las facturas ya creadas 
-	
+
+	Procesamiento: Consulta una de las facturas ya creadas
+
 	Salida: ID de factura, cliente correspondiente, fecha de emisión e importe total
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RF23: \textit{Imprimir factura (opcional)}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: RD23
-	
+
 	Procesamiento: Se imprime la factura en cuestión
-	
+
 	Salida: Ninguna (si la factura no existe, devuelve un mensaje de error)
-    
+
 \subsection{Funcionalidad “Gestión de Servidores y Dominios”}
 
 \subsubsection{Descripción}
-\setlength{\parindent}{3em} En esta funcionalidad se intenta solucionar el problema de almacenar de forma segura y ordenar de forma eficiente los datos referentes a los servidores y dominios del cliente, para que la empresa pueda acceder a esta información en el menor tiempo posible y así aumentar la productividad. 
+\setlength{\parindent}{3em} En esta funcionalidad se intenta solucionar el problema de almacenar de forma segura y ordenar de forma eficiente los datos referentes a los servidores y dominios del cliente, para que la empresa pueda acceder a esta información en el menor tiempo posible y así aumentar la productividad.
 
 Para solucionar este problema, los empleados podrán crear un servidor en la base de datos asociado a un cliente y crear dominios asociados a un servidor, también se podrá modificar los datos del servidor y de los dominios ya creados. Se podrán consultar los datos de los servidores y de los dominios pero solo el administrador podrá borrar los datos.
 
@@ -561,15 +561,15 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 \end{itemize}
 
 \setlength{\parindent}{0em}
-\textbf{RD8: \textit{Datos almacenados en TAREA}}
+\textbf{RD8: \textit{Datos almacenados en TAREAS}}
 \setlength{\parindent}{2em}
 \begin{itemize}
 \item ID tarea
 \item Fecha de vencimiento
 \item ID tarea\_padre
-\item Horas estimadas 
-\item Horas trabajas 
-\item ID registro
+\item Horas estimadas
+\item ID empleado\_asignado
+\item estado
 \end{itemize}
 
 \setlength{\parindent}{0em}
@@ -582,7 +582,7 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 \end{itemize}
 
 \setlength{\parindent}{0em}
-\textbf{RD10: \textit{Datos almacenados en REGISTRO}}
+\textbf{RD10: \textit{Datos almacenados en REGISTROS}}
 \setlength{\parindent}{2em}
 \begin{itemize}
 \item ID registro
@@ -613,7 +613,7 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 \item Apellido / Nombre Fiscal [Cadena de caracteres]
 \item NIF / CIF [Cadena de caracteres]
 \item Correo electrónico [Cadena de caracteres]
-\item fecha de alta
+\item Fecha de alta
 \end{itemize}
 
 \setlength{\parindent}{0em}
@@ -661,14 +661,14 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 		\item Descripción [cadena de caracteres]
 		\item Importe
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD18: \textit{Datos necesarios para consultar un producto}}
 	\setlength{\parindent}{2em}
 	\begin{itemize}
 		\item ID del producto
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD19: \textit{Datos necesarios para modificar un producto}}
 	\setlength{\parindent}{2em}
@@ -676,38 +676,38 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 		\item ID del producto
 		\item Dato a modificar (nombre del producto, descripción, importe)
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD20: \textit{Datos necesarios para eliminar un producto}}
 	\setlength{\parindent}{2em}
 	\begin{itemize}
 		\item ID de producto
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD21: \textit{Datos necesarios para crear una factura}}
 	\setlength{\parindent}{2em}
 	\begin{itemize}
 		\item ID de factura
-		\item Fecha de emisión 
+		\item Fecha de emisión
 		\item ID del cliente involucrado
 		\item Importe total [número real]
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD22: \textit{Datos necesarios para consultar una factura}}
 	\setlength{\parindent}{2em}
 	\begin{itemize}
 		\item ID de factura
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD23: \textit{Datos necesarios para imprimir una factura}}
 	\setlength{\parindent}{2em}
 	\begin{itemize}
 		\item ID de factura
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD24: \textit{Datos almacenados en PRODUCTOS}}
 	\setlength{\parindent}{2em}
@@ -718,17 +718,17 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 		\item Importe [número real]
 		\item Número de ventas [número entero]
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD25: \textit{Datos almacenados en FACTURAS}}
 	\setlength{\parindent}{2em}
 	\begin{itemize}
 		\item ID de factura
-		\item Fecha de emisión 
+		\item Fecha de emisión
 		\item ID cliente involucrado
 		\item Importe total [número real]
 	\end{itemize}
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RD26: \textit{Datos almacenados en COMPRAS}}
 	\setlength{\parindent}{2em}
@@ -776,7 +776,7 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 \textbf{RD31: \textit{Datos necesarios para crear dominio}}
 \setlength{\parindent}{2em}
 \begin{itemize}
-  \item ID servidor 
+  \item ID servidor
   \item Dirección web
 \end{itemize}
 
@@ -818,7 +818,7 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
   \item DNI
   \item Nombre
   \item Apellidos
-  \item permisos [default: 5]
+  \item permiso
 \end{itemize}
 
 \section{Restricciones Semánticas}
@@ -944,5 +944,42 @@ Cualquier empleado puede consultar dominios y servidores.
 \setlength{\parindent}{2em}
 
 Al eliminar un servidor se eliminaran también los dominios asociados a ese servidor, pero si se elimina un dominio, solo se elimina el dominio.
+
+\setlength{\parindent}{0em}
+\textbf{RS20: \textit{Estado de las tareas}}
+\setlength{\parindent}{2em}
+
+El estado de cada tarea puede ser uno de los tres siguientes: 'por hacer', 'en desarrollo' o 'hecho'.
+
+\section{Diseño Físico}
+\subsection{CLIENTES}
+CREATE TABLE clientes (id\_cliente INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, tipo ENUM(‘particular’, ‘empresa’),  nombre\/nombre\_comercial TEXT,  apellido\/nombre\_fiscal TEXT, nif\/cif varchar(10) UNIQUE , email TEXT, fecha\_alta DATETIME2)
+
+\subsection{PRODUCTOS}
+CREATE TABLE productos (id\_producto INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)
+
+\subsection{FACTURAS}
+CREATE TABLE facturas (id\_factura INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, fecha DATETIME2, id\_cliente FOREIGN KEY REFERENCES clientes (id\_cliente), importe FLOAT)
+
+\subsection{COMPRAS}
+CREATE TABLE compras (id\_producto FOREIGN KEY REFERENCES productos (id\_producto), id\_factura FOREIGN KEY REFERENCES facturas (id\_factura), precio FLOAT, PRIMARY KEY(id\_producto,id\_factura))
+
+\subsection{SERVIDORES}
+CREATE TABLE servidores (id\_servidor INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_cliente FOREIGN KEY REFERENCES clientes (id\_cliente), nombre TEXT,  ruta\_de\_acceso TEXT, usuario\_ftp TEXT, password\_ftp TEXT, usuario\_host TEXT, password\_host TEXT)
+
+\subsection{DOMINIOS}
+CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_servidor FOREIGN KEY REFERENCES servidores (id\_servidor), web TEXT)
+
+\subsection{EMPLEADOS}
+CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9),  nombre TEXT, apellidos TEXT, permisos INT)
+
+\subsection{TAREAS}
+CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado FOREIGN KEY REFERENCES empleados (id\_empleado), estado ENUM(‘por\_hacer’, ‘en\_desarrollo’,’hecho’))
+
+\subsection{REGISTROS}
+CREATE TABLE registros (id\_registro INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_empleado FOREIGN KEY REFERENCES empleados (id\_empleado), horas\_trabajadas TIME, descripción TEXT, fecha DATE)
+
+\subsection{COMENTARIOS}
+CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, texto TEXT, tarea FOREIGN KEY REFERENCES tareas (id\_tarea))
 
 \end{document}
