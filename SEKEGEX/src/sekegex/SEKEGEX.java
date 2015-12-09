@@ -7,7 +7,10 @@ package sekegex;
 
 /**
  *
- * @author Sergio
+ * @author Sergio Padilla López
+ * @author Iván Calle Gil
+ * @author Marina Estévez Almenzar
+ * @author Jose Pimentel Mesones
  */
 public class SEKEGEX {
 
