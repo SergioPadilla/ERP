@@ -11,6 +11,7 @@ package sekegex;
  * @author Iván Calle Gil
  * @author Marina Estévez Almenzar
  * @author Jose Pimentel Mesones
+ *
  */
 public class SEKEGEX {
 
