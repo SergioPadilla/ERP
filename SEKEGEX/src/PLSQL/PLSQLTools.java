@@ -189,14 +189,14 @@ public class PLSQLTools {
     /**
      * Insert new register
      */
-    protected void insertRegister(int id_employee, Time time_worker, String description, Date date){
+    protected void insertRegister(int id_employee, Time time_worked, String description, Date date){
         //description could be null
     }
     
     /**
      * Modify register
      */
-    protected void modifyRegister(int id_employee, Time time_worker, String description, Date date){
+    protected void modifyRegister(int id_employee, Time time_worked, String description, Date date){
         
     }
     
