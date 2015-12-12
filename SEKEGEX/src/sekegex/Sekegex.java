@@ -13,7 +13,7 @@ package Sekegex;
  * @author Jose Pimentel Mesones
  *
  */
-public class SEKEGEX {
+public class Sekegex {
 
     /**
      * @param args the command line arguments
