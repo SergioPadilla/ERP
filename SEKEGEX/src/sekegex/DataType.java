@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package sekegex;
-import PLSQL.TypeClient;
+import sekegex.TypeClient;
 import java.sql.Date;
 
 
@@ -22,14 +22,14 @@ public class DataClient {
     public String email;
     public Date registration;
     
-    public DataClient(int id,TypeClient type, String name,String surname,String dni, String email, Date registration){
-        this.id=id;
-        this.type=type;
-        this.name=name;
-        this.surname=surname;
-        this.dni=dni;
-        this.email=email;
-        this.registration=registration;
+    public DataClient(int id, TypeClient type, String name, String surname, String dni, String email, Date registration){
+        this.id = id;
+        this.type = type;
+        this.name = name;
+        this.surname = surname;
+        this.dni = dni;
+        this.email = email;
+        this.registration = registration;
     }
     
 }
@@ -41,12 +41,12 @@ public class DataProduct {
     public float amount;
     public int nSold;
     
-    public DataProduct(int id,String name,String description,float amount,int nSold){
-        this.id=id;
-        this.name=name;
-        this.description=description;
-        this.amount=amount;
-        this.nSold=nSold;
+    public DataProduct(int id, String name, String description, float amount, int nSold){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.amount = amount;
+        this.nSold = nSold;
     }
     
 }
@@ -57,9 +57,9 @@ public class DataBill {
     public Date date;
     
     public DataBill(int id_bill,int id_client,Date date){
-        this.id_bill=id_bill;
-        this.id_client=id_client;
-        this.date=date;
+        this.id_bill = id_bill;
+        this.id_client = id_client;
+        this.date = date;
     }
     
 }
@@ -69,9 +69,9 @@ public class DataBuy {
     public float value;
     
     public DataBuy(int id_bill,int id_client,float value){
-        this.id_bill=id_bill;
-        this.id_product=id_product;
-        this.value=value;
+        this.id_bill = id_bill;
+        this.id_product = id_product;
+        this.value = value;
     }
     
 }
@@ -87,14 +87,14 @@ public class DataServer {
     public String pass_host;
     
     public DataServer(int id_server,int id_client,String name,String ip,String user_ftp,String pass_ftp,String user_host,String pass_host){
-        this.id_server=id_server;
-        this.id_client=id_client;
-        this.name=name;
-        this.ip=ip;
-        this.user_ftp=user_ftp;
-        this.pass_ftp=pass_ftp;
-        this.user_host=user_host;
-        this.pass_host=pass_host;
+        this.id_server = id_server;
+        this.id_client = id_client;
+        this.name = name;
+        this.ip = ip;
+        this.user_ftp = user_ftp;
+        this.pass_ftp = pass_ftp;
+        this.user_host = user_host;
+        this.pass_host = pass_host;
     }
     
 }
@@ -105,9 +105,9 @@ public class DataDomain {
     public String name;
     
     public DataDomain(int id_server,int id_domain,String name){
-        this.id_server=id_server;
-        this.id_domain=id_domain;
-        this.name=name;
+        this.id_server = id_server;
+        this.id_domain = id_domain;
+        this.name = name;
     }
     
 }
@@ -119,7 +119,7 @@ public class DataDomain {
     public String surname;
     //public int license;
     
-    public DataDomain(int id_employee,String name,String dni,String surname){ //añadir int license;
+    public DataDomain(int id_employee,String name,String dni,String surname){ //add int license;
         this.id_employee=id_employee;
         this.dni=dni;
         this.name=name;

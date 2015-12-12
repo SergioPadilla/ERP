@@ -65,7 +65,9 @@ public class PlSQLTools {
      * @return Object with the data of a product
      */
     protected DataProduct consultProduct(int id_product){
+        DataProduct data = new DataProduct();
         
+        return data;
     }
     
     /**
