@@ -7,7 +7,7 @@ package DataType;
 
 import java.sql.Date;
 import java.sql.Time;
-import sekegex.StatusTask;
+import Utils.StatusTask;
 
 /**
  *

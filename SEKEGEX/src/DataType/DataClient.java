@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package DataType;
-import sekegex.TypeClient;
+import Utils.TypeClient;
 import java.sql.Date;
-import sekegex.TypeClient;
+import Utils.TypeClient;
 
 
 /**
