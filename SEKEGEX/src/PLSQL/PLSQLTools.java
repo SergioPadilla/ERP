@@ -9,6 +9,7 @@ import sekegex.TypeClient;
 import java.sql.Date;
 import sekegex.StatusTask;
 import DataType.DataProduct;
+import java.sql.Time;
 /**
  *
  * @author Sergio
@@ -172,7 +173,7 @@ public class PLSQLTools {
     /**
      * Modify task
      */
-    protected void modifyTask(int id_task, String title, String description, Date time_estimated, Date date_to_finish, int id_task_father, int id_employee, StatusTask status){
+    protected void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
         
     }
     
@@ -188,14 +189,14 @@ public class PLSQLTools {
     /**
      * Insert new register
      */
-    protected void insertRegister(int id_employee, Date time_worker, String description, Date date){
+    protected void insertRegister(int id_employee, Time time_worker, String description, Date date){
         //description could be null
     }
     
     /**
      * Modify register
      */
-    protected void modifyRegister(int id_employee, Date time_worker, String description, Date date){
+    protected void modifyRegister(int id_employee, Time time_worker, String description, Date date){
         
     }
     
