@@ -570,7 +570,8 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 \item ID tarea\_padre
 \item Horas estimadas
 \item ID empleado\_asignado
-\item estado
+\item Estado
+\item Descripción
 \end{itemize}
 
 \setlength{\parindent}{0em}
@@ -975,7 +976,7 @@ CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\
 CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9),  nombre TEXT, apellidos TEXT, permisos INT)
 
 \subsection{TAREAS}
-CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado FOREIGN KEY REFERENCES empleados (id\_empleado), estado ENUM(‘por\_hacer’, ‘en\_desarrollo’,’hecho’))
+CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, descripcion TEXT, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado FOREIGN KEY REFERENCES empleados (id\_empleado), estado ENUM(‘por\_hacer’, ‘en\_desarrollo’,’hecho’))
 
 \subsection{REGISTROS}
 CREATE TABLE registros (id\_registro INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_empleado FOREIGN KEY REFERENCES empleados (id\_empleado), horas\_trabajadas TIME, descripción TEXT, fecha DATE)
