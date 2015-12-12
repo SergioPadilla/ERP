@@ -7,7 +7,7 @@ package sekegex;
 
 /**
  *
- * @author Ivan
+ * @author Ivan Edited: SergioPadilla
  */
 public class User {
     private static final User instance = new User();
@@ -18,7 +18,6 @@ public class User {
     private String surname;
     //private int licence;
     
-    
     private User(){
         active=false;
     }
@@ -27,24 +26,24 @@ public class User {
         return instance;
     }
     
-    /*
-    Comprueba si el user y el pass esta en la base de datos si esta 
-    se pasan todos los datos a los atributos de la clase y pone activo a true
+    /**
+    * Check if user and password are in the DB and, in this case, 
+    * complete the atributes of the class and change active=true
     */
-    public boolean login(String user,String pass){
+    public boolean login(String user, String pass){
         
         return false;
     }
     
-    /*
-    Borra todos los atributos y pone activo a false
+    /**
+    * Erase all atributes and change active=false
     */
     public void logOut(){
         
     }
     
-    /*
-    Devuelve si hay o no alguien logeado o no
+    /**
+    * @return if someone are login
     */
     public boolean isLogin(){
         return active;
@@ -54,28 +53,28 @@ public class User {
         if(active)
             return name;
         else
-            return "Usuario no registrado";
+            return "User not register";
     }
     
     public String getSurname(){
         if(active)
             return surname;
         else
-            return "Usuario no registrado";
+            return "User not register";
     }
     
     public int getId(){
         if(active)
             return id_employee;
         else
-            return 0;
+            return -1;
     }
     
     public String getDni(){
         if(active)
             return dni;
         else
-            return "Usuario no registrado";
+            return "User not register";
     }
     
     //Aquí funcionalidades
