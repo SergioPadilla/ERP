@@ -78,6 +78,4 @@ public class User {
     }
     
     //Aquí funcionalidades
-    
-    
 }
