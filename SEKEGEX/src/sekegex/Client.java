@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package sekegex;
-import sekegex.DataClient;
+import DataType.DataClient;
 
 /**
  *
@@ -15,11 +15,10 @@ public class Client {
     private DataClient data;
     
     public Client(int id){
-    
-        
+        data = consultClient(id);
     }
     
-    DataClient consultClient(){
+    public DataClient consultClient(int id){
         return data;
     }
 }

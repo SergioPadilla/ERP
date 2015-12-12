@@ -5,8 +5,8 @@
  */
 package sekegex;
 
-import sekegex.DataProduct;
-import PLSQL.PlSQLTools;
+import DataType.DataProduct;
+import PLSQL.PLSQLTools;
 
 /**
  *
@@ -17,15 +17,14 @@ public class Product {
     /**
      * Initialize with a calls to DB
      */
-    public Product(int id){
-        data = consultProduct();
-        //search in DB for the other values
+    public Product(int id_product){
+        this.data = consultProduct(id_product);
     }
     
     /**
      * Call the DB
      */
-    public DataProduct consultProduct(){
-        
+    public DataProduct consultProduct(int id_product){
+        return new DataProduct(id_product, "", "", 1, 1);
     }
 }

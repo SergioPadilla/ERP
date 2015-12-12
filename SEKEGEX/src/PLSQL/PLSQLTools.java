@@ -8,16 +8,16 @@ package PLSQL;
 import sekegex.TypeClient;
 import java.sql.Date;
 import sekegex.StatusTask;
-import sekegex.DataProduct;
+import DataType.DataProduct;
 /**
  *
  * @author Sergio
  * 
  * Class to work with PLSQL and Database
  */
-public class PlSQLTools {
+public class PLSQLTools {
     
-    protected PlSQLTools() {
+    protected PLSQLTools() {
     
     }
     
@@ -65,9 +65,7 @@ public class PlSQLTools {
      * @return Object with the data of a product
      */
     protected DataProduct consultProduct(int id_product){
-        DataProduct data = new DataProduct();
-        
-        return data;
+        return new DataProduct(id_product,"","",1,1);
     }
     
     /**
