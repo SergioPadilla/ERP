@@ -3,32 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Sekegex;
-import DataType.DataClient;
+package sekegex;
+
+import DataType.DataServer;
 import java.util.Vector;
 
 /**
  *
  * @author Ivan
  */
-public class Client {
+public class Server {
+    private DataServer data;
     
-    private DataClient data;
-    
-    public Client(int id){
-        data = consultClient(id);
+    public Server(int id){
+        data = consultServer(id);
     }
     
-    public DataClient consultClient(int id){
+    public DataServer consultServer(int id){
         return data;
     }
     
-    public Vector listServers(){
-        Vector v=null;
-        return v;
-    }
-    
-    public Vector listBills(){
+    public Vector listDomains(){
         Vector v=null;
         return v;
     }
