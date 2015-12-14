@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Sekegex;
+package sekegex;
 
 import DataType.DataProduct;
-import PLSQL.PLSQLTools;
+import MySQL.MySQLTools;
 
 /**
  *
