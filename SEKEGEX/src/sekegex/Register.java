@@ -7,6 +7,8 @@ package sekegex;
 
 import DataType.DataRegisters;
 import PLSQL.PLSQLTools;
+import java.sql.Date;
+import java.sql.Time;
 
 /**
  *
@@ -20,10 +22,11 @@ public class Register {
     public Register(int id_register){
         this.data = consultRegister(id_register);
     }
+    
     /**
      * Call the DB
      */
     public DataRegisters consultRegister(int id_register){
-        return new DataRegisters(id_register, 1, "", "", 1, 1);
+        return data;
     }
 }
