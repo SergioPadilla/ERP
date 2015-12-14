@@ -6,9 +6,10 @@
 package sekegex;
 
 import DataType.DataRegisters;
-import PLSQL.PLSQLTools;
+import MySQL.MySQLTools;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.*;
 
 /**
  *

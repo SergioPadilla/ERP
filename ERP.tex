@@ -955,33 +955,36 @@ El estado de cada tarea puede ser uno de los tres siguientes: 'por hacer', 'en d
 
 \section{Diseño Físico}
 \subsection{CLIENTES}
-CREATE TABLE clientes (id\_cliente INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, tipo ENUM(‘particular’, ‘empresa’),  nombre\/nombre\_comercial TEXT,  apellido\/nombre\_fiscal TEXT, nif\/cif varchar(10) UNIQUE , email TEXT, fecha\_alta DATETIME2)
+CREATE TABLE clientes (id\_cliente INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, tipo ENUM(‘particular’, ‘empresa’),  nombre TEXT,  apellido TEXT, nif varchar(10) UNIQUE , email TEXT, fecha\_alta DATETIME)
 
 \subsection{PRODUCTOS}
 CREATE TABLE productos (id\_producto INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)
 
 \subsection{FACTURAS}
-CREATE TABLE facturas (id\_factura INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, fecha DATETIME2, id\_cliente FOREIGN KEY REFERENCES clientes (id\_cliente), importe FLOAT)
+CREATE TABLE facturas (id\_factura INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, fecha DATETIME, id\_cliente INT REFERENCES clientes (id\_cliente), importe FLOAT)
 
 \subsection{COMPRAS}
-CREATE TABLE compras (id\_producto FOREIGN KEY REFERENCES productos (id\_producto), id\_factura FOREIGN KEY REFERENCES facturas (id\_factura), precio FLOAT, PRIMARY KEY(id\_producto,id\_factura))
+CREATE TABLE compras (id\_producto INT REFERENCES productos (id\_producto), id\_factura INT REFERENCES facturas (id\_factura), precio FLOAT, PRIMARY KEY(id\_producto,id\_factura))
 
 \subsection{SERVIDORES}
-CREATE TABLE servidores (id\_servidor INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_cliente FOREIGN KEY REFERENCES clientes (id\_cliente), nombre TEXT,  ruta\_de\_acceso TEXT, usuario\_ftp TEXT, password\_ftp TEXT, usuario\_host TEXT, password\_host TEXT)
+CREATE TABLE servidores (id\_servidor INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_cliente INT REFERENCES clientes (id\_cliente), nombre TEXT,  ruta\_de\_acceso TEXT, usuario\_ftp TEXT, password\_ftp TEXT, usuario\_host TEXT, password\_host TEXT)
 
 \subsection{DOMINIOS}
-CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_servidor FOREIGN KEY REFERENCES servidores (id\_servidor), web TEXT)
+CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_servidor INT REFERENCES servidores (id\_servidor), web TEXT)
 
 \subsection{EMPLEADOS}
-CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9),  nombre TEXT, apellidos TEXT, permisos INT)
+CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9) UNIQUE,  nombre TEXT, apellidos TEXT, permisos INT)
 
 \subsection{TAREAS}
-CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, descripcion TEXT, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado FOREIGN KEY REFERENCES empleados (id\_empleado), estado ENUM(‘por\_hacer’, ‘en\_desarrollo’,’hecho’))
+CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, descripcion TEXT, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM(‘por\_hacer’, ‘en\_desarrollo’,’hecho’))
 
 \subsection{REGISTROS}
-CREATE TABLE registros (id\_registro INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_empleado FOREIGN KEY REFERENCES empleados (id\_empleado), horas\_trabajadas TIME, descripción TEXT, fecha DATE)
+CREATE TABLE registros (id\_registro INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_empleado INT REFERENCES empleados (id\_empleado), horas\_trabajadas TIME, descripción TEXT, fecha DATE)
 
 \subsection{COMENTARIOS}
-CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, texto TEXT, tarea FOREIGN KEY REFERENCES tareas (id\_tarea))
+CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, texto TEXT, tarea INT REFERENCES tareas (id\_tarea))
+
+\subsection{ROL}
+CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
 
 \end{document}
