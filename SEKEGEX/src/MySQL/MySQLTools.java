@@ -490,12 +490,10 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();    
            con = DriverManager.getConnection(sURL,"sekegex","sekegex");
            
-           stmt = con.prepareStatement("INSERT INTO registros (id_empleado, horas_trabajadas, descripcion, fecha) VALUES(?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO comentarios (tarea, texto) VALUES(?,?);");
            
-           stmt.setInt(1, id_employee);
-           stmt.setTime(2, time_worked);
-           stmt.setString(3, description);
-           stmt.setDate(4, date);
+           stmt.setInt(1, id_tarea);
+           stmt.setString(2, comment);
 
            stmt.executeUpdate();
 
