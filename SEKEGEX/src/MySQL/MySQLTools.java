@@ -18,6 +18,13 @@ import java.sql.*;
  */
 public class MySQLTools {
     
+    private static final MySQLTools instance = new MySQLTools();
+    
+    private MySQLTools(){}
+    
+    public static MySQLTools getInstance(){
+        return instance;
+    }
     //"CLIENTES" table
     
     /**
