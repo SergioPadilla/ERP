@@ -10,10 +10,18 @@ import Utils.StatusTask;
 import Utils.TypeClient;
 import java.sql.Date;
 import java.sql.Time;
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.Vector;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  *
  * @author Ivan Edited: SergioPadilla
+ * 
  */
 public class User {
     private static final User instance = new User();
@@ -22,11 +30,35 @@ public class User {
     private String dni;
     private String name;
     private String surname;
-    //private int licence;
+    private Vector licence;
     
     private User(){
         active=false;
     }
+    private static String encrypt(String text) {
+ 
+        String secretKey = "97f8c8e8a2802a"; //llave para encriptar datos
+        String base64EncryptedString = "";
+ 
+        try {
+ 
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+ 
+            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+            Cipher cipher = Cipher.getInstance("DESede");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+ 
+            byte[] plainTextBytes = text.getBytes("utf-8");
+            byte[] buf = cipher.doFinal(plainTextBytes);
+            byte[] base64Bytes = Base64.encodeBase64(buf);
+            base64EncryptedString = new String(base64Bytes);
+ 
+        } catch (Exception ex) {
+        }
+        return base64EncryptedString;
+}
     
     public static User getInstance(){
         return instance;
@@ -86,21 +118,21 @@ public class User {
     /**
      * Insert new client in the table
      */
-    protected void insertClient(TypeClient type, String name, String surname, String dni, String email){
+    public void insertClient(TypeClient type, String name, String surname, String dni, String email){
         
     }
     
     /**
      * Modify client with the params specified
      */
-    protected void modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
+    public void modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
         
     }
     
     /**
      * Remove client
      */
-    protected void removeClient(int id_client){
+    public void removeClient(int id_client){
         
     }
     
@@ -109,14 +141,14 @@ public class User {
     /**
      * Insert new product in the table
      */
-    protected void insertProduct(String name, String description, int amount){
+    public void insertProduct(String name, String description, int amount){
         
     }
     
     /**
      * Modify product
      */
-    protected void modifyProduct(int id_product, String name, String description, int amount){
+    public void modifyProduct(int id_product, String name, String description, int amount){
         
     }
     
@@ -124,14 +156,14 @@ public class User {
      * Consult Product
      * @return Object with the data of a product
      */
-    protected DataProduct consultProduct(int id_product){
+    public DataProduct consultProduct(int id_product){
         return new DataProduct(id_product,"","",1,1);
     }
     
     /**
      * Remove Product
      */
-    protected void removeProduct(int id_product){
+    public void removeProduct(int id_product){
         
     }
     
@@ -140,14 +172,14 @@ public class User {
     /**
      * Insert new bill in the table
      */
-    protected void insertBill(int id_client){
+    public void insertBill(int id_client){
         
     }
     
     /**
      * Modify bill
      */
-    protected void modifyBill(int id_bill, int amount, int id_client){
+    public void modifyBill(int id_bill, int amount, int id_client){
     
     }
     
@@ -157,21 +189,21 @@ public class User {
     /**
      * Insert new server
      */
-    protected void insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+    public void insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
         
     }
     
     /**
      * Modify server
      */
-    protected void modifyServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+    public void modifyServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
         
     }
     
     /**
      * Erase server
      */
-    protected void removeServer(int id_server){
+    public void removeServer(int id_server){
         
     }
     
@@ -180,21 +212,21 @@ public class User {
     /**
      * Insert new employee
      */
-    protected void insertEmployee(String dni, String name, String surname, int licence){
+    public void insertEmployee(String dni, String name, String surname, int licence){
         
     }
     
     /**
      * Modify employee
      */
-    protected void modifyEmployee(int id_employee, String dni, String name, String surname, int licence){
+    public void modifyEmployee(int id_employee, String dni, String name, String surname, int licence){
         
     }
     
     /**
      * Erase employee
      */
-    protected void removeEmployee(int id_employee){
+    public void removeEmployee(int id_employee){
         
     }
     
@@ -203,21 +235,21 @@ public class User {
     /**
      * Insert new task
      */
-    protected void insertTask(String title, String description, int hour, int minutes){
+    public void insertTask(String title, String description, int hour, int minutes){
         
     }
     
     /**
      * Modify task
      */
-    protected void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
+    public void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
         
     }
     
     /**
      * Erase task
      */
-    protected void eraseTask(int id_task){
+    public void eraseTask(int id_task){
         
     }
     
@@ -226,21 +258,21 @@ public class User {
     /**
      * Insert new register
      */
-    protected void insertRegister(int id_employee, Time time_worked, String description, Date date){
+    public void insertRegister(int id_employee, Time time_worked, String description, Date date){
         //description could be null
     }
     
     /**
      * Modify register
      */
-    protected void modifyRegister(int id_employee, Time time_worked, String description, Date date){
+    public void modifyRegister(int id_employee, Time time_worked, String description, Date date){
         
     }
     
     /**
      * Erase register
      */
-    protected void removeRegister(int id_register){
+    public void removeRegister(int id_register){
         
     }
     
@@ -249,21 +281,21 @@ public class User {
     /**
      * Insert Comment
      */
-    protected void insertComment(int id_tarea, String comment){
+    public void insertComment(int id_tarea, String comment){
         
     }
     
     /**
      * Modify Comment
      */
-    protected void modifyComment(int id_comment, int id_tarea, String comment){
+    public void modifyComment(int id_comment, int id_tarea, String comment){
         
     }
     
     /**
      * Erase Comment
      */
-    protected void removeComment(int id_comment){
+    public void removeComment(int id_comment){
         
     }
 }
