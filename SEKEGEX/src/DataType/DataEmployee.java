@@ -14,13 +14,13 @@ public class DataEmployee {
     public String name;
     public String dni;
     public String surname;
-    //public int license;
+    public int role;
     
-    public DataEmployee(int id_employee, String name, String dni, String surname){ //add int license;
+    public DataEmployee(int id_employee, String name, String dni, String surname, int role){
         this.id_employee = id_employee;
         this.dni = dni;
         this.name = name;
         this.surname = surname;
-        //this.license = license;
+        this.role = role;
     }
 }
