@@ -973,7 +973,7 @@ CREATE TABLE servidores (id\_servidor INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, 
 CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_servidor INT REFERENCES servidores (id\_servidor), web TEXT)
 
 \subsection{EMPLEADOS}
-CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9),  nombre TEXT, apellidos TEXT, permisos INT)
+CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9) UNIQUE,  nombre TEXT, apellidos TEXT, permisos INT)
 
 \subsection{TAREAS}
 CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, descripcion TEXT, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM(‘por\_hacer’, ‘en\_desarrollo’,’hecho’))
@@ -983,5 +983,8 @@ CREATE TABLE registros (id\_registro INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, i
 
 \subsection{COMENTARIOS}
 CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, texto TEXT, tarea INT REFERENCES tareas (id\_tarea))
+
+\subsection{ROL}
+CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
 
 \end{document}
