@@ -25,6 +25,61 @@ public class MySQLTools {
     public static MySQLTools getInstance(){
         return instance;
     }
+    
+    public void install(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("CREATE TABLE clientes (id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT, tipo ENUM('FREELANCE', 'BUSINESS'),nombre TEXT, apellido TEXT, nif varchar(10) UNIQUE , email TEXT, fecha_alta DATETIME)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE productos (id_producto INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE facturas (id_factura INT NOT NULL PRIMARY KEY AUTO_INCREMENT, fecha DATETIME, id_cliente INT REFERENCES clientes (id_cliente), importe FLOAT)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE compras (id_producto INT REFERENCES productos (id_producto), id_factura INT REFERENCES facturas (id_factura),precio FLOAT, PRIMARY KEY(id_producto,id_factura))");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE servidores (id_servidor INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_cliente INT REFERENCES clientes (id_cliente), nombre TEXT,  ruta_de_acceso TEXT, usuario_ftp TEXT, password_ftp TEXT, usuario_host TEXT, password_host TEXT)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE dominios (id_dominio INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_servidor INT REFERENCES servidores (id_servidor), web TEXT)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE empleados (id_empleado INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dni varchar(9) UNIQUE ,  nombre TEXT, apellidos TEXT, rol INT)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT REFERENCES empleados (id_empleado), estado ENUM('por_hacer', 'en_desarrollo','hecho'), description TEXT)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_empleado INT REFERENCES empleados (id_empleado), horas_trabajadas TIME, descripción TEXT, fecha DATE)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT REFERENCES tareas (id_tarea))");
+           stmt.executeUpdate(); 
+           stmt = con.prepareStatement("CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))");
+           stmt.executeUpdate(); 
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " 
+              + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " 
+              + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
+    }
+    
     //"CLIENTES" table
     
     /**
