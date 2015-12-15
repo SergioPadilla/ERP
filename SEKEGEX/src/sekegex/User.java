@@ -5,18 +5,19 @@
  */
 package sekegex;
 
-import DataType.DataProduct;
+import DataType.*;
 import Utils.StatusTask;
 import Utils.TypeClient;
 import java.sql.Date;
 import java.sql.Time;
-import java.security.MessageDigest;
+import java.security.*;
 import java.util.Arrays;
 import java.util.Vector;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
+import MySQL.MySQLTools;
 
 /**
  *
@@ -31,10 +32,14 @@ public class User {
     private String name;
     private String surname;
     private Vector licence;
+    MySQLTools DB = MySQLTools.getInstance();
     
     private User(){
         active=false;
     }
+    
+    //Encrypting functions
+    
     private static String encrypt(String text) {
  
         String secretKey = "97f8c8e8a2802a"; //llave para encriptar datos
@@ -60,6 +65,32 @@ public class User {
         return base64EncryptedString;
 }
     
+    private static String toHexadecimal(byte[] digest){
+        String hash = "";
+        for(byte aux : digest) {
+            int b = aux & 0xff;
+            if (Integer.toHexString(b).length() == 1) hash += "0";
+            hash += Integer.toHexString(b);
+        }
+        return hash;
+    }
+    
+    public static String encryptSHA(String message){
+        byte[] digest = null;
+        byte[] buffer = message.getBytes();
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+            messageDigest.reset();
+            messageDigest.update(buffer);
+            digest = messageDigest.digest();
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("Error creando Digest");
+        }
+        return toHexadecimal(digest);
+    }
+
+    //END Encrypting functions
+    
     public static User getInstance(){
         return instance;
     }
@@ -68,16 +99,30 @@ public class User {
     * Check if user and password are in the DB and, in this case, 
     * complete the atributes of the class and change active=true
     */
-    public boolean login(String user, String pass){
+    public boolean login(String dni, String pass){
+        DataEmployee employee=DB.consultEmployee(dni);
+        if(encryptSHA(pass)==employee.password){
+            active=true;
+            this.dni=dni;
+            id_employee=employee.id_employee;
+            name=employee.name;
+            surname=employee.surname;
+            licence=consultRole(employee.role);
+        }
+        return active;
         
-        return false;
     }
     
     /**
     * Erase all atributes and change active=false
     */
     public void logOut(){
-        
+        active=false;
+        dni=null;
+        id_employee=0;
+        name=null;
+        surname=null;
+        licence=null;
     }
     
     /**
