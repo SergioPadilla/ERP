@@ -102,13 +102,14 @@ public class User {
     */
     public boolean login(String dni, String pass){
         DataEmployee employee=DB.consultEmployee(dni);
-        if(encryptSHA(pass)==employee.password){
+        if(encryptSHA(pass).equals(employee.password)){
             active=true;
             this.dni=dni;
             id_employee=employee.id_employee;
             name=employee.name;
             surname=employee.surname;
             licence=DB.consultRole(employee.role);
+        } else {
         }
         return active;
     }
