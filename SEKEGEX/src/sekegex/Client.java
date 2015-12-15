@@ -6,12 +6,14 @@
 package sekegex;
 import DataType.DataClient;
 import java.util.Vector;
+import MySQL.MySQLTools;
 
 /**
  *
  * @author Ivan
  */
 public class Client {
+    MySQLTools DB = MySQLTools.getInstance();
     
     private DataClient data;
     
@@ -20,16 +22,15 @@ public class Client {
     }
     
     public DataClient consultClient(int id){
-        return data;
+       return DB.consultClient(id);  
     }
     
-    public Vector listServers(){
-        Vector v=null;
-        return v;
+    public Vector listServers(int id){  //Le pasamos el id del cliente 
+                                        //que tiene asociado esos servidor        
+        return DB.listServers(id); 
     }
     
-    public Vector listBills(){
-        Vector v=null;
-        return v;
+    public Vector listBills(int id){
+        return DB.listBills(id);
     }
 }
