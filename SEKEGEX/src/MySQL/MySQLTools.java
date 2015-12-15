@@ -23,23 +23,24 @@ import java.util.Vector;
 public class MySQLTools {
     
     private static final MySQLTools instance = new MySQLTools();
-    
+    private static String sDriver = "com.mysql.jdbc.Driver";
+    private static String sURL = "jdbc:mysql://localhost:3306/erpseke";
+    private static String user="root";
+    private static String pass="";
+    //private static String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
     private MySQLTools(){}
     
     public static MySQLTools getInstance(){
         return instance;
     }
     
-    public void install(){
+    public static void install(){
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("CREATE TABLE clientes (id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT, tipo ENUM('FREELANCE', 'BUSINESS'),nombre TEXT, apellido TEXT, nif varchar(10) UNIQUE , email TEXT, fecha_alta DATETIME)");
            stmt.executeUpdate();
@@ -63,6 +64,10 @@ public class MySQLTools {
            stmt.executeUpdate(); 
            stmt = con.prepareStatement("CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))");
            stmt.executeUpdate(); 
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,1)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO empleados (id_empleado , dni,  nombre, password, apellidos, rol) VALUES (NULL,'root','Admin','cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e','',1)");
+           stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " 
@@ -93,12 +98,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellido, nif, email) VALUES(?,?,?,?,?);");
            
@@ -135,12 +137,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("UPDATE clientes SET tipo = ? nombre = ? apellido = ? nif = ? email = ? WHERE id_cliente = ?");
            
@@ -211,12 +210,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO produtos (nombre, descripcion, importe) VALUES(?,?,?);");
            
@@ -251,12 +247,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("UPDATE productos SET nombre = ? descripcion = ? importe = ? WHERE id_producto = ?");
            
@@ -317,12 +310,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO facturas (id_cliente) VALUES(?);");
            
@@ -355,12 +345,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("UPDATE facturas SET id_cliente = ? importe = ? WHERE id_factura = ?");
            
@@ -404,12 +391,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO compras (id_factura, id_producto) VALUES(?,?);");
            
@@ -452,12 +436,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO servidores (id_cliente, nombre, ruta_de_acceso, usuario_ftp, password_ftp, usuario_host, password_host) VALUES(?,?,?,?,?,?,?);");
            
@@ -496,12 +477,12 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+        
+        
 
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("UPDATE servidores SET nombre = ? ruta_de_acceso = ? usuario_ftp = ? password_ftp = ? usuario_host = ? password_host = ? id_cliente = ? WHERE id_servidor = ?");
            
@@ -559,12 +540,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO empleados (dni, nombre, apellidos, rol) VALUES(?,?,?,?);");
            
@@ -602,12 +580,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("UPDATE empleados SET dni = ? nombre = ? apellidos = ? rol = ? WHERE id_empleado = ?");
            
@@ -650,11 +625,43 @@ public class MySQLTools {
      * @return 
      */
     public DataEmployee consultEmployee(String dni){
+        Connection con = null;
+        PreparedStatement stmt = null;
         int id_employee = -1;
         String name = "";
         String surname = "";
         int role = -1;
         String password = "";
+
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM empleados WHERE dni='root'");
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                id_employee=rs.getInt("id_empleado");
+                name=rs.getString("nombre");
+                surname=rs.getString("apellidos");
+                role=rs.getInt("rol");
+                password=rs.getString("password");
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+        }
 
         return new DataEmployee(id_employee, name, dni, password, surname, role);
     }
@@ -665,6 +672,7 @@ public class MySQLTools {
      * @return 
      */
     public DataEmployee consultEmployee(int id_employee){
+        
         String dni = "";
         String name = "";
         String surname = "";
@@ -683,12 +691,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas) VALUES(?,?,?);");
            
@@ -723,12 +728,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("UPDATE tareas SET titulo = ? descripcion = ? horas_estimadas = ? fecha = ? id_tarea_padre = ? empleado_asignado = ? estado = ? WHERE id_tareas = ?");
           
@@ -794,12 +796,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO registros (id_empleado, horas_trabajadas, descripcion, fecha) VALUES(?,?,?,?);");
            
@@ -835,12 +834,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("UPDATE registros SET id_empleado = ? horas_trabajadas = ? descripcion = ? fecha = ? WHERE id_registro = ?");
            
@@ -886,12 +882,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO comentarios (tarea, texto) VALUES(?,?);");
            
@@ -925,12 +918,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("UPDATE comentarios SET texto = ? tarea = ? WHERE id_comentario = ?");
            
@@ -974,12 +964,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO roles (rol, permiso) VALUES(?,?);");
            
@@ -1022,17 +1009,15 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+        Vector res=new Vector();
 
         try{
             Class.forName(sDriver).newInstance();    
-            con = DriverManager.getConnection(sURL,"sekegex","sekegex");
-            stmt = con.prepareStatement("SELECT permiso WHERE rol = '"+rol+"'");
-            Vector res=new Vector();
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT permiso FROM rol WHERE rol = '"+rol+"'");
             
             ResultSet rs;
-            rs = stmt.executeUpdate();
+            rs = stmt.executeQuery();
             
              while (rs.next()) {
                 res.addElement(rs.getInt("permiso"));
@@ -1073,12 +1058,9 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
 
-        String sDriver = "com.mysql.jdbc.Driver";
-        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
-
         try{
            Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           con = DriverManager.getConnection(sURL,user,pass);
            
            stmt = con.prepareStatement("INSERT INTO dominios (id_servidor, web) VALUES(?,?);");
            
