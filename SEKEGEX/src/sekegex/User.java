@@ -32,10 +32,11 @@ public class User {
     private String name;
     private String surname;
     private Vector licence;
-    MySQLTools DB = MySQLTools.getInstance();
+    private MySQLTools DB;
     
     private User(){
         active=false;
+        DB = MySQLTools.getInstance();
     }
     
     //Encrypting functions
@@ -110,7 +111,6 @@ public class User {
             licence=consultRole(employee.role);
         }
         return active;
-        
     }
     
     /**
@@ -123,6 +123,9 @@ public class User {
         name=null;
         surname=null;
         licence=null;
+    }
+    public boolean hasLicence(int licence){
+        return this.licence.contains(licence);
     }
     
     /**
