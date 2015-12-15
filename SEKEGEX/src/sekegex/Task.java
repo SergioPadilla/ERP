@@ -9,6 +9,8 @@ import Utils.StatusTask;
 import DataType.DataTask;
 import java.sql.Date;
 import java.sql.Time;
+import MySQL.MySQLTools;
+
 
 /**
  *
@@ -16,6 +18,8 @@ import java.sql.Time;
  */
 public class Task {
     private DataTask data;
+    MySQLTools DB = MySQLTools.getInstance();
+
     
     public Task(int id_task){
         data = consultTask(id_task);
@@ -27,69 +31,11 @@ public class Task {
      * @return Full atributes of task
      */
     public DataTask consultTask(int id_task){
-        return data; //Esto va fuera, hay que llamar a la DB
+        return DB.consultTask(id_task);
     }
     
-    /**
-     * Change the title of the task
-     * @param title 
-     */
-    public void modifyTitle(String title){
-        data.title = title;
-        //LLamar al método de PLSQLTools para modificar una tarea
+    public void update(){
+        data=consultTask(data.id_task);
     }
     
-    /**
-     * Change the due_date of the task
-     * @param date 
-     */
-    public void modifyDueDate(Date date){
-        data.due_date = date;
-        //LLamar al método de PLSQLTools para modificar una tarea
-    }
-    
-    /**
-     * Change the task father of the task
-     * @param id 
-     */
-    public void modifyIdTaskFather(int id){
-        data.id_task_father = id;
-        //LLamar al método de PLSQLTools para modificar una tarea
-    }
-    
-    /**
-     * Change the time estimated to complete the task
-     * @param time 
-     */
-    public void modifyTimeEstimated(Time time){
-        data.time_estimated = time;
-        //LLamar al método de PLSQLTools para modificar una tarea
-    }
-    
-    /**
-     * Change the employee assigned to this task
-     * @param id 
-     */
-    public void modifyIdEmployee(int id){
-        data.id_employee = id;
-        //LLamar al método de PLSQLTools para modificar una tarea
-    }
-    
-    /**
-     * Change the status of the task
-     * @param status 
-     */
-    public void modifyStatus(StatusTask status){
-        data.status = status;
-        //LLamar al método de PLSQLTools para modificar una tarea
-    }
-    
-    /**
-     * Change the description of the task
-     * @param description 
-     */
-    public void modifyDescription(String description){
-        data.description = description;
-        //LLamar al método de PLSQLTools para modificar una tarea
-    }
 }
