@@ -26,11 +26,12 @@ public class Client {
     }
     
     public Vector listServers(int id){  //Le pasamos el id del cliente 
-                                        //que tiene asociado esos servidor        
+                                        //que tiene asociado a los servidores        
         return DB.listServers(id); 
     }
     
     public Vector listBills(int id){
+        
         return DB.listBills(id);
     }
 }
