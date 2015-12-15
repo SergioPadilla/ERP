@@ -5,12 +5,15 @@
  */
 package MySQL;
 
+import DataType.DataClient;
 import DataType.DataEmployee;
 import Utils.TypeClient;
 import java.sql.Date;
 import Utils.StatusTask;
 import DataType.DataProduct;
+import DataType.DataTask;
 import java.sql.*;
+import java.util.Vector;
 /**
  *
  * @author Sergio
@@ -52,9 +55,9 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE empleados (id_empleado INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dni varchar(9) UNIQUE ,  nombre TEXT, apellidos TEXT, rol INT)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT REFERENCES empleados (id_empleado), estado ENUM('por_hacer', 'en_desarrollo','hecho'), description TEXT)");
+           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT REFERENCES empleados (id_empleado), estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_empleado INT REFERENCES empleados (id_empleado), horas_trabajadas TIME, descripción TEXT, fecha DATE)");
+           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_empleado INT REFERENCES empleados (id_empleado), horas_trabajadas TIME, descripcion TEXT, fecha DATE)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT REFERENCES tareas (id_tarea))");
            stmt.executeUpdate(); 
@@ -129,7 +132,67 @@ public class MySQLTools {
      * Modify client with the params specified
      */
     protected void modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
-        
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("UPDATE clientes SET tipo = ? nombre = ? apellido = ? nif = ? email = ? WHERE id_cliente = ?");
+           
+           stmt.setObject(1, type);
+           stmt.setString(2,name);
+           stmt.setString(3,surname);
+           stmt.setString(4, dni);
+           stmt.setString(5, email);
+           stmt.setInt(6,id_client);
+           
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
+    }
+    
+    /**
+     * Get the data of the client with id specified
+     * @param id_client
+     * @return 
+     */
+    public DataClient consultClient(int id_client){
+        TypeClient type = TypeClient.FREELANCE; //Esto hay que coger el que haya en la base de datos no tiene porque ser este
+        String name = "";
+        String surname = "";
+        String dni = "";
+        String email = "";
+        Date registration = new Date(1,1,1); //Modificar con lo que devuelva
+        return new DataClient(id_client, type, name, surname, dni, email, registration);
+    }
+    
+    /**
+     * 
+     * @param id_client
+     * @return List of bills of the cliente specified by id
+     */
+    public Vector listBills(int id_client){
+        return new Vector();
     }
     
     /**
@@ -195,7 +258,12 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();    
            con = DriverManager.getConnection(sURL,"sekegex","sekegex");
            
-           stmt = con.prepareStatement("UPDATE productos SET ");
+           stmt = con.prepareStatement("UPDATE productos SET nombre = ? descripcion = ? importe = ? WHERE id_producto = ?");
+           
+           stmt.setString(1,name);
+           stmt.setString(2,description);
+           stmt.setInt(3, amount);
+           stmt.setInt(4,id_product);
            
            stmt.executeUpdate();
 
@@ -218,10 +286,18 @@ public class MySQLTools {
     }
     
     /**
+     * Update the purchases of the product with id specified
+     * @param id_product 
+     */
+    protected void updatePurchases(int id_product){
+        
+    }
+    
+    /**
      * Consult Product
      * @return Object with the data of a product
      */
-    protected DataProduct consultProduct(int id_product){
+    public DataProduct consultProduct(int id_product){
         return new DataProduct(id_product,"","",1,1);
     }
     
@@ -276,7 +352,40 @@ public class MySQLTools {
      * Modify bill
      */
     protected void modifyBill(int id_bill, int amount, int id_client){
-    
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("UPDATE facturas SET id_cliente = ? importe = ? WHERE id_factura = ?");
+           
+           stmt.setInt(1, id_client);
+           stmt.setInt(2,amount);
+           stmt.setInt(3,id_bill);
+           
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
     
     /**
@@ -383,8 +492,55 @@ public class MySQLTools {
     /**
      * Modify server
      */
-    protected void modifyServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
-        
+    protected void modifyServer(int id_server, int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("UPDATE servidores SET nombre = ? ruta_de_acceso = ? usuario_ftp = ? password_ftp = ? usuario_host = ? password_host = ? id_cliente = ? WHERE id_servidor = ?");
+           
+           stmt.setString(1,name);
+           stmt.setString(2,access);
+           stmt.setString(3, user_ftp);
+           stmt.setString(4, password_ftp);
+           stmt.setString(5, user_host);
+           stmt.setString(6, password_host);
+           stmt.setInt(7, id_client);
+           stmt.setInt(8, id_server);
+           
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
+    }
+    
+    /**
+     * 
+     * @param id_client
+     * @return List with the servers for the client with id specified
+     */
+    public Vector listServers(int id_client){
+        return new Vector();
     }
     
     /**
@@ -443,7 +599,42 @@ public class MySQLTools {
      * Modify employee
      */
     protected void modifyEmployee(int id_employee, String dni, String name, String surname, int role){
-        
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("UPDATE empleados SET dni = ? nombre = ? apellidos = ? rol = ? WHERE id_empleado = ?");
+           
+           stmt.setString(1,dni);
+           stmt.setString(2,name);
+           stmt.setString(3, surname);
+           stmt.setInt(4, role);
+           stmt.setInt(5, id_employee);
+           
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
     
     /**
@@ -453,8 +644,26 @@ public class MySQLTools {
         
     }
     
-    protected DataEmployee consultEmployee(String dni){
+    /**
+     * Get employee with dni specified
+     * @param dni
+     * @return 
+     */
+    public DataEmployee consultEmployee(String dni){
         int id_employee = -1;
+        String name = "";
+        String surname = "";
+        int role = -1;
+        return new DataEmployee(id_employee, name, dni, surname, role);
+    }
+    
+    /**
+     * Get employee with id specified
+     * @param id_employee
+     * @return 
+     */
+    public DataEmployee consultEmployee(int id_employee){
+        String dni = "";
         String name = "";
         String surname = "";
         int role = -1;
@@ -507,7 +716,62 @@ public class MySQLTools {
      * Modify task
      */
     protected void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("UPDATE tareas SET titulo = ? descripcion = ? horas_estimadas = ? fecha = ? id_tarea_padre = ? empleado_asignado = ? estado = ? WHERE id_tareas = ?");
+          
+           stmt.setString(1,title);
+           stmt.setString(2,description);
+           stmt.setTime(3, time_estimated);
+           stmt.setDate(4, due_date);
+           stmt.setInt(5, id_task_father);
+           stmt.setInt(6, id_employee);
+           stmt.setObject(7, status);
+           stmt.setInt(8, id_task);
+           
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
+    }
+    
+    /**
+     * Get the data of the task with id specified
+     * @param id_task
+     * @return 
+     */
+    public DataTask consultTask(int id_task){
+        String title = "";
+        Date due_date = new Date(1,1,1);
+        int id_task_father = -1;
+        Time time_estimated = new Time(1,1,1);
+        int id_employee = -1;
+        StatusTask status = StatusTask.TO_DO;
+        String description = "";
         
+        return new DataTask(id_task, title, due_date, id_task_father, time_estimated, id_employee, status, description);
     }
     
     /**
@@ -563,8 +827,43 @@ public class MySQLTools {
     /**
      * Modify register
      */
-    protected void modifyRegister(int id_employee, Time time_worked, String description, Date date){
-        
+    protected void modifyRegister(int id_register, int id_employee, Time time_worked, String description, Date date){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("UPDATE registros SET id_empleado = ? horas_trabajadas = ? descripcion = ? fecha = ? WHERE id_registro = ?");
+           
+           stmt.setInt(1,id_employee);
+           stmt.setObject(2,time_worked);
+           stmt.setString(3, description);
+           stmt.setObject(4, date);
+           stmt.setInt(5, id_register);
+           
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
     
     /**
@@ -619,7 +918,40 @@ public class MySQLTools {
      * Modify Comment
      */
     protected void modifyComment(int id_comment, int id_tarea, String comment){
-        
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("UPDATE comentarios SET texto = ? tarea = ? WHERE id_comentario = ?");
+           
+           stmt.setString(1,comment);
+           stmt.setInt(2,id_tarea);
+           stmt.setInt(3, id_comment);
+           
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
     
     /**
@@ -675,6 +1007,16 @@ public class MySQLTools {
      */
     protected void modifyRole(int rol, int licence){
         
+    }
+    
+    /**
+     * 
+     * @param rol
+     * @return List of licences permitied for this role
+     */
+    public Vector consultRole(int rol){
+        Vector licences = new Vector();
+        return licences;
     }
     
     /**
