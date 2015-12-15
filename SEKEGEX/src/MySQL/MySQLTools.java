@@ -1019,8 +1019,42 @@ public class MySQLTools {
      * @return List of licences permitied for this role
      */
     public Vector consultRole(int rol){
-        Vector licences = new Vector();
-        return licences;
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+            stmt = con.prepareStatement("SELECT permiso WHERE rol = '"+rol+"'");
+            Vector res=new Vector();
+            
+            ResultSet rs;
+            rs = stmt.executeUpdate();
+            
+             while (rs.next()) {
+                res.addElement(rs.getInt("permiso"));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
     }
     
     /**
