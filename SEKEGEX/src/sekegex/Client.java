@@ -25,6 +25,10 @@ public class Client {
        return DB.consultClient(id);  
     }
     
+    public void update(){
+        data=consultClient(data.id);
+    }
+    
     public Vector listServers(int id){  //Le pasamos el id del cliente 
                                         //que tiene asociado a los servidores        
         return DB.listServers(id); 
