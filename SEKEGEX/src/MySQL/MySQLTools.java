@@ -5,6 +5,7 @@
  */
 package MySQL;
 
+import DataType.DataEmployee;
 import Utils.TypeClient;
 import java.sql.Date;
 import Utils.StatusTask;
@@ -184,7 +185,36 @@ public class MySQLTools {
      * Modify product
      */
     protected void modifyProduct(int id_product, String name, String description, int amount){
-        
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        String sDriver = "com.mysql.jdbc.Driver";
+        String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+
+        try{
+           Class.forName(sDriver).newInstance();    
+           con = DriverManager.getConnection(sURL,"sekegex","sekegex");
+           
+           stmt = con.prepareStatement("UPDATE productos SET ");
+           
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
     
     /**
@@ -421,6 +451,14 @@ public class MySQLTools {
      */
     protected void removeEmployee(int id_employee){
         
+    }
+    
+    protected DataEmployee consultEmployee(String dni){
+        int id_employee = -1;
+        String name = "";
+        String surname = "";
+        int role = -1;
+        return new DataEmployee(id_employee, name, dni, surname, role);
     }
     
     //"TAREAS" table
