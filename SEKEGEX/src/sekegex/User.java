@@ -108,7 +108,7 @@ public class User {
             id_employee=employee.id_employee;
             name=employee.name;
             surname=employee.surname;
-            licence=consultRole(employee.role);
+            licence=DB.consultRole(employee.role);
         }
         return active;
     }
