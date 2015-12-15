@@ -654,7 +654,9 @@ public class MySQLTools {
         String name = "";
         String surname = "";
         int role = -1;
-        return new DataEmployee(id_employee, name, dni, surname, role);
+        String password = "";
+
+        return new DataEmployee(id_employee, name, dni, password, surname, role);
     }
     
     /**
@@ -667,7 +669,9 @@ public class MySQLTools {
         String name = "";
         String surname = "";
         int role = -1;
-        return new DataEmployee(id_employee, name, dni, surname, role);
+        String password = "";
+        
+        return new DataEmployee(id_employee, name, dni, password, surname, role);
     }
     
     //"TAREAS" table
