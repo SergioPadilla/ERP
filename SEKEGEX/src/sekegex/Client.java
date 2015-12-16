@@ -5,37 +5,62 @@
  */
 package sekegex;
 import DataType.DataClient;
+import Utils.TypeClient;
 import java.util.Vector;
-import MySQL.MySQLTools;
 
 /**
  *
  * @author Ivan
  */
 public class Client {
-    MySQLTools DB = MySQLTools.getInstance();
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();
     
     private DataClient data;
     
     public Client(int id){
-        data = consultClient(id);
+        data = activeEmployee.consultClient(id);
     }
     
-    public DataClient consultClient(int id){
-       return DB.consultClient(id);  
+    public DataClient getData(){
+        return data;
     }
     
     public void update(){
-        data=consultClient(data.id);
+        data=activeEmployee.consultClient(data.id);
     }
     
-    public Vector listServers(int id){  //Le pasamos el id del cliente 
-                                        //que tiene asociado a los servidores        
-        return DB.listServers(id); 
+    /**
+     * Modify client with the params specified
+     */
+    public void modifyClient(String type, String name, String surname, String dni, String email){
+        if(activeEmployee.hasLicence(302)){
+            DB.modifyClient(data.id, type, name, surname, dni, email);
+        }
     }
     
-    public Vector listBills(int id){
-        
-        return DB.listBills(id);
+    /**
+     * Remove client
+     */
+    public void removeClient(int id_client){
+        if(activeEmployee.hasLicence(301)){
+            //Borrar cliente
+        }
+    }
+    
+    public Vector listServers(){
+        Vector res=null;
+        if(activeEmployee.hasLicence(702)){
+           res= DB.listServers(data.id);
+        }
+        return res;
+    }
+    
+    public Vector listBills(){
+        Vector res=null;
+        if(activeEmployee.hasLicence(403)){
+           res= DB.listBills(data.id);
+        }
+        return res;
     }
 }

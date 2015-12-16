@@ -6,18 +6,10 @@
 package sekegex;
 
 import DataType.*;
-import Utils.StatusTask;
-import Utils.TypeClient;
 import java.sql.Date;
 import java.sql.Time;
-import java.security.*;
-import java.util.Arrays;
 import java.util.Vector;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import org.apache.commons.codec.binary.Base64;
-import MySQL.MySQLTools;
+
 
 /**
  *
@@ -39,58 +31,6 @@ public class User {
         DB = MySQLTools.getInstance();
     }
     
-    //Encrypting functions
-    
-    private static String encrypt(String text) {
- 
-        String secretKey = "97f8c8e8a2802a"; //llave para encriptar datos
-        String base64EncryptedString = "";
- 
-        try {
- 
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
-            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
- 
-            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
-            Cipher cipher = Cipher.getInstance("DESede");
-            cipher.init(Cipher.ENCRYPT_MODE, key);
- 
-            byte[] plainTextBytes = text.getBytes("utf-8");
-            byte[] buf = cipher.doFinal(plainTextBytes);
-            byte[] base64Bytes = Base64.encodeBase64(buf);
-            base64EncryptedString = new String(base64Bytes);
- 
-        } catch (Exception ex) {
-        }
-        return base64EncryptedString;
-}
-    
-    private static String toHexadecimal(byte[] digest){
-        String hash = "";
-        for(byte aux : digest) {
-            int b = aux & 0xff;
-            if (Integer.toHexString(b).length() == 1) hash += "0";
-            hash += Integer.toHexString(b);
-        }
-        return hash;
-    }
-    
-    public static String encryptSHA(String message){
-        byte[] digest = null;
-        byte[] buffer = message.getBytes();
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-            messageDigest.reset();
-            messageDigest.update(buffer);
-            digest = messageDigest.digest();
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println("Error creando Digest");
-        }
-        return toHexadecimal(digest);
-    }
-
-    //END Encrypting functions
     
     public static User getInstance(){
         return instance;
@@ -102,7 +42,7 @@ public class User {
     */
     public boolean login(String dni, String pass){
         DataEmployee employee=DB.consultEmployee(dni);
-        if(encryptSHA(pass).equals(employee.password)){
+        if(employee.password!=null && MySQLTools.encryptSHA(pass).equals(employee.password)){
             active=true;
             this.dni=dni;
             id_employee=employee.id_employee;
@@ -167,24 +107,34 @@ public class User {
     /**
      * Insert new client in the table
      */
-    public void insertClient(TypeClient type, String name, String surname, String dni, String email){
-        
+    public boolean insertClient(String type, String name, String surname, String dni, String email){
+        boolean res=false;
+        if(licence.contains(300)){
+            res=DB.insertClient(type, name, surname, dni, email);
+        }
+        return res;
     }
     
     /**
-     * Modify client with the params specified
+     * Get the data of the client with id specified
+     * @param id_client
+     * @return 
      */
-    public void modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
-        
+    public DataClient consultClient(int id_client){
+        DataClient res=null;
+        if(licence.contains(303)){
+            res=DB.consultClient(id_client);
+        }
+        return res;
     }
     
-    /**
-     * Remove client
-     */
-    public void removeClient(int id_client){
-        
+    public Vector listClients(){
+        Vector res=null;
+        if(licence.contains(303)){
+            res=DB.listClients();
+        }
+        return res;
     }
-    
     //"PRODUCTOS" table
     
     /**
@@ -195,25 +145,11 @@ public class User {
     }
     
     /**
-     * Modify product
-     */
-    public void modifyProduct(int id_product, String name, String description, int amount){
-        
-    }
-    
-    /**
      * Consult Product
      * @return Object with the data of a product
      */
     public DataProduct consultProduct(int id_product){
         return new DataProduct(id_product,"","",1,1);
-    }
-    
-    /**
-     * Remove Product
-     */
-    public void removeProduct(int id_product){
-        
     }
     
     //"FACTURAS" table
@@ -226,12 +162,14 @@ public class User {
     }
     
     /**
-     * Modify bill
+     * Get the data of bill with id specified
+     * @param id_bill
+     * @return 
      */
-    public void modifyBill(int id_bill, int amount, int id_client){
     
+    public DataBill consultBill(int id_bill){
+        return null;
     }
-    
     
     //"SERVIDORES" table
     
@@ -243,18 +181,15 @@ public class User {
     }
     
     /**
-     * Modify server
+     * Get the data of server with id specified
+     * @param id_server
+     * @return 
      */
-    public void modifyServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
-        
+    
+    public DataServer consultServer(int id_server){
+        return null;
     }
     
-    /**
-     * Erase server
-     */
-    public void removeServer(int id_server){
-        
-    }
     
     //"EMPLEADOS" table
     
@@ -264,19 +199,14 @@ public class User {
     public void insertEmployee(String dni, String name, String surname, int licence){
         
     }
-    
     /**
-     * Modify employee
+     * Get the data of employee with id specified
+     * @param id_employee
+     * @return 
      */
-    public void modifyEmployee(int id_employee, String dni, String name, String surname, int licence){
-        
-    }
     
-    /**
-     * Erase employee
-     */
-    public void removeEmployee(int id_employee){
-        
+    public DataEmployee consultEmployee(int id_employee){
+        return null;
     }
     
     //"TAREAS" table
@@ -287,19 +217,14 @@ public class User {
     public void insertTask(String title, String description, int hour, int minutes){
         
     }
-    
     /**
-     * Modify task
+     * Get the data of task with id specified
+     * @param id_task
+     * @return 
      */
-    public void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
-        
-    }
     
-    /**
-     * Erase task
-     */
-    public void eraseTask(int id_task){
-        
+    public DataTask consultTask(int id_task){
+        return null;
     }
     
     //"REGISTROS" table
@@ -311,18 +236,14 @@ public class User {
         //description could be null
     }
     
-    /**
-     * Modify register
+     /**
+     * Get the data of register with id specified
+     * @param id_register
+     * @return 
      */
-    public void modifyRegister(int id_employee, Time time_worked, String description, Date date){
-        
-    }
     
-    /**
-     * Erase register
-     */
-    public void removeRegister(int id_register){
-        
+    public DataRegisters consultRegister(int id_register){
+        return null;
     }
     
     //"COMENTARIOS" table
@@ -335,16 +256,23 @@ public class User {
     }
     
     /**
-     * Modify Comment
+     * Get the data of comment with id specified
+     * @param id_comment
+     * @return 
      */
-    public void modifyComment(int id_comment, int id_tarea, String comment){
-        
+    
+    public DataComment consultComment(int id_comment){
+        return null;
     }
     
     /**
-     * Erase Comment
+     * Get the data of domain with id specified
+     * @param id_domain
+     * @return 
      */
-    public void removeComment(int id_comment){
-        
+    
+    public DataDomain consultDomain(int id_domain){
+        return null;
     }
+    
 }

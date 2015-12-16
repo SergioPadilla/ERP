@@ -6,7 +6,6 @@
 package sekegex;
 
 import DataType.DataProduct;
-import MySQL.MySQLTools;
 
 /**
  *
@@ -26,5 +25,18 @@ public class Product {
      */
     public DataProduct consultProduct(int id_product){
         return new DataProduct(id_product, "", "", 1, 1);
+    }
+    /**
+     * Modify product
+     */
+    public void modifyProduct(int id_product, String name, String description, int amount){
+        
+    }
+    
+    /**
+     * Remove Product
+     */
+    public void removeProduct(int id_product){
+        
     }
 }

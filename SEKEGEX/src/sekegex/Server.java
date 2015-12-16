@@ -57,4 +57,17 @@ public class Server {
         Vector v=null;
         return v;
     }
+     /**
+     * Modify server
+     */
+    public void modifyServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+        
+    }
+    
+    /**
+     * Erase server
+     */
+    public void removeServer(int id_server){
+        
+    }
 }

@@ -58,4 +58,17 @@ public class Employee {
         data.role = role;
         //LLamar al método de PLSQLTools para modificar el rol
     }
+    /**
+     * Modify employee
+     */
+    public void modifyEmployee(int id_employee, String dni, String name, String surname, int licence){
+        
+    }
+    
+    /**
+     * Erase employee
+     */
+    public void removeEmployee(int id_employee){
+        
+    }
 }
