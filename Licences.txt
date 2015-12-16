@@ -53,3 +53,9 @@ Licences format:
     Delete Employee            --> 901
     Modify Employee            --> 902
     List and Consult Employee  --> 903
+    
+  Register:
+    Create Register            --> 1000
+    Delete Register            --> 1001
+    Modify Register            --> 1002
+    List and Consult Register  --> 1003
