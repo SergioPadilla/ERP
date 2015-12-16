@@ -18,56 +18,57 @@ import org.apache.commons.codec.binary.Base64;
  *
  * @author Ivan
  */
-public class Server {
-    private static String decrypt(String textEncrypted) throws Exception {
- 
-        String secretKey = "97f8c8e8a2802a"; 
-        String base64EncryptedString = "";
- 
-        try {
-            byte[] message = Base64.decodeBase64(textEncrypted.getBytes("utf-8"));
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
-            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
-            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
- 
-            Cipher decipher = Cipher.getInstance("DESede");
-            decipher.init(Cipher.DECRYPT_MODE, key);
- 
-            byte[] plainText = decipher.doFinal(message);
- 
-            base64EncryptedString = new String(plainText, "UTF-8");
- 
-        } catch (Exception ex) {
-        }
-        return base64EncryptedString;
-}
-    
+public class Server {   
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();   
     private DataServer data;
     
     public Server(int id){
-        data = consultServer(id);
+        data = activeEmployee.consultServer(id);
     }
     
-    public DataServer consultServer(int id){
-        return data;
+     /**
+     * Update the comment
+     */
+    public void update(){
+        data=activeEmployee.consultServer(getData().id_server);
     }
-    
+      /**
+     * List domains of this server
+     */   
     public Vector listDomains(){
-        Vector v=null;
-        return v;
+        return DB.listDomains(getData().id_server);
     }
      /**
      * Modify server
+     * @param name
+     * @param access
+     * @param user_ftp
+     * @param password_ftp
+     * @param user_host
+     * @param password_host
      */
-    public void modifyServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
-        
+    public void modifyServer(String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+        if (activeEmployee.hasLicence(702)){
+            DB.modifyServer(getData().id_client, getData().id_client, name, access, user_ftp, password_ftp, user_host, password_host);
+            update();
+        }
     }
     
     /**
      * Erase server
      */
-    public void removeServer(int id_server){
-        
+    public void removeServer(){
+        if (activeEmployee.hasLicence(701)){
+            DB.removeComment(getData().id_server);
+            data=null;
+        }
+    }
+
+    /**
+     * @return the data
+     */
+    public DataServer getData() {
+        return data;
     }
 }
