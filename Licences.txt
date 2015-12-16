@@ -18,7 +18,7 @@ Licences format:
     Modify Client             --> 302
     List and Consult Client   --> 303
 
-  Bilds:
+  Bills
     Create Bill               --> 400
     Delete Bill               --> 401
     Modify Bill               --> 402
@@ -47,3 +47,9 @@ Licences format:
     Delete Domains            --> 801
     Modify Domains            --> 802
     List and Consult Domains  --> 803
+    
+  Employee:
+    Create Employee            --> 900
+    Delete Employee            --> 901
+    Modify Employee            --> 902
+    List and Consult Employee  --> 903
