@@ -13,28 +13,24 @@ import java.util.Vector;
  * @author Ivan
  */
 public class Client {
-    MySQLTools DB = MySQLTools.getInstance();
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();
     
     private DataClient data;
     
     public Client(int id){
-        data = consultClient(id);
-    }
-    
-    public DataClient consultClient(int id){
-       return DB.consultClient(id);  
+        data = DB.consultClient(id);
     }
     
     public void update(){
-        data=consultClient(data.id);
+        data=DB.consultClient(data.id);
     }
     
     /**
      * Modify client with the params specified
      */
     public void modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
-        User U=User.getInstance();
-        if(U.hasLicence(302)){
+        if(activeEmployee.hasLicence(302)){
             //modificar cliente
         }
     }
@@ -43,8 +39,7 @@ public class Client {
      * Remove client
      */
     public void removeClient(int id_client){
-        User U=User.getInstance();
-        if(U.hasLicence(301)){
+        if(activeEmployee.hasLicence(301)){
             //Borrar cliente
         }
     }
