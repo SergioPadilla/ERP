@@ -26,7 +26,7 @@ public class Comment {
      * @param text 
      */
     public void modifyComment(String text){
-        if (activeEmployee.hasLicence(202)){
+        if (activeEmployee.hasLicence(402)){
             DB.modifyComment(data.id_comment, data.id_task, text);
         } //consideramos que solo se puede modificar el texto no las id
     }
@@ -35,7 +35,7 @@ public class Comment {
      * Erase Comment
      */
     public void removeComment(int id_comment){
-        if (activeEmployee.hasLicence(201)){
+        if (activeEmployee.hasLicence(401)){
             DB.removeComment(id_comment);
         } //consideramos que solo se puede modificar el texto no las id
     }
