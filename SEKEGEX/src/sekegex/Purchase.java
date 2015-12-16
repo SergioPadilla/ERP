@@ -10,6 +10,8 @@ import DataType.DataPurchase;
  * @author jopime
  */
 public class Purchase {
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();
     private DataPurchase data;
     
     public Purchase(int id_purchase){
@@ -22,6 +24,13 @@ public class Purchase {
      * @return Full atributes of purchase
      */
     public DataPurchase consultPurchase(int id_purchase){
-        return data; //Esto va fuera, hay que llamar a la DB
+        return getData(); //Esto va fuera, hay que llamar a la DB
+    }
+
+    /**
+     * @return the data
+     */
+    public DataPurchase getData() {
+        return data;
     }
 }

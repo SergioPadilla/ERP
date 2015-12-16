@@ -10,40 +10,45 @@ import DataType.DataComment;
  * @author jopime
  */
 public class Comment {
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();
     private DataComment data;
     
-    public Comment(int id_task){
-        data = consultComment(id_task);
+    public Comment(int id_comment){
+        data = activeEmployee.consultComment(id_comment);
     }
-    
-    /**
-     * Call the DB and consult the information for the comment specified
-     * @param id_comment
-     * @return Full atributes of comment
+        
+     /**
+     * Update the comment
      */
-    public DataComment consultComment(int id_task){
-        return data; //Esto va fuera, hay que llamar a la DB
+    public void update(){
+        data=activeEmployee.consultComment(getData().id_comment);
     }
-    
     /**
      * Change the text of the comment
      * @param text 
      */
     public void modifyComment(String text){
-        data.text = text;
-        //LLamar al método de PLSQLTools para modificar un comentario
-    }
-    /**
-     * Modify Comment
-     */
-    public void modifyComment(int id_comment, int id_tarea, String comment){
-        
+        if (activeEmployee.hasLicence(202)){
+            DB.modifyComment(getData().id_comment, getData().id_task, text);
+            update();
+        } //consideramos que solo se puede modificar el texto no las id
     }
     
     /**
-     * Erase Comment
+     * Erase the comment
      */
-    public void removeComment(int id_comment){
-        
+    public void removeComment(){
+        if (activeEmployee.hasLicence(201)){
+            DB.removeComment(getData().id_comment);
+            data=null;
+        }
+    }
+
+    /**
+     * @return the data
+     */
+    public DataComment getData() {
+        return data;
     }
 }

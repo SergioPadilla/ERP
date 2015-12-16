@@ -11,19 +11,20 @@ import DataType.DataEmployee;
  * @author jopime
  */
 public class Employee {
+    
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();
     private DataEmployee data;
     
     public Employee(int id_Employee){
-        data = consultEmployee(id_Employee);
+        data = activeEmployee.consultEmployee(id_Employee);
     }
     
      /**
-     * Call the DB and consult the information for the task specified
-     * @param id_Employee
-     * @return Full atributes of task
+     * Update Employe
      */
-    public DataEmployee consultEmployee(int id_Employee){
-        return data; //Esto va fuera, hay que llamar a la DB
+    public void update(){
+        data=activeEmployee.consultEmployee(getData().id_employee);
     }
     
     /**
@@ -31,44 +32,69 @@ public class Employee {
      * @param dni 
      */
     public void modifyDni(String dni){
-        data.dni = dni;
-        //LLamar al método de PLSQLTools para modificar el dni
-    }
+        if (activeEmployee.hasLicence(902)){
+            DB.modifyEmployee(getData().id_employee,getData().dni, getData().name, getData().surname, getData().role);
+            update();
+        }
+    }    
     /**
      * Change the name of the employee
      * @param name 
      */
     public void modifyName(String name){
-        data.name = name;
-        //LLamar al método de PLSQLTools para modificar el nombre
+        if (activeEmployee.hasLicence(902)){
+            DB.modifyEmployee(getData().id_employee,getData().dni, name, getData().surname, getData().role);
+            update();
+        }
     }        
     /**
      * Change the surname of the employee
      * @param surname 
      */
     public void modifySurname(String surname){
-        data.surname = surname;
-        //LLamar al método de PLSQLTools para modificar el apellido
+        if (activeEmployee.hasLicence(902)){
+            DB.modifyEmployee(getData().id_employee,getData().dni, getData().name, surname, getData().role);
+            update();
+        }
     }
     /**
      * Change the role of the employee
      * @param rol 
      */
-    public void modifyName(int role){
-        data.role = role;
-        //LLamar al método de PLSQLTools para modificar el rol
+    public void modifyRole(int licence){
+        if (activeEmployee.hasLicence(902)){
+            DB.modifyEmployee(getData().id_employee,getData().dni, getData().name, getData().surname, licence);
+            update();
+        }
     }
     /**
      * Modify employee
+     * @param dni
+     * @param name
+     * @param surname
+     * @paran license
      */
-    public void modifyEmployee(int id_employee, String dni, String name, String surname, int licence){
-        
+    public void modifyEmployee(String dni, String name,String surname, int licence){
+        if (activeEmployee.hasLicence(902)){
+            DB.modifyEmployee(getData().id_employee,dni, name, surname, licence);
+            update();
+        }
     }
     
     /**
      * Erase employee
      */
     public void removeEmployee(int id_employee){
-        
+        if (activeEmployee.hasLicence(901)){
+            DB.removeEmployee(getData().id_employee);
+            data=null;
+        }        
+    }
+
+    /**
+     * @return the data
+     */
+    public DataEmployee getData() {
+        return data;
     }
 }

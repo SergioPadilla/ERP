@@ -16,39 +16,48 @@ import java.sql.Time;
  * @author Sergio
  */
 public class Task {
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();
     private DataTask data;
-    MySQLTools DB = MySQLTools.getInstance();
 
     
     public Task(int id_task){
-        data = consultTask(id_task);
+        data = activeEmployee.consultTask(id_task);
     }
-    
-    /**
-     * Call the DB and consult the information for the task specified
-     * @param id_task
-     * @return Full atributes of task
-     */
-    public DataTask consultTask(int id_task){
-        return DB.consultTask(id_task);
-    }
-    
+        
     public void update(){
-        data=consultTask(data.id_task);
+        data=DB.consultTask(getData().id_task);
     }
     
     /**
      * Modify task
+     * @param title
+     * @param description
+     * @param time_estimated
+     * @param due_date
+     * @param status
      */
-    public void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
-        
+    public void modifyTask(String title, String description, Time time_estimated, Date due_date, StatusTask status){
+        if (activeEmployee.hasLicence(102)){
+            DB.modifyTask(getData().id_task, title, description, time_estimated, due_date, getData().id_task_father, getData().id_employee, status);
+        }
     }
     
     /**
      * Erase task
      */
-    public void eraseTask(int id_task){
-        
+    public void eraseTask(){
+        if (activeEmployee.hasLicence(201)){
+            DB.eraseTask(getData().id_task);
+        }
+
+    }
+
+    /**
+     * @return the data
+     */
+    public DataTask getData() {
+        return data;
     }
     
 }

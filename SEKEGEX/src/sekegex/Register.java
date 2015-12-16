@@ -15,33 +15,50 @@ import java.sql.*;
  * @author jopime
  */
 public class Register {
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();
     private DataRegisters data;
     /**
      * Initialize with a calls to DB
      */
     public Register(int id_register){
-        this.data = consultRegister(id_register);
+        data = activeEmployee.consultRegister(id_register);
     }
-    
     /**
-     * Call the DB
+     * Update the comment
      */
-    public DataRegisters consultRegister(int id_register){
-        return data;
+    public void update(){
+        data=activeEmployee.consultRegister(getData().id_register);
     }
     
     /**
      * Modify register
+     * @param id_employee
+     * @param time_worked
+     * @param descripcion
      */
     public void modifyRegister(int id_employee, Time time_worked, String description, Date date){
-        
+        if(activeEmployee.hasLicence(1002)){
+            DB.modifyRegister(id_employee, id_employee, time_worked, description, date);
+            update();
+        }
     }
     
     /**
      * Erase register
      */
     public void removeRegister(int id_register){
-        
+        if (activeEmployee.hasLicence(1001)){
+            DB.removeComment(getData().id_register);
+            data=null;
+        }
+    }
+
+    /**
+     * @return the data
+     */
+    public DataRegisters getData() {
+        return data;
     }
 }
 

@@ -10,21 +10,38 @@ import DataType.DataDomain;
  * @author jopime
  */
 public class Domain {
+    private User activeEmployee = User.getInstance();
+    private static MySQLTools DB = MySQLTools.getInstance();
     private DataDomain data;
     /**
      * Initialize with a calls to DB
      */
     public Domain(int id_domain){
-        this.data = consultDomain(id_domain);
+        data = activeEmployee.consultDomain(id_domain);
     }
     
  
-    /**
-     * Call the DB and consult the information for the domain specified
-     * @param id_domain
-     * @return Full atributes of domain
+     /**
+     * Update the domain
      */
-    public DataDomain consultDomain(int id_domain){
-        return data; //Esto va fuera, hay que llamar a la DB
+    public void update(){
+        data=activeEmployee.consultDomain(getData().id_domain);
+    }
+    
+    /**
+     * Erase the domain
+     */
+    public void removeDomain(){
+        if (activeEmployee.hasLicence(801)){
+            DB.removeDomain(getData().id_domain);
+            data=null;
+        }
+    }
+
+    /**
+     * @return the data
+     */
+    public DataDomain getData() {
+        return data;
     }
 }
