@@ -6,17 +6,10 @@
 package sekegex;
 
 import DataType.*;
-import Utils.StatusTask;
-import Utils.TypeClient;
 import java.sql.Date;
 import java.sql.Time;
-import java.security.*;
-import java.util.Arrays;
 import java.util.Vector;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import org.apache.commons.codec.binary.Base64;
+
 
 /**
  *
@@ -38,58 +31,6 @@ public class User {
         DB = MySQLTools.getInstance();
     }
     
-    //Encrypting functions
-    
-    private static String encrypt(String text) {
- 
-        String secretKey = "97f8c8e8a2802a"; //llave para encriptar datos
-        String base64EncryptedString = "";
- 
-        try {
- 
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
-            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
- 
-            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
-            Cipher cipher = Cipher.getInstance("DESede");
-            cipher.init(Cipher.ENCRYPT_MODE, key);
- 
-            byte[] plainTextBytes = text.getBytes("utf-8");
-            byte[] buf = cipher.doFinal(plainTextBytes);
-            byte[] base64Bytes = Base64.encodeBase64(buf);
-            base64EncryptedString = new String(base64Bytes);
- 
-        } catch (Exception ex) {
-        }
-        return base64EncryptedString;
-}
-    
-    private static String toHexadecimal(byte[] digest){
-        String hash = "";
-        for(byte aux : digest) {
-            int b = aux & 0xff;
-            if (Integer.toHexString(b).length() == 1) hash += "0";
-            hash += Integer.toHexString(b);
-        }
-        return hash;
-    }
-    
-    public static String encryptSHA(String message){
-        byte[] digest = null;
-        byte[] buffer = message.getBytes();
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
-            messageDigest.reset();
-            messageDigest.update(buffer);
-            digest = messageDigest.digest();
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println("Error creando Digest");
-        }
-        return toHexadecimal(digest);
-    }
-
-    //END Encrypting functions
     
     public static User getInstance(){
         return instance;
@@ -101,7 +42,7 @@ public class User {
     */
     public boolean login(String dni, String pass){
         DataEmployee employee=DB.consultEmployee(dni);
-        if(encryptSHA(pass).equals(employee.password)){
+        if(employee.password!=null && MySQLTools.encryptSHA(pass).equals(employee.password)){
             active=true;
             this.dni=dni;
             id_employee=employee.id_employee;
@@ -166,10 +107,12 @@ public class User {
     /**
      * Insert new client in the table
      */
-    public void insertClient(TypeClient type, String name, String surname, String dni, String email){
+    public boolean insertClient(String type, String name, String surname, String dni, String email){
+        boolean res=false;
         if(licence.contains(300)){
-            //insertar cliente
+            res=DB.insertClient(type, name, surname, dni, email);
         }
+        return res;
     }
     
     /**
@@ -319,6 +262,16 @@ public class User {
      */
     
     public DataComment consultComment(int id_comment){
+        return null;
+    }
+    
+    /**
+     * Get the data of domain with id specified
+     * @param id_domain
+     * @return 
+     */
+    
+    public DataDomain consultDomain(int id_domain){
         return null;
     }
     
