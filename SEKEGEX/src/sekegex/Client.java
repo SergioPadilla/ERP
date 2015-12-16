@@ -5,8 +5,8 @@
  */
 package sekegex;
 import DataType.DataClient;
+import Utils.TypeClient;
 import java.util.Vector;
-import MySQL.MySQLTools;
 
 /**
  *
@@ -27,6 +27,26 @@ public class Client {
     
     public void update(){
         data=consultClient(data.id);
+    }
+    
+    /**
+     * Modify client with the params specified
+     */
+    public void modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
+        User U=User.getInstance();
+        if(U.hasLicence(302)){
+            //modificar cliente
+        }
+    }
+    
+    /**
+     * Remove client
+     */
+    public void removeClient(int id_client){
+        User U=User.getInstance();
+        if(U.hasLicence(301)){
+            //Borrar cliente
+        }
     }
     
     public Vector listServers(int id){  //Le pasamos el id del cliente 

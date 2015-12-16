@@ -9,7 +9,6 @@ import Utils.StatusTask;
 import DataType.DataTask;
 import java.sql.Date;
 import java.sql.Time;
-import MySQL.MySQLTools;
 
 
 /**
@@ -36,6 +35,20 @@ public class Task {
     
     public void update(){
         data=consultTask(data.id_task);
+    }
+    
+    /**
+     * Modify task
+     */
+    public void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
+        
+    }
+    
+    /**
+     * Erase task
+     */
+    public void eraseTask(int id_task){
+        
     }
     
 }

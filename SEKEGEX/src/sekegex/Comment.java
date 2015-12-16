@@ -33,4 +33,17 @@ public class Comment {
         data.text = text;
         //LLamar al método de PLSQLTools para modificar un comentario
     }
+    /**
+     * Modify Comment
+     */
+    public void modifyComment(int id_comment, int id_tarea, String comment){
+        
+    }
+    
+    /**
+     * Erase Comment
+     */
+    public void removeComment(int id_comment){
+        
+    }
 }

@@ -27,4 +27,12 @@ public class Bill {
         Vector v=null;
         return v;
     }
+    /**
+     * Modify bill
+     */
+    public void modifyBill(int id_bill, int amount, int id_client){
+    
+    }
+    
+    
 }

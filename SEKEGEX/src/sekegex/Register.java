@@ -6,7 +6,6 @@
 package sekegex;
 
 import DataType.DataRegisters;
-import MySQL.MySQLTools;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.*;
@@ -30,4 +29,19 @@ public class Register {
     public DataRegisters consultRegister(int id_register){
         return data;
     }
+    
+    /**
+     * Modify register
+     */
+    public void modifyRegister(int id_employee, Time time_worked, String description, Date date){
+        
+    }
+    
+    /**
+     * Erase register
+     */
+    public void removeRegister(int id_register){
+        
+    }
 }
+

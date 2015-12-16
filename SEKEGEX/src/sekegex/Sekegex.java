@@ -5,8 +5,9 @@
  */
 package sekegex;
 
-import MySQL.MySQLTools;
-import java.util.Scanner;
+import DataType.*;
+import java.util.*;
+
 
 /**
  *
@@ -24,18 +25,70 @@ public class Sekegex {
     public static void main(String[] args) {
         // TODO code application logic here
         User activeEmployee=User.getInstance();
+        MySQLTools DB=MySQLTools.getInstance();
         Scanner sc = new Scanner(System.in);
-        System.out.print("Dni: ");
-        String dni = sc.nextLine();
-        System.out.print("contraseña: ");
-        String pass = sc.nextLine();
-        while(!activeEmployee.login(dni, pass)){
-            System.out.println("Error de autentificación");
-            System.out.print("Dni: ");
-            dni = sc.nextLine();
-            System.out.print("contraseña: ");
-            pass = sc.nextLine();
-        }
+        String dni;
+        String pass;
+        String opc,opcC;
+        while(true){
+            while(!activeEmployee.isLogin()){
+                System.out.print("Dni: ");
+                dni = sc.nextLine();
+                System.out.print("contraseña: ");
+                pass = sc.nextLine();
+                if(!activeEmployee.login(dni, pass)){
+                    System.out.println("Error de autentificación");
+                }
+            }
+            System.out.println("opciones: \n "
+                    + "x-->desconectar\n"
+                    + "c-->Clientes");
+            System.out.print("opción: ");
+            opc = sc.nextLine();
+            if(opc.equals("x")){
+                activeEmployee.logOut();
+            }
+            if(opc.equals("c")){
+                Vector clients=DB.listClients();
+                for(int i=0; i<clients.size();i++){
+                    DataClient clienti=(DataClient)clients.elementAt(i);
+                    System.out.println(clienti.id+"-->"+clienti.name+" "+clienti.surname);
+                }
+                System.out.println("opciones de cliente: \n "
+                    + "i-->Insertar\n"
+                    + "m-->Modificar\n"
+                    + "v-->Ver cliente");
+                System.out.print("opción: ");
+                opcC = sc.nextLine();
+                if(opcC.equals("v")){
+                    System.out.print("Id: ");
+                    int Id = sc.nextInt();
+                    sc.nextLine();
+                    DataClient client=DB.consultClient(Id);
+                    System.out.println("Id: "+Id);
+                    System.out.println("Nombre: "+client.name);
+                    System.out.println("Apellidos: "+client.surname);
+                    System.out.println("nif: "+client.dni);
+                    System.out.println("email: "+client.email);
+                    System.out.println("fecha de alta: "+client.registration);
+                }else if(opcC.equals("m") || opcC.equals("i")){
+                    System.out.print("nombre: ");
+                    String name = sc.nextLine();
+                    System.out.print("apellidos: ");
+                    String surname = sc.nextLine();
+                    System.out.print("tipo: ");
+                    String type = sc.nextLine();
+                    System.out.print("nif: ");
+                    String nif = sc.nextLine();
+                    System.out.print("email: ");
+                    String email = sc.nextLine();
+                    
+                
+                }
+            }
+            opc=null;
+            opcC=null;
+       }
     }
     
 }

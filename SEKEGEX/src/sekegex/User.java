@@ -17,7 +17,6 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
-import MySQL.MySQLTools;
 
 /**
  *
@@ -168,36 +167,37 @@ public class User {
      * Insert new client in the table
      */
     public void insertClient(TypeClient type, String name, String surname, String dni, String email){
-        
+        if(licence.contains(300)){
+            //insertar cliente
+        }
     }
     
     /**
-     * Modify client with the params specified
+     * Get the data of the client with id specified
+     * @param id_client
+     * @return 
      */
-    public void modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
-        
+    public DataClient consultClient(int id_client){
+        DataClient res=null;
+        if(licence.contains(303)){
+            res=DB.consultClient(id_client);
+        }
+        return res;
     }
     
-    /**
-     * Remove client
-     */
-    public void removeClient(int id_client){
-        
+    public Vector listClients(){
+        Vector res=null;
+        if(licence.contains(303)){
+            res=DB.listClients();
+        }
+        return res;
     }
-    
     //"PRODUCTOS" table
     
     /**
      * Insert new product in the table
      */
     public void insertProduct(String name, String description, int amount){
-        
-    }
-    
-    /**
-     * Modify product
-     */
-    public void modifyProduct(int id_product, String name, String description, int amount){
         
     }
     
@@ -209,13 +209,6 @@ public class User {
         return new DataProduct(id_product,"","",1,1);
     }
     
-    /**
-     * Remove Product
-     */
-    public void removeProduct(int id_product){
-        
-    }
-    
     //"FACTURAS" table
     
     /**
@@ -225,13 +218,9 @@ public class User {
         
     }
     
-    /**
-     * Modify bill
-     */
-    public void modifyBill(int id_bill, int amount, int id_client){
-    
+    public DataBill consultBill(int id_client){
+        return null;
     }
-    
     
     //"SERVIDORES" table
     
@@ -242,19 +231,6 @@ public class User {
         
     }
     
-    /**
-     * Modify server
-     */
-    public void modifyServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
-        
-    }
-    
-    /**
-     * Erase server
-     */
-    public void removeServer(int id_server){
-        
-    }
     
     //"EMPLEADOS" table
     
@@ -262,20 +238,6 @@ public class User {
      * Insert new employee
      */
     public void insertEmployee(String dni, String name, String surname, int licence){
-        
-    }
-    
-    /**
-     * Modify employee
-     */
-    public void modifyEmployee(int id_employee, String dni, String name, String surname, int licence){
-        
-    }
-    
-    /**
-     * Erase employee
-     */
-    public void removeEmployee(int id_employee){
         
     }
     
@@ -288,20 +250,6 @@ public class User {
         
     }
     
-    /**
-     * Modify task
-     */
-    public void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
-        
-    }
-    
-    /**
-     * Erase task
-     */
-    public void eraseTask(int id_task){
-        
-    }
-    
     //"REGISTROS" table
     
     /**
@@ -309,20 +257,6 @@ public class User {
      */
     public void insertRegister(int id_employee, Time time_worked, String description, Date date){
         //description could be null
-    }
-    
-    /**
-     * Modify register
-     */
-    public void modifyRegister(int id_employee, Time time_worked, String description, Date date){
-        
-    }
-    
-    /**
-     * Erase register
-     */
-    public void removeRegister(int id_register){
-        
     }
     
     //"COMENTARIOS" table
@@ -334,17 +268,4 @@ public class User {
         
     }
     
-    /**
-     * Modify Comment
-     */
-    public void modifyComment(int id_comment, int id_tarea, String comment){
-        
-    }
-    
-    /**
-     * Erase Comment
-     */
-    public void removeComment(int id_comment){
-        
-    }
 }
