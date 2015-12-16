@@ -30,11 +30,11 @@ public class Domain {
     
     /**
      * Erase the comment
-     * @param id_comment 
      */
-    public void removeComment(int id_domain){
+    public void removeComment(){
         if (activeEmployee.hasLicence(801)){
-            DB.removeDomain(id_domain);
+            DB.removeDomain(data.id_domain);
+            data=null;
         }
     }
 }

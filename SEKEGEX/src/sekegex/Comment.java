@@ -18,6 +18,9 @@ public class Comment {
         data = activeEmployee.consultComment(id_comment);
     }
         
+     /**
+     * Update the comment
+     */
     public void update(){
         data=activeEmployee.consultComment(data.id_comment);
     }
@@ -26,17 +29,19 @@ public class Comment {
      * @param text 
      */
     public void modifyComment(String text){
-        if (activeEmployee.hasLicence(402)){
+        if (activeEmployee.hasLicence(202)){
             DB.modifyComment(data.id_comment, data.id_task, text);
+            update();
         } //consideramos que solo se puede modificar el texto no las id
     }
     
     /**
-     * Erase Comment
+     * Erase the comment
      */
-    public void removeComment(int id_comment){
-        if (activeEmployee.hasLicence(401)){
-            DB.removeComment(id_comment);
-        } //consideramos que solo se puede modificar el texto no las id
+    public void removeComment(){
+        if (activeEmployee.hasLicence(201)){
+            DB.removeComment(data.id_comment);
+            data=null;
+        }
     }
 }

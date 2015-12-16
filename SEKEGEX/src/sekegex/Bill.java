@@ -30,23 +30,23 @@ public class Bill {
         return v;
     }
     /**
-     * Change the amount and the id_client of the bill
-     * @param id_client
+     * Change the amount of the bill
      * @param amount
-     * @param id_client 
      */
-    public void modifyBill(int amount, int id_client){
+    public void modifyBill(int amount){
         if(activeEmployee.hasLicence(402)){
-            DB.modifyBill(data.id_bill, amount, id_client);
+            DB.modifyBill(data.id_bill, amount, data.id_client);
+            update();
         }
     }
+    
      /**
      * Erase the comment
-     * @param id_comment 
      */
-    public void removeBill(int id_comment){
+    public void removeBill(){
         if (activeEmployee.hasLicence(401)){
-            DB.removeBill(id_comment);
+            DB.removeBill(data.id_bill);
+            data=null;
         }
     }
 }
