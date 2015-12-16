@@ -19,10 +19,10 @@ Licences format:
     List and Consult Client   --> 303
 
   Bilds:
-    Create Bilds              --> 400
-    Delete Bilds              --> 401
-    Modify Bilds              --> 402
-    List and Consult Bilds    --> 403
+    Create Bill               --> 400
+    Delete Bill               --> 401
+    Modify Bill               --> 402
+    List and Consult Bill     --> 403
 
   Products:
     Create Products           --> 500
@@ -30,11 +30,11 @@ Licences format:
     Modify Products           --> 502
     List and Consult Products --> 503
 
-  Builds:
-    Create Builds             --> 600
-    Delete Builds             --> 601
-    Modify Builds             --> 602
-    List and Consult Builds   --> 803
+  Purchase:
+    Create Purchase             --> 600
+    Delete Purchase             --> 601
+    Modify Purchase             --> 602
+    List and Consult Purchase   --> 803
   
   Servers:
     Create Servers            --> 700
