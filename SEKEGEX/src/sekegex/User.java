@@ -218,7 +218,13 @@ public class User {
         
     }
     
-    public DataBill consultBill(int id_client){
+    /**
+     * Get the data of bill with id specified
+     * @param id_bill
+     * @return 
+     */
+    
+    public DataBill consultBill(int id_bill){
         return null;
     }
     
@@ -231,6 +237,16 @@ public class User {
         
     }
     
+    /**
+     * Get the data of server with id specified
+     * @param id_server
+     * @return 
+     */
+    
+    public DataServer consultServer(int id_server){
+        return null;
+    }
+    
     
     //"EMPLEADOS" table
     
@@ -240,6 +256,15 @@ public class User {
     public void insertEmployee(String dni, String name, String surname, int licence){
         
     }
+    /**
+     * Get the data of employee with id specified
+     * @param id_employee
+     * @return 
+     */
+    
+    public DataEmployee consultEmployee(int id_employee){
+        return null;
+    }
     
     //"TAREAS" table
     
@@ -248,6 +273,15 @@ public class User {
      */
     public void insertTask(String title, String description, int hour, int minutes){
         
+    }
+    /**
+     * Get the data of task with id specified
+     * @param id_task
+     * @return 
+     */
+    
+    public DataTask consultTask(int id_task){
+        return null;
     }
     
     //"REGISTROS" table
@@ -259,6 +293,16 @@ public class User {
         //description could be null
     }
     
+     /**
+     * Get the data of register with id specified
+     * @param id_register
+     * @return 
+     */
+    
+    public DataRegisters consultRegister(int id_register){
+        return null;
+    }
+    
     //"COMENTARIOS" table
     
     /**
@@ -266,6 +310,16 @@ public class User {
      */
     public void insertComment(int id_tarea, String comment){
         
+    }
+    
+    /**
+     * Get the data of comment with id specified
+     * @param id_comment
+     * @return 
+     */
+    
+    public DataComment consultComment(int id_comment){
+        return null;
     }
     
 }
