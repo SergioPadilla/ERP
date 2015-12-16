@@ -21,10 +21,10 @@ public class Employee {
     }
     
      /**
-     * Update the comment
+     * Update Employe
      */
     public void update(){
-        data=activeEmployee.consultEmployee(data.id_employee);
+        data=activeEmployee.consultEmployee(getData().id_employee);
     }
     
     /**
@@ -33,7 +33,7 @@ public class Employee {
      */
     public void modifyDni(String dni){
         if (activeEmployee.hasLicence(902)){
-            data.dni = dni;
+            DB.modifyEmployee(getData().id_employee,getData().dni, getData().name, getData().surname, getData().role);
             update();
         }
     }    
@@ -43,7 +43,7 @@ public class Employee {
      */
     public void modifyName(String name){
         if (activeEmployee.hasLicence(902)){
-            DB.modifyEmployee(data.id_employee,data.dni, name, data.surname, data.role);
+            DB.modifyEmployee(getData().id_employee,getData().dni, name, getData().surname, getData().role);
             update();
         }
     }        
@@ -53,7 +53,7 @@ public class Employee {
      */
     public void modifySurname(String surname){
         if (activeEmployee.hasLicence(902)){
-            DB.modifyEmployee(data.id_employee,data.dni, data.name, surname, data.role);
+            DB.modifyEmployee(getData().id_employee,getData().dni, getData().name, surname, getData().role);
             update();
         }
     }
@@ -63,16 +63,20 @@ public class Employee {
      */
     public void modifyRole(int licence){
         if (activeEmployee.hasLicence(902)){
-            DB.modifyEmployee(data.id_employee,data.dni, data.name, data.surname, licence);
+            DB.modifyEmployee(getData().id_employee,getData().dni, getData().name, getData().surname, licence);
             update();
         }
     }
     /**
      * Modify employee
+     * @param dni
+     * @param name
+     * @param surname
+     * @paran license
      */
-    public void modifyEmployee(String name, String surname, int licence){
+    public void modifyEmployee(String dni, String name,String surname, int licence){
         if (activeEmployee.hasLicence(902)){
-            DB.modifyEmployee(data.id_employee,data.dni, name, surname, licence);
+            DB.modifyEmployee(getData().id_employee,dni, name, surname, licence);
             update();
         }
     }
@@ -82,8 +86,15 @@ public class Employee {
      */
     public void removeEmployee(int id_employee){
         if (activeEmployee.hasLicence(901)){
-            DB.removeEmployee(data.id_employee);
+            DB.removeEmployee(getData().id_employee);
             data=null;
         }        
+    }
+
+    /**
+     * @return the data
+     */
+    public DataEmployee getData() {
+        return data;
     }
 }

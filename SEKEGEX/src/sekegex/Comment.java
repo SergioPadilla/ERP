@@ -22,7 +22,7 @@ public class Comment {
      * Update the comment
      */
     public void update(){
-        data=activeEmployee.consultComment(data.id_comment);
+        data=activeEmployee.consultComment(getData().id_comment);
     }
     /**
      * Change the text of the comment
@@ -30,7 +30,7 @@ public class Comment {
      */
     public void modifyComment(String text){
         if (activeEmployee.hasLicence(202)){
-            DB.modifyComment(data.id_comment, data.id_task, text);
+            DB.modifyComment(getData().id_comment, getData().id_task, text);
             update();
         } //consideramos que solo se puede modificar el texto no las id
     }
@@ -40,8 +40,15 @@ public class Comment {
      */
     public void removeComment(){
         if (activeEmployee.hasLicence(201)){
-            DB.removeComment(data.id_comment);
+            DB.removeComment(getData().id_comment);
             data=null;
         }
+    }
+
+    /**
+     * @return the data
+     */
+    public DataComment getData() {
+        return data;
     }
 }

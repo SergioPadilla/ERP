@@ -22,19 +22,26 @@ public class Domain {
     
  
      /**
-     * Update the comment
+     * Update the domain
      */
     public void update(){
-        data=activeEmployee.consultDomain(data.id_domain);
+        data=activeEmployee.consultDomain(getData().id_domain);
     }
     
     /**
-     * Erase the comment
+     * Erase the domain
      */
-    public void removeComment(){
+    public void removeDomain(){
         if (activeEmployee.hasLicence(801)){
-            DB.removeDomain(data.id_domain);
+            DB.removeDomain(getData().id_domain);
             data=null;
         }
+    }
+
+    /**
+     * @return the data
+     */
+    public DataDomain getData() {
+        return data;
     }
 }

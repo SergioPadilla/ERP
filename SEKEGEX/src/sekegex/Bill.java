@@ -21,8 +21,11 @@ public class Bill {
         data = activeEmployee.consultBill(id_bill);
     }
     
+     /**
+     * Update Bill
+     */
     public void update(){
-        data=activeEmployee.consultBill(data.id_bill);
+        data=activeEmployee.consultBill(getData().id_bill);
     }
     
     public Vector listProducts(){
@@ -35,18 +38,25 @@ public class Bill {
      */
     public void modifyBill(int amount){
         if(activeEmployee.hasLicence(402)){
-            DB.modifyBill(data.id_bill, amount, data.id_client);
+            DB.modifyBill(getData().id_bill, amount, getData().id_client);
             update();
         }
     }
     
      /**
-     * Erase the comment
+     * Erase the Bill
      */
     public void removeBill(){
         if (activeEmployee.hasLicence(401)){
-            DB.removeBill(data.id_bill);
+            DB.removeBill(getData().id_bill);
             data=null;
         }
+    }
+
+    /**
+     * @return the data
+     */
+    public DataBill getData() {
+        return data;
     }
 }
