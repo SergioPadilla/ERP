@@ -783,7 +783,7 @@ public class MySQLTools {
     /**
      * Erase task
      */
-    protected void eraseTask(int id_task){
+    protected void removeTask(int id_task){
         
     }
     

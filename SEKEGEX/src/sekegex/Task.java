@@ -26,7 +26,7 @@ public class Task {
     }
         
     public void update(){
-        data=DB.consultTask(data.id_task);
+        data=DB.consultTask(getData().id_task);
     }
     
     /**
@@ -39,7 +39,7 @@ public class Task {
      */
     public void modifyTask(String title, String description, Time time_estimated, Date due_date, StatusTask status){
         if (activeEmployee.hasLicence(102)){
-            DB.modifyTask(data.id_task, title, description, time_estimated, due_date, data.id_task_father, data.id_employee, status);
+            DB.modifyTask(getData().id_task, title, description, time_estimated, due_date, getData().id_task_father, getData().id_employee, status);
         }
     }
     
@@ -48,9 +48,16 @@ public class Task {
      */
     public void eraseTask(){
         if (activeEmployee.hasLicence(201)){
-            DB.removeTask(data.id_task);
+            DB.eraseTask(getData().id_task);
         }
 
+    }
+
+    /**
+     * @return the data
+     */
+    public DataTask getData() {
+        return data;
     }
     
 }
