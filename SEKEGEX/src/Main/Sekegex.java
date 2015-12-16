@@ -6,9 +6,10 @@
 package Main;
 
 import DataType.*;
+import Utils.TypeClient;
 import java.util.*;
-import sekegex.MySQLTools;
-import sekegex.User;
+import sekegex.*;
+
 
 
 /**
@@ -62,14 +63,16 @@ public class Sekegex {
                 System.out.println("opciones de cliente: \n "
                     + "i-->Insertar\n"
                     + "m-->Modificar\n"
-                    + "v-->Ver cliente");
+                    + "v-->Ver cliente\n"
+                    + "b-->Borrar cliente");
                 System.out.print("opción: ");
                 opcC = sc.nextLine();
                 if(opcC.equals("v")){
                     System.out.print("Id: ");
                     int Id = sc.nextInt();
                     sc.nextLine();
-                    DataClient client=activeEmployee.consultClient(Id);
+                    Client clientO= new Client(Id);
+                    DataClient client=clientO.getData();
                     if(client==null){
                         System.out.println("No tienes los permisos suficientes");
                     }else{
@@ -77,21 +80,60 @@ public class Sekegex {
                         System.out.println("Nombre: "+client.name);
                         System.out.println("Apellidos: "+client.surname);
                         System.out.println("nif: "+client.dni);
+                        if(client.type==TypeClient.BUSINESS){
+                            System.out.println("tipo: Empresa");
+                        }else{
+                            System.out.println("tipo: Particular");
+                        }
                         System.out.println("email: "+client.email);
                         System.out.println("fecha de alta: "+client.registration);
+                        System.out.println("--->Lista de servidores<---" );
+                        Vector servers=clientO.listServers();
+                        if(servers==null){
+                            System.out.println("no tiene servidores");
+                        }else{
+                            for(int i=0; i<servers.size();i++){
+                                DataServer serveri=(DataServer)servers.elementAt(i);
+                                System.out.println(serveri.id_server+"-->"+serveri.name);
+                            }
+                        }
+                        System.out.println("--->Lista de facturas<---" );
                     }
                 }else if(opcC.equals("m") || opcC.equals("i")){
+                    int Id=0;
+                    if(opcC.equals("m")){
+                        System.out.print("Id: ");
+                        Id = sc.nextInt();
+                        sc.nextLine();
+                    }
                     System.out.print("nombre: ");
                     String name = sc.nextLine();
                     System.out.print("apellidos: ");
                     String surname = sc.nextLine();
-                    System.out.print("tipo: ");
-                    String type = sc.nextLine();
+                    System.out.print("tipo: 1-->Empresa, 2-->particular ");
+                    int type = sc.nextInt();
+                    sc.nextLine();
                     System.out.print("nif: ");
                     String nif = sc.nextLine();
                     System.out.print("email: ");
                     String email = sc.nextLine();
-                    
+                    if(opcC.equals("m")){
+                        Client ClientO= new Client(Id);
+                        if(type==1){
+                            ClientO.modifyClient("BUSINESS", name, surname, nif, email);
+                        }if(type==2){
+                            ClientO.modifyClient("FREELANCE", name, surname, nif, email);
+                        }else{
+                            ClientO.modifyClient("", name, surname, nif, email);
+                        }
+
+                    }else{
+                        if(type==1){
+                            activeEmployee.insertClient("BUSINESS", name, surname, nif, email);
+                        }else{
+                            activeEmployee.insertClient("FREELANCE", name, surname, nif, email);
+                        }
+                    }
                 
                 }
             }

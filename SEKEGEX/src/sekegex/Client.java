@@ -19,19 +19,23 @@ public class Client {
     private DataClient data;
     
     public Client(int id){
-        data = DB.consultClient(id);
+        data = activeEmployee.consultClient(id);
+    }
+    
+    public DataClient getData(){
+        return data;
     }
     
     public void update(){
-        data=DB.consultClient(data.id);
+        data=activeEmployee.consultClient(data.id);
     }
     
     /**
      * Modify client with the params specified
      */
-    public void modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
+    public void modifyClient(String type, String name, String surname, String dni, String email){
         if(activeEmployee.hasLicence(302)){
-            //modificar cliente
+            DB.modifyClient(data.id, type, name, surname, dni, email);
         }
     }
     
@@ -44,13 +48,19 @@ public class Client {
         }
     }
     
-    public Vector listServers(int id){  //Le pasamos el id del cliente 
-                                        //que tiene asociado a los servidores        
-        return DB.listServers(id); 
+    public Vector listServers(){
+        Vector res=null;
+        if(activeEmployee.hasLicence(702)){
+           res= DB.listServers(data.id);
+        }
+        return res;
     }
     
-    public Vector listBills(int id){
-        
-        return DB.listBills(id);
+    public Vector listBills(){
+        Vector res=null;
+        if(activeEmployee.hasLicence(403)){
+           res= DB.listBills(data.id);
+        }
+        return res;
     }
 }

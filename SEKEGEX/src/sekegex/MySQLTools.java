@@ -9,8 +9,15 @@ import DataType.*;
 import Utils.TypeClient;
 import java.sql.Date;
 import Utils.StatusTask;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.Vector;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import org.apache.commons.codec.binary.Base64;
 /**
  *
  * @author Sergio
@@ -30,6 +37,82 @@ public class MySQLTools {
     public static MySQLTools getInstance(){
         return instance;
     }
+    //Encrypting functions
+    
+    private static String encrypt(String text) {
+ 
+        String secretKey = "97f8c8e8a2802a"; //llave para encriptar datos
+        String base64EncryptedString = "";
+ 
+        try {
+ 
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+ 
+            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+            Cipher cipher = Cipher.getInstance("DESede");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+ 
+            byte[] plainTextBytes = text.getBytes("utf-8");
+            byte[] buf = cipher.doFinal(plainTextBytes);
+            byte[] base64Bytes = Base64.encodeBase64(buf);
+            base64EncryptedString = new String(base64Bytes);
+ 
+        } catch (Exception ex) {
+        }
+        return base64EncryptedString;
+}
+    
+    private static String decrypt(String textEncrypted) throws Exception {
+ 
+        String secretKey = "97f8c8e8a2802a"; 
+        String base64EncryptedString = "";
+ 
+        try {
+            byte[] message = Base64.decodeBase64(textEncrypted.getBytes("utf-8"));
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+ 
+            Cipher decipher = Cipher.getInstance("DESede");
+            decipher.init(Cipher.DECRYPT_MODE, key);
+ 
+            byte[] plainText = decipher.doFinal(message);
+ 
+            base64EncryptedString = new String(plainText, "UTF-8");
+ 
+        } catch (Exception ex) {
+        }
+        return base64EncryptedString;
+}
+    
+    private static String toHexadecimal(byte[] digest){
+        String hash = "";
+        for(byte aux : digest) {
+            int b = aux & 0xff;
+            if (Integer.toHexString(b).length() == 1) hash += "0";
+            hash += Integer.toHexString(b);
+        }
+        return hash;
+    }
+    
+    public static String encryptSHA(String message){
+        byte[] digest = null;
+        byte[] buffer = message.getBytes();
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+            messageDigest.reset();
+            messageDigest.update(buffer);
+            digest = messageDigest.digest();
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println("Error creando Digest");
+        }
+        return toHexadecimal(digest);
+    }
+
+    //END Encrypting functions
     
     public static void install(){
         Connection con = null;
@@ -60,11 +143,82 @@ public class MySQLTools {
            stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT REFERENCES tareas (id_tarea))");
            stmt.executeUpdate(); 
            stmt = con.prepareStatement("CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))");
-           stmt.executeUpdate(); 
-           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,1)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,100)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,101)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,102)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,103)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,200)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,201)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,202)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,203)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,300)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,301)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,302)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,303)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,400)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,401)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,402)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,403)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,500)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,501)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,502)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,503)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,600)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,601)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,602)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,603)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,700)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,701)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,702)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,703)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,800)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,801)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,802)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,803)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,900)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,901)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,902)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,903)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("INSERT INTO empleados (id_empleado , dni,  nombre, password, apellidos, rol) VALUES (NULL,'root','Admin','cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e','',1)");
            stmt.executeUpdate();
+           
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " 
@@ -91,7 +245,7 @@ public class MySQLTools {
     /**
      * Insert new client in the table
      */
-    boolean insertClient(TypeClient type, String name, String surname, String dni, String email){
+    boolean insertClient(String type, String name, String surname, String dni, String email){
         Connection con = null;
         PreparedStatement stmt = null;
         boolean res=false;
@@ -99,9 +253,9 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();    
            con = DriverManager.getConnection(sURL,user,pass);
            
-           stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellido, nif, email) VALUES(?,?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellido, nif, email,fecha_alta) VALUES(?,?,?,?,?,UTC_TIMESTAMP());");
            
-           stmt.setObject(1, type);
+           stmt.setString(1, type);
            stmt.setString(2, name);
            stmt.setString(3, surname);
            stmt.setString(4, dni);
@@ -131,7 +285,7 @@ public class MySQLTools {
     /**
      * Modify client with the params specified
      */
-     boolean modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
+     boolean modifyClient(int id_client, String type, String name, String surname, String dni, String email){
         Connection con = null;
         PreparedStatement stmt = null;
         boolean res=false;
@@ -139,15 +293,45 @@ public class MySQLTools {
         try{
            Class.forName(sDriver).newInstance();    
            con = DriverManager.getConnection(sURL,user,pass);
+           String query="UPDATE clientes SET ";
+           boolean first=true;
            
-           stmt = con.prepareStatement("UPDATE clientes SET tipo = ? nombre = ? apellido = ? nif = ? email = ? WHERE id_cliente = ?");
+           if(!type.equals("")){
+               query +="tipo='"+type+"'";
+               first=false;
+           }
+           if(!name.equals("")){
+               if(!first){
+                   query +=",";
+               }
+               query +="nombre='"+name+"'";
+               first=false;
+           }
+           if(!surname.equals("")){
+               if(!first){
+                   query +=",";
+               }
+               query +="apellidos='"+surname+"'";
+               first=false;
+           }
+           if(!dni.equals("")){
+               if(!first){
+                   query +=",";
+               }
+               query +="nif='"+dni+"'";
+               first=false;
+           }
+           if(!email.equals("")){
+               if(!first){
+                   query +=",";
+               }
+               query +="email='"+email+"'";
+               first=false;
+           }
+           query +=" WHERE id_cliente="+id_client;
            
-           stmt.setObject(1, type);
-           stmt.setString(2,name);
-           stmt.setString(3,surname);
-           stmt.setString(4, dni);
-           stmt.setString(5, email);
-           stmt.setInt(6,id_client);
+           //"UPDATE clientes SET tipo = ? nombre = ? apellido = ? nif = ? email = ? WHERE id_cliente = ?"
+           stmt = con.prepareStatement(query);
            
            res=stmt.execute();
 
@@ -604,7 +788,53 @@ public class MySQLTools {
      * @return List with the servers for the client with id specified
      */
     public Vector listServers(int id_client){
-        return new Vector();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector res=new Vector();
+        int id_server;
+        String name;
+        String ip;
+        String user_ftp;
+        String pass_ftp;
+        String user_host;
+        String pass_host;
+
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM servidores WHERE id_cliente="+id_client);
+            
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            
+             while (rs.next()){
+                id_server=rs.getInt("id_servidor");
+                name=rs.getString("nombre");
+                ip=rs.getString("ruta_de_acceso");
+                user_ftp=rs.getString("usuario_ftp");
+                pass_ftp=decrypt(rs.getString("password_ftp"));
+                user_host=rs.getString("usuario_host");
+                pass_host=decrypt(rs.getString("password_host"));
+                res.addElement(new DataServer(id_server,id_client,name,ip,user_ftp, pass_ftp,user_host,pass_host));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
     }
     
    
@@ -713,15 +943,15 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
         int id_employee = -1;
-        String name = "";
-        String surname = "";
+        String name = null;
+        String surname = null;
         int role = -1;
-        String password = "";
+        String password = null;
 
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM empleados WHERE dni='root'");
+            stmt = con.prepareStatement("SELECT * FROM empleados WHERE dni='"+dni+"'");
             ResultSet rs = stmt.executeQuery();
             if(rs.next()){
                 id_employee=rs.getInt("id_empleado");
