@@ -1,57 +1,49 @@
 Licences format:
 
   Task:
-    Create Task       --> 100
-    Delete Task       --> 101
-    Modify Task       --> 102
-    Consult Task      --> 103
-    list Task         --> 104
-  
+    Create Task               --> 100
+    Delete Task               --> 101
+    Modify Task               --> 102
+    List and Consult Task     --> 103
+
   Comments:
-    Create Comments   --> 200
-    Delete Comments   --> 201
-    Modify Comments   --> 202
-    Consult Comments  --> 203
-    list Comments     --> 104
-    
+    Create Comments           --> 200
+    Delete Comments           --> 201
+    Modify Comments           --> 202
+    List and Consult Comments --> 203
+
   Client:
-    Create Client     --> 300
-    Delete Client     --> 301
-    Modify Client     --> 302
-    Consult Client    --> 303
-    list Client       --> 304
+    Create Client             --> 300
+    Delete Client             --> 301
+    Modify Client             --> 302
+    List and Consult Client   --> 303
 
   Bilds:
-    Create Bilds      --> 400
-    Delete Bilds      --> 401
-    Modify Bilds      --> 402
-    Consult Bilds     --> 403
-    list Bilds        --> 404
-  
+    Create Bilds              --> 400
+    Delete Bilds              --> 401
+    Modify Bilds              --> 402
+    List and Consult Bilds    --> 403
+
   Products:
-    Create Products   --> 500
-    Delete Products   --> 501
-    Modify Products   --> 502
-    Consult Products  --> 503
-    list Products     --> 504 
-    
+    Create Products           --> 500
+    Delete Products           --> 501
+    Modify Products           --> 502
+    List and Consult Products --> 503
+
   Builds:
-    Create Builds    --> 600
-    Delete Builds    --> 601
-    Modify Builds    --> 602
-    Consult Builds   --> 603
-    list Builds      --> 604
+    Create Builds             --> 600
+    Delete Builds             --> 601
+    Modify Builds             --> 602
+    List and Consult Builds   --> 803
   
   Servers:
-    Create Servers    --> 700
-    Delete Servers    --> 701
-    Modify Servers    --> 702
-    Consult Servers   --> 703
-    list Servers      --> 704
+    Create Servers            --> 700
+    Delete Servers            --> 701
+    Modify Servers            --> 702
+    List and Consult Servers  --> 803
     
   Domains:
-    Create Domains    --> 800
-    Delete Domains    --> 801
-    Modify Domains    --> 802
-    Consult Domains   --> 803
-    list Domains      --> 804
+    Create Domains            --> 800
+    Delete Domains            --> 801
+    Modify Domains            --> 802
+    List and Consult Domains  --> 803
