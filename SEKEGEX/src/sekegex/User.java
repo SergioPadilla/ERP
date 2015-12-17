@@ -29,6 +29,7 @@ public class User {
     private User(){
         active=false;
         DB = MySQLTools.getInstance();
+        licence=new Vector();
     }
     
     
@@ -157,7 +158,16 @@ public class User {
     /**
      * Insert new bill in the table
      */
-    public void insertBill(int id_client){
+    public void insertBill(int id_client,Vector products){
+        //disparador 1
+        if(licence.contains(303)){
+            System.out.println("entra");
+            int Id_db=0;
+            Id_db=DB.insertBill(id_client);
+            for(int i=0;i<products.size();i++){
+                DB.insertPurchase(Id_db,(int) products.elementAt(i));
+            }
+        }
         
     }
     
