@@ -64,7 +64,7 @@ public class Sekegex {
                     + "i-->Insertar\n"
                     + "m-->Modificar\n"
                     + "v-->Ver cliente\n"
-                    + "b-->Borrar cliente");
+                    + "b-->Borrar cliente (no implementado)");
                 System.out.print("opción: ");
                 opcC = sc.nextLine();
                 if(opcC.equals("v")){
@@ -90,7 +90,7 @@ public class Sekegex {
                         System.out.println("--->Lista de servidores<---" );
                         Vector servers=clientO.listServers();
                         if(servers==null){
-                            System.out.println("no tiene servidores");
+                            System.out.println("no tiene permiso");
                         }else{
                             for(int i=0; i<servers.size();i++){
                                 DataServer serveri=(DataServer)servers.elementAt(i);
@@ -98,6 +98,16 @@ public class Sekegex {
                             }
                         }
                         System.out.println("--->Lista de facturas<---" );
+                        Vector bills=clientO.listBills();
+                        System.out.println("Crear factura" );
+                        if(bills==null){
+                            System.out.println("no tiene permiso");
+                        }else{
+                            for(int i=0; i<bills.size();i++){
+                                DataBill billi=(DataBill)bills.elementAt(i);
+                                System.out.println(billi.id_bill+"-->"+billi.date);
+                            }
+                        }
                     }
                 }else if(opcC.equals("m") || opcC.equals("i")){
                     int Id=0;
