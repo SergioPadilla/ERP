@@ -126,7 +126,7 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE productos (id_producto INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE facturas (id_factura INT NOT NULL PRIMARY KEY AUTO_INCREMENT, fecha DATETIME, id_cliente INT REFERENCES clientes (id_cliente), importe FLOAT)");
+           stmt = con.prepareStatement("CREATE TABLE facturas (id_factura INT NOT NULL PRIMARY KEY AUTO_INCREMENT, fecha DATETIME, id_cliente INT REFERENCES clientes (id_cliente))");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE compras (id_producto INT REFERENCES productos (id_producto), id_factura INT REFERENCES facturas (id_factura),precio FLOAT, PRIMARY KEY(id_producto,id_factura))");
            stmt.executeUpdate();
@@ -411,7 +411,43 @@ public class MySQLTools {
      * @return List of bills of the cliente specified by id
      */
     public Vector listBills(int id_client){
-        return new Vector();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector res=new Vector();
+        int id_bill;
+        Date date;
+
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM facturas WHERE id_cliente="+id_client);
+            
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            
+             while (rs.next()) {
+                id_bill=rs.getInt("id_factura");
+                date=rs.getDate("fecha_alta");
+                res.addElement(new DataBill(id_bill,id_client,date));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
     }
     
     /**
@@ -561,7 +597,45 @@ public class MySQLTools {
      * @return Object with the data of a product
      */
     public DataProduct consultProduct(int id_product){
-        return new DataProduct(id_product,"","",1,1);
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String name=null;
+        String description=null;
+        float amount=0;
+        int nSold=0;
+
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM productos WHERE id_producto='"+id_product+"'");
+            
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            
+             if (rs.next()) {
+                name=rs.getString("nombre");;
+                description=rs.getString("descripcion");
+                amount=rs.getFloat("importe");
+                nSold=rs.getInt("ventas");;
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return new DataProduct(id_product,name,description,amount,nSold);
+        }
     }
     
     /**
@@ -576,20 +650,25 @@ public class MySQLTools {
     /**
      * Insert new bill in the table
      */
-     void insertBill(int id_client){
+     int insertBill(int id_client){
         Connection con = null;
         PreparedStatement stmt = null;
-
+        int Id=0;
         try{
            Class.forName(sDriver).newInstance();    
            con = DriverManager.getConnection(sURL,user,pass);
-           
-           stmt = con.prepareStatement("INSERT INTO facturas (id_cliente) VALUES(?);");
+           String[] returnId = { "BATCHID" };
+           stmt = con.prepareStatement("INSERT INTO facturas (id_cliente,fecha) VALUES(?,UTC_TIMESTAMP());",returnId);
            
            stmt.setInt(1, id_client);
            
            stmt.executeUpdate();
-
+           try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    Id=rs.getInt(1);
+                }
+                rs.close();
+           }
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -605,6 +684,7 @@ public class MySQLTools {
                  e.printStackTrace();
               }
            }
+           return Id;
         }
     }
     
@@ -664,13 +744,15 @@ public class MySQLTools {
         try{
            Class.forName(sDriver).newInstance();    
            con = DriverManager.getConnection(sURL,user,pass);
-           
-           stmt = con.prepareStatement("INSERT INTO compras (id_factura, id_producto) VALUES(?,?);");
+           DataProduct P=consultProduct(id_product);
+           stmt = con.prepareStatement("INSERT INTO compras (id_factura, id_producto,precio) VALUES(?,?,"+P.amount+");");
            
            stmt.setInt(1, id_bill);
            stmt.setInt(2, id_product);
            
            stmt.executeUpdate();
+           
+            
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
