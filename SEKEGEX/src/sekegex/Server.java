@@ -37,8 +37,7 @@ public class Server {
      * List domains of this server
      */   
     public Vector listDomains(){
-     //   return DB.listDomains(getData().id_server);
-     return null;
+        return DB.lisDomains(getData().id_server);
     }
      /**
      * Modify server

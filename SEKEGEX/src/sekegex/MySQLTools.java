@@ -476,7 +476,7 @@ public class MySQLTools {
     /**
      * Insert new product in the table
      */
-     void insertProduct(String name, String description, int amount){
+     void insertProduct(String name, String description, float amount){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -488,7 +488,7 @@ public class MySQLTools {
            
            stmt.setString(1, name);
            stmt.setString(2, description);
-           stmt.setInt(3, amount);
+           stmt.setFloat(3, amount);
            
            stmt.executeUpdate();
 
@@ -513,7 +513,7 @@ public class MySQLTools {
     /**
      * Modify product
      */
-     void modifyProduct(int id_product, String name, String description, int amount){
+     void modifyProduct(int id_product, String name, String description, float amount){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -525,7 +525,7 @@ public class MySQLTools {
            
            stmt.setString(1,name);
            stmt.setString(2,description);
-           stmt.setInt(3, amount);
+           stmt.setFloat(3, amount);
            stmt.setInt(4,id_product);
            
            stmt.executeUpdate();
@@ -611,7 +611,7 @@ public class MySQLTools {
     /**
      * Modify bill
      */
-     void modifyBill(int id_bill, int amount, int id_client){
+     void modifyBill(int id_bill, float amount, int id_client){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -622,7 +622,7 @@ public class MySQLTools {
            stmt = con.prepareStatement("UPDATE facturas SET id_cliente = ? importe = ? WHERE id_factura = ?");
            
            stmt.setInt(1, id_client);
-           stmt.setInt(2,amount);
+           stmt.setFloat(2,amount);
            stmt.setInt(3,id_bill);
            
            stmt.executeUpdate();
@@ -987,12 +987,44 @@ public class MySQLTools {
      * @return 
      */
     public DataEmployee consultEmployee(int id_employee){
-        
-        String dni = "";
-        String name = "";
-        String surname = "";
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String name = null;
+        String surname = null;
         int role = -1;
-        String password = "";
+        String password = null;
+        String dni = null;
+        
+       try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM empleados WHERE id_empleado='"+id_employee+"'");
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                dni=rs.getString("dni");
+                name=rs.getString("nombre");
+                surname=rs.getString("apellidos");
+                role=rs.getInt("rol");
+                password=rs.getString("password");
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+        }
+ 
         
         return new DataEmployee(id_employee, name, dni, password, surname, role);
     }
@@ -1084,13 +1116,48 @@ public class MySQLTools {
      * @return 
      */
     public DataTask consultTask(int id_task){
-        String title = "";
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String title = null;
         Date due_date = new Date(1,1,1);
         int id_task_father = -1;
         Time time_estimated = new Time(1,1,1);
         int id_employee = -1;
         StatusTask status = StatusTask.TO_DO;
-        String description = "";
+        String description = null;
+        
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM empleados WHERE id_tarea='"+id_task+"'");
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                title=rs.getString("titulo");
+                due_date=rs.getDate("fecha");
+                id_task_father=rs.getInt("id_tatea_padre");
+                time_estimated=rs.getTime("horas_estimadas");
+                id_employee=rs.getInt("empleado_asignado");
+                status=StatusTask.valueOf(rs.getString("estado"));
+                description=rs.getString("descripcion");
+
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+        }
         
         return new DataTask(id_task, title, due_date, id_task_father, time_estimated, id_employee, status, description);
     }
@@ -1399,6 +1466,50 @@ public class MySQLTools {
                  e.printStackTrace();
               }
            }
+        }
+    }
+     /**
+     * list domain 
+     * @param id_server
+     */
+    Vector lisDomains(int id_server){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int id_domain=-1;   
+        String name=null;
+        Vector res=new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM dominios WHERE id_servidor='"+id_server+"'");
+
+            
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            
+             while (rs.next()) {
+                id_domain=rs.getInt("id_dominio");
+                name=rs.getString("web");
+                res.addElement(new DataDomain(id_server,id_domain,name));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
         }
     }
     
