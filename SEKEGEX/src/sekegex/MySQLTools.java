@@ -460,32 +460,28 @@ public class MySQLTools {
     Vector listClients(){
         Connection con = null;
         PreparedStatement stmt = null;
-        int id_client=0;
-        TypeClient type=null;
+        int id_product=-1;
         String name=null;
-        String surname=null;
-        String nif=null;
-        String email=null;
-        Date date=null;
+        String description=null;
+        float amount=0;
+        int nSold=-1;
         Vector res=new Vector();
 
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM clientes");
+            stmt = con.prepareStatement("SELECT * FROM productos");
             
             ResultSet rs;
             rs = stmt.executeQuery();
             
              while (rs.next()) {
-                id_client=rs.getInt("id_cliente");
-                type=TypeClient.valueOf(rs.getString("tipo"));
+                id_product=rs.getInt("id_producto");
                 name=rs.getString("nombre");
-                surname=rs.getString("apellido");
-                nif=rs.getString("nif");
-                email=rs.getString("email");
-                date=rs.getDate("fecha_alta");
-                res.addElement(new DataClient(id_client,type,name,surname,nif,email,date));
+                description=rs.getString("descripcion");
+                amount=rs.getFloat("importe");
+                nSold=rs.getInt("ventas");
+                res.addElement(new DataProduct(id_product,name,description,amount,nSold));
             }
 
         } catch (SQLException sqle){
@@ -584,6 +580,59 @@ public class MySQLTools {
         }
     }
     
+    Vector listProducts(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int id_task=-1;
+        String title=null;
+        Date due_date=null;
+        int id_task_father=-1;
+        Time time_estimated=null;
+        int id_employee=-1;
+        StatusTask status=null;
+        String description=null;
+        Vector res=null;
+
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM tareas");
+            
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            
+             while (rs.next()) {
+                id_task=rs.getInt("id_tarea");
+                status=StatusTask.valueOf(rs.getString("estado"));
+                title=rs.getString("titulo");
+                id_task_father=rs.getInt("id_tarea_padre");
+                due_date=rs.getDate("fecha");
+                time_estimated=rs.getTime("horas_estimadas");
+                id_employee=rs.getInt("empleado_asignado");
+                description=rs.getString("descripcion");            
+                res.addElement(new DataTask(id_task, title, due_date, id_task_father, time_estimated, id_employee, status, description));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
+    }
+     
+     
     /**
      * Update the purchases of the product with id specified
      * @param id_product 
@@ -1147,6 +1196,59 @@ public class MySQLTools {
                  e.printStackTrace();
               }
            }
+        }
+    }
+    
+    
+        Vector listTasks(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int id_task=-1;
+        String title=null;
+        Date due_date=null;
+        int id_task_father=-1;
+        Time time_estimated=null;
+        int id_employee=-1;
+        StatusTask status=null;
+        String description=null;
+        Vector res=null;
+
+        try{
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            stmt = con.prepareStatement("SELECT * FROM tareas");
+            
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            
+             while (rs.next()) {
+                id_task=rs.getInt("id_tarea");
+                status=StatusTask.valueOf(rs.getString("estado"));
+                title=rs.getString("titulo");
+                id_task_father=rs.getInt("id_tarea_padre");
+                due_date=rs.getDate("fecha");
+                time_estimated=rs.getTime("horas_estimadas");
+                id_employee=rs.getInt("empleado_asignado");
+                description=rs.getString("descripcion");            
+                res.addElement(new DataTask(id_task, title, due_date, id_task_father, time_estimated, id_employee, status, description));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
         }
     }
     

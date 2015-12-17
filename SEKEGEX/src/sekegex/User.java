@@ -153,6 +153,17 @@ public class User {
         return new DataProduct(id_product,"","",1,1);
     }
     
+    
+        public Vector listProducts(){
+        Vector res=null;
+        //if(licence.contains(503)){
+                                System.out.println("Nadsfafntes");
+
+            res=DB.listProducts();
+        //}
+        return res;
+    }
+    
     //"FACTURAS" table
     
     /**
@@ -235,6 +246,14 @@ public class User {
     
     public DataTask consultTask(int id_task){
         return null;
+    }
+    
+    public Vector listTasks(){
+        Vector res=null;
+        if(licence.contains(103)){
+            res=DB.listTasks();
+        }
+        return res;
     }
     
     //"REGISTROS" table
