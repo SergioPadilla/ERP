@@ -36,7 +36,7 @@ public class Product {
      */
     public void modifyProduct(String name, String description, float amount){
         if (activeEmployee.hasLicence(502)){
-            DB.modifyProduct(getData().id, name,description, amount);
+          //  DB.modifyProduct(getData().id, name,description, amount);
             update();
         } //consideramos que solo se puede modificar el texto no las id
     }
