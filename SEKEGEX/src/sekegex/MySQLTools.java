@@ -28,9 +28,9 @@ public class MySQLTools {
     
     private static final MySQLTools instance = new MySQLTools();
     private static String sDriver = "com.mysql.jdbc.Driver";
-    private static String sURL = "jdbc:mysql://localhost:3306/erpseke";
-    private static String user="root";
-    private static String pass="";
+    private static String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
+    private static String user="sekegex";
+    private static String pass="sekegex";
     //private static String sURL = "jdbc:mysql://85.10.205.173:3306/erpseke";
     private MySQLTools(){}
     
