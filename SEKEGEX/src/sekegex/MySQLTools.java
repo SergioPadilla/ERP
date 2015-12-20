@@ -1538,18 +1538,53 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("UPDATE registros SET ");
+            boolean first=true;
+
+            if(id_employee != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("id_empleado = '");
+                query.append(id_employee);
+                query.append("'");
+                first=false;
+            }
+            if(!time_worked.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("horas_trabajadas = '");
+                query.append(time_worked);
+                query.append("'");
+                first=false;
+            } 
+            if(!description.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("descripcion ='");
+                query.append(description);
+                query.append("'");
+                first=false;
+            }
+            if(!date.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("fecha = '");
+                query.append(date);
+                query.append("'");
+                first=false;
+            }
            
-           stmt = con.prepareStatement("UPDATE registros SET id_empleado = ? horas_trabajadas = ? descripcion = ? fecha = ? WHERE id_registro = ?");
+            query.append(" WHERE id_registro = ");
+            query.append(id_register);
            
-           stmt.setInt(1,id_employee);
-           stmt.setObject(2,time_worked);
-           stmt.setString(3, description);
-           stmt.setObject(4, date);
-           stmt.setInt(5, id_register);
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
            
-           stmt.executeUpdate();
+            stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
