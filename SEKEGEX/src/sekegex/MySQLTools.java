@@ -291,47 +291,61 @@ public class MySQLTools {
         boolean res=false;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
-           String query="UPDATE clientes SET ";
-           boolean first=true;
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("UPDATE clientes SET ");
+            boolean first=true;
+
+            if(!type.equals("")){
+                query.append("tipo='");
+                query.append(type);
+                query.append("'");
+                first=false;
+            }
+            if(!name.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("nombre='");
+                query.append(name);
+                query.append("'");
+                first=false;
+            }
+            if(!surname.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("apellidos='");
+                query.append(surname);
+                query.append("'");
+
+                first=false;
+            }
+            if(!dni.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("nif='");
+                query.append(dni);
+                query.append("'");
+
+                first=false;
+            }
+            if(!email.equals("")){
+                if(!first){
+                   query.append(",");
+                }
+                query.append("email='");
+                query.append(email);
+                query.append("'");
+
+                first=false;
+            }
+            query.append(" WHERE id_cliente=");
+            query.append(id_client);
            
-           if(!type.equals("")){
-               query +="tipo='"+type+"'";
-               first=false;
-           }
-           if(!name.equals("")){
-               if(!first){
-                   query +=",";
-               }
-               query +="nombre='"+name+"'";
-               first=false;
-           }
-           if(!surname.equals("")){
-               if(!first){
-                   query +=",";
-               }
-               query +="apellidos='"+surname+"'";
-               first=false;
-           }
-           if(!dni.equals("")){
-               if(!first){
-                   query +=",";
-               }
-               query +="nif='"+dni+"'";
-               first=false;
-           }
-           if(!email.equals("")){
-               if(!first){
-                   query +=",";
-               }
-               query +="email='"+email+"'";
-               first=false;
-           }
-           query +=" WHERE id_cliente="+id_client;
-           
-           //"UPDATE clientes SET tipo = ? nombre = ? apellido = ? nif = ? email = ? WHERE id_cliente = ?"
-           stmt = con.prepareStatement(query);
+            String queryfinal = new String(query);
+           stmt = con.prepareStatement(queryfinal);
            
            res=stmt.execute();
 
@@ -342,14 +356,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
         return res;
     }
