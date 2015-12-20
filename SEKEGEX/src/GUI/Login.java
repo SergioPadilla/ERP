@@ -18,6 +18,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        usr = User.getInstance();
     }
 
     /**
@@ -153,7 +154,7 @@ public class Login extends javax.swing.JFrame {
         });
     }
     
-    private User usr = User.getInstance();
+    private User usr;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton login_button;
     private java.awt.TextField password;

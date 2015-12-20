@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import sekegex.User;
+
 /**
  *
  * @author Sergio
@@ -16,6 +18,7 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        User usr = User.getInstance();
     }
 
     /**
@@ -59,13 +62,13 @@ public class MainMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
                 .addComponent(clients_button)
-                .addGap(66, 66, 66)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(products_button)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(28, 28, 28))
             .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addGap(105, 105, 105)
                 .addComponent(workflow_button)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -76,9 +79,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clients_button)
                     .addComponent(products_button))
-                .addGap(51, 51, 51)
+                .addGap(52, 52, 52)
                 .addComponent(workflow_button)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
