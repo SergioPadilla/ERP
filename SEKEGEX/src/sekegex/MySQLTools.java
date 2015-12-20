@@ -345,9 +345,9 @@ public class MySQLTools {
             query.append(id_client);
            
             String queryfinal = new String(query);
-           stmt = con.prepareStatement(queryfinal);
+            stmt = con.prepareStatement(queryfinal);
            
-           res=stmt.execute();
+            res=stmt.execute();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -434,7 +434,13 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM facturas WHERE id_cliente="+id_client);
+            
+            StringBuilder query = new StringBuilder("SELECT * FROM facturas WHERE id_cliente=");
+            query.append(id_client);
+            
+            String queryfinal = new String(query);
+            
+            stmt = con.prepareStatement(queryfinal);
             
             ResultSet rs;
             rs = stmt.executeQuery();
@@ -486,6 +492,7 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
+            
             stmt = con.prepareStatement("SELECT * FROM clientes");
             
             ResultSet rs;
@@ -510,12 +517,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -531,16 +538,16 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
-           
-           stmt = con.prepareStatement("INSERT INTO produtos (nombre, descripcion, importe) VALUES(?,?,?);");
-           
-           stmt.setString(1, name);
-           stmt.setString(2, description);
-           stmt.setFloat(3, amount);
-           
-           stmt.executeUpdate();
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            stmt = con.prepareStatement("INSERT INTO produtos (nombre, descripcion, importe) VALUES(?,?,?);");
+
+            stmt.setString(1, name);
+            stmt.setString(2, description);
+            stmt.setFloat(3, amount);
+
+            stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -549,14 +556,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
     
@@ -566,20 +573,49 @@ public class MySQLTools {
      void modifyProduct(int id_product, String name, String description, float amount){
         Connection con = null;
         PreparedStatement stmt = null;
-
+        
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
-           
-           stmt = con.prepareStatement("UPDATE productos SET nombre = ? descripcion = ? importe = ? WHERE id_producto = ?");
-           
-           stmt.setString(1,name);
-           stmt.setString(2,description);
-           stmt.setFloat(3, amount);
-           stmt.setInt(4,id_product);
-           
-           stmt.executeUpdate();
+            StringBuilder query = new StringBuilder("UPDATE productos SET ");
+            boolean first=true;
 
+            if(!name.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("nombre='");
+                query.append(name);
+                query.append("'");
+                first=false;
+            }
+            if(!description.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("descripcion='");
+                query.append(description);
+                query.append("'");
+
+                first=false;
+            }
+            if(amount != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("importe='");
+                query.append(amount);
+                query.append("'");
+
+                first=false;
+            }
+           
+            query.append(" WHERE id_producto = ");
+            query.append(id_product);
+           
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+           
+            stmt.execute();
+           
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -587,14 +623,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
     
@@ -710,17 +746,37 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
-           
-           stmt = con.prepareStatement("UPDATE facturas SET id_cliente = ? importe = ? WHERE id_factura = ?");
-           
-           stmt.setInt(1, id_client);
-           stmt.setFloat(2,amount);
-           stmt.setInt(3,id_bill);
-           
-           stmt.executeUpdate();
+            StringBuilder query = new StringBuilder("UPDATE facturas SET ");
+            boolean first=true;
 
+            if(id_client != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("id_cliente='");
+                query.append(id_client);
+                query.append("'");
+                first=false;
+            }
+            if(amount != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("importe='");
+                query.append(amount);
+                query.append("'");
+
+                first=false;
+            }
+           
+            query.append(" WHERE id_factura = ");
+            query.append(id_bill);
+           
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+           
+            stmt.executeUpdate();
+            
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -728,14 +784,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
     
@@ -842,22 +898,96 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
-           
-           stmt = con.prepareStatement("UPDATE servidores SET nombre = ? ruta_de_acceso = ? usuario_ftp = ? password_ftp = ? usuario_host = ? password_host = ? id_cliente = ? WHERE id_servidor = ?");
-           
-           stmt.setString(1,name);
-           stmt.setString(2,access);
-           stmt.setString(3, user_ftp);
-           stmt.setString(4, password_ftp);
-           stmt.setString(5, user_host);
-           stmt.setString(6, password_host);
-           stmt.setInt(7, id_client);
-           stmt.setInt(8, id_server);
-           
-           stmt.executeUpdate();
+            StringBuilder query = new StringBuilder("UPDATE servidores SET ");
+            boolean first=true;
 
+            if(id_client != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("id_cliente='");
+                query.append(id_client);
+                query.append("'");
+                first=false;
+            }
+            if(!name.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("nombre='");
+                query.append(name);
+                query.append("'");
+                first=false;
+            }
+            if(!access.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("ruta_de_acceso = '");
+                query.append(access);
+                query.append("'");
+
+                first=false;
+            }
+            if(!user_ftp.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("usuario_ftp = '");
+                query.append(user_ftp);
+                query.append("'");
+
+                first=false;
+            }
+            if(!password_ftp.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("password_ftp = '");
+                query.append(password_ftp);
+                query.append("'");
+
+                first=false;
+            }
+            if(!user_host.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("usuario_host = '");
+                query.append(user_host);
+                query.append("'");
+
+                first=false;
+            }
+            if(!password_host.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("password_host = '");
+                query.append(password_host);
+                query.append("'");
+
+                first=false;
+            }
+            if(id_client != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("id_cliente = '");
+                query.append(id_client);
+                query.append("'");
+
+                first=false;
+            }
+           
+            query.append(" WHERE id_servidor = ");
+            query.append(id_server);
+           
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+           
+            stmt.executeUpdate();
+            
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -990,19 +1120,54 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
-           
-           stmt = con.prepareStatement("UPDATE empleados SET dni = ? nombre = ? apellidos = ? rol = ? WHERE id_empleado = ?");
-           
-           stmt.setString(1,dni);
-           stmt.setString(2,name);
-           stmt.setString(3, surname);
-           stmt.setInt(4, role);
-           stmt.setInt(5, id_employee);
-           
-           stmt.executeUpdate();
+            StringBuilder query = new StringBuilder("UPDATE empleados SET ");
+            boolean first=true;
 
+            if(!name.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("nombre='");
+                query.append(name);
+                query.append("'");
+                first=false;
+            }
+            if(!surname.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("apellidos='");
+                query.append(surname);
+                query.append("'");
+                first=false;
+            }
+            if(!dni.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("dni='");
+                query.append(dni);
+                query.append("'");
+                first=false;
+            }
+            if(role != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("rol='");
+                query.append(role);
+                query.append("'");
+                first=false;
+            }
+           
+            query.append(" WHERE id_empleado = ");
+            query.append(id_employee);
+           
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+           
+            stmt.executeUpdate();
+            
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -1064,12 +1229,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -1112,12 +1277,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
         }
  
@@ -1172,21 +1337,80 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("UPDATE tareas SET ");
+            boolean first=true;
+
+            if(!title.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("titulo='");
+                query.append(title);
+                query.append("'");
+                first=false;
+            }
+            if(!description.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("descripcion='");
+                query.append(description);
+                query.append("'");
+                first=false;
+            }
+            if(id_task_father != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("id_tarea_padre='");
+                query.append(id_task_father);
+                query.append("'");
+                first=false;
+            }
+            if(id_employee != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("empleado_asignado='");
+                query.append(id_task_father);
+                query.append("'");
+                first=false;
+            }
+            if(!status.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("estado = '");
+                query.append(status);
+                query.append("'");
+                first=false;
+            }
+            if(!time_estimated.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("horas_estimadas = '");
+                query.append(time_estimated);
+                query.append("'");
+                first=false;
+            }
+            if(!due_date.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("fecha = '");
+                query.append(due_date);
+                query.append("'");
+                first=false;
+            }
            
-           stmt = con.prepareStatement("UPDATE tareas SET titulo = ? descripcion = ? horas_estimadas = ? fecha = ? id_tarea_padre = ? empleado_asignado = ? estado = ? WHERE id_tareas = ?");
-          
-           stmt.setString(1,title);
-           stmt.setString(2,description);
-           stmt.setTime(3, time_estimated);
-           stmt.setDate(4, due_date);
-           stmt.setInt(5, id_task_father);
-           stmt.setInt(6, id_employee);
-           stmt.setObject(7, status);
-           stmt.setInt(8, id_task);
+            query.append(" WHERE id_tareas = ");
+            query.append(id_task);
            
-           stmt.executeUpdate();
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+           
+            stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -1398,16 +1622,36 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("UPDATE comentarios SET ");
+            boolean first=true;
+
+            if(id_tarea != -1){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("tarea='");
+                query.append(id_tarea);
+                query.append("'");
+                first=false;
+            }
+            if(!comment.equals("")){
+                if(!first){
+                    query.append(",");
+                }
+                query.append("texto='");
+                query.append(comment);
+                query.append("'");
+                first=false;
+            }
+            
            
-           stmt = con.prepareStatement("UPDATE comentarios SET texto = ? tarea = ? WHERE id_comentario = ?");
+            query.append(" WHERE id_comentario = ");
+            query.append(id_comment);
            
-           stmt.setString(1,comment);
-           stmt.setInt(2,id_tarea);
-           stmt.setInt(3, id_comment);
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
            
-           stmt.executeUpdate();
+            stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -1417,12 +1661,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1493,7 +1737,14 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT permiso FROM rol WHERE rol = '"+rol+"'");
+            
+            StringBuilder query = new StringBuilder("SELECT permiso FROM rol WHERE rol = '");
+            query.append(rol);
+            query.append("'");
+            
+            String queryfinal = new String(query);
+            
+            stmt = con.prepareStatement(queryfinal);
             
             ResultSet rs;
             rs = stmt.executeQuery();
@@ -1510,12 +1761,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -1580,9 +1831,14 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM dominios WHERE id_servidor='"+id_server+"'");
-
             
+            StringBuilder query = new StringBuilder("SELECT * FROM dominios WHERE id_servidor='");
+            query.append(id_server);
+            query.append("'");
+            
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
             ResultSet rs;
             rs = stmt.executeQuery();
             
