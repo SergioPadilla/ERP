@@ -22,13 +22,14 @@ public class Product {
         data = activeEmployee.consultProduct(id_product);
     }
     
-     /**
+    /**
      * Update Product
      */
     public void update(){
         data=activeEmployee.consultProduct(getData().id);
     }
-     /**
+    
+    /**
      * Change date of Products
      * @param name 
      * @param description
@@ -36,10 +37,11 @@ public class Product {
      */
     public void modifyProduct(String name, String description, float amount){
         if (activeEmployee.hasLicence(502)){
-            DB.modifyProduct(getData().id, name,description, amount);
+            DB.modifyProduct(getData().id, name, description, amount);
             update();
-        } //consideramos que solo se puede modificar el texto no las id
+        }
     }
+    
     /**
      * Remove Product
      */

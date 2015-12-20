@@ -66,6 +66,12 @@ public class User {
         surname=null;
         licence=null;
     }
+    
+    /**
+     * Check if the user has the licence specified
+     * @param licence
+     * @return 
+     */
     public boolean hasLicence(int licence){
         return this.licence.contains(licence);
     }

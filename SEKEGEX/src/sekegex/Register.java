@@ -18,12 +18,14 @@ public class Register {
     private User activeEmployee = User.getInstance();
     private static MySQLTools DB = MySQLTools.getInstance();
     private DataRegisters data;
+    
     /**
      * Initialize with a calls to DB
      */
     public Register(int id_register){
         data = activeEmployee.consultRegister(id_register);
     }
+    
     /**
      * Update the comment
      */

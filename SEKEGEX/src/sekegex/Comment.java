@@ -18,9 +18,9 @@ public class Comment {
         data = activeEmployee.consultComment(id_comment);
     }
         
-     /**
-     * Update the comment
-     */
+    /**
+    * Update the comment
+    */
     public void update(){
         data=activeEmployee.consultComment(getData().id_comment);
     }

@@ -27,13 +27,14 @@ public class Server {
         data = activeEmployee.consultServer(id);
     }
     
-     /**
-     * Update the comment
-     */
+    /**
+    * Update the comment
+    */
     public void update(){
         data=activeEmployee.consultServer(getData().id_server);
     }
-      /**
+     
+    /**
      * List domains of this server
      */   
     public Vector listDomains(){

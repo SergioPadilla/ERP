@@ -58,6 +58,5 @@ public class Task {
      */
     public DataTask getData() {
         return data;
-    }
-    
+    } 
 }

@@ -21,7 +21,7 @@ public class Domain {
     }
     
  
-     /**
+    /**
      * Update the domain
      */
     public void update(){

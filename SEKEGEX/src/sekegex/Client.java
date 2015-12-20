@@ -26,6 +26,9 @@ public class Client {
         return data;
     }
     
+    /**
+     * Update the data of the client
+     */
     public void update(){
         data=activeEmployee.consultClient(data.id);
     }
@@ -48,6 +51,10 @@ public class Client {
         }
     }
     
+    /**
+     * list the servers of the client
+     * @return 
+     */
     public Vector listServers(){
         Vector res=null;
         if(activeEmployee.hasLicence(702)){
@@ -56,6 +63,10 @@ public class Client {
         return res;
     }
     
+    /**
+     * list the bills of the client
+     * @return 
+     */
     public Vector listBills(){
         Vector res=null;
         if(activeEmployee.hasLicence(403)){
