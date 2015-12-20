@@ -377,7 +377,7 @@ public class MySQLTools {
             ResultSet rs;
             rs = stmt.executeQuery();
             
-             if (rs.next()) {
+            if(rs.next()){
                 type=TypeClient.valueOf(rs.getString("tipo"));
                 name=rs.getString("nombre");
                 surname=rs.getString("apellido");
@@ -427,7 +427,7 @@ public class MySQLTools {
             
              while (rs.next()) {
                 id_bill=rs.getInt("id_factura");
-                date=rs.getDate("fecha_alta");
+                date=rs.getDate("fecha");
                 res.addElement(new DataBill(id_bill,id_client,date));
             }
 
@@ -477,7 +477,7 @@ public class MySQLTools {
             ResultSet rs;
             rs = stmt.executeQuery();
             
-             while (rs.next()) {
+            while(rs.next()){
                 id_client=rs.getInt("id_cliente");
                 type=TypeClient.valueOf(rs.getString("tipo"));
                 name=rs.getString("nombre");
@@ -612,7 +612,7 @@ public class MySQLTools {
             ResultSet rs;
             rs = stmt.executeQuery();
             
-             if (rs.next()) {
+            if(rs.next()){
                 name=rs.getString("nombre");;
                 description=rs.getString("descripcion");
                 amount=rs.getFloat("importe");
@@ -735,7 +735,7 @@ public class MySQLTools {
     //"COMPRAS" table
     
     /**
-     * Insert new bill in the table
+     * Insert new purchase in the table
      */
      void insertPurchase(int id_bill, int id_product){
         Connection con = null;
@@ -744,16 +744,14 @@ public class MySQLTools {
         try{
            Class.forName(sDriver).newInstance();    
            con = DriverManager.getConnection(sURL,user,pass);
-           DataProduct P=consultProduct(id_product);
-           stmt = con.prepareStatement("INSERT INTO compras (id_factura, id_producto,precio) VALUES(?,?,"+P.amount+");");
+           DataProduct P = consultProduct(id_product);
+           stmt = con.prepareStatement("INSERT INTO compras (id_factura,id_producto,precio) VALUES(?,?,"+P.amount+");");
            
            stmt.setInt(1, id_bill);
            stmt.setInt(2, id_product);
            
            stmt.executeUpdate();
            
-            
-
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -1035,6 +1033,7 @@ public class MySQLTools {
             con = DriverManager.getConnection(sURL,user,pass);
             stmt = con.prepareStatement("SELECT * FROM empleados WHERE dni='"+dni+"'");
             ResultSet rs = stmt.executeQuery();
+            
             if(rs.next()){
                 id_employee=rs.getInt("id_empleado");
                 name=rs.getString("nombre");
@@ -1082,6 +1081,7 @@ public class MySQLTools {
             con = DriverManager.getConnection(sURL,user,pass);
             stmt = con.prepareStatement("SELECT * FROM empleados WHERE id_empleado='"+id_employee+"'");
             ResultSet rs = stmt.executeQuery();
+            
             if(rs.next()){
                 dni=rs.getString("dni");
                 name=rs.getString("nombre");
@@ -1213,10 +1213,11 @@ public class MySQLTools {
             con = DriverManager.getConnection(sURL,user,pass);
             stmt = con.prepareStatement("SELECT * FROM empleados WHERE id_tarea='"+id_task+"'");
             ResultSet rs = stmt.executeQuery();
+            
             if(rs.next()){
                 title=rs.getString("titulo");
                 due_date=rs.getDate("fecha");
-                id_task_father=rs.getInt("id_tatea_padre");
+                id_task_father=rs.getInt("id_tarea_padre");
                 time_estimated=rs.getTime("horas_estimadas");
                 id_employee=rs.getInt("empleado_asignado");
                 status=StatusTask.valueOf(rs.getString("estado"));
@@ -1483,7 +1484,7 @@ public class MySQLTools {
             ResultSet rs;
             rs = stmt.executeQuery();
             
-             while (rs.next()) {
+            while(rs.next()){
                 res.addElement(rs.getInt("permiso"));
             }
 
@@ -1550,11 +1551,12 @@ public class MySQLTools {
            }
         }
     }
-     /**
-     * list domain 
+    
+    /**
+     * list domain of the server specified
      * @param id_server
      */
-    Vector lisDomains(int id_server){
+    Vector listDomains(int id_server){
         Connection con = null;
         PreparedStatement stmt = null;
         int id_domain=-1;   
@@ -1570,7 +1572,7 @@ public class MySQLTools {
             ResultSet rs;
             rs = stmt.executeQuery();
             
-             while (rs.next()) {
+            while(rs.next()){
                 id_domain=rs.getInt("id_dominio");
                 name=rs.getString("web");
                 res.addElement(new DataDomain(id_server,id_domain,name));
