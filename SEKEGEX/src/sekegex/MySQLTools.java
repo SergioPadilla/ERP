@@ -386,7 +386,13 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM clientes WHERE id_cliente='"+id_client+"'");
+            
+            StringBuilder query = new StringBuilder("SELECT * FROM clientes WHERE id_cliente= ");
+            query.append(id_client);
+            query.append("'");
+            
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
             
             ResultSet rs;
             rs = stmt.executeQuery();
@@ -621,8 +627,12 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM productos WHERE id_producto='"+id_product+"'");
             
+            StringBuilder query = new StringBuilder("SELECT * FROM productos WHERE id_producto=");
+            query.append(id_product);
+            
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
             ResultSet rs;
             rs = stmt.executeQuery();
             
@@ -756,21 +766,28 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
-           Class.forName(sDriver).newInstance();    
-           con = DriverManager.getConnection(sURL,user,pass);
-           DataProduct P = consultProduct(id_product);
-           stmt = con.prepareStatement("INSERT INTO compras (id_factura,id_producto,precio) VALUES(?,?,"+P.amount+");");
+            Class.forName(sDriver).newInstance();    
+            con = DriverManager.getConnection(sURL,user,pass);
+            DataProduct P = consultProduct(id_product);
+            
+            StringBuilder query = new StringBuilder("INSERT INTO compras (id_factura,id_producto,precio) VALUES(");
+            query.append(id_bill);
+            query.append(",");
+            query.append(id_product);
+            query.append(",");
+            query.append(P.amount);
+            query.append(");");
+            
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
            
-           stmt.setInt(1, id_bill);
-           stmt.setInt(2, id_product);
-           
-           stmt.executeUpdate();
-           
-        } catch (SQLException sqle){
-           System.out.println("SQLState: " + sqle.getSQLState());
-           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-           sqle.printStackTrace();
-        } catch (Exception e){
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
            e.printStackTrace();
         } finally {
            if (con != null) {
@@ -896,8 +913,11 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM servidores WHERE id_cliente="+id_client);
+            StringBuilder query = new StringBuilder("SELECT * FROM servidores WHERE id_cliente=");
+            query.append(id_client);
             
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
             ResultSet rs;
             rs = stmt.executeQuery();
             
@@ -1045,7 +1065,13 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM empleados WHERE dni='"+dni+"'");
+            StringBuilder query = new StringBuilder("SELECT * FROM empleados WHERE dni='");
+            query.append(dni);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next()){
@@ -1068,7 +1094,7 @@ public class MySQLTools {
                  stmt.close();
                  con.close();
               } catch(Exception e){
-                 e.printStackTrace();
+                    e.printStackTrace();
               }
             }
         }
@@ -1093,8 +1119,12 @@ public class MySQLTools {
        try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM empleados WHERE id_empleado='"+id_employee+"'");
-            ResultSet rs = stmt.executeQuery();
+            StringBuilder query = new StringBuilder("SELECT * FROM empleados WHERE id_empleado='");
+            query.append(id_employee);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);            ResultSet rs = stmt.executeQuery();
             
             if(rs.next()){
                 dni=rs.getString("dni");
@@ -1225,7 +1255,12 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();    
             con = DriverManager.getConnection(sURL,user,pass);
-            stmt = con.prepareStatement("SELECT * FROM empleados WHERE id_tarea='"+id_task+"'");
+            StringBuilder query = new StringBuilder("SELECT * FROM empleados WHERE id_tarea='");
+            query.append(id_task);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next()){
