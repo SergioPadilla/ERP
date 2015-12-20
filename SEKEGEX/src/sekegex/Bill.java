@@ -28,9 +28,12 @@ public class Bill {
         data=activeEmployee.consultBill(getData().id_bill);
     }
     
-    public Vector listProducts(){
-        Vector v=null;
-        return v;
+    public Vector listProductsforbill(int id_bill){
+       Vector res=null;
+        if(activeEmployee.hasLicence(503)){
+            res=DB.listProductsforbill(id_bill);
+        }
+        return res;
     }
     /**
      * Change the amount of the bill
