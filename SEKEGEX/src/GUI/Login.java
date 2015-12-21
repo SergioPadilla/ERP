@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import Utils.CheckLogin;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import sekegex.User;
 
 /**
@@ -92,9 +95,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(password_label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(42, 42, 42)
                 .addComponent(login_button)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,12 +113,24 @@ public class Login extends javax.swing.JFrame {
 
     private void login_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseClicked
         final String dni = user.getText().toString();
+        System.out.println(dni);
         final String pass = password.getText().toString();
+        javax.swing.JOptionPane error = new javax.swing.JOptionPane();
+        CheckLogin check = new CheckLogin(dni, pass);
         
-        if(usr.login(dni,pass)){
+        // create a jframe
+        JFrame frame = new JFrame();
+ 
+        if(!check.isDniInDB()){
+            JOptionPane.showMessageDialog(frame, "El dni introducido no se encuentra registrado", "DNI INCORRECTO", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(usr.login(dni,pass)){
             MainMenu obj = new MainMenu();
             obj.setVisible(true);
             dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "Contraseña incorrecta", "ERROR CONTRASEÑA", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_login_buttonMouseClicked
 

@@ -33,6 +33,7 @@ public class MainMenu extends javax.swing.JFrame {
         clients_button = new javax.swing.JButton();
         products_button = new javax.swing.JButton();
         workflow_button = new javax.swing.JButton();
+        logOut_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,6 +58,13 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        logOut_button.setText("Desconectar");
+        logOut_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logOut_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,6 +79,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(105, 105, 105)
                 .addComponent(workflow_button)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(logOut_button))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,7 +92,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(products_button))
                 .addGap(52, 52, 52)
                 .addComponent(workflow_button)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(logOut_button))
         );
 
         pack();
@@ -98,6 +110,12 @@ public class MainMenu extends javax.swing.JFrame {
     private void workflow_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workflow_buttonMouseClicked
         //Crear vista para workflow
     }//GEN-LAST:event_workflow_buttonMouseClicked
+
+    private void logOut_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOut_buttonMouseClicked
+        Login obj = new Login();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_logOut_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -136,6 +154,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clients_button;
+    private javax.swing.JButton logOut_button;
     private javax.swing.JButton products_button;
     private javax.swing.JButton workflow_button;
     // End of variables declaration//GEN-END:variables
