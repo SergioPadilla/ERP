@@ -45,9 +45,9 @@ public class Client {
     /**
      * Remove client
      */
-    public void removeClient(int id_client){
+    public void removeClient(){
         if(activeEmployee.hasLicence(301)){
-            //Borrar cliente
+            DB.removeClient(data.id);
         }
     }
     

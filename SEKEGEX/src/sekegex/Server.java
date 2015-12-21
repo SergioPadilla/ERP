@@ -59,7 +59,7 @@ public class Server {
      */
     public void removeServer(){
         if (activeEmployee.hasLicence(701)){
-            DB.removeComment(data.id_server);
+            DB.removeServer(data.id_server);
             data=null;
         }
     }
