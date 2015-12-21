@@ -6,6 +6,9 @@
 package GUI;
 
 import DataType.DataClient;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import sekegex.Client;
 import sekegex.User;
 
 /**
@@ -53,6 +56,8 @@ public class ModifyDataClient extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         id_client = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
+        save_button = new javax.swing.JButton();
+        back_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +78,25 @@ public class ModifyDataClient extends javax.swing.JFrame {
         name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameActionPerformed(evt);
+            }
+        });
+
+        save_button.setText("Guardar");
+        save_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                save_buttonMouseClicked(evt);
+            }
+        });
+
+        back_button.setText("Volver");
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
+        back_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_buttonActionPerformed(evt);
             }
         });
 
@@ -112,6 +136,11 @@ public class ModifyDataClient extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(date)))
                 .addContainerGap(470, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(save_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(back_button)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +173,11 @@ public class ModifyDataClient extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(date_label)
                     .addComponent(date))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(save_button)
+                    .addComponent(back_button))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,6 +186,36 @@ public class ModifyDataClient extends javax.swing.JFrame {
     private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameActionPerformed
+
+    private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_back_buttonActionPerformed
+
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+        DataClientView obj = new DataClientView(client);
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_back_buttonMouseClicked
+
+    private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
+        final String dninew = dni.getText().toString();
+        final String namenew = name.getText().toString();
+        final String surnamenew = surname.getText().toString();
+        final String typenew = type.getText().toString();
+        final String emailnew = email.getText().toString();
+        
+        Client c = new Client(client.id);
+        JFrame frame = new JFrame();
+        
+        if(c.modifyClient(typenew, namenew, surnamenew, dninew, emailnew)){
+            JOptionPane.showMessageDialog(frame, "La modificación se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
+            repaint();
+            client = c.getData();
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "No tienes permisos para modificar clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_save_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -192,6 +255,7 @@ public class ModifyDataClient extends javax.swing.JFrame {
     private User usr;
     private static DataClient client;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton back_button;
     public javax.swing.JLabel date;
     private javax.swing.JLabel date_label;
     public javax.swing.JTextField dni;
@@ -202,6 +266,7 @@ public class ModifyDataClient extends javax.swing.JFrame {
     private javax.swing.JLabel id_label;
     public javax.swing.JTextField name;
     private javax.swing.JLabel name_label;
+    private javax.swing.JButton save_button;
     public javax.swing.JTextField surname;
     private javax.swing.JLabel surname_label;
     public javax.swing.JTextField type;

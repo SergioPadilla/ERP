@@ -118,11 +118,10 @@ public class Login extends javax.swing.JFrame {
         javax.swing.JOptionPane error = new javax.swing.JOptionPane();
         CheckLogin check = new CheckLogin(dni, pass);
         
-        // create a jframe
         JFrame frame = new JFrame();
- 
+        
         if(!check.isDniInDB()){
-            JOptionPane.showMessageDialog(frame, "El dni introducido no se encuentra registrado", "DNI INCORRECTO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "El DNI introducido no se encuentra registrado", "DNI INCORRECTO", JOptionPane.ERROR_MESSAGE);
         }
         else if(usr.login(dni,pass)){
             MainMenu obj = new MainMenu();
