@@ -100,7 +100,10 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clients_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clients_buttonMouseClicked
-        //Crear vista para clientes
+        ClientView obj = new ClientView();
+        obj.setVisible(true);//Crear vista para clientes
+        dispose();
+
     }//GEN-LAST:event_clients_buttonMouseClicked
 
     private void products_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_products_buttonMouseClicked
