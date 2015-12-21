@@ -97,10 +97,9 @@ public class DataClientView extends javax.swing.JFrame {
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            MainMenu obj = new MainMenu();
+            ModifyDataClient obj = new ModifyDataClient(clienti);
             obj.setVisible(true);
-            dispose();
-            
+            dispose(); 
         }
     };
         

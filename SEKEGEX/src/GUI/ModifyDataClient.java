@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import DataType.DataClient;
 import sekegex.User;
 
 /**
@@ -16,9 +17,17 @@ public class ModifyDataClient extends javax.swing.JFrame {
     /**
      * Creates new form ModifyDataClient
      */
-    public ModifyDataClient() {
+    public ModifyDataClient(DataClient data) {
         initComponents();
         usr = User.getInstance();
+        client = data;
+        date.setText(client.registration.toString());
+        name.setText(client.name);
+        surname.setText(client.surname);
+        email.setText(client.email);
+        dni.setText(client.dni);
+        type.setText(client.type.toString());
+        id_client.setText(data.idToString());
     }
 
     /**
@@ -175,12 +184,13 @@ public class ModifyDataClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifyDataClient().setVisible(true);
+                new ModifyDataClient(client).setVisible(true);
             }
         });
     }
 
     private User usr;
+    private static DataClient client;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel date;
     private javax.swing.JLabel date_label;
