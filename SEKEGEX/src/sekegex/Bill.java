@@ -5,7 +5,7 @@
  */
 package sekegex;
 
-import DataType.DataBill;
+import DataType.*;
 import java.util.Vector;
 
 /**
@@ -25,13 +25,13 @@ public class Bill {
      * Update Bill
      */
     public void update(){
-        data=activeEmployee.consultBill(getData().id_bill);
+        data=activeEmployee.consultBill(data.id_bill);
     }
     
-    public Vector listProductsforbill(int id_bill){
+    public Vector listProductsforbill(){
        Vector res=null;
         if(activeEmployee.hasLicence(503)){
-            res=DB.listProductsforbill(id_bill);
+            res=DB.listProductsforbill(data.id_bill);
         }
         return res;
     }
@@ -39,20 +39,18 @@ public class Bill {
      * Change the amount of the bill
      * @param amount
      */
-    public void modifyBill(int amount){
+    public void modifyBill(Vector add,Vector remove,int id_cliente){
         if(activeEmployee.hasLicence(402)){
-            DB.modifyBill(getData().id_bill, amount, getData().id_client);
+            for(int i=0; i<add.size();i++){
+                DB.insertPurchase(data.id_bill,(int) add.elementAt(i));
+            }
+            for(int i=0; i<remove.size();i++){
+                DB.removePurchase(data.id_bill,(int) remove.elementAt(i));
+            }
+            if(id_cliente!=0){
+                DB.modifyBill(data.id_bill, id_cliente);
+            }
             update();
-        }
-    }
-    
-     /**
-     * Erase the Bill
-     */
-    public void removeBill(){
-        if (activeEmployee.hasLicence(401)){
-            DB.removeBill(getData().id_bill);
-            data=null;
         }
     }
 
