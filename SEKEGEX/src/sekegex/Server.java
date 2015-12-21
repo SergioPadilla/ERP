@@ -7,12 +7,6 @@ package sekegex;
 
 import DataType.DataServer;
 import java.util.Vector;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import org.apache.commons.codec.binary.Base64;
 
 /**
  *
@@ -38,7 +32,11 @@ public class Server {
      * List domains of this server
      */   
     public Vector listDomains(){
-        return DB.listDomains(getData().id_server);
+        Vector res=null;
+        if(activeEmployee.hasLicence(702)){
+            res=DB.listDomains(data.id_server);
+        }
+        return res;
     }
      /**
      * Modify server
@@ -50,8 +48,8 @@ public class Server {
      * @param password_host
      */
     public void modifyServer(String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
-        if (activeEmployee.hasLicence(702)){
-            DB.modifyServer(getData().id_client, getData().id_client, name, access, user_ftp, password_ftp, user_host, password_host);
+        if(activeEmployee.hasLicence(702)){
+            DB.modifyServer(data.id_server, name, access, user_ftp, password_ftp, user_host, password_host);
             update();
         }
     }
@@ -61,7 +59,7 @@ public class Server {
      */
     public void removeServer(){
         if (activeEmployee.hasLicence(701)){
-            DB.removeComment(getData().id_server);
+            DB.removeComment(data.id_server);
             data=null;
         }
     }
@@ -71,5 +69,14 @@ public class Server {
      */
     public DataServer getData() {
         return data;
+    }
+    
+     /**
+     * Insert Domain
+     */
+    public void insertDomain(String web){
+        if (activeEmployee.hasLicence(800)){
+            DB.insertDomain(data.id_server, web);
+        }
     }
 }

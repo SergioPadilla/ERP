@@ -15,10 +15,12 @@ public class DataBill {
     public int id_bill;
     public int id_client;
     public Date date;
+    public float amount;
     
-    public DataBill(int id_bill,int id_client,Date date){
+    public DataBill(int id_bill,int id_client,Date date,float amount){
         this.id_bill = id_bill;
         this.id_client = id_client;
         this.date = date;
+        this.amount=amount;
     } 
 }

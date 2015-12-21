@@ -162,39 +162,20 @@ public class User {
     //"FACTURAS" table
     
     /**
-     * Insert new bill in the table
-     */
-    public void insertBill(int id_client,Vector products){
-        //disparador 1
-        if(licence.contains(303)){
-            System.out.println("entra");
-            int Id_db=0;
-            Id_db=DB.insertBill(id_client);
-            for(int i=0;i<products.size();i++){
-                DB.insertPurchase(Id_db,(int) products.elementAt(i));
-            }
-        }
-        
-    }
-    
-    /**
      * Get the data of bill with id specified
      * @param id_bill
      * @return 
      */
     
     public DataBill consultBill(int id_bill){
-        return null;
+        DataBill res=null;
+        if(licence.contains(403)){
+            res=DB.consultBill(id_bill);
+        }
+        return res;
     }
     
     //"SERVIDORES" table
-    
-    /**
-     * Insert new server
-     */
-    public void insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
-        
-    }
     
     /**
      * Get the data of server with id specified
@@ -203,7 +184,11 @@ public class User {
      */
     
     public DataServer consultServer(int id_server){
-        return null;
+        DataServer res=null;
+        if(licence.contains(803)){
+            res=DB.consultServer(id_server);
+        }
+        return res;
     }
     
     
@@ -281,12 +266,9 @@ public class User {
         return null;
     }
     
-    /**
-     * Get the data of domain with id specified
-     * @param id_domain
-     * @return 
+     /**
+     * Insert Domain
      */
-    
     public DataDomain consultDomain(int id_domain){
         return null;
     }

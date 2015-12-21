@@ -74,4 +74,28 @@ public class Client {
         }
         return res;
     }
+    
+    /**
+     * Insert new bill in the table
+     */
+    public void insertBill(Vector products){
+        //disparador 1
+        if(activeEmployee.hasLicence(400)){
+            int Id_db=0;
+            Id_db=DB.insertBill(data.id);
+            for(int i=0;i<products.size();i++){
+                DB.insertPurchase(Id_db,(int) products.elementAt(i));
+            }
+        }
+        
+    }
+    
+    /**
+     * Insert new server
+     */
+    public void insertServer(String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+        if(activeEmployee.hasLicence(700)){
+            DB.insertServer(data.id, name, access, user_ftp, password_ftp, user_host, password_host);
+        }
+    }
 }

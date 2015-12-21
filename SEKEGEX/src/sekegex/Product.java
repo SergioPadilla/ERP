@@ -47,7 +47,7 @@ public class Product {
      */
     public void removeProduct(){
         if (activeEmployee.hasLicence(501)){
-            DB.removeBill(getData().id);
+            //DB.removeBill(getData().id);
             data=null;
         }
     }

@@ -33,7 +33,7 @@ public class Domain {
      */
     public void removeDomain(){
         if (activeEmployee.hasLicence(801)){
-            DB.removeDomain(getData().id_domain);
+            DB.removeDomain(data.id_domain);
             data=null;
         }
     }

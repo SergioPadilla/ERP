@@ -42,15 +42,6 @@ public class Sekegex {
                     System.out.println("Error de autentificación");
                 }
             }
-            ////////
-            /*
-            Vector v=activeEmployee.listProductsforbill(7);
-            for(int i=0; i<v.size();i++){
-                DataProduct vi=(DataProduct)v.elementAt(i);
-                System.out.println(vi.id+"-->"+vi.name+" "+vi.amount);
-            }
-            */
-            ////////
             System.out.println("opciones: \n "
                     + "x-->desconectar\n"
                     + "c-->Clientes");
@@ -114,9 +105,77 @@ public class Sekegex {
                             }
                         }
                     }
-                    System.out.println("opciones de cliente: \nf-->Ver factura\ns-->Ver servidor(no implementado)");
+                    System.out.println("opciones de cliente: \nf-->Ver factura\ns-->Ver servidor\ni-->Insertar servidor\nif-->insertar factura(hecho y comprobado pero solo para la interfaz grafica)");
                     System.out.print("opción: ");
                     opcC = sc.nextLine();
+                    if(opcC.equals("f")){
+                            System.out.print("Id: ");
+                            Id = sc.nextInt();
+                            sc.nextLine();
+                            Bill bill=new Bill(Id);
+                            DataBill Dbill=bill.getData();
+                            System.out.println("Id: "+Dbill.id_bill);
+                            Vector products=bill.listProductsforbill();
+                            for(int i=0; i<products.size();i++){
+                                DataProduct producti=(DataProduct)products.elementAt(i);
+                                System.out.println(producti.id+"-->"+producti.name+" "+producti.amount);
+                            }
+                            System.out.println("importe: "+Dbill.amount);
+                            System.out.println("opciones de cliente: \nm-->Modificar(hecho y comprobado pero solo para la interfaz grafica)\n");
+                            System.out.print("opción: ");
+                            opcC = sc.nextLine();
+                    }else if(opcC.equals("s")){
+                        System.out.print("Id: ");
+                        Id = sc.nextInt();
+                        sc.nextLine();
+                        Server server=new Server(Id);
+                            DataServer Dserver=server.getData();
+                            System.out.println("Id: "+Dserver.id_server);
+                            System.out.println("Ip: "+Dserver.ip);
+                            System.out.println("nombre: "+Dserver.name);
+                            System.out.println("user ftp: "+Dserver.user_ftp);
+                            System.out.println("pass ftp: "+Dserver.pass_ftp);
+                            System.out.println("user host: "+Dserver.user_host);
+                            System.out.println("pass host: "+Dserver.pass_host);
+                            Vector domains=server.listDomains();
+                            for(int i=0; i<domains.size();i++){
+                                DataDomain domaini=(DataDomain)domains.elementAt(i);
+                                System.out.println(domaini.id_domain+"-->"+domaini.name);
+                            }
+                            System.out.println("opciones de servidor: \nm-->Modificar\nb-->Borrar(no implementado)\ni-->insertar dominio(no implementado)\nbd-->Borrar dominio(no implementado)");
+                            System.out.print("opción: ");
+                            opcC = sc.nextLine();
+                            if(opcC.equals("m")){
+                                System.out.print("Ip: ");
+                                String ip=sc.nextLine();
+                                System.out.print("nombre: ");
+                                String name=sc.nextLine();
+                                System.out.print("user ftp: ");
+                                String user_ftp=sc.nextLine();
+                                System.out.print("pass ftp: ");
+                                String pass_ftp=sc.nextLine();
+                                System.out.print("user host: ");
+                                String user_host=sc.nextLine();
+                                System.out.print("pass host: ");
+                                String pass_host=sc.nextLine();
+                                server.modifyServer(name, ip, user_ftp, pass_ftp, user_host, pass_host);
+                            }
+                    }else if(opcC.equals("i")){
+                        System.out.print("Ip: ");
+                        String ip=sc.nextLine();
+                        System.out.print("nombre: ");
+                        String name=sc.nextLine();
+                        System.out.print("user ftp: ");
+                        String user_ftp=sc.nextLine();
+                        System.out.print("pass ftp: ");
+                        String pass_ftp=sc.nextLine();
+                        System.out.print("user host: ");
+                        String user_host=sc.nextLine();
+                        System.out.print("pass host: ");
+                        String pass_host=sc.nextLine();
+                        clientO.insertServer(name, ip, user_ftp, pass_ftp, user_host, pass_host);
+                    }
+                    
                 }else if(opcC.equals("m") || opcC.equals("i")){
                     int Id=0;
                     if(opcC.equals("m")){

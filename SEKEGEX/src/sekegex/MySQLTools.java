@@ -387,7 +387,7 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
 
-            StringBuilder query = new StringBuilder("SELECT * FROM clientes WHERE id_cliente= ");
+            StringBuilder query = new StringBuilder("SELECT * FROM clientes WHERE id_cliente='");
             query.append(id_client);
             query.append("'");
 
@@ -425,6 +425,65 @@ public class MySQLTools {
         }
     }
 
+    public DataBill consultBill(int id_bill){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        DataBill res=null;
+        int id_client=0;
+        Date date=null;
+        float amount=0;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("SELECT * FROM facturas WHERE id_factura=");
+            query.append(id_bill);
+
+            String queryfinal = new String(query);
+
+            stmt = con.prepareStatement(queryfinal);
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+             if(rs.next()){
+                id_client=rs.getInt("id_cliente");
+                date=rs.getDate("fecha");
+                
+                query = new StringBuilder("SELECT sum(precio) FROM compras WHERE id_factura='");
+                query.append(id_bill);
+                query.append("'");
+                queryfinal = new String(query);
+                
+                stmt = con.prepareStatement(queryfinal);
+
+                rs=stmt.executeQuery();
+                if(rs.next()){
+                    amount=rs.getFloat(1);
+                }
+                res=new DataBill(id_bill,id_client,date,amount);
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
+    }
+    
     /**
      *
      * @param id_client
@@ -454,7 +513,7 @@ public class MySQLTools {
              while (rs.next()) {
                 id_bill=rs.getInt("id_factura");
                 date=rs.getDate("fecha");
-                res.addElement(new DataBill(id_bill,id_client,date));
+                res.addElement(new DataBill(id_bill,id_client,date,0));
             }
 
         } catch (SQLException sqle){
@@ -799,44 +858,26 @@ public class MySQLTools {
         }
     }
 
-    /**
+     /**
      * Modify bill
      */
-     void modifyBill(int id_bill, float amount, int id_client){
+     void modifyBill(int id_bill,int id_client){
         Connection con = null;
         PreparedStatement stmt = null;
 
         try{
-            StringBuilder query = new StringBuilder("UPDATE facturas SET ");
-            boolean first=true;
-
-            if(id_client != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("id_cliente='");
-                query.append(id_client);
-                query.append("'");
-                first=false;
-            }
-            if(amount != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("importe='");
-                query.append(amount);
-                query.append("'");
-
-                first=false;
-            }
-
-            query.append(" WHERE id_factura = ");
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("UPDATE facturas SET id_cliente='");
+            query.append(id_client);
+            query.append("' WHERE id_factura='");
             query.append(id_bill);
+            query.append("'");
 
             String queryfinal = new String(query);
             stmt = con.prepareStatement(queryfinal);
 
-            stmt.executeUpdate();
+            stmt.execute();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -855,14 +896,7 @@ public class MySQLTools {
             }
         }
     }
-
-    /**
-     * Remove bill
-     */
-     void removeBill(int id_bill){
-
-    }
-
+     
     //"COMPRAS" table
 
     /**
@@ -889,6 +923,15 @@ public class MySQLTools {
             stmt = con.prepareStatement(queryfinal);
 
             stmt.executeUpdate();
+            
+            query = new StringBuilder("UPDATE productos SET ventas=ventas+1 WHERE id_producto='");
+            query.append(id_product);
+            query.append("'");
+
+            queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
 
         }   catch (SQLException sqle){
             System.out.println("SQLState: " + sqle.getSQLState());
@@ -911,9 +954,52 @@ public class MySQLTools {
     /**
      * Erase a product of a purchase
      */
-    void removeProductOfPurchase(int id_bill, int id_product){
+    void removePurchase(int id_bill, int id_product){
+        Connection con = null;
+        PreparedStatement stmt = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM compras WHERE id_factura='");
+            query.append(id_bill);
+            query.append("' AND id_producto='");
+            query.append(id_product);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+            
+            query = new StringBuilder("UPDATE productos SET ventas=ventas-1 WHERE id_producto='");
+            query.append(id_product);
+            query.append("'");
+
+            queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
+    
 
     //"SERVIDORES" table
 
@@ -934,9 +1020,9 @@ public class MySQLTools {
            stmt.setString(2, name);
            stmt.setString(3, access);
            stmt.setString(4, user_ftp);
-           stmt.setString(5, password_ftp);
+           stmt.setString(5, encrypt(password_ftp));
            stmt.setString(6, user_host);
-           stmt.setString(7, password_host);
+           stmt.setString(7, encrypt(password_host));
 
            stmt.executeUpdate();
 
@@ -961,23 +1047,17 @@ public class MySQLTools {
     /**
      * Modify server
      */
-    void modifyServer(int id_server, int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+    void modifyServer(int id_server, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
         Connection con = null;
         PreparedStatement stmt = null;
 
         try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            
             StringBuilder query = new StringBuilder("UPDATE servidores SET ");
             boolean first=true;
 
-            if(id_client != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("id_cliente='");
-                query.append(id_client);
-                query.append("'");
-                first=false;
-            }
             if(!name.equals("")){
                 if(!first){
                     query.append(",");
@@ -991,7 +1071,7 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("ruta_de_acceso = '");
+                query.append("ruta_de_acceso='");
                 query.append(access);
                 query.append("'");
 
@@ -1001,7 +1081,7 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("usuario_ftp = '");
+                query.append("usuario_ftp='");
                 query.append(user_ftp);
                 query.append("'");
 
@@ -1011,8 +1091,8 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("password_ftp = '");
-                query.append(password_ftp);
+                query.append("password_ftp='");
+                query.append(encrypt(password_ftp));
                 query.append("'");
 
                 first=false;
@@ -1021,7 +1101,7 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("usuario_host = '");
+                query.append("usuario_host='");
                 query.append(user_host);
                 query.append("'");
 
@@ -1031,27 +1111,18 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("password_host = '");
-                query.append(password_host);
-                query.append("'");
-
-                first=false;
-            }
-            if(id_client != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("id_cliente = '");
-                query.append(id_client);
+                query.append("password_host='");
+                query.append(encrypt(password_host));
                 query.append("'");
 
                 first=false;
             }
 
-            query.append(" WHERE id_servidor = ");
+            query.append(" WHERE id_servidor=");
             query.append(id_server);
 
             String queryfinal = new String(query);
+            System.out.println(queryfinal);
             stmt = con.prepareStatement(queryfinal);
 
             stmt.executeUpdate();
@@ -1132,7 +1203,63 @@ public class MySQLTools {
         }
     }
 
+/**
+     *
+     * @param id_server
+     * @return server's data with id specified
+     */
+    public DataServer consultServer(int id_server){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        DataServer res=null;
+        int id_client=0;
+        String name=null;
+        String ip=null;
+        String user_ftp=null;
+        String pass_ftp=null;
+        String user_host=null;
+        String pass_host=null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("SELECT * FROM servidores WHERE id_servidor=");
+            query.append(id_server);
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            if(rs.next()){
+                id_client=rs.getInt("id_cliente");
+                name=rs.getString("nombre");
+                ip=rs.getString("ruta_de_acceso");
+                user_ftp=rs.getString("usuario_ftp");
+                pass_ftp=decrypt(rs.getString("password_ftp"));
+                user_host=rs.getString("usuario_host");
+                pass_host=decrypt(rs.getString("password_host"));
+                res=new DataServer(id_server,id_client,name,ip,user_ftp, pass_ftp,user_host,pass_host);
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
+    }
 
     /**
      * Erase server
@@ -1992,6 +2119,37 @@ public class MySQLTools {
      * Erase domain
      */
     void removeDomain(int id_domain){
+        Connection con = null;
+        PreparedStatement stmt = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM dominios WHERE id_dominio='");
+            query.append(id_domain);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
 }
