@@ -25,8 +25,9 @@ public class DataClientView extends javax.swing.JFrame {
     /**
      * Creates new form DataClientView
      */
-    public DataClientView() {
+    public DataClientView(DataClient client) {
         initComponents();
+        clienti = client;
         setFilas();
     }
 
@@ -96,31 +97,26 @@ public class DataClientView extends javax.swing.JFrame {
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-
-                MainMenu obj = new MainMenu();
-                obj.setVisible(true);
-                dispose();
-            
+            ModifyDataClient obj = new ModifyDataClient(clienti);
+            obj.setVisible(true);
+            dispose(); 
         }
     };
-        private void setFilas()
-    {
+        
+    private void setFilas() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         
-        Vector clients=usr.listClients();
-
-            DataClient clienti=(DataClient)clients.elementAt(id);
-                Object[] datos = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
-                modelo.addRow(datos);
+        Object[] datos = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
+        modelo.addRow(datos);
         
         modelo.addColumn("Modificar");
         
-                    jTable1.getColumnModel().getColumn(7).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(70);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(70);
-        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
-        buttonColumn1.setMnemonic(KeyEvent.VK_D);
+        jTable1.getColumnModel().getColumn(7).setMinWidth(70);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(70);
+        jTable1.getColumnModel().getColumn(7).setMaxWidth(70);
         
+        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
+        buttonColumn1.setMnemonic(KeyEvent.VK_D); 
     }
     /**
      * @param args the command line arguments
@@ -152,13 +148,13 @@ public class DataClientView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DataClientView().setVisible(true);
+                new DataClientView(clienti).setVisible(true);
             }
         });
     }
 
     User usr = User.getInstance();
-    public int id;
+    public static DataClient clienti;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
