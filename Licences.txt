@@ -34,13 +34,13 @@ Licences format:
     Create Purchase             --> 600
     Delete Purchase             --> 601
     Modify Purchase             --> 602
-    List and Consult Purchase   --> 803
+    List and Consult Purchase   --> 603
   
   Servers:
     Create Servers            --> 700
     Delete Servers            --> 701
     Modify Servers            --> 702
-    List and Consult Servers  --> 803
+    List and Consult Servers  --> 703
     
   Domains:
     Create Domains            --> 800
