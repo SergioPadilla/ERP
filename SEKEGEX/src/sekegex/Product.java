@@ -37,7 +37,7 @@ public class Product {
      */
     public void modifyProduct(String name, String description, float amount){
         if (activeEmployee.hasLicence(502)){
-            DB.modifyProduct(getData().id, name, description, amount);
+            DB.modifyProduct(data.id, name, description, amount);
             update();
         }
     }
@@ -47,7 +47,7 @@ public class Product {
      */
     public void removeProduct(){
         if (activeEmployee.hasLicence(501)){
-            //DB.removeBill(getData().id);
+            DB.removeProduct(data.id);
             data=null;
         }
     }

@@ -39,7 +39,7 @@ public class Bill {
      * Change the amount of the bill
      * @param amount
      */
-    public void modifyBill(Vector add,Vector remove,int id_cliente){
+    public void modifyBill(Vector add,Vector remove){
         if(activeEmployee.hasLicence(402)){
             for(int i=0; i<add.size();i++){
                 DB.insertPurchase(data.id_bill,(int) add.elementAt(i));
@@ -47,13 +47,17 @@ public class Bill {
             for(int i=0; i<remove.size();i++){
                 DB.removePurchase(data.id_bill,(int) remove.elementAt(i));
             }
-            if(id_cliente!=0){
-                DB.modifyBill(data.id_bill, id_cliente);
-            }
             update();
         }
     }
-
+    
+    public void removeBill(){
+        if(activeEmployee.hasLicence(403)){
+            DB.removeBill(data.id_bill);
+            data=null;
+        }
+    }
+    
     /**
      * @return the data
      */
