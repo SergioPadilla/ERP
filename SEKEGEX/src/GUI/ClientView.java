@@ -96,47 +96,39 @@ public class ClientView extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-    Action see = new AbstractAction()
-    {
-    public void actionPerformed(ActionEvent e)
-    {
-        System.out.println("Pulsaste Ver");
-        DataClientView obj = new DataClientView();
-        obj.setVisible(true);
-        dispose();
-    }
-};
-        Action modify = new AbstractAction()
-    {
-    public void actionPerformed(ActionEvent e)
-    {
-                    System.out.println("Pulsaste modificar");
-                                MainMenu obj = new MainMenu();
+    Action see = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            DataClientView obj = new DataClientView();
             obj.setVisible(true);
             dispose();
-    }
-};
+        }
+    };
+        
+    Action modify = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            MainMenu obj = new MainMenu();
+            obj.setVisible(true);
+            dispose();
+        }
+    };
     
-    private void setFilas()
-    {
+    private void setFilas() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         
-        Vector clients=activeEmployee.listClients();
-        if(clients==null){
-            System.out.println("No tienes los permisos suficientes");
-        }else{
-            for(int i=0; i<clients.size();i++){
-                DataClient clienti=(DataClient)clients.elementAt(i);
-                    Object[] datos = {clienti.dni,clienti.name,clienti.surname}; // Cantidad de columnas de la tabla
-                    modelo.addRow(datos);
-            }
-         
+        Vector clients = usr.listClients();
+        
+        for(int i=0; i<clients.size();i++){
+            DataClient clienti=(DataClient)clients.elementAt(i);
+            Object[] datos = {clienti.dni,clienti.name,clienti.surname}; 
+            modelo.addRow(datos);
         }
-    ButtonColumn buttonColumn0 = new ButtonColumn(jTable1, see, 3);
-    buttonColumn0.setMnemonic(KeyEvent.VK_D);
-    ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 4);
-    buttonColumn1.setMnemonic(KeyEvent.VK_D);
+
+        ButtonColumn buttonColumn0 = new ButtonColumn(jTable1, see, 3);
+        buttonColumn0.setMnemonic(KeyEvent.VK_D);
+        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 4);
+        buttonColumn1.setMnemonic(KeyEvent.VK_D);
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -171,8 +163,8 @@ public class ClientView extends javax.swing.JFrame {
             }
         });
     }
-    User activeEmployee=User.getInstance();
-
+    
+    User usr = User.getInstance();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
