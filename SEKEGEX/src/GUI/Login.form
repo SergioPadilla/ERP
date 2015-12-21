@@ -84,6 +84,9 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="password.setEchoChar(&apos;*&apos;);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="login_button">
       <Properties>

@@ -51,6 +51,7 @@ public class Login extends javax.swing.JFrame {
 
         password_label.setText("Contraseña");
 
+        password.setEchoChar('*');
         password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordActionPerformed(evt);
