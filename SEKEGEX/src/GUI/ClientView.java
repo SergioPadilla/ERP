@@ -109,8 +109,7 @@ public class ClientView extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e) {
             javax.swing.JTable table = (javax.swing.JTable)e.getSource();
             int modelRow = Integer.valueOf(e.getActionCommand());
-            
-            DataClientView obj = new DataClientView((DataClient) clients.elementAt((int)table.getValueAt(modelRow,0)));
+            DataClientView obj = new DataClientView((DataClient) clients.elementAt(modelRow));
             obj.setVisible(true);
             dispose();
         }
