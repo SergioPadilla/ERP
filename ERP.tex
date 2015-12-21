@@ -569,6 +569,7 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 \item Fecha de vencimiento
 \item ID tarea\_padre
 \item Horas estimadas
+\item Horas trabajadas
 \item ID empleado\_asignado
 \item Estado
 \item Descripción
@@ -589,6 +590,7 @@ Salida: Ninguna  (si el dominio no existe, devuelve un mensaje de error)
 \begin{itemize}
 \item ID registro
 \item ID empleado
+\item ID tarea
 \item Horas trabajadas
 \item Descripción [cadena de texto]
 \item Fecha
@@ -974,10 +976,10 @@ CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\
 CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9) UNIQUE NOT NULL,  nombre TEXT, password TEXT, apellidos TEXT, permisos INT)
 
 \subsection{TAREAS}
-CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, descripcion TEXT, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'))
+CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, descripcion TEXT, id\_tarea\_padre INT, horas\_estimadas TIME, horas\_trabajadas? TIME, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM('TO\_DO', 'DEVELOPMENT', 'DONE'))
 
 \subsection{REGISTROS}
-CREATE TABLE registros (id\_registro INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_empleado INT REFERENCES empleados (id\_empleado), horas\_trabajadas TIME, descripción TEXT, fecha DATE)
+CREATE TABLE registros (id\_registro INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_tarea INT REFERENCES tareas (id\_tarea), id\_empleado INT REFERENCES empleados (id\_empleado), horas\_trabajadas TIME, descripción TEXT, fecha DATE)
 
 \subsection{COMENTARIOS}
 CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, texto TEXT, tarea INT REFERENCES tareas (id\_tarea))
