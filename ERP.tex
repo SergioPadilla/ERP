@@ -959,7 +959,7 @@ CREATE TABLE clientes (id\_cliente INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, tip
 CREATE TABLE productos (id\_producto INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)
 
 \subsection{FACTURAS}
-CREATE TABLE facturas (id\_factura INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, fecha DATETIME, id\_cliente INT REFERENCES clientes (id\_cliente), importe FLOAT)
+CREATE TABLE facturas (id\_factura INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, fecha DATETIME, id\_cliente INT REFERENCES clientes (id\_cliente))
 
 \subsection{COMPRAS}
 CREATE TABLE compras (id\_producto INT REFERENCES productos (id\_producto), id\_factura INT REFERENCES facturas (id\_factura), precio FLOAT, PRIMARY KEY(id\_producto,id\_factura))
