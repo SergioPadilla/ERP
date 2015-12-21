@@ -42,6 +42,15 @@ public class Sekegex {
                     System.out.println("Error de autentificación");
                 }
             }
+            ////////
+            /*
+            Vector v=activeEmployee.listProductsforbill(7);
+            for(int i=0; i<v.size();i++){
+                DataProduct vi=(DataProduct)v.elementAt(i);
+                System.out.println(vi.id+"-->"+vi.name+" "+vi.amount);
+            }
+            */
+            ////////
             System.out.println("opciones: \n "
                     + "x-->desconectar\n"
                     + "c-->Clientes");
@@ -60,11 +69,7 @@ public class Sekegex {
                         System.out.println(clienti.id+"-->"+clienti.name+" "+clienti.surname);
                     }
                 }
-                System.out.println("opciones de cliente: \n "
-                    + "i-->Insertar\n"
-                    + "m-->Modificar\n"
-                    + "v-->Ver cliente\n"
-                    + "b-->Borrar cliente (no implementado)");
+                System.out.println("opciones de cliente: \ni-->Insertar\nm-->Modificar\nv-->Ver cliente\nb-->Borrar cliente (no implementado)");
                 System.out.print("opción: ");
                 opcC = sc.nextLine();
                 if(opcC.equals("v")){
@@ -109,6 +114,9 @@ public class Sekegex {
                             }
                         }
                     }
+                    System.out.println("opciones de cliente: \nf-->Ver factura\ns-->Ver servidor(no implementado)");
+                    System.out.print("opción: ");
+                    opcC = sc.nextLine();
                 }else if(opcC.equals("m") || opcC.equals("i")){
                     int Id=0;
                     if(opcC.equals("m")){
