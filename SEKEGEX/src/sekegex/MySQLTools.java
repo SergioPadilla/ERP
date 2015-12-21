@@ -229,14 +229,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -825,15 +825,15 @@ public class MySQLTools {
         PreparedStatement stmt = null;
         int Id=0;
         try{
-           Class.forName(sDriver).newInstance();
-           con = DriverManager.getConnection(sURL,user,pass);
-           String[] returnId = { "BATCHID" };
-           stmt = con.prepareStatement("INSERT INTO facturas (id_cliente,fecha) VALUES(?,UTC_TIMESTAMP());",returnId);
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            String[] returnId = { "BATCHID" };
+            stmt = con.prepareStatement("INSERT INTO facturas (id_cliente,fecha) VALUES(?,UTC_TIMESTAMP());",returnId);
 
-           stmt.setInt(1, id_client);
+            stmt.setInt(1, id_client);
 
-           stmt.executeUpdate();
-           try (ResultSet rs = stmt.getGeneratedKeys()) {
+            stmt.executeUpdate();
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     Id=rs.getInt(1);
                 }
@@ -846,14 +846,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
            return Id;
         }
     }
@@ -1389,6 +1389,46 @@ public class MySQLTools {
      */
     void removeEmployee(int id_employee){
 
+    }
+    
+    /**
+     * List dni of the employees
+     */
+    public Vector listDniEmployees(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector dni = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+          
+            stmt = con.prepareStatement("SELECT dni FROM empleados");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                dni.add(rs.getString("dni"));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return dni;
     }
 
     /**
@@ -2054,14 +2094,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
