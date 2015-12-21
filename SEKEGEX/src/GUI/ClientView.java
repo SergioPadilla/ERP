@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sekegex.User;
 
@@ -106,9 +108,15 @@ public class ClientView extends javax.swing.JFrame {
         
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            MainMenu obj = new MainMenu();
-            obj.setVisible(true);
-            dispose();
+            if(!usr.hasLicence(303)){
+                JFrame frame = new JFrame();
+                JOptionPane.showMessageDialog(frame, "No tiene permisos para modificar clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                MainMenu obj = new MainMenu();
+                obj.setVisible(true);
+                dispose();
+            }
         }
     };
     
