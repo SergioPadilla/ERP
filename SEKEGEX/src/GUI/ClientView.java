@@ -47,20 +47,25 @@ public class ClientView extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"a", "ab", "ac", "", null}
+
             },
             new String [] {
-                "Id Empleado", "Nombre", "Apellido", "Ver", "Modificar"
+                "Id Empleado", "Nombre", "Apellido", "Ver"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(3).setMinWidth(70);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(70);
             jTable1.getColumnModel().getColumn(3).setMaxWidth(70);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(70);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(70);
         }
 
         jButton1.setText("Crear Cliente");
@@ -100,25 +105,18 @@ public class ClientView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
     Action see = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
+            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+            int modelRow = Integer.valueOf( e.getActionCommand() );
+            System.out.println("id: ");
+            System.out.print(table.getValueAt(modelRow, 0));
             DataClientView obj = new DataClientView();
+            obj.id=(int)table.getValueAt(modelRow,0);
             obj.setVisible(true);
             dispose();
         }
     };
         
-    Action modify = new AbstractAction() {
-        public void actionPerformed(ActionEvent e) {
-            if(!usr.hasLicence(303)){
-                JFrame frame = new JFrame();
-                JOptionPane.showMessageDialog(frame, "No tiene permisos para modificar clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                MainMenu obj = new MainMenu();
-                obj.setVisible(true);
-                dispose();
-            }
-        }
-    };
+
     
     private void setFilas() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -127,14 +125,13 @@ public class ClientView extends javax.swing.JFrame {
         
         for(int i=0; i<clients.size();i++){
             DataClient clienti=(DataClient)clients.elementAt(i);
-            Object[] datos = {clienti.dni,clienti.name,clienti.surname}; 
+            Object[] datos = {clienti.id,clienti.name,clienti.surname}; 
             modelo.addRow(datos);
         }
 
         ButtonColumn buttonColumn0 = new ButtonColumn(jTable1, see, 3);
         buttonColumn0.setMnemonic(KeyEvent.VK_D);
-        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 4);
-        buttonColumn1.setMnemonic(KeyEvent.VK_D);
+
     }
     
     /**
