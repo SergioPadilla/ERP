@@ -126,21 +126,21 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE productos (id_producto INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE facturas (id_factura INT NOT NULL PRIMARY KEY AUTO_INCREMENT, fecha DATETIME, id_cliente INT REFERENCES clientes (id_cliente))");
+           stmt = con.prepareStatement("CREATE TABLE facturas (id_factura INT NOT NULL PRIMARY KEY AUTO_INCREMENT, fecha DATETIME,id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE compras (id_producto INT REFERENCES productos (id_producto), id_factura INT REFERENCES facturas (id_factura),precio FLOAT, PRIMARY KEY(id_producto,id_factura))");
+           stmt = con.prepareStatement("CREATE TABLE compras (id_producto INT, id_factura INT,precio FLOAT, PRIMARY KEY(id_producto,id_factura),FOREIGN KEY (id_factura) REFERENCES facturas (id_factura) ON DELETE CASCADE)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE servidores (id_servidor INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_cliente INT REFERENCES clientes (id_cliente), nombre TEXT,  ruta_de_acceso TEXT, usuario_ftp TEXT, password_ftp TEXT, usuario_host TEXT, password_host TEXT)");
+           stmt = con.prepareStatement("CREATE TABLE servidores (id_servidor INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_cliente INT, nombre TEXT,  ruta_de_acceso TEXT, usuario_ftp TEXT, password_ftp TEXT, usuario_host TEXT, password_host TEXT, FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente) ON DELETE CASCADE)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE dominios (id_dominio INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_servidor INT REFERENCES servidores (id_servidor), web TEXT)");
+           stmt = con.prepareStatement("CREATE TABLE dominios (id_dominio INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_servidor INT, web TEXT,FOREIGN KEY (id_servidor) REFERENCES servidores (id_servidor) ON DELETE CASCADE)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE empleados (id_empleado INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dni varchar(9) UNIQUE NOT NULL,  nombre TEXT, password TEXT, apellidos TEXT, rol INT)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT REFERENCES empleados (id_empleado), estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT)");
+           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT, estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT,FOREIGN KEY (empleado_asignado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_empleado INT REFERENCES empleados (id_empleado), horas_trabajadas TIME, descripcion TEXT, fecha DATE)");
+           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT,id_tarea INT, id_empleado INT, horas_trabajadas TIME, descripcion TEXT, fecha DATE,FOREIGN KEY (id_tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE,FOREIGN KEY (id_empleado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT REFERENCES tareas (id_tarea))");
+           stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT,FOREIGN KEY (tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))");
            stmt.executeUpdate();
@@ -315,7 +315,7 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("apellidos='");
+                query.append("apellido='");
                 query.append(surname);
                 query.append("'");
 
@@ -539,7 +539,38 @@ public class MySQLTools {
      * Remove client
      */
      void removeClient(int id_client){
+         Connection con = null;
+        PreparedStatement stmt = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM clientes WHERE id_cliente='");
+            query.append(id_client);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
 
     Vector listClients(){
@@ -606,7 +637,7 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
 
-            stmt = con.prepareStatement("INSERT INTO produtos (nombre, descripcion, importe) VALUES(?,?,?);");
+            stmt = con.prepareStatement("INSERT INTO productos (nombre, descripcion, importe) VALUES(?,?,?);");
 
             stmt.setString(1, name);
             stmt.setString(2, description);
@@ -691,6 +722,8 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
             StringBuilder query = new StringBuilder("UPDATE productos SET ");
             boolean first=true;
 
@@ -724,7 +757,7 @@ public class MySQLTools {
                 first=false;
             }
 
-            query.append(" WHERE id_producto = ");
+            query.append(" WHERE id_producto=");
             query.append(id_product);
 
             String queryfinal = new String(query);
@@ -811,8 +844,39 @@ public class MySQLTools {
     /**
      * Remove Product
      */
-     void removeProduct(int id_product){
+    void removeProduct(int id_product){
+        Connection con = null;
+        PreparedStatement stmt = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM productos WHERE id_producto='");
+            query.append(id_product);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
 
     //"FACTURAS" table
@@ -894,6 +958,44 @@ public class MySQLTools {
                    e.printStackTrace();
                 }
             }
+        }
+    }
+     
+     /**
+     * Remove bill
+     */
+     void removeBill(int id_bill){
+         Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM facturas WHERE id_factura='");
+            query.append(id_bill);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
         }
     }
      
@@ -1265,7 +1367,38 @@ public class MySQLTools {
      * Erase server
      */
     void removeServer(int id_server){
+        Connection con = null;
+        PreparedStatement stmt = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM servidores WHERE id_servidor='");
+            query.append(id_server);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
 
     //"EMPLEADOS" table
@@ -2191,5 +2324,47 @@ public class MySQLTools {
               }
            }
         }
+    }
+    
+    public DataDomain consultDomain(int id_domain){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int id_server = 0;
+        String web = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("SELECT * FROM dominios WHERE id_dominio='");
+            query.append(id_domain);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()){
+                web=rs.getString("web");
+                id_server=rs.getInt("id_servidor");
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+        }
+
+        return new DataDomain(id_server, id_domain, web);
     }
 }

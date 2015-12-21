@@ -103,6 +103,12 @@ public class User {
         else
             return -1;
     }
+    public String getIdtoString(){
+        if(active)
+            return ""+id_employee;
+        else
+            return "";
+    }
     
     public String getDni(){
         if(active)
@@ -147,8 +153,10 @@ public class User {
     /**
      * Insert new product in the table
      */
-    public void insertProduct(String name, String description, int amount){
-        
+    public void insertProduct(String name, String description, float amount){
+        if(licence.contains(500)){
+            DB.insertProduct(name, description, amount);
+        }
     }
     
     /**
@@ -156,7 +164,11 @@ public class User {
      * @return Object with the data of a product
      */
     public DataProduct consultProduct(int id_product){
-        return new DataProduct(id_product,"","",1,1);
+        DataProduct res=null;
+        if(licence.contains(503)){
+            res=DB.consultProduct(id_product);
+        }
+        return res;
     }
     
     //"FACTURAS" table
@@ -185,7 +197,7 @@ public class User {
     
     public DataServer consultServer(int id_server){
         DataServer res=null;
-        if(licence.contains(803)){
+        if(licence.contains(703)){
             res=DB.consultServer(id_server);
         }
         return res;
@@ -270,7 +282,11 @@ public class User {
      * Insert Domain
      */
     public DataDomain consultDomain(int id_domain){
-        return null;
+        DataDomain res=null;
+        if(licence.contains(803)){
+            res=DB.consultDomain(id_domain);
+        }
+        return res;
     }
     
 }

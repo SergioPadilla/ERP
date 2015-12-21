@@ -31,5 +31,10 @@ public class DataClient {
         this.dni = dni;
         this.email = email;
         this.registration = registration;
-    }   
+    }
+    
+    public String idToString(){
+        String idstring = new String(""+id);
+        return idstring;
+    }
 }

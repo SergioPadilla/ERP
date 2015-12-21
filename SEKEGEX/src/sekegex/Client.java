@@ -36,18 +36,26 @@ public class Client {
     /**
      * Modify client with the params specified
      */
-    public void modifyClient(String type, String name, String surname, String dni, String email){
+    public Boolean modifyClient(String type, String name, String surname, String dni, String email){
+        Boolean ok = true;
+        
         if(activeEmployee.hasLicence(302)){
             DB.modifyClient(data.id, type, name, surname, dni, email);
+            data = DB.consultClient(data.id);
         }
+        else{
+            ok = false;
+        }
+        
+        return ok;
     }
     
     /**
      * Remove client
      */
-    public void removeClient(int id_client){
+    public void removeClient(){
         if(activeEmployee.hasLicence(301)){
-            //Borrar cliente
+            DB.removeClient(data.id);
         }
     }
     
