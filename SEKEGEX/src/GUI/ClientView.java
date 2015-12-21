@@ -27,6 +27,8 @@ public class ClientView extends javax.swing.JFrame {
      */
     public ClientView() {
         initComponents();
+        usr = User.getInstance();
+        clients = usr.listClients();
         setFilas();
     }
 
@@ -106,22 +108,16 @@ public class ClientView extends javax.swing.JFrame {
     Action see = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
             javax.swing.JTable table = (javax.swing.JTable)e.getSource();
-            int modelRow = Integer.valueOf( e.getActionCommand() );
-            System.out.println("id: ");
-            System.out.print(table.getValueAt(modelRow, 0));
-            DataClientView obj = new DataClientView();
-            obj.id=(int)table.getValueAt(modelRow,0);
+            int modelRow = Integer.valueOf(e.getActionCommand());
+            
+            DataClientView obj = new DataClientView((DataClient) clients.elementAt((int)table.getValueAt(modelRow,0)));
             obj.setVisible(true);
             dispose();
         }
     };
-        
 
-    
     private void setFilas() {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        
-        Vector clients = usr.listClients();
         
         for(int i=0; i<clients.size();i++){
             DataClient clienti=(DataClient)clients.elementAt(i);
@@ -131,7 +127,6 @@ public class ClientView extends javax.swing.JFrame {
 
         ButtonColumn buttonColumn0 = new ButtonColumn(jTable1, see, 3);
         buttonColumn0.setMnemonic(KeyEvent.VK_D);
-
     }
     
     /**
@@ -169,7 +164,8 @@ public class ClientView extends javax.swing.JFrame {
         });
     }
     
-    User usr = User.getInstance();
+    private User usr;
+    public Vector clients;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
