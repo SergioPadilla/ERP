@@ -171,6 +171,14 @@ public class User {
         return res;
     }
     
+    public Vector listProducts(){
+        Vector res=null;
+        if(licence.contains(503)){
+            res=DB.listProducts();
+        }
+        return res;
+    }
+    
     //"FACTURAS" table
     
     /**
