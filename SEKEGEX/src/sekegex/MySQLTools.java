@@ -122,7 +122,7 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("CREATE TABLE clientes (id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT, tipo ENUM('FREELANCE', 'BUSINESS'),nombre TEXT, apellido TEXT, nif varchar(10) UNIQUE , email TEXT, fecha_alta DATETIME)");
+           stmt = con.prepareStatement("CREATE TABLE clientes (id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT, tipo ENUM('FREELANCE', 'BUSINESS'),nombre TEXT, apellidos TEXT, nif varchar(10) UNIQUE , email TEXT, fecha_alta DATETIME)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE productos (id_producto INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)");
            stmt.executeUpdate();
@@ -138,7 +138,7 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT, estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT,FOREIGN KEY (empleado_asignado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT,id_tarea INT, id_empleado INT, horas_trabajadas TIME, descripcion TEXT, fecha DATE,FOREIGN KEY (id_tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE,FOREIGN KEY (id_empleado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
+           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT,id_tarea INT, horas_trabajadas TIME, descripcion TEXT, fecha DATE,FOREIGN KEY (id_tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT,FOREIGN KEY (tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE)");
            stmt.executeUpdate();
@@ -253,7 +253,7 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellido, nif, email,fecha_alta) VALUES(?,?,?,?,?,UTC_TIMESTAMP());");
+           stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellidos, nif, email,fecha_alta) VALUES(?,?,?,?,?,UTC_TIMESTAMP());");
 
            stmt.setString(1, type);
            stmt.setString(2, name);
@@ -400,7 +400,7 @@ public class MySQLTools {
             if(rs.next()){
                 type=TypeClient.valueOf(rs.getString("tipo"));
                 name=rs.getString("nombre");
-                surname=rs.getString("apellido");
+                surname=rs.getString("apellidos");
                 nif=rs.getString("nif");
                 email=rs.getString("email");
                 date=rs.getDate("fecha_alta");
@@ -598,7 +598,7 @@ public class MySQLTools {
                 id_client=rs.getInt("id_cliente");
                 type=TypeClient.valueOf(rs.getString("tipo"));
                 name=rs.getString("nombre");
-                surname=rs.getString("apellido");
+                surname=rs.getString("apellidos");
                 nif=rs.getString("nif");
                 email=rs.getString("email");
                 date=rs.getDate("fecha_alta");
