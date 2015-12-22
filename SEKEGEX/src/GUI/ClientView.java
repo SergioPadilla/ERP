@@ -93,10 +93,10 @@ public class ClientView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                 .addGap(42, 42, 42)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -109,7 +109,7 @@ public class ClientView extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e) {
             javax.swing.JTable table = (javax.swing.JTable)e.getSource();
             int modelRow = Integer.valueOf(e.getActionCommand());
-            DataClientView2 obj = new DataClientView2((DataClient) clients.elementAt(modelRow));
+            DataClientView obj = new DataClientView((DataClient) clients.elementAt(modelRow));
             obj.setVisible(true);
             dispose();
         }

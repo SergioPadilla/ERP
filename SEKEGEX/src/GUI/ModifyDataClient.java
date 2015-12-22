@@ -192,7 +192,7 @@ public class ModifyDataClient extends javax.swing.JFrame {
     }//GEN-LAST:event_back_buttonActionPerformed
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        DataClientView2 obj = new DataClientView2(client);
+        DataClientView obj = new DataClientView(client);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked

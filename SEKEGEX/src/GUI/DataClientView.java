@@ -23,7 +23,7 @@ import sekegex.User;
 public class DataClientView extends javax.swing.JFrame {
 
     /**
-     * Creates new form DataClientView
+     * Creates new form DataClientView2
      */
     public DataClientView(DataClient client) {
         initComponents();
@@ -40,23 +40,59 @@ public class DataClientView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Apellido", "email", "NIF", "Tipo", "Fecha de Alta", "Modificar"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("Volver");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(276, 276, 276)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                .addGap(117, 117, 117)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-            ClientView obj = new ClientView();
-            obj.setVisible(true);
-            dispose();
-    }//GEN-LAST:event_jButton1MouseClicked
+        ClientView obj = new ClientView();
+        obj.setVisible(true);
+            dispose();    }//GEN-LAST:event_jButton1MouseClicked
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
@@ -67,20 +103,15 @@ public class DataClientView extends javax.swing.JFrame {
     };
         
     private void setFilas() {
-       // DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         
-        //Object[] datos = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
-       // modelo.addRow(datos);
+        Object[] datos = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
+        modelo.addRow(datos);
         
-      //  modelo.addColumn("Modificar");
-        
-       // jTable1.getColumnModel().getColumn(7).setMinWidth(70);
-      //  jTable1.getColumnModel().getColumn(7).setPreferredWidth(70);
-       // jTable1.getColumnModel().getColumn(7).setMaxWidth(70);
-        
-       // ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
-       // buttonColumn1.setMnemonic(KeyEvent.VK_D); 
+        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
+        buttonColumn1.setMnemonic(KeyEvent.VK_D); 
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -107,6 +138,7 @@ public class DataClientView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(DataClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -115,10 +147,11 @@ public class DataClientView extends javax.swing.JFrame {
             }
         });
     }
-
     User usr = User.getInstance();
     public static DataClient clienti;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-
 }
