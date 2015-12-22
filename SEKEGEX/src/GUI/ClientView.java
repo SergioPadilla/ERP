@@ -85,7 +85,7 @@ public class ClientView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addGap(252, 252, 252)
                 .addComponent(jButton1)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -93,10 +93,10 @@ public class ClientView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         pack();
@@ -116,12 +116,12 @@ public class ClientView extends javax.swing.JFrame {
     };
 
     private void setFilas() {
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        
+        DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
+
         for(int i=0; i<clients.size();i++){
             DataClient clienti=(DataClient)clients.elementAt(i);
             Object[] datos = {clienti.id,clienti.name,clienti.surname}; 
-            modelo.addRow(datos);
+            modelo1.addRow(datos);
         }
 
         ButtonColumn buttonColumn0 = new ButtonColumn(jTable1, see, 3);
