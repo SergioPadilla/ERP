@@ -47,10 +47,9 @@ public class Task {
      * Erase task
      */
     public void eraseTask(){
-        if (activeEmployee.hasLicence(201)){
+        if (activeEmployee.hasLicence(101)){
             DB.eraseTask(getData().id_task);
         }
-
     }
 
     /**

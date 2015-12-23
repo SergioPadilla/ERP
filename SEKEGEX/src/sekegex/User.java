@@ -6,6 +6,7 @@
 package sekegex;
 
 import DataType.*;
+import Utils.StatusTask;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
@@ -222,22 +223,62 @@ public class User {
         return null;
     }
     
+    /**
+     * List names of the employees
+     */
+    public Vector listNamesEmployees(){
+        Vector names = null;
+        
+        if(licence.contains(903)){
+            names = DB.listNamesEmployees();
+        }
+        
+        return names;
+    }
+    
     //"TAREAS" table
     
     /**
      * Insert new task
      */
-    public void insertTask(String title, String description, int hour, int minutes){
+    public Boolean insertTask(String title, String description, Time time_estimated){
+        Boolean ok = true;
         
+        if(licence.contains(100)){
+            DB.insertTask(title, description, time_estimated);
+        }
+        else{
+            ok = false;
+        }
+        return ok;
     }
     /**
      * Get the data of task with id specified
      * @param id_task
      * @return 
      */
-    
     public DataTask consultTask(int id_task){
-        return null;
+         DataTask task = null;
+         
+         if(licence.contains(103)){
+            task = DB.consultTask(id_task); 
+         }
+         
+         return task;       
+    }
+    
+    /**
+     * Get the title of all task
+     * @return 
+     */
+    public Vector listTitleTasks(){
+        Vector tasks = null;
+        
+        if(licence.contains(103)){
+            tasks = DB.listTitleTasks();
+        }
+        
+        return tasks;
     }
     
     //"REGISTROS" table
