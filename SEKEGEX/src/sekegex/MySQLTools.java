@@ -315,7 +315,7 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("apellido='");
+                query.append("apellidos='");
                 query.append(surname);
                 query.append("'");
 
