@@ -1918,7 +1918,7 @@ public class MySQLTools {
      * Get the title of all task
      * @return 
      */
-    public Vector listTitleTasks(){
+    public Vector listTasks(){
         Connection con = null;
         PreparedStatement stmt = null;
         Vector tasks = new Vector();
@@ -1927,12 +1927,20 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
           
-            stmt = con.prepareStatement("SELECT titulo FROM tareas");
+            stmt = con.prepareStatement("SELECT * FROM tareas");
 
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                tasks.add(rs.getString("titulo"));
+                tasks.add(new DataTask(rs.getInt("id_tarea"),
+                        rs.getString("titulo"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_tarea_padre"),
+                        rs.getTime("horas_estimadas"),
+                        rs.getInt("empleado_asignado"),
+                        StatusTask.valueOf(rs.getString("estado")),
+                        rs.getString("descripcion")
+                ));
             }
 
         } catch (SQLException sqle){

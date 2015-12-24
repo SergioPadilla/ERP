@@ -271,11 +271,11 @@ public class User {
      * Get the title of all task
      * @return 
      */
-    public Vector listTitleTasks(){
+    public Vector listTasks(){
         Vector tasks = null;
         
         if(licence.contains(103)){
-            tasks = DB.listTitleTasks();
+            tasks = DB.listTasks();
         }
         
         return tasks;

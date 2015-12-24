@@ -5,10 +5,15 @@
  */
 package GUI;
 
+import DataType.DataTask;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.ListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import sekegex.MySQLTools;
+import sekegex.Task;
 import sekegex.User;
 
 /**
@@ -24,17 +29,26 @@ public class Workflow extends javax.swing.JFrame {
         initComponents();
         usr = User.getInstance();
         
-        //Get the title of the tasks to show it
-        Vector tasks = usr.listTitleTasks(); 
+        //Get the tasks to show it
+        tasks = usr.listTasks();
         
         //Create the model and add it the title of the task
         DefaultListModel model = new DefaultListModel();
         
         for(int i = 0; i < tasks.size(); i++){
-            model.addElement(tasks.get(i));
+            DataTask task =(DataTask) tasks.get(i);
+            model.addElement(task.title);
         }
         
         listTasks.setModel(model);
+        
+        listTasks.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                //Tengo el indice que pulsa, falta sacar la task correspondiente y pasarsela a la siguiente pantalla.
+            }
+        });
     }
 
     /**
@@ -154,7 +168,9 @@ public class Workflow extends javax.swing.JFrame {
         });
     }
     
-    User usr;
+    User usr; //Employee active
+    Vector tasks; //List of the full tasks (DataTask)
+    Vector titleTasks; //Contains all title tasks in the same order that tasks contains tasks
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTask;
     private javax.swing.JButton back_button;
