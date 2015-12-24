@@ -5,11 +5,11 @@
  */
 package GUI;
 
+import DataType.DataEmployee;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 import javax.swing.JComboBox;
-import sekegex.MySQLTools;
 import sekegex.User;
 
 /**
@@ -23,11 +23,13 @@ public class AddTask extends javax.swing.JFrame {
      */
     public AddTask() {
         initComponents();
-        usr = User.getInstance();
-        DB = MySQLTools.getInstance();
-       
-        Vector employees = usr.listNamesEmployees();
-        this.combo_employees = new JComboBox(employees);
+        usr = User.getInstance();        
+        Vector employees = usr.listEmployees();
+
+        for(int i = 0; i < employees.size(); i++){
+            DataEmployee employee = (DataEmployee) employees.get(i);
+            combo_employees.addItem(employee.name);
+        }
         
         this.combo_employees.addActionListener(new ActionListener(){
             @Override
@@ -93,7 +95,7 @@ public class AddTask extends javax.swing.JFrame {
 
         year_label.setText("AAAA");
 
-        employee_label.setText("Asginar Empleado");
+        employee_label.setText("Asignar Empleado");
 
         back_button.setText("Volver");
         back_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -260,7 +262,6 @@ public class AddTask extends javax.swing.JFrame {
     }
 
     User usr;
-    MySQLTools DB;
     public String name;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;

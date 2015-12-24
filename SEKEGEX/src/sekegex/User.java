@@ -226,11 +226,11 @@ public class User {
     /**
      * List names of the employees
      */
-    public Vector listNamesEmployees(){
+    public Vector listEmployees(){
         Vector names = null;
         
         if(licence.contains(903)){
-            names = DB.listNamesEmployees();
+            names = DB.listEmployees();
         }
         
         return names;

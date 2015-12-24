@@ -1567,21 +1567,26 @@ public class MySQLTools {
     /**
      * List names of the employees
      */
-    public Vector listNamesEmployees(){
+    public Vector listEmployees(){
         Connection con = null;
         PreparedStatement stmt = null;
-        Vector names = new Vector();
+        Vector employees = new Vector();
 
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
           
-            stmt = con.prepareStatement("SELECT nombre FROM empleados");
+            stmt = con.prepareStatement("SELECT * FROM empleados");
 
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                names.add(rs.getString("nombre"));
+                employees.add(new DataEmployee(rs.getInt("id_empleado"),
+                        rs.getString("dni"),
+                        rs.getString("nombre"),
+                        rs.getString("password"),
+                        rs.getString("apellidos"), 
+                        rs.getInt("rol")));
             }
 
         } catch (SQLException sqle){
@@ -1601,7 +1606,7 @@ public class MySQLTools {
             }
         }
         
-        return names;
+        return employees;
     }
     
     /**

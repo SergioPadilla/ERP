@@ -207,7 +207,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="employee_label">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Asginar Empleado"/>
+        <Property name="text" type="java.lang.String" value="Asignar Empleado"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="combo_employees">
