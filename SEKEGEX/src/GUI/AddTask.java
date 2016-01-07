@@ -281,7 +281,7 @@ public class AddTask extends javax.swing.JFrame {
     }
 
     User usr;
-    public String name;
+    private String name;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
     private javax.swing.JComboBox<String> combo_employees;

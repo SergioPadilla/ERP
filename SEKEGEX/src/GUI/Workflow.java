@@ -46,7 +46,10 @@ public class Workflow extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int index = ((JList) e.getSource()).getSelectedIndex();
-                //Tengo el indice que pulsa, falta sacar la task correspondiente y pasarsela a la siguiente pantalla.
+                
+                ModifyTask obj = new ModifyTask((DataTask) tasks.get(index));
+                obj.setVisible(true);
+                dispose();
             }
         });
     }
@@ -170,7 +173,6 @@ public class Workflow extends javax.swing.JFrame {
     
     User usr; //Employee active
     Vector tasks; //List of the full tasks (DataTask)
-    Vector titleTasks; //Contains all title tasks in the same order that tasks contains tasks
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTask;
     private javax.swing.JButton back_button;
