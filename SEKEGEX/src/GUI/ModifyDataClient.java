@@ -22,6 +22,7 @@ public class ModifyDataClient extends javax.swing.JFrame {
      */
     public ModifyDataClient(DataClient data) {
         initComponents();
+        this.setTitle("Modificar cliente");
         usr = User.getInstance();
         client = data;
         date.setText(client.registration.toString());

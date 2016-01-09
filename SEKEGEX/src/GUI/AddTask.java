@@ -24,6 +24,7 @@ public class AddTask extends javax.swing.JFrame {
      */
     public AddTask() {
         initComponents();
+        this.setTitle("Añadir Tarea");
         usr = User.getInstance();        
         Vector employees = usr.listEmployees();
 

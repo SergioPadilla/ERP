@@ -21,8 +21,8 @@ public class CreateClientView extends javax.swing.JFrame {
      * Creates new form CreateClientView
      */
     public CreateClientView() {
-            
         initComponents();
+        this.setTitle("Crear Cliente");
     }
 
     /**

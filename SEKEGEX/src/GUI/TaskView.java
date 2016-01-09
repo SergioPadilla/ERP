@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import DataType.DataTask;
 import java.awt.Color;
 
 /**
@@ -16,9 +17,10 @@ public class TaskView extends javax.swing.JFrame {
     /**
      * Creates new form TaskView
      */
-    public TaskView() {
+    public TaskView(DataTask task) {
         initComponents();
-        this.setTitle("Título tarea a visualizar"); //DELETE
+        this.task = task;
+        this.setTitle("Tarea"); //DELETE
         this.getContentPane().setBackground(Color.BLUE);
     }
 
@@ -226,11 +228,12 @@ public class TaskView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TaskView().setVisible(true);
+                new TaskView(task).setVisible(true);
             }
         });
     }
 
+    public static DataTask task;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addComment_button;
     private javax.swing.JLabel comments_label;

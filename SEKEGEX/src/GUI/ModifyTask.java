@@ -24,6 +24,7 @@ public class ModifyTask extends javax.swing.JFrame {
      */
     public ModifyTask(DataTask task) {
         initComponents();
+        this.setTitle("Modificar Tarea");
         this.task = task;
         
         usr = User.getInstance();        
