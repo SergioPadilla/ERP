@@ -717,6 +717,55 @@ public class MySQLTools {
         }
     }
 
+      Vector listProducts(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String name=null;
+        String description=null;
+        float amount=0;
+        int id_product=0;
+        int nSold=0;
+        Vector res=new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT * FROM productos");
+            String statement = sb.toString();
+            stmt = con.prepareStatement(statement);
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                id_product=rs.getInt("id_producto");
+                name=rs.getString("nombre");
+                description=rs.getString("descripcion");
+                nSold=rs.getInt("ventas");
+                amount=rs.getFloat("importe");
+                res.addElement(new DataProduct(id_product,name,description,amount,nSold));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
+    }
+     
     /**
      * Modify product
      */

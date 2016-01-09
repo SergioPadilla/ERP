@@ -42,7 +42,7 @@ public class Sekegex {
                     System.out.println("Error de autentificación");
                 }
             }
-            System.out.println("opciones: \nx-->desconectar\nc-->Clientes\np-->Productos");
+            System.out.println("opciones: \nx-->desconectar\nc-->Clientes\np-->Productos\nw-->Workflow");
             System.out.print("opción: ");
             opc = sc.nextLine();
             if(opc.equals("x")){
@@ -234,6 +234,52 @@ public class Sekegex {
                 }
             }else if(opc.equals("p")){
                 System.out.println("opciones de productos: \ni-->Insertar\nv-->Ver producto");
+                System.out.println("--->Lista de dominios<---" );
+                Vector products=activeEmployee.listProducts();
+                for(int i=0; i<products.size();i++){
+                    DataProduct producti=(DataProduct)products.elementAt(i);
+                    System.out.println(producti.id+"-->"+producti.name);
+                }
+                System.out.print("opción: ");
+                opcC = sc.nextLine();
+                if(opcC.equals("v")){
+                    System.out.print("Id: ");
+                    int Id = sc.nextInt();
+                    sc.nextLine();
+                    Product product= new Product(Id);
+                    DataProduct Dproduct=product.getData();
+                    System.out.println("Id: "+Dproduct.id);
+                    System.out.println("nombre: "+Dproduct.name);
+                    System.out.println("descripción: "+Dproduct.description);
+                    System.out.println("precio: "+Dproduct.amount);
+                    System.out.println("opciones de productos: \nb-->Borrar\nm-->Modificar");
+                    System.out.print("opción: ");
+                    opcC = sc.nextLine();
+                    if(opcC.equals("m")){
+                        System.out.print("nombre: ");
+                        String name = sc.nextLine();
+                        System.out.print("descripción: ");
+                        String description = sc.nextLine();
+                        System.out.print("precio: ");
+                        float amount = sc.nextFloat();
+                        sc.nextLine();
+                        product.modifyProduct(name, description, amount);
+                    }else if(opcC.equals("b")){
+                        product.removeProduct();
+                        product=null;
+                    }
+                }else if(opcC.equals("i")){
+                    System.out.print("nombre: ");
+                    String name = sc.nextLine();
+                    System.out.print("descripción: ");
+                    String description = sc.nextLine();
+                    System.out.print("precio: ");
+                    float amount = sc.nextFloat();
+                    sc.nextLine();
+                    activeEmployee.insertProduct(name, description, amount);
+                }
+            }else if(opc.equals("w")){
+                System.out.println("opciones de tareas: \ni-->Insertar\nv-->Ver tarea");
                 System.out.print("opción: ");
                 opcC = sc.nextLine();
                 if(opcC.equals("v")){
