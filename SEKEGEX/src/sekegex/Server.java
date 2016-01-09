@@ -80,9 +80,11 @@ public class Server {
      /**
      * Insert Domain
      */
-    public void insertDomain(String web){
+    public boolean insertDomain(String web){
+        boolean res=false;
         if (activeEmployee.hasLicence(800)){
-            DB.insertDomain(data.id_server, web);
+            res=DB.insertDomain(data.id_server, web);
         }
+        return res;
     }
 }

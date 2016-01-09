@@ -2341,9 +2341,10 @@ public class MySQLTools {
     /**
      * Insert domain
      */
-    void insertDomain(int id_server, String web){
+    boolean insertDomain(int id_server, String web){
         Connection con = null;
         PreparedStatement stmt = null;
+        int res=0;
 
         try{
            Class.forName(sDriver).newInstance();
@@ -2354,7 +2355,7 @@ public class MySQLTools {
            stmt.setInt(1, id_server);
            stmt.setString(2, web);
 
-           stmt.executeUpdate();
+           res=stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -2372,6 +2373,7 @@ public class MySQLTools {
                 }
             }
         }
+        return res==1;
     }
 
     /**
