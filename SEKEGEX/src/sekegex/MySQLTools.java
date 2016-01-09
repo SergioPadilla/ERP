@@ -717,6 +717,55 @@ public class MySQLTools {
         }
     }
 
+      Vector listProducts(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String name=null;
+        String description=null;
+        float amount=0;
+        int id_product=0;
+        int nSold=0;
+        Vector res=new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT * FROM productos");
+            String statement = sb.toString();
+            stmt = con.prepareStatement(statement);
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                id_product=rs.getInt("id_producto");
+                name=rs.getString("nombre");
+                description=rs.getString("descripcion");
+                nSold=rs.getInt("ventas");
+                amount=rs.getFloat("importe");
+                res.addElement(new DataProduct(id_product,name,description,amount,nSold));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
+    }
+     
     /**
      * Modify product
      */
@@ -1111,9 +1160,11 @@ public class MySQLTools {
     /**
      * Insert new server
      */
-    void insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+    boolean insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
         Connection con = null;
         PreparedStatement stmt = null;
+        int res=0;
+
 
         try{
            Class.forName(sDriver).newInstance();
@@ -1129,7 +1180,7 @@ public class MySQLTools {
            stmt.setString(6, user_host);
            stmt.setString(7, encrypt(password_host));
 
-           stmt.executeUpdate();
+           res=stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -1147,6 +1198,7 @@ public class MySQLTools {
               }
            }
         }
+        return res==1;
     }
 
     /**
@@ -2289,9 +2341,10 @@ public class MySQLTools {
     /**
      * Insert domain
      */
-    void insertDomain(int id_server, String web){
+    boolean insertDomain(int id_server, String web){
         Connection con = null;
         PreparedStatement stmt = null;
+        int res=0;
 
         try{
            Class.forName(sDriver).newInstance();
@@ -2302,7 +2355,7 @@ public class MySQLTools {
            stmt.setInt(1, id_server);
            stmt.setString(2, web);
 
-           stmt.executeUpdate();
+           res=stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -2320,6 +2373,7 @@ public class MySQLTools {
                 }
             }
         }
+        return res==1;
     }
 
     /**

@@ -47,13 +47,19 @@ public class Server {
      * @param user_host
      * @param password_host
      */
-    public void modifyServer(String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+    public Boolean modifyServer(String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+        Boolean ok = true;
+
         if(activeEmployee.hasLicence(702)){
             DB.modifyServer(data.id_server, name, access, user_ftp, password_ftp, user_host, password_host);
-            update();
+            data = DB.consultServer(data.id_server);
         }
-    }
-    
+        else{
+            ok = false;
+        }
+        
+        return ok;
+    }    
     /**
      * Erase server
      */
@@ -74,9 +80,11 @@ public class Server {
      /**
      * Insert Domain
      */
-    public void insertDomain(String web){
+    public boolean insertDomain(String web){
+        boolean res=false;
         if (activeEmployee.hasLicence(800)){
-            DB.insertDomain(data.id_server, web);
+            res=DB.insertDomain(data.id_server, web);
         }
+        return res;
     }
 }
