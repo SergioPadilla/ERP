@@ -51,7 +51,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        workflow_button.setText("Workflow");
+        workflow_button.setText("Tareas");
         workflow_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 workflow_buttonMouseClicked(evt);
