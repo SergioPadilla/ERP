@@ -87,7 +87,7 @@ public class CreateServerView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addGap(67, 67, 67))
                     .addGroup(layout.createSequentialGroup()
@@ -147,7 +147,7 @@ public class CreateServerView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(pass_host, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -164,27 +164,52 @@ public class CreateServerView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        String namenew = name.getText().toString();
-        String ipnew = ip.getText().toString();
-        String user_ftp_new = user_ftp.getText().toString();
-        String pass_ftp_new = pass_ftp.getText().toString();
-        String user_host_new = user_host.getText().toString();
-        String pass_host_new = pass_host.getText().toString();
-        User usr=User.getInstance();
-        System.out.print(usr.hasLicence(300));
-
         JFrame frame = new JFrame();
-        Client clientO= new Client(client.id);
-
-        
-        if((clientO.insertServer(namenew, ipnew, user_ftp_new, pass_host_new, user_host_new, pass_host_new))){
-            JOptionPane.showMessageDialog(frame, "La Creacion se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
-            repaint();
-        }
+        String namenew = name.getText().toString();
+        if (!namenew.isEmpty()){
+            String ipnew = ip.getText().toString();
+            if (!ipnew.isEmpty()){
+                String user_ftp_new = user_ftp.getText().toString();
+                if (!user_ftp_new.isEmpty()){
+                    String pass_ftp_new = pass_ftp.getText().toString();
+                    if (!pass_ftp_new.isEmpty()){
+                        String user_host_new = user_host.getText().toString();
+                        if (!user_host_new.isEmpty()){
+                            String pass_host_new = pass_host.getText().toString();
+                            if (!pass_host_new.isEmpty()){
+                                Client clientO= new Client(client.id);
+                                if((clientO.insertServer(namenew, ipnew, user_ftp_new, pass_host_new, user_host_new, pass_host_new))){
+                                    JOptionPane.showMessageDialog(frame, "La Creacion se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
+                                    repaint();
+                                }
+                                else{
+                                    JOptionPane.showMessageDialog(frame, "No tienes permisos para crear clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(frame, "Falta el campo Constraseña HOST", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);                        
+                            } 
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(frame, "Falta el campo Usuario HOST", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+                        }                    
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(frame, "Falta el campo Contraseña FTP", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(frame, "Falta el campo Usuario FTP", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(frame, "Falta el campo IP", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+            }
+        }     
         else{
-            JOptionPane.showMessageDialog(frame, "No tienes permisos para crear clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
-        }        // TODO add your handling code here:
-
+            JOptionPane.showMessageDialog(frame, "Falta el campo NOMBRE", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**

@@ -151,26 +151,42 @@ public class CreateClientView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-         String dninew = jTextField4.getText().toString();
-         String namenew = jTextField1.getText().toString();
-         String surnamenew = jTextField2.getText().toString();
-         String typenew = "BUSINESS";
-         String emailnew = jTextField5.getText().toString();
-        User usr=User.getInstance();
-        System.out.print(usr.hasLicence(300));
-        
         JFrame frame = new JFrame();
-        
-        if((usr.insertClient(typenew, namenew, surnamenew, dninew, emailnew))){
-            JOptionPane.showMessageDialog(frame, "La Creacion se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
-            repaint();
-        }
-        else{
-            JOptionPane.showMessageDialog(frame, "No tienes permisos para crear clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
-        }        // TODO add your handling code here:
-        
+        String dninew = jTextField4.getText().toString();
+         if (!dninew.isEmpty()){
+            String namenew = jTextField1.getText().toString();
+            if (!namenew.isEmpty()){
+                String surnamenew = jTextField2.getText().toString();
+                if (!surnamenew.isEmpty()){
+                    String emailnew = jTextField5.getText().toString();
+                    if (!emailnew.isEmpty()){
+                        String typenew = "BUSINESS";
+                        User usr=User.getInstance();
+                        if((usr.insertClient(typenew, namenew, surnamenew, dninew, emailnew))){
+                            JOptionPane.showMessageDialog(frame, "La Creacion se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
+                            repaint();
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(frame, "No tienes permisos para crear clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+                        }                 
+                    }
+                    else{
+                    JOptionPane.showMessageDialog(frame, "Falta el campo EMAIL", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+                    }           
+                }
+                else{
+                    JOptionPane.showMessageDialog(frame, "Falta el campo APELLIDOS", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+                }            
+            }
+            else{
+                JOptionPane.showMessageDialog(frame, "Falta el campo NOMBRE", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+            }
+         }
+         else{
+            JOptionPane.showMessageDialog(frame, "Falta el campo DNI", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_jButton2MouseClicked
-
+    
     /**
      * @param args the command line arguments
      */

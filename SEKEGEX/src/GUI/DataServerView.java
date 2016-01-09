@@ -7,12 +7,15 @@ package GUI;
 
 import DataType.DataBill;
 import DataType.DataClient;
+import DataType.DataDomain;
 import DataType.DataServer;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.table.DefaultTableModel;
+import sekegex.Server;
 import sekegex.User;
 
 /**
@@ -28,6 +31,8 @@ public class DataServerView extends javax.swing.JFrame {
         initComponents();
         usr = User.getInstance();
         server = data;
+        Server servidor= new Server(server.id_server);
+        domains=servidor.listDomains();
         setFilas();
 
     }
@@ -44,6 +49,9 @@ public class DataServerView extends javax.swing.JFrame {
         jButtonVolver = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jButtonCreateDomain = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,25 +85,72 @@ public class DataServerView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID Dominio", "Web", "Borrar"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setPreferredWidth(10);
+            jTable2.getColumnModel().getColumn(1).setPreferredWidth(300);
+            jTable2.getColumnModel().getColumn(2).setPreferredWidth(5);
+        }
+
+        jButtonCreateDomain.setText("Crear Dominio");
+        jButtonCreateDomain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonCreateDomainMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addComponent(jButtonVolver)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(jButtonVolver))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(jButtonCreateDomain)))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCreateDomain, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68)))
                 .addComponent(jButtonVolver)
                 .addGap(47, 47, 47))
         );
@@ -114,6 +169,12 @@ public class DataServerView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonVolverMouseClicked
 
+    private void jButtonCreateDomainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateDomainMouseClicked
+        CreateDomainView obj = new CreateDomainView(server);
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonCreateDomainMouseClicked
+
         Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
             
@@ -123,15 +184,31 @@ public class DataServerView extends javax.swing.JFrame {
             
         }
     };
-            
+    Action borrar = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            /*IMPLEMENTAR EL BORRADO*/ 
+        }
+    };      
+        
     private void setFilas() {
         DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
+
         
         Object[] datos1 = {server.id_server,server.id_client,server.name,server.ip,server.user_ftp,server.pass_ftp,server.user_host,server.pass_host}; // Cantidad de columnas de la tabla
         modelo1.addRow(datos1);
         
         ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 8);
         buttonColumn1.setMnemonic(KeyEvent.VK_D); 
+        
+        for(int i=0;i<domains.size();i++){
+            DataDomain domi=(DataDomain)domains.elementAt(i);
+            Object[] datos2 = {domi.id_domain,domi.name}; 
+            modelo2.addRow(datos2);
+        }
+        
+        ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, borrar, 2);
+        buttonColumn2.setMnemonic(KeyEvent.VK_D);
         
         
     }
@@ -172,9 +249,13 @@ public class DataServerView extends javax.swing.JFrame {
     }
     private User usr;
     private static DataServer server;
+    public Vector domains;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCreateDomain;
     private javax.swing.JButton jButtonVolver;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }
