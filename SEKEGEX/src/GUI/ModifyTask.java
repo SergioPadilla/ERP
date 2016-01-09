@@ -226,7 +226,7 @@ public class ModifyTask extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        Workflow obj = new Workflow();
+        TaskView obj = new TaskView(this.task);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
