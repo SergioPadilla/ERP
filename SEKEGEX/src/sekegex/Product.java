@@ -43,6 +43,17 @@ public class Product {
     }
     
     /**
+     * Insert Product
+     */
+    
+    public void insertProduct(String name, String description, float amount){
+        if (activeEmployee.hasLicence(500)){
+            DB.insertProduct(name, description, amount);
+            update();
+        }
+    }
+    
+    /**
      * Remove Product
      */
     public void removeProduct(){

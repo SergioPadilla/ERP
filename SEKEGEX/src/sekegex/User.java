@@ -171,6 +171,22 @@ public class User {
         return res;
     }
     
+    public Vector listNameProducts(){
+        Vector res=null;
+          if(licence.contains(503)){
+              res=DB.listNameProducts();
+          }
+          return res;  
+    }
+    
+    public Vector listIDProducts(){
+        Vector res=null;
+          if(licence.contains(503)){
+              res=DB.listIDProducts();
+          }
+          return res;  
+    }
+    
     public Vector listProducts(){
         Vector res=null;
         if(licence.contains(503)){
@@ -230,6 +246,16 @@ public class User {
         return null;
     }
     
+    public Vector listNamesEmployees(){
+        Vector names = null;
+        
+        if(licence.contains(903)){
+            names = DB.listNamesEmployees();
+        }
+        
+        return names;
+    }
+    
     //"TAREAS" table
     
     /**
@@ -246,6 +272,16 @@ public class User {
     
     public DataTask consultTask(int id_task){
         return null;
+    }
+    
+    public Vector listTitleTasks(){
+        Vector tasks = null;
+        
+        if(licence.contains(103)){
+            tasks = DB.listTitleTasks();
+        }
+        
+        return tasks;
     }
     
     //"REGISTROS" table

@@ -50,6 +50,11 @@ public class MainMenu extends javax.swing.JFrame {
                 products_buttonMouseClicked(evt);
             }
         });
+        products_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                products_buttonActionPerformed(evt);
+            }
+        });
 
         workflow_button.setText("Workflow");
         workflow_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,6 +126,10 @@ public class MainMenu extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_logOut_buttonMouseClicked
+
+    private void products_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_products_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_products_buttonActionPerformed
 
     /**
      * @param args the command line arguments

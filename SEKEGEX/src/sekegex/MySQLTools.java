@@ -662,6 +662,84 @@ public class MySQLTools {
             }
         }
     }
+     
+     Vector listNameProducts(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String name=null;
+        Vector res=new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            stmt = con.prepareStatement("SELECT * FROM productos");
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                name=rs.getString("nombre");
+                res.addElement(new String(name));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+            return res;
+        }
+     }
+     
+     Vector listIDProducts(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int ID=0;
+        Vector res=new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            stmt = con.prepareStatement("SELECT * FROM productos");
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                ID=rs.getInt(ID);
+                res.addElement(new int[ID]);
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+            return res;
+        }
+     }
 
     Vector listProducts(){
         Connection con = null;
@@ -1612,6 +1690,46 @@ public class MySQLTools {
     }
 
     /**
+     * List names of the employees
+     */
+    public Vector listNamesEmployees(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector names = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+          
+            stmt = con.prepareStatement("SELECT nombre FROM empleados");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                names.add(rs.getString("nombre"));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return names;
+    }
+
+    /**
      * Get employee with dni specified
      * @param dni
      * @return
@@ -1914,6 +2032,47 @@ public class MySQLTools {
         }
 
         return new DataTask(id_task, title, due_date, id_task_father, time_estimated, id_employee, status, description);
+    }
+    
+    /**
+     * Get the title of all task
+     * @return 
+     */
+    public Vector listTitleTasks(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector tasks = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+          
+            stmt = con.prepareStatement("SELECT titulo FROM tareas");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                tasks.add(rs.getString("titulo"));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return tasks;
     }
 
     /**
