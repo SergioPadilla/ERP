@@ -268,6 +268,16 @@ public class User {
          return task;       
     }
     
+    public Vector listProducts(){
+        Vector res = null;
+         
+        if(licence.contains(503)){
+           res = DB.listProducts(); 
+        }
+         
+        return res;  
+    }
+    
     /**
      * Get the title of all task
      * @return 
