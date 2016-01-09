@@ -126,6 +126,7 @@ public class User {
         if(licence.contains(300)){
             res=DB.insertClient(type, name, surname, dni, email);
         }
+        System.out.println("as: "+res);
         return res;
     }
     

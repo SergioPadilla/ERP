@@ -248,7 +248,8 @@ public class MySQLTools {
     boolean insertClient(String type, String name, String surname, String dni, String email){
         Connection con = null;
         PreparedStatement stmt = null;
-        boolean res=false;
+        int res=0;
+        
         try{
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
@@ -261,8 +262,9 @@ public class MySQLTools {
            stmt.setString(4, dni);
            stmt.setString(5, email);
 
-           res=stmt.execute();
-
+           res=stmt.executeUpdate();
+           System.out.println("stoy en db respuesta: "+res);
+      
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -279,7 +281,8 @@ public class MySQLTools {
               }
            }
         }
-        return res;
+        
+        return res==1;
     }
 
     /**
