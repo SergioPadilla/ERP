@@ -48,7 +48,7 @@ public class Workflow extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 int index = ((JList) e.getSource()).getSelectedIndex();
                 
-                ModifyTask obj = new ModifyTask((DataTask) tasks.get(index));
+                TaskView obj = new TaskView((DataTask) tasks.get(index));
                 obj.setVisible(true);
                 dispose();
             }

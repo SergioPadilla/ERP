@@ -7,6 +7,12 @@ package GUI;
 
 import DataType.DataTask;
 import java.awt.Color;
+import java.util.Vector;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import sekegex.User;
 
 /**
  *
@@ -20,8 +26,36 @@ public class TaskView extends javax.swing.JFrame {
     public TaskView(DataTask task) {
         initComponents();
         this.task = task;
-        this.setTitle("Tarea"); //DELETE
+        this.setTitle("Tarea");
         this.getContentPane().setBackground(Color.BLUE);
+        
+        usr = User.getInstance();
+        this.title.setText(task.title);
+        this.description.setText(task.description);
+    
+        //Get the comments to show it
+        subTasks = usr.listSubTasks(task.id_task);
+        
+        //Create the model and add it the title of the task
+        DefaultListModel model = new DefaultListModel();
+        
+        for(int i = 0; i < subTasks.size(); i++){
+            DataTask subtask =(DataTask) subTasks.get(i);
+            model.addElement(subtask.title);
+        }
+        
+        this.subTasks_list.setModel(model);
+        
+        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                TaskView obj = new TaskView((DataTask) subTasks.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
     }
 
     /**
@@ -52,6 +86,9 @@ public class TaskView extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         addComment_button = new javax.swing.JButton();
+        back_button = new javax.swing.JButton();
+        modify_button = new javax.swing.JButton();
+        updateTask = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 255));
@@ -114,6 +151,27 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
 
+        back_button.setText("Atrás");
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
+
+        modify_button.setText("Modificar");
+        modify_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modify_buttonMouseClicked(evt);
+            }
+        });
+
+        updateTask.setText("Actualizar");
+        updateTask.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateTaskMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,7 +182,7 @@ public class TaskView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,12 +198,18 @@ public class TaskView extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2)
                     .addComponent(jScrollPane3)
+                    .addComponent(addComment_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(subtasks_label, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comments_label))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(addComment_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(comments_label)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(updateTask)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,19 +248,76 @@ public class TaskView extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addComment_button)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(back_button)
+                    .addComponent(modify_button)
+                    .addComponent(updateTask)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void newSubTask_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newSubTask_buttonMouseClicked
-        // TODO add your handling code here:
+        AddTask obj = new AddTask();
+        obj.id_task_father = task.id_task;
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_newSubTask_buttonMouseClicked
 
     private void addComment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addComment_buttonMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_addComment_buttonMouseClicked
+
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+        if(this.task.id_task_father != 0){
+            DataTask taskFather = usr.consultTask(this.task.id_task_father);
+            TaskView obj = new TaskView(taskFather);
+            obj.setVisible(true);
+            dispose();
+        }else{
+            Workflow obj = new Workflow();
+            obj.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_back_buttonMouseClicked
+
+    private void modify_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modify_buttonMouseClicked
+        ModifyTask obj = new ModifyTask(this.task);
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_modify_buttonMouseClicked
+
+    private void updateTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateTaskMouseClicked
+        this.task = usr.consultTask(this.task.id_task);
+
+        this.title.setText(task.title);
+        this.description.setText(task.description);
+
+        //Get the comments to show it
+        subTasks = usr.listSubTasks(task.id_task);
+        
+        //Create the model and add it the title of the task
+        DefaultListModel model = new DefaultListModel();
+        
+        for(int i = 0; i < subTasks.size(); i++){
+            DataTask subtask =(DataTask) subTasks.get(i);
+            model.addElement(subtask.title);
+        }
+        
+        this.subTasks_list.setModel(model);
+        
+        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                TaskView obj = new TaskView((DataTask) subTasks.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
+    }//GEN-LAST:event_updateTaskMouseClicked
 
     /**
      * @param args the command line arguments
@@ -234,8 +355,11 @@ public class TaskView extends javax.swing.JFrame {
     }
 
     public static DataTask task;
+    private User usr;
+    Vector subTasks;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addComment_button;
+    private javax.swing.JButton back_button;
     private javax.swing.JLabel comments_label;
     private javax.swing.JTextArea description;
     private javax.swing.JProgressBar hour_estimated_bar;
@@ -250,9 +374,11 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton modify_button;
     private javax.swing.JButton newSubTask_button;
     private javax.swing.JList<String> subTasks_list;
     private javax.swing.JLabel subtasks_label;
     private javax.swing.JLabel title;
+    private javax.swing.JButton updateTask;
     // End of variables declaration//GEN-END:variables
 }

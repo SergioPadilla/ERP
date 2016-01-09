@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataEmployee;
+import DataType.DataTask;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -220,9 +221,16 @@ public class AddTask extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        Workflow obj = new Workflow();
-        obj.setVisible(true);
-        dispose();
+        if(this.id_task_father != 0){
+            DataTask taskFather = usr.consultTask(this.id_task_father);
+            TaskView obj = new TaskView(taskFather);
+            obj.setVisible(true);
+            dispose();
+        } else{
+            Workflow obj = new Workflow();
+            obj.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void new_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_new_buttonMouseClicked
@@ -243,6 +251,8 @@ public class AddTask extends javax.swing.JFrame {
         if(hournew > 99){
             error_time.setText("El número de horas no puede ser superior a 99");
         }*/
+        
+        //NO OLVIDAR TENER EN CUENTA ID_TAREA_PADRE
     }//GEN-LAST:event_new_buttonMouseClicked
 
     /**
@@ -283,6 +293,7 @@ public class AddTask extends javax.swing.JFrame {
 
     User usr;
     private String name;
+    public int id_task_father = -1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
     private javax.swing.JComboBox<String> combo_employees;

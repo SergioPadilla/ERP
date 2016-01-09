@@ -269,7 +269,7 @@ public class User {
     }
     
     /**
-     * Get the title of all task
+     * Get tasks
      * @return 
      */
     public Vector listTasks(){
@@ -277,6 +277,20 @@ public class User {
         
         if(licence.contains(103)){
             tasks = DB.listTasks();
+        }
+        
+        return tasks;
+    }
+    
+    /**
+     * Get Subtasks
+     * @return 
+     */
+    public Vector listSubTasks(int id_task_father){
+        Vector tasks = null;
+        
+        if(licence.contains(103)){
+            tasks = DB.listSubTasks(id_task_father);
         }
         
         return tasks;

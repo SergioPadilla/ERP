@@ -1918,7 +1918,7 @@ public class MySQLTools {
     }
 
     /**
-     * Get the title of all task
+     * Get tasks
      * @return 
      */
     public Vector listTasks(){
@@ -1934,6 +1934,58 @@ public class MySQLTools {
 
             ResultSet rs = stmt.executeQuery();
 
+            while(rs.next()){
+                tasks.add(new DataTask(rs.getInt("id_tarea"),
+                        rs.getString("titulo"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_tarea_padre"),
+                        rs.getTime("horas_estimadas"),
+                        rs.getInt("empleado_asignado"),
+                        StatusTask.valueOf(rs.getString("estado")),
+                        rs.getString("descripcion")
+                ));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return tasks;
+    }
+    
+    /**
+     * Get Subtasks
+     * @return 
+     */
+    public Vector listSubTasks(int id_task_father){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector tasks = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("SELECT * FROM tareas WHERE id_tarea_padre='");
+            query.append(id_task_father);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            ResultSet rs = stmt.executeQuery();
+          
             while(rs.next()){
                 tasks.add(new DataTask(rs.getInt("id_tarea"),
                         rs.getString("titulo"),
