@@ -1160,9 +1160,11 @@ public class MySQLTools {
     /**
      * Insert new server
      */
-    void insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+    boolean insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
         Connection con = null;
         PreparedStatement stmt = null;
+        int res=0;
+
 
         try{
            Class.forName(sDriver).newInstance();
@@ -1178,7 +1180,7 @@ public class MySQLTools {
            stmt.setString(6, user_host);
            stmt.setString(7, encrypt(password_host));
 
-           stmt.executeUpdate();
+           res=stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -1196,6 +1198,7 @@ public class MySQLTools {
               }
            }
         }
+        return res==1;
     }
 
     /**

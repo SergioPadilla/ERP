@@ -4,37 +4,34 @@
  * and open the template in the editor.
  */
 package GUI;
-
-import DataType.DataClient;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import sekegex.Client;
+import DataType.DataServer;
 import sekegex.User;
+import sekegex.Server;
+
 
 /**
  *
- * @author Sergio
+ * @author jopime
  */
-public class ModifyDataClient extends javax.swing.JFrame {
+public class ModifyDataServer extends javax.swing.JFrame {
 
     /**
-     * Creates new form ModifyDataClient
+     * Creates new form ModifyDataServer
      */
-    public ModifyDataClient(DataClient data) {
+    public ModifyDataServer(DataServer data) {
         initComponents();
         usr = User.getInstance();
-        client = data;
-        date.setText(client.registration.toString());
-        name.setText(client.name);
-        surname.setText(client.surname+" ");
-        email.setText(client.email);
-        dni.setText(client.dni);
-        type.setText(client.type.toString());
-        id_client.setText(data.idToString());
-    }
-
-    ModifyDataClient() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        server = data;
+        id_server.setText(""+server.id_server+"");
+        id_client.setText(""+server.id_client+"");
+        name.setText(server.name);
+        ip.setText(server.ip);
+        userFTP.setText(server.user_ftp);
+        passFTP.setText(server.pass_ftp);
+        userHOST.setText(server.user_host);
+        passHOST.setText(server.pass_host);
     }
 
     /**
@@ -46,38 +43,26 @@ public class ModifyDataClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ip = new javax.swing.JTextField();
+        id_client = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         id_label = new javax.swing.JLabel();
         name_label = new javax.swing.JLabel();
-        surname_label = new javax.swing.JLabel();
-        dni_label = new javax.swing.JLabel();
-        type_label = new javax.swing.JLabel();
-        email_label = new javax.swing.JLabel();
-        date_label = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
-        surname = new javax.swing.JTextField();
-        dni = new javax.swing.JTextField();
-        type = new javax.swing.JTextField();
-        email = new javax.swing.JTextField();
-        id_client = new javax.swing.JLabel();
-        date = new javax.swing.JLabel();
+        userFTP = new javax.swing.JTextField();
+        ID_client_label = new javax.swing.JLabel();
+        passFTP = new javax.swing.JTextField();
+        ip_label = new javax.swing.JLabel();
+        userFTP_label = new javax.swing.JLabel();
         save_button = new javax.swing.JButton();
+        passFTP_label = new javax.swing.JLabel();
         back_button = new javax.swing.JButton();
+        userHOST_label = new javax.swing.JLabel();
+        id_server = new javax.swing.JTextField();
+        userHOST = new javax.swing.JTextField();
+        passHOST = new javax.swing.JTextField();
+        passHOST_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        id_label.setText("ID");
-
-        name_label.setText("Nombre");
-
-        surname_label.setText("Apellidos");
-
-        dni_label.setText("DNI");
-
-        type_label.setText("Tipo de Cliente");
-
-        email_label.setText("Email");
-
-        date_label.setText("Fecha alta");
 
         name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,12 +70,24 @@ public class ModifyDataClient extends javax.swing.JFrame {
             }
         });
 
+        id_label.setText("ID Servidor");
+
+        name_label.setText("Nombre");
+
+        ID_client_label.setText("ID cliente");
+
+        ip_label.setText("Ruta Acceso");
+
+        userFTP_label.setText("Usuario FTP");
+
         save_button.setText("Guardar");
         save_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 save_buttonMouseClicked(evt);
             }
         });
+
+        passFTP_label.setText("Password FTP");
 
         back_button.setText("Volver");
         back_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,6 +101,12 @@ public class ModifyDataClient extends javax.swing.JFrame {
             }
         });
 
+        userHOST_label.setText("Usuario HOST");
+
+        id_server.setEditable(false);
+
+        passHOST_label.setText("Password HOST");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,79 +115,85 @@ public class ModifyDataClient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(id_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(id_client))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(name_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(surname_label)
+                        .addComponent(ip_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ip))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(type_label)
+                        .addComponent(userFTP_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(userFTP))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(date_label)
+                        .addComponent(passFTP_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(date))
+                        .addComponent(passFTP))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dni_label)
+                        .addComponent(passHOST_label)
+                        .addGap(26, 26, 26)
+                        .addComponent(passHOST))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(ID_client_label)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dni))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(email_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(email)))
-                        .addGap(72, 72, 72)))
-                .addContainerGap(343, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+                                .addComponent(id_client))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(id_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(id_server, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+                            .addComponent(userHOST_label, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(userHOST, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(365, Short.MAX_VALUE)
                 .addComponent(save_button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(back_button)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(126, 126, 126))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(id_label)
-                    .addComponent(id_client))
+                    .addComponent(id_server, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(name_label)
                     .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(surname_label)
-                    .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ID_client_label)
+                    .addComponent(id_client, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dni_label)
-                    .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ip_label)
+                    .addComponent(ip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(type_label)
-                    .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(userFTP_label)
+                    .addComponent(userFTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(email_label)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passFTP_label)
+                    .addComponent(passFTP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(date_label)
-                    .addComponent(date))
+                    .addComponent(userHOST_label)
+                    .addComponent(userHOST, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passHOST_label)
+                    .addComponent(passHOST, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save_button)
                     .addComponent(back_button))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addGap(0, 45, Short.MAX_VALUE))
         );
 
         pack();
@@ -194,35 +203,35 @@ public class ModifyDataClient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameActionPerformed
 
-    private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_back_buttonActionPerformed
-
-    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        DataClientView obj = new DataClientView(client);
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_back_buttonMouseClicked
-
     private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
-        final String dninew = dni.getText().toString();
         final String namenew = name.getText().toString();
-        final String surnamenew = surname.getText().toString();
-        final String typenew = type.getText().toString();
-        final String emailnew = email.getText().toString();
-        
-        Client c = new Client(client.id);
+        final String access = ip.getText().toString();
+        final String user_ftp = userFTP.getText().toString();
+        final String password_ftp = passFTP.getText().toString();
+        final String user_host = userHOST.getText().toString();
+        final String password_host = passHOST.getText().toString();
+
+        Server v = new Server(server.id_server);
         JFrame frame = new JFrame();
-        
-        if(c.modifyClient(typenew, namenew, surnamenew, dninew, emailnew)){
+        if(v.modifyServer(namenew, access, user_ftp, password_ftp, user_host, password_host)){
             JOptionPane.showMessageDialog(frame, "La modificación se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
             repaint();
-            client = c.getData();
+            server = v.getData();
         }
         else{
             JOptionPane.showMessageDialog(frame, "No tienes permisos para modificar clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_save_buttonMouseClicked
+
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+        DataServerView obj = new DataServerView(server);
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_back_buttonMouseClicked
+
+    private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_back_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,42 +250,44 @@ public class ModifyDataClient extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifyDataClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyDataServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifyDataClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyDataServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifyDataClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyDataServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifyDataClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifyDataServer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifyDataClient(client).setVisible(true);
+                new ModifyDataServer(server).setVisible(true);
             }
         });
     }
-
     private User usr;
-    private static DataClient client;
+    private static DataServer server;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ID_client_label;
     private javax.swing.JButton back_button;
-    public javax.swing.JLabel date;
-    private javax.swing.JLabel date_label;
-    public javax.swing.JTextField dni;
-    private javax.swing.JLabel dni_label;
-    public javax.swing.JTextField email;
-    private javax.swing.JLabel email_label;
-    public javax.swing.JLabel id_client;
+    public javax.swing.JTextField id_client;
     private javax.swing.JLabel id_label;
+    private javax.swing.JTextField id_server;
+    public javax.swing.JTextField ip;
+    private javax.swing.JLabel ip_label;
     public javax.swing.JTextField name;
     private javax.swing.JLabel name_label;
+    public javax.swing.JTextField passFTP;
+    private javax.swing.JLabel passFTP_label;
+    private javax.swing.JTextField passHOST;
+    private javax.swing.JLabel passHOST_label;
     private javax.swing.JButton save_button;
-    public javax.swing.JTextField surname;
-    private javax.swing.JLabel surname_label;
-    public javax.swing.JTextField type;
-    private javax.swing.JLabel type_label;
+    public javax.swing.JTextField userFTP;
+    private javax.swing.JLabel userFTP_label;
+    private javax.swing.JTextField userHOST;
+    private javax.swing.JLabel userHOST_label;
     // End of variables declaration//GEN-END:variables
 }
