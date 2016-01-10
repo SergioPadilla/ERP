@@ -5,11 +5,16 @@
  */
 package GUI;
 
+import DataType.DataEmployee;
+import DataType.DataTask;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.util.Vector;
 import javax.swing.JComboBox;
-import sekegex.MySQLTools;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import sekegex.User;
 
 /**
@@ -23,11 +28,14 @@ public class AddTask extends javax.swing.JFrame {
      */
     public AddTask() {
         initComponents();
-        usr = User.getInstance();
-        DB = MySQLTools.getInstance();
-       
-        Vector employees = usr.listNamesEmployees();
-        this.combo_employees = new JComboBox(employees);
+        this.setTitle("Añadir Tarea");
+        usr = User.getInstance();        
+        Vector employees = usr.listEmployees();
+
+        for(int i = 0; i < employees.size(); i++){
+            DataEmployee employee = (DataEmployee) employees.get(i);
+            combo_employees.addItem(employee.name);
+        }
         
         this.combo_employees.addActionListener(new ActionListener(){
             @Override
@@ -53,9 +61,7 @@ public class AddTask extends javax.swing.JFrame {
         description_label = new javax.swing.JLabel();
         title = new javax.swing.JTextField();
         time_label = new javax.swing.JLabel();
-        hour = new javax.swing.JTextField();
         h_label = new javax.swing.JLabel();
-        minutes = new javax.swing.JTextField();
         minute_label = new javax.swing.JLabel();
         due_date_label = new javax.swing.JLabel();
         day = new javax.swing.JTextField();
@@ -68,6 +74,9 @@ public class AddTask extends javax.swing.JFrame {
         combo_employees = new javax.swing.JComboBox<>();
         back_button = new javax.swing.JButton();
         new_button = new javax.swing.JButton();
+        error_time = new javax.swing.JLabel();
+        hour = new javax.swing.JFormattedTextField();
+        minutes = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,7 +102,7 @@ public class AddTask extends javax.swing.JFrame {
 
         year_label.setText("AAAA");
 
-        employee_label.setText("Asginar Empleado");
+        employee_label.setText("Asignar Empleado");
 
         back_button.setText("Volver");
         back_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,6 +118,10 @@ public class AddTask extends javax.swing.JFrame {
             }
         });
 
+        hour.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
+
+        minutes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,43 +132,46 @@ public class AddTask extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(combo_employees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(back_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(new_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(title_label)
-                                    .addComponent(time_label)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(time_label)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(error_time))
                                     .addComponent(description_label)
                                     .addComponent(due_date_label)
+                                    .addComponent(employee_label)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(day_label)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(month))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(hour, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(hour, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(h_label, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(minutes, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(minutes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(3, 3, 3)
                                                 .addComponent(minute_label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(month_label)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGap(18, 18, 18)
                                         .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(year_label))
-                                    .addComponent(employee_label))
-                                .addGap(0, 301, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(combo_employees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(back_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(new_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addComponent(year_label)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -172,13 +188,15 @@ public class AddTask extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(time_label)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(time_label)
+                            .addComponent(error_time))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(hour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(h_label)
-                            .addComponent(minutes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(minute_label))
+                            .addComponent(minute_label)
+                            .addComponent(hour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(minutes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(due_date_label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -206,21 +224,57 @@ public class AddTask extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        Workflow obj = new Workflow();
-        obj.setVisible(true);
-        dispose();
+        if(this.id_task_father != 0){
+            DataTask taskFather = usr.consultTask(this.id_task_father);
+            TaskView obj = new TaskView(taskFather);
+            obj.setVisible(true);
+            dispose();
+        } else{
+            Workflow obj = new Workflow();
+            obj.setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void new_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_new_buttonMouseClicked
         final String titlenew = title.getText().toString();
         final String descriptionnew = description.getText().toString();
-        final String hournew = hour.getText().toString();
-        final String minutesnew = minutes.getText().toString();
+        final int hournew = (int) hour.getValue();
+        final int minutesnew = (int) minutes.getValue();
         final String daynew = day.getText().toString();
         final String monthnew = month.getText().toString();
         final String yearnew = year.getText().toString();
         
-        //COMPROBAR DATOS, mirar restricciones de los datos y llamar a la funcion adecuada dependiendo de los datos
+        /**
+         * Checking Data and add task
+         */
+        JFrame frame = new JFrame();
+        if(titlenew.equals("")){
+            JOptionPane.showMessageDialog(frame, "El campo título no puede estar vacío", "Título Vacío", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(descriptionnew.equals("")){
+            JOptionPane.showMessageDialog(frame, "El campo descripción no puede estar vacío", "Descripción Vacía", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(hournew == 0 && minutesnew == 0){
+            JOptionPane.showMessageDialog(frame, "Las horas estimadas no pueden estar vacías", "Horas estimadas", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            if(this.id_task_father != 0){
+                Time time_estimated = new Time(hournew, minutesnew, 0);
+                if(usr.insertSubTask(titlenew, descriptionnew, time_estimated, id_task_father)){
+                    JOptionPane.showMessageDialog(frame, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(frame, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                Time time_estimated = new Time(hournew, minutesnew, 0);
+                if(usr.insertTask(titlenew, descriptionnew, time_estimated)){
+                    JOptionPane.showMessageDialog(frame, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(frame, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
     }//GEN-LAST:event_new_buttonMouseClicked
 
     /**
@@ -260,8 +314,8 @@ public class AddTask extends javax.swing.JFrame {
     }
 
     User usr;
-    MySQLTools DB;
-    public String name;
+    private String name;
+    public int id_task_father = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
     private javax.swing.JComboBox<String> combo_employees;
@@ -271,11 +325,12 @@ public class AddTask extends javax.swing.JFrame {
     private javax.swing.JLabel description_label;
     private javax.swing.JLabel due_date_label;
     private javax.swing.JLabel employee_label;
+    private javax.swing.JLabel error_time;
     private javax.swing.JLabel h_label;
-    private javax.swing.JTextField hour;
+    private javax.swing.JFormattedTextField hour;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel minute_label;
-    private javax.swing.JTextField minutes;
+    private javax.swing.JFormattedTextField minutes;
     private javax.swing.JTextField month;
     private javax.swing.JLabel month_label;
     private javax.swing.JButton new_button;
