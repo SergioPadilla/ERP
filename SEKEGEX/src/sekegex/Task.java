@@ -39,7 +39,7 @@ public class Task {
      */
     public void modifyTask(String title, String description, Time time_estimated, Date due_date, StatusTask status){
         if (activeEmployee.hasLicence(102)){
-            DB.modifyTask(getData().id_task, title, description, time_estimated, due_date, getData().id_task_father, getData().id_employee, status);
+            DB.modifyTask(getData().id_task, title, description, time_estimated, due_date, getData().id_employee, status);
         }
     }
     

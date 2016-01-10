@@ -10,8 +10,11 @@ import DataType.DataTask;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 import java.util.Vector;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import sekegex.User;
 
 /**
@@ -243,16 +246,35 @@ public class AddTask extends javax.swing.JFrame {
         final String yearnew = year.getText().toString();
         
         /**
-         * Checking Data
+         * Checking Data and add task
          */
-        //Exceptions
-        //HAY QUE COMPROBAR EL CASO EN QUE SEAN VACIOS
-        /*if(minutesnew)
-        if(hournew > 99){
-            error_time.setText("El número de horas no puede ser superior a 99");
-        }*/
-        
-        //NO OLVIDAR TENER EN CUENTA ID_TAREA_PADRE
+        JFrame frame = new JFrame();
+        if(titlenew.equals("")){
+            JOptionPane.showMessageDialog(frame, "El campo título no puede estar vacío", "Título Vacío", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(descriptionnew.equals("")){
+            JOptionPane.showMessageDialog(frame, "El campo descripción no puede estar vacío", "Descripción Vacía", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(hournew == 0 && minutesnew == 0){
+            JOptionPane.showMessageDialog(frame, "Las horas estimadas no pueden estar vacías", "Horas estimadas", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            if(this.id_task_father != 0){
+                Time time_estimated = new Time(hournew, minutesnew, 0);
+                if(usr.insertSubTask(titlenew, descriptionnew, time_estimated, id_task_father)){
+                    JOptionPane.showMessageDialog(frame, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(frame, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                Time time_estimated = new Time(hournew, minutesnew, 0);
+                if(usr.insertTask(titlenew, descriptionnew, time_estimated)){
+                    JOptionPane.showMessageDialog(frame, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(frame, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
     }//GEN-LAST:event_new_buttonMouseClicked
 
     /**
@@ -293,7 +315,7 @@ public class AddTask extends javax.swing.JFrame {
 
     User usr;
     private String name;
-    public int id_task_father = -1;
+    public int id_task_father = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
     private javax.swing.JComboBox<String> combo_employees;

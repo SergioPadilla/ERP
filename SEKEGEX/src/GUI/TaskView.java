@@ -89,6 +89,7 @@ public class TaskView extends javax.swing.JFrame {
         back_button = new javax.swing.JButton();
         modify_button = new javax.swing.JButton();
         updateTask = new javax.swing.JButton();
+        workLog_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 102, 255));
@@ -172,6 +173,13 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
 
+        workLog_button.setText("Registros de trabajo");
+        workLog_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                workLog_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -208,7 +216,9 @@ public class TaskView extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(updateTask)))
+                                .addComponent(updateTask)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(workLog_button)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -252,7 +262,8 @@ public class TaskView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back_button)
                     .addComponent(modify_button)
-                    .addComponent(updateTask)))
+                    .addComponent(updateTask)
+                    .addComponent(workLog_button)))
         );
 
         pack();
@@ -319,6 +330,10 @@ public class TaskView extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_updateTaskMouseClicked
 
+    private void workLog_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workLog_buttonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_workLog_buttonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -380,5 +395,6 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JLabel subtasks_label;
     private javax.swing.JLabel title;
     private javax.swing.JButton updateTask;
+    private javax.swing.JButton workLog_button;
     // End of variables declaration//GEN-END:variables
 }

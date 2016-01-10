@@ -1757,11 +1757,49 @@ public class MySQLTools {
             }
         }
     }
+    
+    /**
+     * Insert new SubTask
+     */
+    void insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+           Class.forName(sDriver).newInstance();
+           con = DriverManager.getConnection(sURL,user,pass);
+
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas, id_tarea_padre) VALUES(?,?,?,?);");
+
+           stmt.setString(1, title);
+           stmt.setString(2, description);
+           stmt.setTime(3, time_estimated);
+           stmt.setInt(4, id_task_father);
+
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+        }
+    }
 
     /**
      * Modify task
      */
-    void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
+    void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_employee, StatusTask status){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1787,21 +1825,12 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(id_task_father != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("id_tarea_padre='");
-                query.append(id_task_father);
-                query.append("'");
-                first=false;
-            }
             if(id_employee != -1){
                 if(!first){
                     query.append(",");
                 }
                 query.append("empleado_asignado='");
-                query.append(id_task_father);
+                query.append(id_employee);
                 query.append("'");
                 first=false;
             }
@@ -1814,7 +1843,7 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(!time_estimated.equals("")){
+            if(!time_estimated.equals(new Time(0,0,0))){
                 if(!first){
                     query.append(",");
                 }
@@ -1823,7 +1852,7 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(!due_date.equals("")){
+            if(!due_date.equals(new Date(0,0,0))){
                 if(!first){
                     query.append(",");
                 }

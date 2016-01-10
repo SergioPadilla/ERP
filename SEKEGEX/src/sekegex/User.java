@@ -253,6 +253,22 @@ public class User {
         }
         return ok;
     }
+    
+    /**
+     * Insert new SubTask
+     */
+    public Boolean insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+        Boolean ok = true;
+        
+        if(licence.contains(100)){
+            DB.insertSubTask(title, description, time_estimated, id_task_father);
+        }
+        else{
+            ok = false;
+        }
+        return ok;
+    }
+    
     /**
      * Get the data of task with id specified
      * @param id_task

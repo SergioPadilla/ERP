@@ -64,6 +64,8 @@
                               <Component id="back_button" min="-2" pref="103" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="updateTask" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="workLog_button" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -116,6 +118,7 @@
                   <Component id="back_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="modify_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="updateTask" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="workLog_button" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -306,6 +309,14 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="updateTaskMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="workLog_button">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Registros de trabajo"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="workLog_buttonMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>

@@ -27,7 +27,7 @@ public class Workflow extends javax.swing.JFrame {
      */
     public Workflow() {
         initComponents();
-        this.setTitle("Workflow");
+        this.setTitle("Tareas");
         usr = User.getInstance();
         
         //Get the tasks to show it
