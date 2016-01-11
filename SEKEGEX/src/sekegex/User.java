@@ -6,6 +6,7 @@
 package sekegex;
 
 import DataType.*;
+import Utils.StatusTask;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
@@ -125,6 +126,7 @@ public class User {
         if(licence.contains(300)){
             res=DB.insertClient(type, name, surname, dni, email);
         }
+        System.out.println("as: "+res);
         return res;
     }
     
@@ -167,30 +169,6 @@ public class User {
         DataProduct res=null;
         if(licence.contains(503)){
             res=DB.consultProduct(id_product);
-        }
-        return res;
-    }
-    
-    public Vector listNameProducts(){
-        Vector res=null;
-          if(licence.contains(503)){
-              res=DB.listNameProducts();
-          }
-          return res;  
-    }
-    
-    public Vector listIDProducts(){
-        Vector res=null;
-          if(licence.contains(503)){
-              res=DB.listIDProducts();
-          }
-          return res;  
-    }
-    
-    public Vector listProducts(){
-        Vector res=null;
-        if(licence.contains(503)){
-            res=DB.listProducts();
         }
         return res;
     }
@@ -246,11 +224,14 @@ public class User {
         return null;
     }
     
-    public Vector listNamesEmployees(){
+    /**
+     * List names of the employees
+     */
+    public Vector listEmployees(){
         Vector names = null;
         
         if(licence.contains(903)){
-            names = DB.listNamesEmployees();
+            names = DB.listEmployees();
         }
         
         return names;
@@ -261,24 +242,81 @@ public class User {
     /**
      * Insert new task
      */
-    public void insertTask(String title, String description, int hour, int minutes){
+    public Boolean insertTask(String title, String description, Time time_estimated){
+        Boolean ok = true;
         
+        if(licence.contains(100)){
+            DB.insertTask(title, description, time_estimated);
+        }
+        else{
+            ok = false;
+        }
+        return ok;
     }
+    
+    /**
+     * Insert new SubTask
+     */
+    public Boolean insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+        Boolean ok = true;
+        
+        if(licence.contains(100)){
+            DB.insertSubTask(title, description, time_estimated, id_task_father);
+        }
+        else{
+            ok = false;
+        }
+        return ok;
+    }
+    
     /**
      * Get the data of task with id specified
      * @param id_task
      * @return 
      */
-    
     public DataTask consultTask(int id_task){
-        return null;
+         DataTask task = null;
+         
+         if(licence.contains(103)){
+            task = DB.consultTask(id_task); 
+         }
+         
+         return task;       
     }
     
-    public Vector listTitleTasks(){
+    public Vector listProducts(){
+        Vector res = null;
+         
+        if(licence.contains(503)){
+           res = DB.listProducts(); 
+        }
+         
+        return res;  
+    }
+    
+    /**
+     * Get tasks
+     * @return 
+     */
+    public Vector listTasks(){
         Vector tasks = null;
         
         if(licence.contains(103)){
-            tasks = DB.listTitleTasks();
+            tasks = DB.listTasks();
+        }
+        
+        return tasks;
+    }
+    
+    /**
+     * Get Subtasks
+     * @return 
+     */
+    public Vector listSubTasks(int id_task_father){
+        Vector tasks = null;
+        
+        if(licence.contains(103)){
+            tasks = DB.listSubTasks(id_task_father);
         }
         
         return tasks;

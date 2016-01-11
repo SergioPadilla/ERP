@@ -7,13 +7,13 @@
 package GUI;
 
 import DataType.DataProduct;
-import java.awt.event.KeyEvent;
+import DataType.DataTask;
 import java.util.Vector;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
+import javax.swing.JList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import sekegex.User;
-import sekegex.MySQLTools;
 
 /**
  *
@@ -26,17 +26,29 @@ public class ProductView extends javax.swing.JFrame {
      */
     public ProductView() {
         initComponents();
+        this.setTitle("Productos");
         usr = User.getInstance();
-        products = usr.listNameProducts();
-        id_products = usr.listIDProducts();
-        total_products = usr.listProducts();
-        DB = MySQLTools.getInstance();
+        products = usr.listProducts();
         
         DefaultListModel model = new DefaultListModel();
-        for(int i=0; i<products.size(); i++){
-            model.addElement(products.get(i));
+        
+        for(int i = 0; i < products.size(); i++){
+            DataProduct product =(DataProduct) products.get(i);
+            model.addElement(product.name);
         }
-        listProduct.setModel(model);
+        
+        listProducts.setModel(model);
+        
+        listProducts.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                DataProductView obj = new DataProductView((DataProduct) products.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
     }
 
     /**
@@ -49,106 +61,101 @@ public class ProductView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        listProduct = new javax.swing.JList();
-        CrearProducto = new javax.swing.JButton();
-        Volver = new javax.swing.JButton();
+        listProducts = new javax.swing.JList();
+        nuevoProducto = new javax.swing.JButton();
+        volverMenu = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        listProduct.setModel(new javax.swing.AbstractListModel() {
+        listProducts.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        listProduct.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listProductMouseClicked(evt);
-            }
-        });
-        listProduct.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                listProductValueChanged(evt);
-            }
-        });
-        jScrollPane1.setViewportView(listProduct);
+        jScrollPane1.setViewportView(listProducts);
 
-        CrearProducto.setText("Crear Producto");
-        CrearProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+        nuevoProducto.setText("Nuevo producto");
+        nuevoProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CrearProductoMouseClicked(evt);
+                nuevoProductoMouseClicked(evt);
             }
         });
-        CrearProducto.addActionListener(new java.awt.event.ActionListener() {
+        nuevoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CrearProductoActionPerformed(evt);
+                nuevoProductoActionPerformed(evt);
             }
         });
 
-        Volver.setText("Volver");
-        Volver.addMouseListener(new java.awt.event.MouseAdapter() {
+        volverMenu.setText("Volver");
+        volverMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                VolverMouseClicked(evt);
+                volverMenuMouseClicked(evt);
             }
         });
+        volverMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverMenuActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel1.setText("Lista de productos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Volver)
-                    .addComponent(CrearProducto)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(volverMenu)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nuevoProducto))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(CrearProducto)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Volver)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nuevoProducto)
+                    .addComponent(volverMenu))
+                .addGap(33, 33, 33))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CrearProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearProductoActionPerformed
+    private void nuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoProductoActionPerformed
         // TODO add your handling code here:
-        // NADA
-    }//GEN-LAST:event_CrearProductoActionPerformed
+    }//GEN-LAST:event_nuevoProductoActionPerformed
 
-    private void CrearProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CrearProductoMouseClicked
+    private void volverMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverMenuActionPerformed
         // TODO add your handling code here:
-        CreateProduct obj = new CreateProduct();
+    }//GEN-LAST:event_volverMenuActionPerformed
+
+    private void nuevoProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoProductoMouseClicked
+        // TODO add your handling code here:
+        CreateDataProduct obj = new CreateDataProduct();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_CrearProductoMouseClicked
+    }//GEN-LAST:event_nuevoProductoMouseClicked
 
-    private void VolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VolverMouseClicked
+    private void volverMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMenuMouseClicked
         // TODO add your handling code here:
         MainMenu obj = new MainMenu();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_VolverMouseClicked
-
-    private void listProductValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listProductValueChanged
-        // TODO add your handling code here:
-       // NADA
-    }//GEN-LAST:event_listProductValueChanged
-
-    private void listProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProductMouseClicked
-        // TODO add your handling code here:
-        int i = evt.getID();
-        DataProductView obj = new DataProductView(usr.consultProduct(i));
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_listProductMouseClicked
+    }//GEN-LAST:event_volverMenuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -184,15 +191,13 @@ public class ProductView extends javax.swing.JFrame {
             }
         });
     }
-    private User usr;
-    private MySQLTools DB;
-    public Vector products;
-    public Vector id_products;
-    public Vector total_products;
+    User usr; 
+    Vector products;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CrearProducto;
-    private javax.swing.JButton Volver;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList listProduct;
+    private javax.swing.JList listProducts;
+    private javax.swing.JButton nuevoProducto;
+    private javax.swing.JButton volverMenu;
     // End of variables declaration//GEN-END:variables
 }

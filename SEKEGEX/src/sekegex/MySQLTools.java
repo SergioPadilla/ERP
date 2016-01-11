@@ -122,7 +122,7 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("CREATE TABLE clientes (id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT, tipo ENUM('FREELANCE', 'BUSINESS'),nombre TEXT, apellido TEXT, nif varchar(10) UNIQUE , email TEXT, fecha_alta DATETIME)");
+           stmt = con.prepareStatement("CREATE TABLE clientes (id_cliente INT NOT NULL PRIMARY KEY AUTO_INCREMENT, tipo ENUM('FREELANCE', 'BUSINESS'),nombre TEXT, apellidos TEXT, nif varchar(10) UNIQUE , email TEXT, fecha_alta DATETIME)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE productos (id_producto INT NOT NULL PRIMARY KEY AUTO_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)");
            stmt.executeUpdate();
@@ -138,7 +138,7 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT, estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT,FOREIGN KEY (empleado_asignado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT,id_tarea INT, id_empleado INT, horas_trabajadas TIME, descripcion TEXT, fecha DATE,FOREIGN KEY (id_tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE,FOREIGN KEY (id_empleado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
+           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT,id_tarea INT, horas_trabajadas TIME, descripcion TEXT, fecha DATE,FOREIGN KEY (id_tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT,FOREIGN KEY (tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE)");
            stmt.executeUpdate();
@@ -248,12 +248,13 @@ public class MySQLTools {
     boolean insertClient(String type, String name, String surname, String dni, String email){
         Connection con = null;
         PreparedStatement stmt = null;
-        boolean res=false;
+        int res=0;
+        
         try{
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellido, nif, email,fecha_alta) VALUES(?,?,?,?,?,UTC_TIMESTAMP());");
+           stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellidos, nif, email,fecha_alta) VALUES(?,?,?,?,?,UTC_TIMESTAMP());");
 
            stmt.setString(1, type);
            stmt.setString(2, name);
@@ -261,8 +262,9 @@ public class MySQLTools {
            stmt.setString(4, dni);
            stmt.setString(5, email);
 
-           res=stmt.execute();
-
+           res=stmt.executeUpdate();
+           System.out.println("stoy en db respuesta: "+res);
+      
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -279,7 +281,8 @@ public class MySQLTools {
               }
            }
         }
-        return res;
+        
+        return res==1;
     }
 
     /**
@@ -315,7 +318,7 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("apellido='");
+                query.append("apellidos='");
                 query.append(surname);
                 query.append("'");
 
@@ -400,7 +403,7 @@ public class MySQLTools {
             if(rs.next()){
                 type=TypeClient.valueOf(rs.getString("tipo"));
                 name=rs.getString("nombre");
-                surname=rs.getString("apellido");
+                surname=rs.getString("apellidos");
                 nif=rs.getString("nif");
                 email=rs.getString("email");
                 date=rs.getDate("fecha_alta");
@@ -598,7 +601,7 @@ public class MySQLTools {
                 id_client=rs.getInt("id_cliente");
                 type=TypeClient.valueOf(rs.getString("tipo"));
                 name=rs.getString("nombre");
-                surname=rs.getString("apellido");
+                surname=rs.getString("apellidos");
                 nif=rs.getString("nif");
                 email=rs.getString("email");
                 date=rs.getDate("fecha_alta");
@@ -662,131 +665,6 @@ public class MySQLTools {
             }
         }
     }
-     
-     Vector listNameProducts(){
-        Connection con = null;
-        PreparedStatement stmt = null;
-        String name=null;
-        Vector res=new Vector();
-
-        try{
-            Class.forName(sDriver).newInstance();
-            con = DriverManager.getConnection(sURL,user,pass);
-
-            stmt = con.prepareStatement("SELECT * FROM productos");
-
-            ResultSet rs;
-            rs = stmt.executeQuery();
-
-            while(rs.next()){
-                name=rs.getString("nombre");
-                res.addElement(new String(name));
-            }
-
-        } catch (SQLException sqle){
-            System.out.println("SQLState: " + sqle.getSQLState());
-            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-            sqle.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try{
-                   stmt.close();
-                   con.close();
-                } catch(Exception e){
-                   e.printStackTrace();
-                }
-            }
-            return res;
-        }
-     }
-     
-     Vector listIDProducts(){
-        Connection con = null;
-        PreparedStatement stmt = null;
-        int ID=0;
-        Vector res=new Vector();
-
-        try{
-            Class.forName(sDriver).newInstance();
-            con = DriverManager.getConnection(sURL,user,pass);
-
-            stmt = con.prepareStatement("SELECT * FROM productos");
-
-            ResultSet rs;
-            rs = stmt.executeQuery();
-
-            while(rs.next()){
-                ID=rs.getInt(ID);
-                res.addElement(new int[ID]);
-            }
-
-        } catch (SQLException sqle){
-            System.out.println("SQLState: " + sqle.getSQLState());
-            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-            sqle.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try{
-                   stmt.close();
-                   con.close();
-                } catch(Exception e){
-                   e.printStackTrace();
-                }
-            }
-            return res;
-        }
-     }
-
-    Vector listProducts(){
-        Connection con = null;
-        PreparedStatement stmt = null;
-        int id_product=0;
-        String name=null;
-        String description=null;
-        float amount=0;
-        int sales=0;
-        Vector res=new Vector();
-
-        try{
-            Class.forName(sDriver).newInstance();
-            con = DriverManager.getConnection(sURL,user,pass);
-
-            stmt = con.prepareStatement("SELECT * FROM productos");
-
-            ResultSet rs;
-            rs = stmt.executeQuery();
-
-            while(rs.next()){
-                id_product=rs.getInt("id_producto");
-                name=rs.getString("nombre");
-                description=rs.getString("descripcion");
-                amount=rs.getFloat("importe");
-                sales=rs.getInt("ventas");
-                res.addElement(new DataProduct(id_product,name,description,amount,sales));
-            }
-
-        } catch (SQLException sqle){
-            System.out.println("SQLState: " + sqle.getSQLState());
-            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-            sqle.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try{
-                   stmt.close();
-                   con.close();
-                } catch(Exception e){
-                   e.printStackTrace();
-                }
-            }
-            return res;
-        }
-    }
 
      Vector listProductsforbill(int id_bill){
         Connection con = null;
@@ -839,6 +717,55 @@ public class MySQLTools {
         }
     }
 
+      Vector listProducts(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String name=null;
+        String description=null;
+        float amount=0;
+        int id_product=0;
+        int nSold=0;
+        Vector res=new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder sb = new StringBuilder();
+            sb.append("SELECT * FROM productos");
+            String statement = sb.toString();
+            stmt = con.prepareStatement(statement);
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                id_product=rs.getInt("id_producto");
+                name=rs.getString("nombre");
+                description=rs.getString("descripcion");
+                nSold=rs.getInt("ventas");
+                amount=rs.getFloat("importe");
+                res.addElement(new DataProduct(id_product,name,description,amount,nSold));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return res;
+        }
+    }
+     
     /**
      * Modify product
      */
@@ -1233,9 +1160,11 @@ public class MySQLTools {
     /**
      * Insert new server
      */
-    void insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+    boolean insertServer(int id_client, String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
         Connection con = null;
         PreparedStatement stmt = null;
+        int res=0;
+
 
         try{
            Class.forName(sDriver).newInstance();
@@ -1251,7 +1180,7 @@ public class MySQLTools {
            stmt.setString(6, user_host);
            stmt.setString(7, encrypt(password_host));
 
-           stmt.executeUpdate();
+           res=stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -1269,6 +1198,7 @@ public class MySQLTools {
               }
            }
         }
+        return res==1;
     }
 
     /**
@@ -1692,21 +1622,26 @@ public class MySQLTools {
     /**
      * List names of the employees
      */
-    public Vector listNamesEmployees(){
+    public Vector listEmployees(){
         Connection con = null;
         PreparedStatement stmt = null;
-        Vector names = new Vector();
+        Vector employees = new Vector();
 
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
           
-            stmt = con.prepareStatement("SELECT nombre FROM empleados");
+            stmt = con.prepareStatement("SELECT * FROM empleados");
 
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                names.add(rs.getString("nombre"));
+                employees.add(new DataEmployee(rs.getInt("id_empleado"),
+                        rs.getString("dni"),
+                        rs.getString("nombre"),
+                        rs.getString("password"),
+                        rs.getString("apellidos"), 
+                        rs.getInt("rol")));
             }
 
         } catch (SQLException sqle){
@@ -1726,9 +1661,9 @@ public class MySQLTools {
             }
         }
         
-        return names;
+        return employees;
     }
-
+    
     /**
      * Get employee with dni specified
      * @param dni
@@ -1864,21 +1799,59 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    /**
+     * Insert new SubTask
+     */
+    void insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+           Class.forName(sDriver).newInstance();
+           con = DriverManager.getConnection(sURL,user,pass);
+
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas, id_tarea_padre) VALUES(?,?,?,?);");
+
+           stmt.setString(1, title);
+           stmt.setString(2, description);
+           stmt.setTime(3, time_estimated);
+           stmt.setInt(4, id_task_father);
+
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
     /**
      * Modify task
      */
-    void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
+    void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_employee, StatusTask status){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1904,21 +1877,12 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(id_task_father != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("id_tarea_padre='");
-                query.append(id_task_father);
-                query.append("'");
-                first=false;
-            }
             if(id_employee != -1){
                 if(!first){
                     query.append(",");
                 }
                 query.append("empleado_asignado='");
-                query.append(id_task_father);
+                query.append(id_employee);
                 query.append("'");
                 first=false;
             }
@@ -1931,7 +1895,7 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(!time_estimated.equals("")){
+            if(!time_estimated.equals(new Time(0,0,0))){
                 if(!first){
                     query.append(",");
                 }
@@ -1940,7 +1904,7 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(!due_date.equals("")){
+            if(!due_date.equals(new Date(0,0,0))){
                 if(!first){
                     query.append(",");
                 }
@@ -2033,12 +1997,12 @@ public class MySQLTools {
 
         return new DataTask(id_task, title, due_date, id_task_father, time_estimated, id_employee, status, description);
     }
-    
+
     /**
-     * Get the title of all task
+     * Get tasks
      * @return 
      */
-    public Vector listTitleTasks(){
+    public Vector listTasks(){
         Connection con = null;
         PreparedStatement stmt = null;
         Vector tasks = new Vector();
@@ -2047,12 +2011,20 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
           
-            stmt = con.prepareStatement("SELECT titulo FROM tareas");
+            stmt = con.prepareStatement("SELECT * FROM tareas");
 
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                tasks.add(rs.getString("titulo"));
+                tasks.add(new DataTask(rs.getInt("id_tarea"),
+                        rs.getString("titulo"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_tarea_padre"),
+                        rs.getTime("horas_estimadas"),
+                        rs.getInt("empleado_asignado"),
+                        StatusTask.valueOf(rs.getString("estado")),
+                        rs.getString("descripcion")
+                ));
             }
 
         } catch (SQLException sqle){
@@ -2074,7 +2046,59 @@ public class MySQLTools {
         
         return tasks;
     }
+    
+    /**
+     * Get Subtasks
+     * @return 
+     */
+    public Vector listSubTasks(int id_task_father){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector tasks = new Vector();
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("SELECT * FROM tareas WHERE id_tarea_padre='");
+            query.append(id_task_father);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            ResultSet rs = stmt.executeQuery();
+          
+            while(rs.next()){
+                tasks.add(new DataTask(rs.getInt("id_tarea"),
+                        rs.getString("titulo"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_tarea_padre"),
+                        rs.getTime("horas_estimadas"),
+                        rs.getInt("empleado_asignado"),
+                        StatusTask.valueOf(rs.getString("estado")),
+                        rs.getString("descripcion")
+                ));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return tasks;
+    }
+    
     /**
      * Erase task
      */
@@ -2411,9 +2435,10 @@ public class MySQLTools {
     /**
      * Insert domain
      */
-    void insertDomain(int id_server, String web){
+    boolean insertDomain(int id_server, String web){
         Connection con = null;
         PreparedStatement stmt = null;
+        int res=0;
 
         try{
            Class.forName(sDriver).newInstance();
@@ -2424,7 +2449,7 @@ public class MySQLTools {
            stmt.setInt(1, id_server);
            stmt.setString(2, web);
 
-           stmt.executeUpdate();
+           res=stmt.executeUpdate();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
@@ -2442,6 +2467,7 @@ public class MySQLTools {
                 }
             }
         }
+        return res==1;
     }
 
     /**
@@ -2521,17 +2547,21 @@ public class MySQLTools {
         }catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
     
+    /**
+     * @param id_domain
+     * @return The data of the domain specified by id
+     */
     public DataDomain consultDomain(int id_domain){
         Connection con = null;
         PreparedStatement stmt = null;
@@ -2562,12 +2592,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
         }
 

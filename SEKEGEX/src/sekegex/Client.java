@@ -101,9 +101,12 @@ public class Client {
     /**
      * Insert new server
      */
-    public void insertServer(String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+    public boolean insertServer(String name, String access, String user_ftp, String password_ftp, String user_host, String password_host){
+        boolean res=false;
         if(activeEmployee.hasLicence(700)){
-            DB.insertServer(data.id, name, access, user_ftp, password_ftp, user_host, password_host);
+            res=DB.insertServer(data.id, name, access, user_ftp, password_ftp, user_host, password_host);
         }
+        return res;
+
     }
 }

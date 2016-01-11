@@ -72,12 +72,11 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="products_buttonMouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="products_buttonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="workflow_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Workflow"/>
+        <Property name="text" type="java.lang.String" value="Tareas"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="workflow_buttonMouseClicked"/>

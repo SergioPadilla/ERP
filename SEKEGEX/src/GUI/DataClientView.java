@@ -5,7 +5,9 @@
  */
 package GUI;
 
+import DataType.DataBill;
 import DataType.DataClient;
+import DataType.DataServer;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
@@ -14,6 +16,7 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sekegex.Client;
 import sekegex.User;
 
 /**
@@ -22,12 +25,17 @@ import sekegex.User;
  */
 public class DataClientView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DataClientView
-     */
+
     public DataClientView(DataClient client) {
         initComponents();
+        this.setTitle("Cliente: " + client.name);
+        
         clienti = client;
+
+        User usr = User.getInstance();
+        Client clientO= new Client(clienti.id);
+        servers = clientO.listServers();
+        bills = clientO.listBills();
         setFilas();
     }
 
@@ -43,6 +51,12 @@ public class DataClientView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        jButtonAddServer = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,9 +65,17 @@ public class DataClientView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Apellido", "email", "NIF", "Tipo", "Fecha de Alta"
+                "ID", "Nombre", "Apellido", "email", "NIF", "Tipo", "Fecha de Alta", "Modificar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Volver");
@@ -63,37 +85,116 @@ public class DataClientView extends javax.swing.JFrame {
             }
         });
 
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Servidor", "Nombre Servidor", "Ver"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(2).setMinWidth(70);
+            jTable2.getColumnModel().getColumn(2).setPreferredWidth(70);
+            jTable2.getColumnModel().getColumn(2).setMaxWidth(70);
+        }
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Factura", "Fecha", "Ver Productos"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(2).setMinWidth(120);
+            jTable3.getColumnModel().getColumn(2).setPreferredWidth(120);
+            jTable3.getColumnModel().getColumn(2).setMaxWidth(120);
+        }
+
+        jButtonAddServer.setText("Añadir Servidor");
+        jButtonAddServer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonAddServerMouseClicked(evt);
+            }
+        });
+
+        jButton2.setText("Añadir Factura");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(355, 355, 355)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonAddServer)
+                        .addGap(27, 27, 27))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jButton1)
-                .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jButtonAddServer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-            ClientView obj = new ClientView();
+        ClientView obj = new ClientView();
+        obj.setVisible(true);
+            dispose();    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButtonAddServerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddServerMouseClicked
+            CreateServerView obj = new CreateServerView(clienti);
             obj.setVisible(true);
             dispose();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_jButtonAddServerMouseClicked
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
@@ -102,22 +203,57 @@ public class DataClientView extends javax.swing.JFrame {
             dispose(); 
         }
     };
+    Action ver = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+            int modelRow = Integer.valueOf(e.getActionCommand()); 
+            DataServerView obj = new DataServerView((DataServer) servers.elementAt(modelRow));
+            obj.setVisible(true);
+            dispose(); 
+        }
+    };
+    Action verProductos = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            ModifyDataClient obj = new ModifyDataClient(clienti);
+            obj.setVisible(true);
+            dispose(); 
+        }
+    };
         
     private void setFilas() {
-        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
+
         
-        Object[] datos = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
-        modelo.addRow(datos);
-        
-        modelo.addColumn("Modificar");
-        
-        jTable1.getColumnModel().getColumn(7).setMinWidth(70);
-        jTable1.getColumnModel().getColumn(7).setPreferredWidth(70);
-        jTable1.getColumnModel().getColumn(7).setMaxWidth(70);
+        Object[] datos1 = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
+        modelo1.addRow(datos1);
         
         ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
         buttonColumn1.setMnemonic(KeyEvent.VK_D); 
+        
+
+        for(int i=0;i<servers.size();i++){
+            DataServer servi=(DataServer)servers.elementAt(i);
+            Object[] datos2 = {servi.id_server,servi.name}; 
+            modelo2.addRow(datos2);
+        }
+        
+        ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, ver, 2);
+        buttonColumn2.setMnemonic(KeyEvent.VK_D); 
+        
+        
+        for(int i=0;i<bills.size();i++){
+            DataBill billi=(DataBill)bills.elementAt(i);
+            Object[] datos3 = {billi.id_bill,billi.date}; 
+            modelo3.addRow(datos3);
+        }
+        
+        
+        ButtonColumn buttonColumn3 = new ButtonColumn(jTable3, verProductos, 2);
+        buttonColumn3.setMnemonic(KeyEvent.VK_D);
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -144,6 +280,7 @@ public class DataClientView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(DataClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -153,12 +290,19 @@ public class DataClientView extends javax.swing.JFrame {
         });
     }
 
-    User usr = User.getInstance();
     public static DataClient clienti;
+    public Vector servers;
+    public Vector bills;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAddServer;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
-
 }

@@ -5,19 +5,11 @@
  */
 
 package GUI;
-
 import DataType.DataProduct;
-//import static GUI.DataCProductView.producti;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.util.Vector;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import sekegex.Product;
 import sekegex.User;
+import javax.swing.event.ListSelectionListener;
+
 /**
  *
  * @author Toshiba PC
@@ -25,16 +17,21 @@ import sekegex.User;
 public class DataProductView extends javax.swing.JFrame {
 
     /**
-     * Creates new form DataProduct
+     * Creates new form DataProductView
      */
-    public DataProductView(DataProduct product) {
+    public DataProductView(DataProduct producto) {
         initComponents();
-        producti = product;
-        
-        User usr = User.getInstance();
-        Product productO= new Product(producti.id);
- 
-        setFilas();
+        this.product = producto;
+        this.setTitle("Producto");
+        usr = User.getInstance();
+        this.nameProduct.setText(product.name);
+        this.descriptionProduct.setText(product.description);
+        String s1 = Float.toString(product.nSold);
+        this.soldsProduct.setText(s1);
+        String s2 = Float.toString(product.amount);
+        this.priceProduct.setText(s2);
+        String s3 = Integer.toString(product.id);
+        this.idProduct.setText(s3);
     }
 
     /**
@@ -47,32 +44,73 @@ public class DataProductView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        DataProductTable = new javax.swing.JTable();
-        Volver = new javax.swing.JButton();
+        jTextPane1 = new javax.swing.JTextPane();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        volverAtras = new javax.swing.JButton();
+        modifyProduct = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        nameProduct = new javax.swing.JLabel();
+        idProduct = new javax.swing.JLabel();
+        priceProduct = new javax.swing.JLabel();
+        soldsProduct = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        descriptionProduct = new javax.swing.JTextArea();
+
+        jScrollPane1.setViewportView(jTextPane1);
+
+        jTextField1.setText("jTextField1");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DataProductTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel1.setText("Descripción:");
 
-            },
-            new String [] {
-                "ID", "Nombre", "Descripción", "Importe", "Nº ventas", "Modificar"
-            }
-        ));
-        jScrollPane1.setViewportView(DataProductTable);
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel2.setText("Producto:");
 
-        Volver.setText("Volver");
-        Volver.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel3.setText("Precio:");
+
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel4.setText("Número de ventas:");
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        jLabel5.setText("ID:");
+
+        volverAtras.setText("Volver");
+        volverAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                VolverMouseClicked(evt);
+                volverAtrasMouseClicked(evt);
             }
         });
-        Volver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VolverActionPerformed(evt);
+
+        modifyProduct.setText("Modificar");
+        modifyProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modifyProductMouseClicked(evt);
             }
         });
+
+        jButton2.setText("Ver facturas");
+
+        nameProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        idProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        descriptionProduct.setColumns(20);
+        descriptionProduct.setRows(5);
+        jScrollPane3.setViewportView(descriptionProduct);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,49 +119,93 @@ public class DataProductView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Volver)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(volverAtras)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(modifyProduct)
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(priceProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(34, 34, 34)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(soldsProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(idProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Volver)
-                .addGap(0, 85, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nameProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(idProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(soldsProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(priceProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(volverAtras)
+                    .addComponent(modifyProduct)
+                    .addComponent(jButton2))
+                .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_VolverActionPerformed
-
-    private void VolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VolverMouseClicked
+    private void volverAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverAtrasMouseClicked
         // TODO add your handling code here:
         ProductView obj = new ProductView();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_VolverMouseClicked
+    }//GEN-LAST:event_volverAtrasMouseClicked
 
-    Action modify = new AbstractAction() {
-        public void actionPerformed(ActionEvent e) {
-            ModifyProduct obj = new ModifyProduct(producti);
-            obj.setVisible(true);
-            dispose(); 
-        }
-    };
-    
-    private void setFilas(){
-        DefaultTableModel table = (DefaultTableModel) DataProductTable.getModel();
-        Object[] datos = {producti.id,producti.name,producti.description,producti.amount,producti.nSold, "Modificar"}; // Cantidad de columnas de la tabla
-        table.addRow(datos);
-        ButtonColumn buttonColumn = new ButtonColumn(DataProductTable, modify, 5);
-        buttonColumn.setMnemonic(KeyEvent.VK_D);
-    }
-    
+    private void modifyProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyProductMouseClicked
+        // TODO add your handling code here:
+        ModifyDataProduct obj = new ModifyDataProduct(this.product);
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_modifyProductMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -154,14 +236,31 @@ public class DataProductView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DataProductView(producti).setVisible(true);
+                new DataProductView(product).setVisible(true);
             }
         });
     }
-    public static DataProduct producti;
+    public static DataProduct product;
+    private User usr;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable DataProductTable;
-    private javax.swing.JButton Volver;
+    private javax.swing.JTextArea descriptionProduct;
+    private javax.swing.JLabel idProduct;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JButton modifyProduct;
+    private javax.swing.JLabel nameProduct;
+    private javax.swing.JLabel priceProduct;
+    private javax.swing.JLabel soldsProduct;
+    private javax.swing.JButton volverAtras;
     // End of variables declaration//GEN-END:variables
 }

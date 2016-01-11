@@ -18,6 +18,7 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        this.setTitle("Menú Principal");
         User usr = User.getInstance();
     }
 
@@ -50,13 +51,8 @@ public class MainMenu extends javax.swing.JFrame {
                 products_buttonMouseClicked(evt);
             }
         });
-        products_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                products_buttonActionPerformed(evt);
-            }
-        });
 
-        workflow_button.setText("Workflow");
+        workflow_button.setText("Tareas");
         workflow_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 workflow_buttonMouseClicked(evt);
@@ -112,13 +108,16 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_clients_buttonMouseClicked
 
     private void products_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_products_buttonMouseClicked
+        //Crear vista para productos
         ProductView obj = new ProductView();
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_products_buttonMouseClicked
 
     private void workflow_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workflow_buttonMouseClicked
-        //Crear vista para workflow
+        Workflow obj = new Workflow();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_workflow_buttonMouseClicked
 
     private void logOut_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOut_buttonMouseClicked
@@ -126,10 +125,6 @@ public class MainMenu extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_logOut_buttonMouseClicked
-
-    private void products_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_products_buttonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_products_buttonActionPerformed
 
     /**
      * @param args the command line arguments

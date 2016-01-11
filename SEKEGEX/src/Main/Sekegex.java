@@ -42,9 +42,7 @@ public class Sekegex {
                     System.out.println("Error de autentificación");
                 }
             }
-            System.out.println("opciones: \n "
-                    + "x-->desconectar\n"
-                    + "c-->Clientes");
+            System.out.println("opciones: \nx-->desconectar\nc-->Clientes\np-->Productos\nw-->Workflow");
             System.out.print("opción: ");
             opc = sc.nextLine();
             if(opc.equals("x")){
@@ -60,7 +58,7 @@ public class Sekegex {
                         System.out.println(clienti.id+"-->"+clienti.name+" "+clienti.surname);
                     }
                 }
-                System.out.println("opciones de cliente: \ni-->Insertar\nm-->Modificar\nv-->Ver cliente\nb-->Borrar cliente (no implementado)");
+                System.out.println("opciones de cliente: \ni-->Insertar\nm-->Modificar\nv-->Ver cliente");
                 System.out.print("opción: ");
                 opcC = sc.nextLine();
                 if(opcC.equals("v")){
@@ -105,7 +103,7 @@ public class Sekegex {
                             }
                         }
                     }
-                    System.out.println("opciones de cliente: \nf-->Ver factura\ns-->Ver servidor\ni-->Insertar servidor\nif-->insertar factura(hecho y comprobado pero solo para la interfaz grafica)");
+                    System.out.println("opciones de cliente: \nf-->Ver factura\ns-->Ver servidor\ni-->Insertar servidor\nif-->insertar factura(hecho y comprobado pero solo para la interfaz grafica)\nb-->Borrar cliente");
                     System.out.print("opción: ");
                     opcC = sc.nextLine();
                     if(opcC.equals("f")){
@@ -121,9 +119,13 @@ public class Sekegex {
                                 System.out.println(producti.id+"-->"+producti.name+" "+producti.amount);
                             }
                             System.out.println("importe: "+Dbill.amount);
-                            System.out.println("opciones de cliente: \nm-->Modificar(hecho y comprobado pero solo para la interfaz grafica)\n");
+                            System.out.println("opciones de cliente: \nm-->Modificar(hecho y comprobado pero solo para la interfaz grafica)\nb-->Borrar");
                             System.out.print("opción: ");
                             opcC = sc.nextLine();
+                            if(opcC.equals("m")){
+                                bill.removeBill();
+                                bill=null;
+                            }
                     }else if(opcC.equals("s")){
                         System.out.print("Id: ");
                         Id = sc.nextInt();
@@ -137,12 +139,13 @@ public class Sekegex {
                             System.out.println("pass ftp: "+Dserver.pass_ftp);
                             System.out.println("user host: "+Dserver.user_host);
                             System.out.println("pass host: "+Dserver.pass_host);
+                            System.out.println("--->Lista de dominios<---" );
                             Vector domains=server.listDomains();
                             for(int i=0; i<domains.size();i++){
                                 DataDomain domaini=(DataDomain)domains.elementAt(i);
                                 System.out.println(domaini.id_domain+"-->"+domaini.name);
                             }
-                            System.out.println("opciones de servidor: \nm-->Modificar\nb-->Borrar(no implementado)\ni-->insertar dominio(no implementado)\nbd-->Borrar dominio(no implementado)");
+                            System.out.println("opciones de servidor: \nm-->Modificar\nb-->Borrar\ni-->insertar dominio\nbd-->Borrar dominio");
                             System.out.print("opción: ");
                             opcC = sc.nextLine();
                             if(opcC.equals("m")){
@@ -159,6 +162,19 @@ public class Sekegex {
                                 System.out.print("pass host: ");
                                 String pass_host=sc.nextLine();
                                 server.modifyServer(name, ip, user_ftp, pass_ftp, user_host, pass_host);
+                            }else if(opcC.equals("i")){
+                                System.out.print("web: ");
+                                String web=sc.nextLine();
+                                server.insertDomain(web);
+                            }else if(opcC.equals("bd")){
+                                System.out.print("Id: ");
+                                int id=sc.nextInt();
+                                sc.nextLine();
+                                Domain D=new Domain(id);
+                                D.removeDomain();
+                            }else if(opcC.equals("b")){
+                                server.removeServer();
+                                server=null;
                             }
                     }else if(opcC.equals("i")){
                         System.out.print("Ip: ");
@@ -174,6 +190,9 @@ public class Sekegex {
                         System.out.print("pass host: ");
                         String pass_host=sc.nextLine();
                         clientO.insertServer(name, ip, user_ftp, pass_ftp, user_host, pass_host);
+                    }else if(opcC.equals("b")){
+                        clientO.removeClient();
+                        clientO=null;
                     }
                     
                 }else if(opcC.equals("m") || opcC.equals("i")){
@@ -212,6 +231,92 @@ public class Sekegex {
                         }
                     }
                 
+                }
+            }else if(opc.equals("p")){
+                System.out.println("opciones de productos: \ni-->Insertar\nv-->Ver producto");
+                System.out.println("--->Lista de dominios<---" );
+                Vector products=activeEmployee.listProducts();
+                for(int i=0; i<products.size();i++){
+                    DataProduct producti=(DataProduct)products.elementAt(i);
+                    System.out.println(producti.id+"-->"+producti.name);
+                }
+                System.out.print("opción: ");
+                opcC = sc.nextLine();
+                if(opcC.equals("v")){
+                    System.out.print("Id: ");
+                    int Id = sc.nextInt();
+                    sc.nextLine();
+                    Product product= new Product(Id);
+                    DataProduct Dproduct=product.getData();
+                    System.out.println("Id: "+Dproduct.id);
+                    System.out.println("nombre: "+Dproduct.name);
+                    System.out.println("descripción: "+Dproduct.description);
+                    System.out.println("precio: "+Dproduct.amount);
+                    System.out.println("opciones de productos: \nb-->Borrar\nm-->Modificar");
+                    System.out.print("opción: ");
+                    opcC = sc.nextLine();
+                    if(opcC.equals("m")){
+                        System.out.print("nombre: ");
+                        String name = sc.nextLine();
+                        System.out.print("descripción: ");
+                        String description = sc.nextLine();
+                        System.out.print("precio: ");
+                        float amount = sc.nextFloat();
+                        sc.nextLine();
+                        product.modifyProduct(name, description, amount);
+                    }else if(opcC.equals("b")){
+                        product.removeProduct();
+                        product=null;
+                    }
+                }else if(opcC.equals("i")){
+                    System.out.print("nombre: ");
+                    String name = sc.nextLine();
+                    System.out.print("descripción: ");
+                    String description = sc.nextLine();
+                    System.out.print("precio: ");
+                    float amount = sc.nextFloat();
+                    sc.nextLine();
+                    activeEmployee.insertProduct(name, description, amount);
+                }
+            }else if(opc.equals("w")){
+                System.out.println("opciones de tareas: \ni-->Insertar\nv-->Ver tarea");
+                System.out.print("opción: ");
+                opcC = sc.nextLine();
+                if(opcC.equals("v")){
+                    System.out.print("Id: ");
+                    int Id = sc.nextInt();
+                    sc.nextLine();
+                    Product product= new Product(Id);
+                    DataProduct Dproduct=product.getData();
+                    System.out.println("Id: "+Dproduct.id);
+                    System.out.println("nombre: "+Dproduct.name);
+                    System.out.println("descripción: "+Dproduct.description);
+                    System.out.println("precio: "+Dproduct.amount);
+                    System.out.println("opciones de productos: \nb-->Borrar\nm-->Modificar");
+                    System.out.print("opción: ");
+                    opcC = sc.nextLine();
+                    if(opcC.equals("m")){
+                        System.out.print("nombre: ");
+                        String name = sc.nextLine();
+                        System.out.print("descripción: ");
+                        String description = sc.nextLine();
+                        System.out.print("precio: ");
+                        float amount = sc.nextFloat();
+                        sc.nextLine();
+                        product.modifyProduct(name, description, amount);
+                    }else if(opcC.equals("b")){
+                        product.removeProduct();
+                        product=null;
+                    }
+                }else if(opcC.equals("i")){
+                    System.out.print("nombre: ");
+                    String name = sc.nextLine();
+                    System.out.print("descripción: ");
+                    String description = sc.nextLine();
+                    System.out.print("precio: ");
+                    float amount = sc.nextFloat();
+                    sc.nextLine();
+                    activeEmployee.insertProduct(name, description, amount);
                 }
             }
             opc=null;
