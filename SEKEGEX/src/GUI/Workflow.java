@@ -5,10 +5,15 @@
  */
 package GUI;
 
+import DataType.DataTask;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.ListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import sekegex.MySQLTools;
+import sekegex.Task;
 import sekegex.User;
 
 /**
@@ -22,19 +27,32 @@ public class Workflow extends javax.swing.JFrame {
      */
     public Workflow() {
         initComponents();
-        DB = MySQLTools.getInstance();
+        this.setTitle("Tareas");
         usr = User.getInstance();
         
-        //Get the title of the tasks to show it
-        Vector tasks = usr.listTitleTasks(); 
+        //Get the tasks to show it
+        tasks = usr.listTasks();
         
         //Create the model and add it the title of the task
         DefaultListModel model = new DefaultListModel();
+        
         for(int i = 0; i < tasks.size(); i++){
-            model.addElement(tasks.get(i));
+            DataTask task =(DataTask) tasks.get(i);
+            model.addElement(task.title);
         }
         
         listTasks.setModel(model);
+        
+        listTasks.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                TaskView obj = new TaskView((DataTask) tasks.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
     }
 
     /**
@@ -49,6 +67,7 @@ public class Workflow extends javax.swing.JFrame {
         jScrollPane = new javax.swing.JScrollPane();
         listTasks = new javax.swing.JList<>();
         addTask = new javax.swing.JButton();
+        back_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +87,13 @@ public class Workflow extends javax.swing.JFrame {
             }
         });
 
+        back_button.setText("Volver");
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,7 +104,9 @@ public class Workflow extends javax.swing.JFrame {
                     .addComponent(jScrollPane)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addTask)
-                        .addGap(0, 512, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(back_button)
+                        .addGap(0, 411, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -87,7 +115,9 @@ public class Workflow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(addTask)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addTask)
+                    .addComponent(back_button))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -95,8 +125,16 @@ public class Workflow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addTaskMouseClicked
-        
+        AddTask obj = new AddTask();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_addTaskMouseClicked
+
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+        MainMenu obj = new MainMenu();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_back_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -134,10 +172,11 @@ public class Workflow extends javax.swing.JFrame {
         });
     }
     
-    MySQLTools DB;
-    User usr;
+    User usr; //Employee active
+    Vector tasks; //List of the full tasks (DataTask)
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTask;
+    private javax.swing.JButton back_button;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JList<String> listTasks;
     // End of variables declaration//GEN-END:variables

@@ -18,6 +18,7 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        this.setTitle("Menú Principal");
         User usr = User.getInstance();
     }
 
@@ -51,7 +52,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        workflow_button.setText("Workflow");
+        workflow_button.setText("Tareas");
         workflow_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 workflow_buttonMouseClicked(evt);
@@ -111,7 +112,9 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_products_buttonMouseClicked
 
     private void workflow_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workflow_buttonMouseClicked
-        //Crear vista para workflow
+        Workflow obj = new Workflow();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_workflow_buttonMouseClicked
 
     private void logOut_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOut_buttonMouseClicked

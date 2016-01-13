@@ -28,6 +28,7 @@ public class ClientView extends javax.swing.JFrame {
      */
     public ClientView() {
         initComponents();
+        this.setTitle("Clientes");
         usr = User.getInstance();
         clients = usr.listClients();
         setFilas();

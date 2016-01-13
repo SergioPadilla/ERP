@@ -318,7 +318,7 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("apellido='");
+                query.append("apellidos='");
                 query.append(surname);
                 query.append("'");
 
@@ -1622,21 +1622,26 @@ public class MySQLTools {
     /**
      * List names of the employees
      */
-    public Vector listNamesEmployees(){
+    public Vector listEmployees(){
         Connection con = null;
         PreparedStatement stmt = null;
-        Vector names = new Vector();
+        Vector employees = new Vector();
 
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
           
-            stmt = con.prepareStatement("SELECT nombre FROM empleados");
+            stmt = con.prepareStatement("SELECT * FROM empleados");
 
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                names.add(rs.getString("nombre"));
+                employees.add(new DataEmployee(rs.getInt("id_empleado"),
+                        rs.getString("dni"),
+                        rs.getString("nombre"),
+                        rs.getString("password"),
+                        rs.getString("apellidos"), 
+                        rs.getInt("rol")));
             }
 
         } catch (SQLException sqle){
@@ -1656,7 +1661,7 @@ public class MySQLTools {
             }
         }
         
-        return names;
+        return employees;
     }
     
     /**
@@ -1804,11 +1809,49 @@ public class MySQLTools {
             }
         }
     }
+    
+    /**
+     * Insert new SubTask
+     */
+    void insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+           Class.forName(sDriver).newInstance();
+           con = DriverManager.getConnection(sURL,user,pass);
+
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas, id_tarea_padre) VALUES(?,?,?,?);");
+
+           stmt.setString(1, title);
+           stmt.setString(2, description);
+           stmt.setTime(3, time_estimated);
+           stmt.setInt(4, id_task_father);
+
+           stmt.executeUpdate();
+
+        } catch (SQLException sqle){
+           System.out.println("SQLState: " + sqle.getSQLState());
+           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+           sqle.printStackTrace();
+        } catch (Exception e){
+           e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+        }
+    }
 
     /**
      * Modify task
      */
-    void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_task_father, int id_employee, StatusTask status){
+    void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_employee, StatusTask status){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1834,21 +1877,12 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(id_task_father != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("id_tarea_padre='");
-                query.append(id_task_father);
-                query.append("'");
-                first=false;
-            }
             if(id_employee != -1){
                 if(!first){
                     query.append(",");
                 }
                 query.append("empleado_asignado='");
-                query.append(id_task_father);
+                query.append(id_employee);
                 query.append("'");
                 first=false;
             }
@@ -1861,7 +1895,7 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(!time_estimated.equals("")){
+            if(!time_estimated.equals(new Time(0,0,0))){
                 if(!first){
                     query.append(",");
                 }
@@ -1870,7 +1904,7 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(!due_date.equals("")){
+            if(!due_date.equals(new Date(0,0,0))){
                 if(!first){
                     query.append(",");
                 }
@@ -1965,10 +1999,10 @@ public class MySQLTools {
     }
 
     /**
-     * Get the title of all task
+     * Get tasks
      * @return 
      */
-    public Vector listTitleTasks(){
+    public Vector listTasks(){
         Connection con = null;
         PreparedStatement stmt = null;
         Vector tasks = new Vector();
@@ -1977,12 +2011,72 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
           
-            stmt = con.prepareStatement("SELECT titulo FROM tareas");
+            stmt = con.prepareStatement("SELECT * FROM tareas");
 
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
-                tasks.add(rs.getString("titulo"));
+                tasks.add(new DataTask(rs.getInt("id_tarea"),
+                        rs.getString("titulo"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_tarea_padre"),
+                        rs.getTime("horas_estimadas"),
+                        rs.getInt("empleado_asignado"),
+                        StatusTask.valueOf(rs.getString("estado")),
+                        rs.getString("descripcion")
+                ));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return tasks;
+    }
+    
+    /**
+     * Get Subtasks
+     * @return 
+     */
+    public Vector listSubTasks(int id_task_father){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector tasks = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            StringBuilder query = new StringBuilder("SELECT * FROM tareas WHERE id_tarea_padre='");
+            query.append(id_task_father);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            ResultSet rs = stmt.executeQuery();
+          
+            while(rs.next()){
+                tasks.add(new DataTask(rs.getInt("id_tarea"),
+                        rs.getString("titulo"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_tarea_padre"),
+                        rs.getTime("horas_estimadas"),
+                        rs.getInt("empleado_asignado"),
+                        StatusTask.valueOf(rs.getString("estado")),
+                        rs.getString("descripcion")
+                ));
             }
 
         } catch (SQLException sqle){

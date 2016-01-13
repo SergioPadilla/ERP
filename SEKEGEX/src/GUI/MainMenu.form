@@ -76,7 +76,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="workflow_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Workflow"/>
+        <Property name="text" type="java.lang.String" value="Tareas"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="workflow_buttonMouseClicked"/>

@@ -28,6 +28,8 @@ public class DataClientView extends javax.swing.JFrame {
 
     public DataClientView(DataClient client) {
         initComponents();
+        this.setTitle("Cliente: " + client.name);
+        
         clienti = client;
 
         User usr = User.getInstance();

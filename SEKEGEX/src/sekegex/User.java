@@ -227,11 +227,11 @@ public class User {
     /**
      * List names of the employees
      */
-    public Vector listNamesEmployees(){
+    public Vector listEmployees(){
         Vector names = null;
         
         if(licence.contains(903)){
-            names = DB.listNamesEmployees();
+            names = DB.listEmployees();
         }
         
         return names;
@@ -253,6 +253,22 @@ public class User {
         }
         return ok;
     }
+    
+    /**
+     * Insert new SubTask
+     */
+    public Boolean insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+        Boolean ok = true;
+        
+        if(licence.contains(100)){
+            DB.insertSubTask(title, description, time_estimated, id_task_father);
+        }
+        else{
+            ok = false;
+        }
+        return ok;
+    }
+    
     /**
      * Get the data of task with id specified
      * @param id_task
@@ -279,14 +295,28 @@ public class User {
     }
     
     /**
-     * Get the title of all task
+     * Get tasks
      * @return 
      */
-    public Vector listTitleTasks(){
+    public Vector listTasks(){
         Vector tasks = null;
         
         if(licence.contains(103)){
-            tasks = DB.listTitleTasks();
+            tasks = DB.listTasks();
+        }
+        
+        return tasks;
+    }
+    
+    /**
+     * Get Subtasks
+     * @return 
+     */
+    public Vector listSubTasks(int id_task_father){
+        Vector tasks = null;
+        
+        if(licence.contains(103)){
+            tasks = DB.listSubTasks(id_task_father);
         }
         
         return tasks;
