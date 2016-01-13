@@ -10,6 +10,7 @@ import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import static javax.swing.JComponent.TOOL_TIP_TEXT_KEY;
+import javax.swing.JOptionPane;
 import sekegex.Employee;
 
 /**
@@ -179,6 +180,7 @@ public class EmployeeView extends javax.swing.JFrame {
         remove(backButton1);
         remove(createEmpButton);
         createEmpPanel1.setSize(250, 230);
+        createEmpPanel1.clear();
         createEmpPanel1.setLocation((getWidth()-createEmpPanel1.getWidth())/2,20 );
         add(createEmpPanel1);
         backButton2.setSize(63, 23);
@@ -271,16 +273,19 @@ public class EmployeeView extends javax.swing.JFrame {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
-        createEmpPanel1.crear();
-        remove(createEmpPanel1);
-        remove(backButton2);
-        remove(saveButton);
-        update();
-        add(employeeGeneralView1);
-        add(backButton1);
-        add(createEmpButton);
-        paintAll(getGraphics());
-        repaint();
+        if(createEmpPanel1.crear()){
+            remove(createEmpPanel1);
+            remove(backButton2);
+            remove(saveButton);
+            update();
+            add(employeeGeneralView1);
+            add(backButton1);
+            add(createEmpButton);
+            paintAll(getGraphics());
+            repaint();
+        }else{
+            JOptionPane.showMessageDialog(this,"Tienes que rellenar oblidatoriamente los campos Nombre, Apellidos y Dni");
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     public void showEmployee(Employee emp) {                                                     
@@ -303,6 +308,7 @@ public class EmployeeView extends javax.swing.JFrame {
         remove(backButton1);
         remove(createEmpButton);
         modifyEmpPanel1.setSize(198, 320);
+        modifyEmpPanel1.clear();
         modifyEmpPanel1.setLocation((getWidth()-modifyEmpPanel1.getWidth())/2,11 );
         modifyEmpPanel1.set(emp);
         add(modifyEmpPanel1);
