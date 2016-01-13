@@ -246,19 +246,6 @@ public class User {
         return names;
     }
 
-    /**
-     * List names of the employees
-     */
-    public Vector listEmployees(){
-        Vector names = null;
-
-        if(licence.contains(903)){
-            names = DB.listEmployees();
-        }
-
-        return names;
-    }
-
     //"TAREAS" table
 
     /**
