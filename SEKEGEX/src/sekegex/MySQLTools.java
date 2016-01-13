@@ -1556,14 +1556,15 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
+            if(!first){
+                query.append(" WHERE id_empleado=");
+                query.append(id_employee);
 
-            query.append(" WHERE id_empleado=");
-            query.append(id_employee);
+                String queryfinal = new String(query);
+                stmt = con.prepareStatement(queryfinal);
 
-            String queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
-
-            stmt.executeUpdate();
+                stmt.executeUpdate();
+            }
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
