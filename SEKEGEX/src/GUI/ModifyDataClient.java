@@ -205,22 +205,27 @@ public class ModifyDataClient extends javax.swing.JFrame {
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
-        final String dninew = dni.getText().toString();
-        final String namenew = name.getText().toString();
-        final String surnamenew = surname.getText().toString();
-        final String typenew = type.getText().toString();
-        final String emailnew = email.getText().toString();
-        
-        Client c = new Client(client.id);
         JFrame frame = new JFrame();
-        
-        if(c.modifyClient(typenew, namenew, surnamenew, dninew, emailnew)){
-            JOptionPane.showMessageDialog(frame, "La modificación se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
-            repaint();
-            client = c.getData();
+        final String typenew = type.getText().toString();
+        if (typenew.contentEquals("freelance")||typenew.contentEquals("business")||typenew.contentEquals("BUSINESS")||typenew.contentEquals("FREELANCE")){
+            final String dninew = dni.getText().toString();
+            final String namenew = name.getText().toString();
+            final String surnamenew = surname.getText().toString();
+            final String emailnew = email.getText().toString();
+
+            Client c = new Client(client.id);
+
+            if(c.modifyClient(typenew, namenew, surnamenew, dninew, emailnew)){
+                JOptionPane.showMessageDialog(frame, "La modificación se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
+                repaint();
+                client = c.getData();
+            }
+            else{
+                JOptionPane.showMessageDialog(frame, "No tienes permisos para modificar clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+            }
         }
         else{
-            JOptionPane.showMessageDialog(frame, "No tienes permisos para modificar clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(frame, "El tipo de cliente elegido no es correcto", "Solo es valido freelance o business", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_save_buttonMouseClicked
 
@@ -276,7 +281,7 @@ public class ModifyDataClient extends javax.swing.JFrame {
     private javax.swing.JButton save_button;
     public javax.swing.JTextField surname;
     private javax.swing.JLabel surname_label;
-    public javax.swing.JTextField type;
+    private javax.swing.JTextField type;
     private javax.swing.JLabel type_label;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,6 +14,7 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sekegex.Client;
 import sekegex.User;
 
 /**
@@ -53,14 +54,14 @@ public class ClientView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id Cliente", "Nombre", "Apellido", "Ver"
+                "Id Cliente", "Nombre", "Apellido", "Ver", "Borrar"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,6 +77,9 @@ public class ClientView extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(3).setMinWidth(70);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(70);
             jTable1.getColumnModel().getColumn(3).setMaxWidth(70);
+            jTable1.getColumnModel().getColumn(4).setMinWidth(70);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(70);
+            jTable1.getColumnModel().getColumn(4).setMaxWidth(70);
         }
 
         jButton1.setText("Crear Cliente");
@@ -151,6 +155,24 @@ public class ClientView extends javax.swing.JFrame {
         }
     };
 
+    Action delete = new AbstractAction() {
+    public void actionPerformed(ActionEvent e) {
+        javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+        int modelRow = Integer.valueOf(e.getActionCommand());
+        DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
+        
+        JFrame frame = new JFrame();
+        int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el cliente con id: "+Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString()));
+        if (confirmacion==JOptionPane.YES_OPTION){    
+            Client cliento=new Client(Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString()));
+            cliento.removeClient();
+            initComponents();
+            clients = usr.listClients();
+            setFilas();
+            
+        }
+    }
+    };
     private void setFilas() {
         DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
 
@@ -161,6 +183,8 @@ public class ClientView extends javax.swing.JFrame {
         }
 
         ButtonColumn buttonColumn0 = new ButtonColumn(jTable1, see, 3);
+        buttonColumn0.setMnemonic(KeyEvent.VK_D);
+        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, delete, 4);
         buttonColumn0.setMnemonic(KeyEvent.VK_D);
     }
     
