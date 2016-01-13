@@ -1681,7 +1681,7 @@ public class MySQLTools {
     }
 
     /**
-     * List names of the employees
+     * List employees
      */
     public Vector listEmployees(){
         Connection con = null;
@@ -1703,58 +1703,6 @@ public class MySQLTools {
                         rs.getString("password"),
                         rs.getString("apellidos"), 
                         rs.getInt("rol")));
-            }
-
-        } catch (SQLException sqle){
-            System.out.println("SQLState: " + sqle.getSQLState());
-            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-            sqle.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try{
-                    stmt.close();
-                    con.close();
-                } catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        
-        return employees;
-    }
-    
-    /**
-     * List employees
-     */
-    public Vector listEmployees(){
-        Connection con = null;
-        PreparedStatement stmt = null;
-        Vector employees = new Vector();
-        
-        int id_employee;
-        String name;
-        String dni;
-        String password=null;
-        String surname;
-        int role;
-        
-        try{
-            Class.forName(sDriver).newInstance();
-            con = DriverManager.getConnection(sURL,user,pass);
-          
-            stmt = con.prepareStatement("SELECT * FROM empleados");
-
-            ResultSet rs = stmt.executeQuery();
-
-            while(rs.next()){
-                id_employee=rs.getInt("id_empleado");
-                name=rs.getString("nombre");
-                dni=rs.getString("dni");
-                surname=rs.getString("apellidos");
-                role=rs.getInt("rol");
-                employees.add(new DataEmployee(id_employee,name,dni,password,surname,role));
             }
 
         } catch (SQLException sqle){
