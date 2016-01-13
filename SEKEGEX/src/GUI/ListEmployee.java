@@ -25,46 +25,11 @@ public class ListEmployee extends javax.swing.JPanel {
      */
     public ListEmployee() {
         usr=User.getInstance();
-        usr.login("root","");///////////////////////////////////borrar
-        //initComponents();
-        initData();
+        initComponents();
+        employeespanels=new Vector();
+        update();
     }
     
-    private void initData(){
-        Vector employees=usr.listEmployees();
-        employeespanels=new Vector();
-        for(int i=0; i<employees.size();i++){
-            DataEmployee employeei=(DataEmployee)employees.elementAt(i);
-            employeespanels.add(new EmployeeOpt(employeei));   
-        }
-        
-        jLabel1 = new javax.swing.JLabel();
-
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        jLabel1.setText("Lista de Empleados");
-        
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        
-        GroupLayout.ParallelGroup grupo =layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING);
-        
-        for(int i=0; i<employeespanels.size();i++){
-            grupo.addComponent((EmployeeOpt)employeespanels.elementAt(i), javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);  
-        }
-        
-        GroupLayout.SequentialGroup grupo2 =layout.createSequentialGroup();
-        
-        for(int i=0; i<employeespanels.size();i++){
-            grupo2.addComponent((EmployeeOpt)employeespanels.elementAt(i), javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE);
-        }
-        
-        layout.setHorizontalGroup(grupo);
-        
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(grupo2)
-        );
-    }
     public void update(){
         for(int i=0; i<employeespanels.size();i++){
             EmployeeOpt employeei=(EmployeeOpt)employeespanels.elementAt(i);

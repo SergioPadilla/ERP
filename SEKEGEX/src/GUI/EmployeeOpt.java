@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataEmployee;
+import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -56,6 +57,19 @@ public class EmployeeOpt extends javax.swing.JPanel {
     
     public void setWindow(EmployeeView win){
         window=win;
+        setLayout(null);
+        jLabel2.setLocation(40, 13);
+        jLabel2.setSize(140, 14);
+        jLabel3.setLocation(190, 13);
+        jLabel3.setSize(140, 14);
+        jLabel1.setLocation(10,13);
+        jLabel1.setSize(jLabel1.getPreferredSize());
+        showButton.setSize(40,40);
+        showButton.setLocation(368,0);
+        editButton.setSize(40,40);
+        editButton.setLocation(414,0);
+        deleteButton.setSize(40,40);
+        deleteButton.setLocation(460,0);
     }
 
     /**
@@ -103,7 +117,9 @@ public class EmployeeOpt extends javax.swing.JPanel {
 
         jLabel1.setText("jLabel1");
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("jLabel2");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jLabel3.setText("jLabel3");
 
@@ -114,9 +130,9 @@ public class EmployeeOpt extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(91, 91, 91)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addComponent(showButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,7 +146,7 @@ public class EmployeeOpt extends javax.swing.JPanel {
             .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)

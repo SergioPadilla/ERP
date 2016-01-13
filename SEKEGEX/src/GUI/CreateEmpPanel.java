@@ -31,7 +31,7 @@ public class CreateEmpPanel extends javax.swing.JPanel {
         }
     }
     public boolean crear(){
-        if(!jTextField1.getText().equals("") && !jTextField2.getText().equals("") && !jTextField3.getText().equals("")){
+        if(!jTextField1.getText().equals("") && !jTextField2.getText().equals("") && !jTextField3.getText().equals("") && jTextField3.getText().length()<10){
             usr.insertEmployee(jTextField3.getText(), jTextField1.getText(),jTextField4.getText(), jTextField2.getText(), Integer.parseInt((String)jComboBox1.getSelectedItem()));
             return true;
         }else{
