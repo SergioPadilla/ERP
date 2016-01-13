@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataClient;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
@@ -29,6 +30,7 @@ public class ClientView extends javax.swing.JFrame {
     public ClientView() {
         initComponents();
         this.setTitle("Clientes");
+        this.setBackground(Color.darkGray);
         usr = User.getInstance();
         clients = usr.listClients();
         setFilas();
@@ -167,9 +169,11 @@ public class ClientView extends javax.swing.JFrame {
         if (confirmacion==JOptionPane.YES_OPTION){    
             Client cliento=new Client(Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString()));
             cliento.removeClient();
-            initComponents();
-            clients = usr.listClients();
-            setFilas();
+            ClientView obj = new ClientView();
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
             
         }
     }

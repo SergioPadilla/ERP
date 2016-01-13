@@ -9,12 +9,16 @@ import DataType.DataBill;
 import DataType.DataClient;
 import DataType.DataDomain;
 import DataType.DataServer;
+import static GUI.DataClientView.clienti;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sekegex.Domain;
 import sekegex.Server;
 import sekegex.User;
 
@@ -183,6 +187,23 @@ public class DataServerView extends javax.swing.JFrame {
     };
     Action borrar = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
+            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+            int modelRow = Integer.valueOf(e.getActionCommand());
+            DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
+
+
+            JFrame frame = new JFrame();
+            int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el Dominio con id: "+Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+            if (confirmacion==JOptionPane.YES_OPTION){    
+                Domain domaino=new Domain(Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+                domaino.removeDomain();
+                DataServerView obj = new DataServerView(server);
+                obj.setSize(getSize());
+                obj.setLocation(getLocation());
+                obj.setVisible(true);
+                dispose();
+            
+        }
             /*IMPLEMENTAR EL BORRADO*/ 
         }
     };      

@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sekegex.Client;
+import sekegex.Server;
 import sekegex.User;
 
 /**
@@ -90,11 +91,11 @@ public class DataClientView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Servidor", "Nombre Servidor", "Ver"
+                "ID Servidor", "Nombre Servidor", "Ver", "Borrar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -106,6 +107,9 @@ public class DataClientView extends javax.swing.JFrame {
             jTable2.getColumnModel().getColumn(2).setMinWidth(70);
             jTable2.getColumnModel().getColumn(2).setPreferredWidth(70);
             jTable2.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTable2.getColumnModel().getColumn(3).setMinWidth(70);
+            jTable2.getColumnModel().getColumn(3).setPreferredWidth(70);
+            jTable2.getColumnModel().getColumn(3).setMaxWidth(70);
         }
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
@@ -212,6 +216,31 @@ public class DataClientView extends javax.swing.JFrame {
             dispose(); 
         }
     };
+    
+        Action borrar = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+        javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+        int modelRow = Integer.valueOf(e.getActionCommand());
+        DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
+
+        
+        JFrame frame = new JFrame();
+        int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el servidor con id: "+Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+        if (confirmacion==JOptionPane.YES_OPTION){    
+            Server servero=new Server(Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+            servero.removeServer();
+            DataClientView obj = new DataClientView(clienti);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+            
+        }
+
+            /*IMPLEMENTAR EL BORRADO*/ 
+        }
+    }; 
+    
     Action verProductos = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
             ModifyDataClient obj = new ModifyDataClient(clienti);
@@ -241,7 +270,8 @@ public class DataClientView extends javax.swing.JFrame {
         
         ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, ver, 2);
         buttonColumn2.setMnemonic(KeyEvent.VK_D); 
-        
+        ButtonColumn buttonColumn3 = new ButtonColumn(jTable2, borrar, 3);
+        buttonColumn3.setMnemonic(KeyEvent.VK_D); 
         
         for(int i=0;i<bills.size();i++){
             DataBill billi=(DataBill)bills.elementAt(i);
@@ -250,8 +280,8 @@ public class DataClientView extends javax.swing.JFrame {
         }
         
         
-        ButtonColumn buttonColumn3 = new ButtonColumn(jTable3, verProductos, 2);
-        buttonColumn3.setMnemonic(KeyEvent.VK_D);
+        ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verProductos, 2);
+        buttonColumn4.setMnemonic(KeyEvent.VK_D);
     }
     
     /**
