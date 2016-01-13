@@ -257,7 +257,7 @@ public class MySQLTools {
         Connection con = null;
         PreparedStatement stmt = null;
         int res=0;
-        
+
         try{
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
@@ -272,7 +272,7 @@ public class MySQLTools {
 
            res=stmt.executeUpdate();
            System.out.println("stoy en db respuesta: "+res);
-      
+
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
@@ -289,7 +289,7 @@ public class MySQLTools {
               }
            }
         }
-        
+
         return res==1;
     }
 
@@ -461,12 +461,12 @@ public class MySQLTools {
              if(rs.next()){
                 id_client=rs.getInt("id_cliente");
                 date=rs.getDate("fecha");
-                
+
                 query = new StringBuilder("SELECT sum(precio) FROM compras WHERE id_factura='");
                 query.append(id_bill);
                 query.append("'");
                 queryfinal = new String(query);
-                
+
                 stmt = con.prepareStatement(queryfinal);
 
                 rs=stmt.executeQuery();
@@ -494,7 +494,7 @@ public class MySQLTools {
             return res;
         }
     }
-    
+
     /**
      *
      * @param id_client
@@ -674,53 +674,6 @@ public class MySQLTools {
         }
     }
 
-    Vector listProducts(){
-        Connection con = null;
-        PreparedStatement stmt = null;
-        int id_product=0;
-        String name=null;
-        String description=null;
-        float amount=0;
-        int sales=0;
-        Vector res=new Vector();
-
-        try{
-            Class.forName(sDriver).newInstance();
-            con = DriverManager.getConnection(sURL,user,pass);
-
-            stmt = con.prepareStatement("SELECT * FROM productos");
-
-            ResultSet rs;
-            rs = stmt.executeQuery();
-
-            while(rs.next()){
-                id_product=rs.getInt("id_producto");
-                name=rs.getString("nombre");
-                description=rs.getString("descripcion");
-                amount=rs.getFloat("importe");
-                sales=rs.getInt("ventas");
-                res.addElement(new DataProduct(id_product,name,description,amount,sales));
-            }
-
-        } catch (SQLException sqle){
-            System.out.println("SQLState: " + sqle.getSQLState());
-            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-            sqle.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        } finally {
-            if (con != null) {
-                try{
-                   stmt.close();
-                   con.close();
-                } catch(Exception e){
-                   e.printStackTrace();
-                }
-            }
-            return res;
-        }
-    }
-
      Vector listProductsforbill(int id_bill){
         Connection con = null;
         PreparedStatement stmt = null;
@@ -820,7 +773,7 @@ public class MySQLTools {
             return res;
         }
     }
-     
+
     /**
      * Modify product
      */
@@ -1067,7 +1020,7 @@ public class MySQLTools {
             }
         }
     }
-     
+
      /**
      * Remove bill
      */
@@ -1105,7 +1058,7 @@ public class MySQLTools {
            }
         }
     }
-     
+
     //"COMPRAS" table
 
     /**
@@ -1132,7 +1085,7 @@ public class MySQLTools {
             stmt = con.prepareStatement(queryfinal);
 
             stmt.executeUpdate();
-            
+
             query = new StringBuilder("UPDATE productos SET ventas=ventas+1 WHERE id_producto='");
             query.append(id_product);
             query.append("'");
@@ -1181,7 +1134,7 @@ public class MySQLTools {
             stmt = con.prepareStatement(queryfinal);
 
             stmt.executeUpdate();
-            
+
             query = new StringBuilder("UPDATE productos SET ventas=ventas-1 WHERE id_producto='");
             query.append(id_product);
             query.append("'");
@@ -1208,7 +1161,7 @@ public class MySQLTools {
            }
         }
     }
-    
+
 
     //"SERVIDORES" table
 
@@ -1266,7 +1219,7 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
-            
+
             StringBuilder query = new StringBuilder("UPDATE servidores SET ");
             boolean first=true;
 
@@ -1649,7 +1602,7 @@ public class MySQLTools {
             stmt = con.prepareStatement(queryfinal);
 
             stmt.executeUpdate();
-            
+
             query = new StringBuilder("UPDATE registros id_empleado=0 SET WHERE id_empleado='");
             query.append(id_employee);
             query.append("'");
@@ -1658,7 +1611,7 @@ public class MySQLTools {
             stmt = con.prepareStatement(queryfinal);
 
             stmt.executeUpdate();
-            
+
             query = new StringBuilder("UPDATE comentarios id_empleado=0 SET WHERE id_empleado='");
             query.append(id_employee);
             query.append("'");
@@ -1686,7 +1639,7 @@ public class MySQLTools {
         }
 
     }
-    
+
     /**
      * List dni of the employees
      */
@@ -1698,7 +1651,7 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
-          
+
             stmt = con.prepareStatement("SELECT dni FROM empleados");
 
             ResultSet rs = stmt.executeQuery();
@@ -1723,7 +1676,7 @@ public class MySQLTools {
                 }
             }
         }
-        
+
         return dni;
     }
 
@@ -1738,7 +1691,7 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
-          
+
             stmt = con.prepareStatement("SELECT * FROM empleados");
 
             ResultSet rs = stmt.executeQuery();
@@ -1748,7 +1701,7 @@ public class MySQLTools {
                         rs.getString("dni"),
                         rs.getString("nombre"),
                         rs.getString("password"),
-                        rs.getString("apellidos"), 
+                        rs.getString("apellidos"),
                         rs.getInt("rol")));
             }
 
@@ -1768,10 +1721,10 @@ public class MySQLTools {
                 }
             }
         }
-        
+
         return employees;
     }
-    
+
     /**
      * Get employee with dni specified
      * @param dni
@@ -1917,7 +1870,7 @@ public class MySQLTools {
             }
         }
     }
-    
+
     /**
      * Insert new SubTask
      */
@@ -2108,7 +2061,7 @@ public class MySQLTools {
 
     /**
      * Get tasks
-     * @return 
+     * @return
      */
     public Vector listTasks(){
         Connection con = null;
@@ -2118,7 +2071,7 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
-          
+
             stmt = con.prepareStatement("SELECT * FROM tareas");
 
             ResultSet rs = stmt.executeQuery();
@@ -2151,13 +2104,13 @@ public class MySQLTools {
                 }
             }
         }
-        
+
         return tasks;
     }
-    
+
     /**
      * Get Subtasks
-     * @return 
+     * @return
      */
     public Vector listSubTasks(int id_task_father){
         Connection con = null;
@@ -2174,7 +2127,7 @@ public class MySQLTools {
             String queryfinal = new String(query);
             stmt = con.prepareStatement(queryfinal);
             ResultSet rs = stmt.executeQuery();
-          
+
             while(rs.next()){
                 tasks.add(new DataTask(rs.getInt("id_tarea"),
                         rs.getString("titulo"),
@@ -2203,10 +2156,10 @@ public class MySQLTools {
                 }
             }
         }
-        
+
         return tasks;
     }
-    
+
     /**
      * Erase task
      */
@@ -2593,7 +2546,7 @@ public class MySQLTools {
             return res;
         }
     }
-    
+
     public Vector showRoles(){
         Connection con = null;
         PreparedStatement stmt = null;
@@ -2798,7 +2751,7 @@ public class MySQLTools {
             }
         }
     }
-    
+
     /**
      * @param id_domain
      * @return The data of the domain specified by id

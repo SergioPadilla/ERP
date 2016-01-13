@@ -14,8 +14,8 @@ import java.util.Vector;
 
 /**
  *
- * @author Ivan Edited: SergioPadilla
- * 
+ * @author Ivan and SergioPadilla
+ *
  */
 public class User {
     private static final User instance = new User();
@@ -26,20 +26,20 @@ public class User {
     private String surname;
     private Vector licence;
     private MySQLTools DB;
-    
+
     private User(){
         active=false;
         DB = MySQLTools.getInstance();
         licence=new Vector();
     }
-    
-    
+
+
     public static User getInstance(){
         return instance;
     }
-    
+
     /**
-    * Check if user and password are in the DB and, in this case, 
+    * Check if user and password are in the DB and, in this case,
     * complete the atributes of the class and change active=true
     */
     public boolean login(String dni, String pass){
@@ -55,7 +55,7 @@ public class User {
         }
         return active;
     }
-    
+
     /**
     * Erase all atributes and change active=false
     */
@@ -67,37 +67,37 @@ public class User {
         surname=null;
         licence=null;
     }
-    
+
     /**
      * Check if the user has the licence specified
      * @param licence
-     * @return 
+     * @return
      */
     public boolean hasLicence(int licence){
         return this.licence.contains(licence);
     }
-    
+
     /**
     * @return if someone are login
     */
     public boolean isLogin(){
         return active;
     }
-    
+
     public String getName(){
         if(active)
             return name;
         else
             return "User not register";
     }
-    
+
     public String getSurname(){
         if(active)
             return surname;
         else
             return "User not register";
     }
-    
+
     public int getId(){
         if(active)
             return id_employee;
@@ -110,14 +110,14 @@ public class User {
         else
             return "";
     }
-    
+
     public String getDni(){
         if(active)
             return dni;
         else
             return "User not register";
     }
-    
+
     /**
      * Insert new client in the table
      */
@@ -129,11 +129,11 @@ public class User {
         System.out.println("as: "+res);
         return res;
     }
-    
+
     /**
      * Get the data of the client with id specified
      * @param id_client
-     * @return 
+     * @return
      */
     public DataClient consultClient(int id_client){
         DataClient res=null;
@@ -142,7 +142,7 @@ public class User {
         }
         return res;
     }
-    
+
     public Vector listClients(){
         Vector res=null;
         if(licence.contains(303)){
@@ -151,7 +151,7 @@ public class User {
         return res;
     }
     //"PRODUCTOS" table
-    
+
     /**
      * Insert new product in the table
      */
@@ -160,7 +160,7 @@ public class User {
             DB.insertProduct(name, description, amount);
         }
     }
-    
+
     /**
      * Consult Product
      * @return Object with the data of a product
@@ -172,23 +172,15 @@ public class User {
         }
         return res;
     }
-    
-    public Vector listProducts(){
-        Vector res=null;
-        if(licence.contains(503)){
-            res=DB.listProducts();
-        }
-        return res;
-    }
-    
+
     //"FACTURAS" table
-    
+
     /**
      * Get the data of bill with id specified
      * @param id_bill
-     * @return 
+     * @return
      */
-    
+
     public DataBill consultBill(int id_bill){
         DataBill res=null;
         if(licence.contains(403)){
@@ -196,15 +188,15 @@ public class User {
         }
         return res;
     }
-    
+
     //"SERVIDORES" table
-    
+
     /**
      * Get the data of server with id specified
      * @param id_server
-     * @return 
+     * @return
      */
-    
+
     public DataServer consultServer(int id_server){
         DataServer res=null;
         if(licence.contains(703)){
@@ -212,14 +204,14 @@ public class User {
         }
         return res;
     }
-    
-    
+
+
     //"EMPLEADOS" table
-    
+
     /**
      * Insert new employee
      */
-    
+
     public void insertEmployee(String dni, String name, String pass, String surname, int rol){
         if(licence.contains(900)){
             DB.insertEmployee(dni, name, pass, surname, rol);
@@ -228,155 +220,166 @@ public class User {
     /**
      * Get the data of employee with id specified
      * @param id_employee
-     * @return 
+     * @return
      */
-    
+
     public DataEmployee consultEmployee(int id_employee){
         DataEmployee employee = null;
-        
+
         //if(licence.contains(903)){
             employee = DB.consultEmployee(id_employee);
         //}
-        
+
         return employee;
     }
-    
+
     /**
      * List names of the employees
      */
     public Vector listEmployees(){
         Vector names = null;
-        
+
         if(licence.contains(903)){
             names = DB.listEmployees();
         }
-        
+
         return names;
     }
-    
+
+    /**
+     * List names of the employees
+     */
+    public Vector listEmployees(){
+        Vector names = null;
+
+        if(licence.contains(903)){
+            names = DB.listEmployees();
+        }
+
+        return names;
+    }
+
     //"TAREAS" table
-    
+
     /**
      * Insert new task
      */
     public Boolean insertTask(String title, String description, Time time_estimated){
         Boolean ok = true;
-        
-        if(licence.contains(100)){
+
+        if(licence.contains(100))
             DB.insertTask(title, description, time_estimated);
-        }
-        else{
+        else
             ok = false;
-        }
+
         return ok;
     }
-    
+
     /**
      * Insert new SubTask
      */
     public Boolean insertSubTask(String title, String description, Time time_estimated, int id_task_father){
         Boolean ok = true;
-        
-        if(licence.contains(100)){
+
+        if(licence.contains(100))
             DB.insertSubTask(title, description, time_estimated, id_task_father);
-        }
-        else{
+        else
             ok = false;
-        }
+
         return ok;
     }
-    
+
     /**
      * Get the data of task with id specified
      * @param id_task
-     * @return 
+     * @return
      */
     public DataTask consultTask(int id_task){
          DataTask task = null;
-         
+
          if(licence.contains(103)){
-            task = DB.consultTask(id_task); 
+            task = DB.consultTask(id_task);
          }
-         
-         return task;       
+
+         return task;
     }
-    
+
     public Vector listProducts(){
         Vector res = null;
-         
+
         if(licence.contains(503)){
-           res = DB.listProducts(); 
+           res = DB.listProducts();
         }
-         
-        return res;  
+
+        return res;
     }
-    
+
     /**
      * Get tasks
-     * @return 
+     * @return
      */
     public Vector listTasks(){
         Vector tasks = null;
-        
+
         if(licence.contains(103)){
             tasks = DB.listTasks();
         }
-        
+
         return tasks;
     }
-    
+
     /**
      * Get Subtasks
-     * @return 
+     * @return
      */
     public Vector listSubTasks(int id_task_father){
         Vector tasks = null;
-        
+
         if(licence.contains(103)){
             tasks = DB.listSubTasks(id_task_father);
         }
-        
+
         return tasks;
     }
-    
+
     //"REGISTROS" table
-    
+
     /**
      * Insert new register
      */
     public void insertRegister(int id_employee, Time time_worked, String description, Date date){
         //description could be null
     }
-    
+
      /**
      * Get the data of register with id specified
      * @param id_register
-     * @return 
+     * @return
      */
-    
+
     public DataRegisters consultRegister(int id_register){
         return null;
     }
-    
+
     //"COMENTARIOS" table
-    
+
     /**
      * Insert Comment
      */
     public void insertComment(int id_tarea, String comment){
-        
+
     }
-    
+
     /**
      * Get the data of comment with id specified
      * @param id_comment
-     * @return 
+     * @return
      */
-    
+
     public DataComment consultComment(int id_comment){
         return null;
     }
-    
+
      /**
      * Insert Domain
      */
@@ -387,5 +390,5 @@ public class User {
         }
         return res;
     }
-    
+
 }
