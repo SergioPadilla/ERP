@@ -226,9 +226,9 @@ public class User {
     public DataEmployee consultEmployee(int id_employee){
         DataEmployee employee = null;
 
-        //if(licence.contains(903)){
+        if(licence.contains(903)){
             employee = DB.consultEmployee(id_employee);
-        //}
+        }
 
         return employee;
     }
