@@ -674,6 +674,53 @@ public class MySQLTools {
         }
     }
 
+    Vector listProducts(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int id_product=0;
+        String name=null;
+        String description=null;
+        float amount=0;
+        int sales=0;
+        Vector res=new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            stmt = con.prepareStatement("SELECT * FROM productos");
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                id_product=rs.getInt("id_producto");
+                name=rs.getString("nombre");
+                description=rs.getString("descripcion");
+                amount=rs.getFloat("importe");
+                sales=rs.getInt("ventas");
+                res.addElement(new DataProduct(id_product,name,description,amount,sales));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+            return res;
+        }
+    }
+
      Vector listProductsforbill(int id_bill){
         Connection con = null;
         PreparedStatement stmt = null;

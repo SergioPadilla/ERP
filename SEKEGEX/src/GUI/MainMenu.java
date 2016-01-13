@@ -108,7 +108,9 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_clients_buttonMouseClicked
 
     private void products_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_products_buttonMouseClicked
-        //Crear vista para productos
+        ProductView obj = new ProductView();
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_products_buttonMouseClicked
 
     private void workflow_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workflow_buttonMouseClicked
