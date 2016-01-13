@@ -140,7 +140,7 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT,id_tarea INT, horas_trabajadas TIME, descripcion TEXT, fecha DATE,FOREIGN KEY (id_tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT,FOREIGN KEY (tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE)");
+           stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT,id_empleado INT,FOREIGN KEY (tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))");
            stmt.executeUpdate();
@@ -215,6 +215,14 @@ public class MySQLTools {
            stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,902)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,903)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,1000)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,1001)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,1002)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(1,1003)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("INSERT INTO empleados (id_empleado , dni,  nombre, password, apellidos, rol) VALUES (NULL,'root','Admin','cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e','',1)");
            stmt.executeUpdate();
@@ -1461,20 +1469,21 @@ public class MySQLTools {
     /**
      * Insert new employee
      */
-    void insertEmployee(String dni, String name, String surname, int role){
+    void insertEmployee(String dni, String name,String pass, String surname, int role){
         Connection con = null;
         PreparedStatement stmt = null;
 
         try{
            Class.forName(sDriver).newInstance();
-           con = DriverManager.getConnection(sURL,user,pass);
+           con = DriverManager.getConnection(sURL,user,this.pass);
 
-           stmt = con.prepareStatement("INSERT INTO empleados (dni, nombre, apellidos, rol) VALUES(?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO empleados (dni, nombre, password ,apellidos, rol) VALUES(?,?,?,?,?);");
 
            stmt.setString(1, dni);
            stmt.setString(2, name);
-           stmt.setString(3, surname);
-           stmt.setInt(4, role);
+           stmt.setString(3, encryptSHA(pass));
+           stmt.setString(4, surname);
+           stmt.setInt(5, role);
 
 
 
@@ -1506,6 +1515,8 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
             StringBuilder query = new StringBuilder("UPDATE empleados SET ");
             boolean first=true;
 
@@ -1546,7 +1557,7 @@ public class MySQLTools {
                 first=false;
             }
 
-            query.append(" WHERE id_empleado = ");
+            query.append(" WHERE id_empleado=");
             query.append(id_employee);
 
             String queryfinal = new String(query);
@@ -1576,6 +1587,56 @@ public class MySQLTools {
      * Erase employee
      */
     void removeEmployee(int id_employee){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM empleados WHERE id_empleado='");
+            query.append(id_employee);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+            
+            query = new StringBuilder("UPDATE registros id_empleado=0 SET WHERE id_empleado='");
+            query.append(id_employee);
+            query.append("'");
+
+            queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+            
+            query = new StringBuilder("UPDATE comentarios id_empleado=0 SET WHERE id_empleado='");
+            query.append(id_employee);
+            query.append("'");
+
+            queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
 
     }
     
@@ -1642,6 +1703,58 @@ public class MySQLTools {
                         rs.getString("password"),
                         rs.getString("apellidos"), 
                         rs.getInt("rol")));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return employees;
+    }
+    
+    /**
+     * List employees
+     */
+    public Vector listEmployees(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector employees = new Vector();
+        
+        int id_employee;
+        String name;
+        String dni;
+        String password=null;
+        String surname;
+        int role;
+        
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+          
+            stmt = con.prepareStatement("SELECT * FROM empleados");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                id_employee=rs.getInt("id_empleado");
+                name=rs.getString("nombre");
+                dni=rs.getString("dni");
+                surname=rs.getString("apellidos");
+                role=rs.getInt("rol");
+                employees.add(new DataEmployee(id_employee,name,dni,password,surname,role));
             }
 
         } catch (SQLException sqle){
@@ -2224,6 +2337,38 @@ public class MySQLTools {
      * Erase register
      */
     void removeRegister(int id_register){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM registros WHERE id_registro='");
+            query.append(id_register);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
 
     }
 
@@ -2326,7 +2471,38 @@ public class MySQLTools {
      * Erase Comment
      */
     void removeComment(int id_comment){
+        Connection con = null;
+        PreparedStatement stmt = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM comentarios WHERE id_comentario='");
+            query.append(id_comment);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
     }
 
     // "ROLES" table
@@ -2422,11 +2598,81 @@ public class MySQLTools {
             return res;
         }
     }
+    
+    public Vector showRoles(){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        Vector res=new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            stmt = con.prepareStatement("SELECT DISTINCT rol FROM rol");
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+                res.addElement(rs.getInt("rol"));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+            return res;
+        }
+    }
 
     /**
      * Erase Role
      */
     void removeRole(int rol){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM rol WHERE rol='");
+            query.append(rol);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
 
     }
 
