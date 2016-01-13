@@ -210,8 +210,11 @@ public class User {
     /**
      * Insert new employee
      */
-    public void insertEmployee(String dni, String name, String surname, int licence){
-        
+    
+    public void insertEmployee(String dni, String name, String pass, String surname, int rol){
+        if(licence.contains(900)){
+            DB.insertEmployee(dni, name, pass, surname, rol);
+        }
     }
     /**
      * Get the data of employee with id specified
@@ -220,7 +223,13 @@ public class User {
      */
     
     public DataEmployee consultEmployee(int id_employee){
-        return null;
+        DataEmployee employee = null;
+        
+        //if(licence.contains(903)){
+            employee = DB.consultEmployee(id_employee);
+        //}
+        
+        return employee;
     }
     
     /**
@@ -234,6 +243,16 @@ public class User {
         }
         
         return names;
+    }
+    
+    public Vector listEmployees(){
+        Vector employees = null;
+        
+        //if(licence.contains(903)){
+            employees = DB.listEmployees();
+        //}
+        
+        return employees;
     }
     
     //"TAREAS" table
