@@ -239,6 +239,7 @@ public class AddTask extends javax.swing.JFrame {
     private void new_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_new_buttonMouseClicked
         final String titlenew = title.getText().toString();
         final String descriptionnew = description.getText().toString();
+        
         if(titlenew == ""){
             System.out.print("A ver si conseguimos que se pare coño");
         }
