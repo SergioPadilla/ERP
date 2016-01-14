@@ -108,6 +108,7 @@ public class DataProductView extends javax.swing.JFrame {
 
         idProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        descriptionProduct.setEditable(false);
         descriptionProduct.setColumns(20);
         descriptionProduct.setRows(5);
         jScrollPane3.setViewportView(descriptionProduct);

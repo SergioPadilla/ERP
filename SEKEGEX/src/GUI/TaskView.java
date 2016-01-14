@@ -96,20 +96,25 @@ public class TaskView extends javax.swing.JFrame {
 
         title.setBackground(new java.awt.Color(51, 102, 255));
         title.setFont(new java.awt.Font("AppleGothic", 0, 18)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 255, 255));
         title.setText("Título");
 
+        description.setEditable(false);
         description.setColumns(20);
         description.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
         hour_estimated_label.setBackground(new java.awt.Color(51, 102, 255));
+        hour_estimated_label.setForeground(new java.awt.Color(255, 255, 255));
         hour_estimated_label.setText("Horas Estimadas");
 
         hour_worked_label.setBackground(new java.awt.Color(51, 102, 255));
+        hour_worked_label.setForeground(new java.awt.Color(255, 255, 255));
         hour_worked_label.setText("Horas Trabajadas");
 
         hour_remaining_label.setBackground(new java.awt.Color(51, 102, 255));
+        hour_remaining_label.setForeground(new java.awt.Color(255, 255, 255));
         hour_remaining_label.setText("Horas Restantes");
 
         subTasks_list.setBackground(new java.awt.Color(51, 153, 255));
@@ -122,6 +127,7 @@ public class TaskView extends javax.swing.JFrame {
 
         subtasks_label.setBackground(new java.awt.Color(51, 102, 255));
         subtasks_label.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        subtasks_label.setForeground(new java.awt.Color(255, 255, 255));
         subtasks_label.setText("SubTareas");
 
         newSubTask_button.setText("Crear Subtarea");
@@ -133,6 +139,7 @@ public class TaskView extends javax.swing.JFrame {
 
         comments_label.setBackground(new java.awt.Color(51, 102, 255));
         comments_label.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        comments_label.setForeground(new java.awt.Color(255, 255, 255));
         comments_label.setText("Comentarios");
 
         jScrollPane3.setBackground(new java.awt.Color(51, 153, 255));
@@ -190,7 +197,7 @@ public class TaskView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,16 +217,16 @@ public class TaskView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(subtasks_label, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comments_label)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(updateTask)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(workLog_button)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(comments_label))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(workLog_button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(updateTask)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -255,15 +262,16 @@ public class TaskView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comments_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addComment_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(back_button)
                     .addComponent(modify_button)
-                    .addComponent(updateTask)
-                    .addComponent(workLog_button)))
+                    .addComponent(back_button)
+                    .addComponent(workLog_button)
+                    .addComponent(updateTask))
+                .addContainerGap())
         );
 
         pack();
