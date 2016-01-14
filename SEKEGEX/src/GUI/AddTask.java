@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -219,8 +221,12 @@ public class AddTask extends javax.swing.JFrame {
     private void new_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_new_buttonMouseClicked
         String titlenew = title.getText();
         String descriptionnew = description.getText();
-        int hournew = Integer.parseInt(hour.getText());
-        int minutesnew = Integer.parseInt(minutes.getText());
+        int hournew = 0;
+        int minutesnew = 0;
+        if(!hour.getText().equals("") && !hour.getText().equals("")){
+            hournew = Integer.parseInt(hour.getText());
+            minutesnew = Integer.parseInt(minutes.getText());
+        }
 
         
         /**
@@ -233,7 +239,7 @@ public class AddTask extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El campo descripción no puede estar vacío", "Descripción Vacía", JOptionPane.ERROR_MESSAGE);
         }
         else if(hournew == 0 && minutesnew == 0){
-            JOptionPane.showMessageDialog(this, "Las horas estimadas no pueden estar vacías", "Horas estimadas", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El tiempo estimado no puede ser vacío", "Horas estimadas", JOptionPane.ERROR_MESSAGE);
         }
         else{
             if(this.id_task_father != 0){
