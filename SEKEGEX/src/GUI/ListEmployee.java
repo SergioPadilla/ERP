@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataEmployee;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
 import javax.swing.GroupLayout;
@@ -46,6 +47,11 @@ public class ListEmployee extends javax.swing.JPanel {
             EmployeeOpt employeei=(EmployeeOpt)employeespanels.elementAt(i);
             employeei.setSize(500,40);
             employeei.setLocation(0, i*40);
+            if(i%2==0){
+                employeei.setBackground(new Color(255,255,255));
+            }else{
+                employeei.setBackground(new Color(230,230,230));
+            }
             add(employeei);
             fin++;
         }
