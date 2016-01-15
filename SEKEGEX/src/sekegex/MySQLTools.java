@@ -1605,16 +1605,15 @@ public class MySQLTools {
 
             stmt.executeUpdate();
 
-            query = new StringBuilder("UPDATE registros id_empleado=0 SET WHERE id_empleado='");
+            query = new StringBuilder("UPDATE registros SET id_empleado=0 WHERE id_empleado='");
             query.append(id_employee);
             query.append("'");
 
             queryfinal = new String(query);
             stmt = con.prepareStatement(queryfinal);
-
             stmt.executeUpdate();
 
-            query = new StringBuilder("UPDATE comentarios id_empleado=0 SET WHERE id_empleado='");
+            query = new StringBuilder("UPDATE comentarios SET id_empleado=0 WHERE id_empleado='");
             query.append(id_employee);
             query.append("'");
 
@@ -1700,8 +1699,8 @@ public class MySQLTools {
 
             while(rs.next()){
                 employees.add(new DataEmployee(rs.getInt("id_empleado"),
-                        rs.getString("dni"),
                         rs.getString("nombre"),
+                        rs.getString("dni"),
                         rs.getString("password"),
                         rs.getString("apellidos"),
                         rs.getInt("rol")));
@@ -1839,7 +1838,7 @@ public class MySQLTools {
     /**
      * Insert new task
      */
-    void insertTask(String title, String description, Time time_estimated){
+    void insertTask(String title, String description, Time time_estimated,Date date,int id_employee){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1847,11 +1846,14 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas) VALUES(?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas,fecha,empleado_asignado,estado) VALUES(?,?,?,?,?,?);");
 
            stmt.setString(1, title);
            stmt.setString(2, description);
            stmt.setTime(3, time_estimated);
+           stmt.setDate(4, date);
+           stmt.setInt(5, id_employee);
+           stmt.setString(6, "TO_DO");
 
            stmt.executeUpdate();
 
