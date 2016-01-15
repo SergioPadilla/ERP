@@ -209,14 +209,10 @@ public class AddTask extends javax.swing.JFrame {
         if(this.id_task_father != 0){
             DataTask taskFather = usr.consultTask(this.id_task_father);
             TaskView obj = new TaskView(taskFather);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
         } else{
             Workflow obj = new Workflow();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
         }

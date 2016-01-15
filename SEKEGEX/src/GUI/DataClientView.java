@@ -206,7 +206,7 @@ public class DataClientView extends javax.swing.JFrame {
             CreateServerView obj = new CreateServerView(clienti);
         obj.setSize(getSize());
         obj.setLocation(getLocation());
-        obj.setVisible(true);                    
+        obj.setVisible(true);            
         dispose();
     }//GEN-LAST:event_jButtonAddServerMouseClicked
 
@@ -220,9 +220,9 @@ public class DataClientView extends javax.swing.JFrame {
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
             ModifyDataClient obj = new ModifyDataClient(clienti);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
         dispose(); 
         }
     };
@@ -231,8 +231,6 @@ public class DataClientView extends javax.swing.JFrame {
             javax.swing.JTable table = (javax.swing.JTable)e.getSource();
             int modelRow = Integer.valueOf(e.getActionCommand()); 
             DataServerView obj = new DataServerView((DataServer) servers.elementAt(modelRow));
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose(); 
         }

@@ -135,17 +135,13 @@ public class ClientView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CreateClientView obj = new CreateClientView();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         MainMenu obj = new MainMenu();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -157,8 +153,6 @@ public class ClientView extends javax.swing.JFrame {
             javax.swing.JTable table = (javax.swing.JTable)e.getSource();
             int modelRow = Integer.valueOf(e.getActionCommand());
             DataClientView obj = new DataClientView((DataClient) clients.elementAt(modelRow));
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
         }
@@ -171,7 +165,7 @@ public class ClientView extends javax.swing.JFrame {
         DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
         
         JFrame frame = new JFrame();
-        int confirmacion=JOptionPane.showConfirmDialog(frame, "Al borrar el cliente se borrarán las facturas asociadas \n ¿Desea borrarlo? ");
+        int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el cliente con id: "+Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString()));
         if (confirmacion==JOptionPane.YES_OPTION){    
             Client cliento=new Client(Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString()));
             cliento.removeClient();

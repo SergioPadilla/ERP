@@ -67,10 +67,10 @@ public class BillView extends javax.swing.JFrame {
 
     private void returnButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnButtonMouseClicked
        DataClientView obj = new DataClientView(clienti);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-           dispose();
+       obj.setSize(getSize());
+       obj.setLocation(getLocation());
+       obj.setVisible(true);
+       dispose();
     }//GEN-LAST:event_returnButtonMouseClicked
 
     /**

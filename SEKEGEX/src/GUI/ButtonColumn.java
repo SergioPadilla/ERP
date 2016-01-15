@@ -5,8 +5,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.*;
 import java.awt.*;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  *  The ButtonColumn class provides a renderer and an editor that looks like a
@@ -51,19 +49,12 @@ public class ButtonColumn extends AbstractCellEditor
 
 		renderButton = new JButton();
 		editButton = new JButton();
-               
 		editButton.setFocusPainted( false );
 		editButton.addActionListener( this );
 		originalBorder = editButton.getBorder();
 		setFocusBorder( new LineBorder(Color.BLUE) );
 
 		TableColumnModel columnModel = table.getColumnModel();
-                                                try {
-                    Image img = ImageIO.read(getClass().getResource("/Images/eye.png"));
-                    renderButton.setIcon(new ImageIcon(img));
-                  } catch (IOException ex) {
-                  }
-
 		columnModel.getColumn(column).setCellRenderer( this );
 		columnModel.getColumn(column).setCellEditor( this );
 		table.addMouseListener( this );

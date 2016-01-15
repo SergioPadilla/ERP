@@ -53,8 +53,6 @@ public class TaskView extends javax.swing.JFrame {
                 int index = ((JList) e.getSource()).getSelectedIndex();
                 
                 TaskView obj = new TaskView((DataTask) subTasks.get(index));
-                obj.setSize(getSize());
-                obj.setLocation(getLocation());
                 obj.setVisible(true);
                 dispose();
             }
@@ -301,9 +299,7 @@ public class TaskView extends javax.swing.JFrame {
     private void newSubTask_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newSubTask_buttonMouseClicked
         AddTask obj = new AddTask();
         obj.id_task_father = task.id_task;
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_newSubTask_buttonMouseClicked
 
@@ -315,14 +311,10 @@ public class TaskView extends javax.swing.JFrame {
         if(this.task.id_task_father != 0){
             DataTask taskFather = usr.consultTask(this.task.id_task_father);
             TaskView obj = new TaskView(taskFather);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
         }else{
             Workflow obj = new Workflow();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
         }
@@ -330,9 +322,7 @@ public class TaskView extends javax.swing.JFrame {
 
     private void modify_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modify_buttonMouseClicked
         ModifyTask obj = new ModifyTask(this.task);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_modify_buttonMouseClicked
 
@@ -361,9 +351,7 @@ public class TaskView extends javax.swing.JFrame {
                 int index = ((JList) e.getSource()).getSelectedIndex();
                 
                 TaskView obj = new TaskView((DataTask) subTasks.get(index));
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+                obj.setVisible(true);
                 dispose();
             }
         });

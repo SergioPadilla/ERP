@@ -36,15 +36,15 @@ public class Client {
     /**
      * Modify client with the params specified
      */
-    public int modifyClient(TypeClient type, String name, String surname, String dni, String email){
-        int ok = 0;
+    public Boolean modifyClient(String type, String name, String surname, String dni, String email){
+        Boolean ok = true;
         
         if(activeEmployee.hasLicence(302)){
-            ok=DB.modifyClient(data.id, type, name, surname, dni, email);
+            DB.modifyClient(data.id, type, name, surname, dni, email);
             data = DB.consultClient(data.id);
         }
         else{
-            ok = -1;
+            ok = false;
         }
         
         return ok;
