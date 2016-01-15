@@ -225,9 +225,7 @@ public class ModifyDataServer extends javax.swing.JFrame {
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         DataServerView obj = new DataServerView(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
 

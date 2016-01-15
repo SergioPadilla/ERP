@@ -165,18 +165,14 @@ public class DataServerView extends javax.swing.JFrame {
 
     private void jButtonVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVolverMouseClicked
         DataClientView obj = new DataClientView(usr.consultClient(server.id_client));
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonVolverMouseClicked
 
     private void jButtonCreateDomainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateDomainMouseClicked
         CreateDomainView obj = new CreateDomainView(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCreateDomainMouseClicked
 
@@ -184,8 +180,6 @@ public class DataServerView extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e) {
             
             ModifyDataServer obj = new ModifyDataServer(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose(); 
             

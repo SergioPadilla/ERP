@@ -12,17 +12,16 @@ import sekegex.User;
  *
  * @author jopime
  */
-public class BillView extends javax.swing.JFrame {
+public class CreateBillView extends javax.swing.JFrame {
 
     /**
-     * Creates new form BillView
+     * Creates new form CreateBillView
      */
-    public BillView(DataClient data) {
+    public CreateBillView(DataClient data) {
         initComponents();
         clienti = data;
         this.setTitle("Cliente: " + clienti.name);        
         User usr = User.getInstance();
-
     }
 
     /**
@@ -50,16 +49,16 @@ public class BillView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(144, 144, 144)
+                .addGap(152, 152, 152)
                 .addComponent(returnButton)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(244, Short.MAX_VALUE)
+                .addContainerGap(232, Short.MAX_VALUE)
                 .addComponent(returnButton)
-                .addGap(27, 27, 27))
+                .addGap(39, 39, 39))
         );
 
         pack();
@@ -90,25 +89,25 @@ public class BillView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateBillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateBillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateBillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreateBillView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BillView(clienti).setVisible(true);
+                new CreateBillView(clienti).setVisible(true);
             }
         });
     }
-    public static DataClient clienti;
 
+    public static DataClient clienti;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton returnButton;
     // End of variables declaration//GEN-END:variables

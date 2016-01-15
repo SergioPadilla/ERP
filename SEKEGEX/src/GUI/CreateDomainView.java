@@ -111,9 +111,7 @@ public class CreateDomainView extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         DataServerView obj = new DataServerView(server);
-            obj.setLocation(getLocation());
-            obj.setSize(getSize());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
