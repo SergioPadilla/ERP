@@ -264,7 +264,12 @@ public class DataClientView extends javax.swing.JFrame {
     
     Action verProductos = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            BillView obj = new BillView(clienti);
+            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+            int modelRow = Integer.valueOf(e.getActionCommand());
+            DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
+            
+            int idBill=Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString());
+            CreateBillView obj = new CreateBillView(clienti,idBill);
             obj.setSize(getSize());
             obj.setLocation(getLocation());
             obj.setVisible(true);
@@ -281,7 +286,8 @@ public class DataClientView extends javax.swing.JFrame {
 
         
         JFrame frame = new JFrame();
-        int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el Producto con id: "+Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString()));
+        int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar la factura con id: "
+                +Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString())+"?");
         if (confirmacion==JOptionPane.YES_OPTION){    
             Bill billo=new Bill(Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString()));
             billo.removeBill();

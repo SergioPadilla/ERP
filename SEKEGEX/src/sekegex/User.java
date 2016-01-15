@@ -192,6 +192,16 @@ public class User {
         }
         return res;
     }
+    public int insertBill(int id_client){
+        int res=0;
+        if(licence.contains(400)){
+            res=DB.insertBill(id_client);
+        }
+        else{
+            res=-1;
+        }
+        return res;
+    }
 
     //"SERVIDORES" table
 

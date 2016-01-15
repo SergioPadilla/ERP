@@ -6,6 +6,17 @@
 package GUI;
 
 import DataType.DataClient;
+import DataType.DataProduct;
+import DataType.DataPurchase;
+import static GUI.DataClientView.clienti;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.Vector;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.table.DefaultTableModel;
+import sekegex.Bill;
+import sekegex.Client;
 import sekegex.User;
 
 /**
@@ -17,13 +28,28 @@ public class CreateBillView extends javax.swing.JFrame {
     /**
      * Creates new form CreateBillView
      */
+    public CreateBillView(DataClient data, int idBill) {
+        initComponents();
+        clienti = data;
+        this.setTitle("Modificaion de factura para cliente: " + clienti.name);        
+        User usr = User.getInstance();
+        billi=new Bill(idBill);
+        products = usr.listProducts();
+        billproducts=billi.listProductsforbill();
+        setFilas1();
+        setFilas2();
+    }
+    
     public CreateBillView(DataClient data) {
         initComponents();
         clienti = data;
-        this.setTitle("Cliente: " + clienti.name);        
+        this.setTitle("Cracion de factura para cliente: " + clienti.name);        
         User usr = User.getInstance();
+        int idBill=usr.insertBill(data.id);
+        billi=new Bill(idBill);
+        products = usr.listProducts();
+        setFilas1();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,6 +60,10 @@ public class CreateBillView extends javax.swing.JFrame {
     private void initComponents() {
 
         returnButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableAdd = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTablelist = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,21 +74,65 @@ public class CreateBillView extends javax.swing.JFrame {
             }
         });
 
+        jTableAdd.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Añadir Productos"
+            }
+        ));
+        jTableAdd.setIntercellSpacing(new java.awt.Dimension(2, 2));
+        jTableAdd.setRowHeight(32);
+        jScrollPane1.setViewportView(jTableAdd);
+        if (jTableAdd.getColumnModel().getColumnCount() > 0) {
+            jTableAdd.getColumnModel().getColumn(0).setHeaderValue("Añadir Productos");
+        }
+
+        jTablelist.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nombre", "Cantidad", ""
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTablelist.setRowHeight(32);
+        jScrollPane3.setViewportView(jTablelist);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(152, 152, 152)
+                .addGap(361, 361, 361)
                 .addComponent(returnButton)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addComponent(returnButton)
-                .addGap(39, 39, 39))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -72,6 +146,74 @@ public class CreateBillView extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_returnButtonMouseClicked
 
+        Action add = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+            
+            int modelRow = Integer.valueOf(e.getActionCommand()); 
+            DataProduct prodi=(DataProduct)products.elementAt(modelRow);
+            billi.insertPurchase(prodi.id);
+            CreateBillView obj = new CreateBillView(clienti,billi.getData().id_bill);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+        }
+    };
+        
+        Action less = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+            
+            int modelRow = Integer.valueOf(e.getActionCommand()); 
+            DefaultTableModel modelo1 = (DefaultTableModel) jTablelist.getModel();
+            modelo1.setValueAt((Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString())-1), modelRow, 2);           
+            CreateBillView obj = new CreateBillView(clienti,billi.getData().id_bill);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);        }
+    };
+        private void setFilas1() {
+        User usr = User.getInstance();
+        DefaultTableModel modelo1 = (DefaultTableModel) jTableAdd.getModel();    
+
+        for(int i=0;i<products.size();i++){
+            DataProduct prodi=(DataProduct)products.elementAt(i);
+            Object[] datos1 = {prodi.name}; 
+            modelo1.addRow(datos1);
+        }
+        
+        ButtonColumn buttonColumn1 = new ButtonColumn(jTableAdd, add, 0);
+        buttonColumn1.setMnemonic(KeyEvent.VK_D); 
+        }
+        private void setFilas2(){
+        User usr = User.getInstance();
+        DefaultTableModel modelo2 = (DefaultTableModel) jTablelist.getModel();    
+            DataProduct prodi,prodj;
+        for(int i=0;i<billproducts.size();i++){
+             prodi=(DataProduct)billproducts.elementAt(i);
+            Object[] datos2 = {prodi.id,prodi.name,1};
+            /*
+            int j=i;
+            int count=1;
+            while (j<billproducts.size()){
+                prodj=(DataPurchase)billproducts.elementAt(j);
+                if(prodj.equals(prodi)){
+                    count++;
+                    billproducts.removeElementAt(j);
+                    datos2[2]=count;              
+                }
+                else{
+                    j++;
+                }
+            }
+            */
+            modelo2.addRow(datos2);            
+        }
+        
+        ButtonColumn buttonColumn2 = new ButtonColumn(jTablelist, less, 3);
+        buttonColumn2.setMnemonic(KeyEvent.VK_D); 
+    }
     /**
      * @param args the command line arguments
      */
@@ -102,13 +244,21 @@ public class CreateBillView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateBillView(clienti).setVisible(true);
+                new CreateBillView(clienti,billi.getData().id_bill).setVisible(true);
             }
         });
     }
 
     public static DataClient clienti;
+    public Vector products;
+    public Vector billproducts=null;
+    public static Bill billi;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTableAdd;
+    private javax.swing.JTable jTablelist;
     private javax.swing.JButton returnButton;
     // End of variables declaration//GEN-END:variables
 }
