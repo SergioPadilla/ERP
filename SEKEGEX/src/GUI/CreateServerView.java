@@ -159,8 +159,6 @@ public class CreateServerView extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         DataClientView obj = new DataClientView(client);
-        obj.setSize(getSize());
-        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1MouseClicked
