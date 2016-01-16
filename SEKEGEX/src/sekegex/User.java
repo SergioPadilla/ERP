@@ -251,11 +251,11 @@ public class User {
     /**
      * Insert new task
      */
-    public Boolean insertTask(String title, String description, Time time_estimated){
+    public Boolean insertTask(String title, String description, Time time_estimated,Date date,int id_employee){
         Boolean ok = true;
 
         if(licence.contains(100))
-            DB.insertTask(title, description, time_estimated);
+            DB.insertTask(title, description, time_estimated,date,id_employee);
         else
             ok = false;
 
