@@ -1877,7 +1877,7 @@ public class MySQLTools {
     /**
      * Insert new SubTask
      */
-    void insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+    void insertSubTask(String title, String description, Time time_estimated, Date date,int id_employee, int id_task_father){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1885,12 +1885,15 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas, id_tarea_padre) VALUES(?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas,fecha,empleado_asignado,estado, id_tarea_padre) VALUES(?,?,?,?,?,?,?);");
 
            stmt.setString(1, title);
            stmt.setString(2, description);
            stmt.setTime(3, time_estimated);
-           stmt.setInt(4, id_task_father);
+           stmt.setDate(4, date);
+           stmt.setInt(5, id_employee);
+           stmt.setString(6, "TO_DO");
+           stmt.setInt(7, id_task_father);
 
            stmt.executeUpdate();
 
