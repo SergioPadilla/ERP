@@ -2018,7 +2018,6 @@ public class MySQLTools {
                 title=rs.getString("titulo");
                 due_date=rs.getDate("fecha");
                 id_task_father=rs.getInt("id_tarea_padre");
-                time_estimated=rs.getTime("horas_estimadas");
                 id_employee=rs.getInt("empleado_asignado");
                 status=StatusTask.valueOf(rs.getString("estado"));
                 description=rs.getString("descripcion");
@@ -2042,7 +2041,7 @@ public class MySQLTools {
             }
         }
 
-        return new DataTask(id_task, title, due_date, id_task_father, time_estimated, id_employee, status, description);
+        return new DataTask(id_task, title, due_date, id_task_father, id_employee, status, description);
     }
 
     /**
@@ -2067,7 +2066,6 @@ public class MySQLTools {
                         rs.getString("titulo"),
                         rs.getDate("fecha"),
                         rs.getInt("id_tarea_padre"),
-                        rs.getTime("horas_estimadas"),
                         rs.getInt("empleado_asignado"),
                         StatusTask.valueOf(rs.getString("estado")),
                         rs.getString("descripcion")
@@ -2119,7 +2117,6 @@ public class MySQLTools {
                         rs.getString("titulo"),
                         rs.getDate("fecha"),
                         rs.getInt("id_tarea_padre"),
-                        rs.getTime("horas_estimadas"),
                         rs.getInt("empleado_asignado"),
                         StatusTask.valueOf(rs.getString("estado")),
                         rs.getString("descripcion")
