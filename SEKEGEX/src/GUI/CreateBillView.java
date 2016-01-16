@@ -66,6 +66,8 @@ public class CreateBillView extends javax.swing.JFrame {
         jTableAdd = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTablelist = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        totalBill = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,6 +123,8 @@ public class CreateBillView extends javax.swing.JFrame {
             jTablelist.getColumnModel().getColumn(3).setMaxWidth(50);
         }
 
+        jLabel1.setText("Precio Total:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,6 +139,12 @@ public class CreateBillView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(160, 160, 160))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(38, 38, 38)
+                .addComponent(totalBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(220, 220, 220))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +153,11 @@ public class CreateBillView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(totalBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(returnButton)
                 .addGap(30, 30, 30))
         );
@@ -205,14 +219,16 @@ public class CreateBillView extends javax.swing.JFrame {
         buttonColumn1.setMnemonic(KeyEvent.VK_D); 
         }
         private void setFilas2(){
+            float ganancia=0;
         User usr = User.getInstance();
         DefaultTableModel modelo2 = (DefaultTableModel) jTablelist.getModel();    
             DataProduct prodi,prodj;
         for(int i=0;i<billproducts.size();i++){
              prodi=(DataProduct)billproducts.elementAt(i);
             Object[] datos2 = {prodi.id,prodi.name,billi.consultPurchase(prodi.id).quantity,"-"};
-            System.out.println("cantidad: "+billi.consultPurchase(prodi.id).quantity);
-            
+            ganancia=ganancia+prodi.amount*Integer.valueOf(datos2[2].toString());
+           
+            totalBill.setText(Float.toString(ganancia));
             modelo2.addRow(datos2);            
         }
         
@@ -259,13 +275,15 @@ public class CreateBillView extends javax.swing.JFrame {
     public Vector products;
     public Vector billproducts=null;
     public static Bill billi;
-    public boolean borrar=true;
+    public boolean borrar=false;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableAdd;
     private javax.swing.JTable jTablelist;
     private javax.swing.JButton returnButton;
+    private javax.swing.JTextField totalBill;
     // End of variables declaration//GEN-END:variables
 }
