@@ -163,8 +163,11 @@ public class CreateClientView extends javax.swing.JFrame {
                         int act=usr.insertClient(typenew, namenew, surnamenew, dninew, emailnew);
                         if(act>1){
                             JOptionPane.showMessageDialog(frame, "La Creacion se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
-                            repaint();
-                        }
+                            ClientView obj = new ClientView();
+                                obj.setSize(getSize());
+                                obj.setLocation(getLocation());
+                                obj.setVisible(true);
+                            dispose();                        }
                         else if (act>0){
                             JOptionPane.showMessageDialog(frame, "El DNI es incorrecto", "ERROR DUPLICACION DNI", JOptionPane.ERROR_MESSAGE);
                         } 
