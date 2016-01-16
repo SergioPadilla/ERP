@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataComment;
+import sekegex.Comment;
 import sekegex.User;
 
 /**
@@ -95,7 +96,11 @@ public class CommentView extends javax.swing.JFrame {
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
-        
+        Comment comment = new Comment(com.id_comment);
+        comment.removeComment();
+        TaskView obj = new TaskView(com.id_task);
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_delete_buttonMouseClicked
 
     /**
