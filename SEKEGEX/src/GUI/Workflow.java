@@ -49,7 +49,9 @@ public class Workflow extends javax.swing.JFrame {
                 int index = ((JList) e.getSource()).getSelectedIndex();
                 
                 TaskView obj = new TaskView((DataTask) tasks.get(index));
-                obj.setVisible(true);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
                 dispose();
             }
         });
@@ -126,13 +128,17 @@ public class Workflow extends javax.swing.JFrame {
 
     private void addTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addTaskMouseClicked
         AddTask obj = new AddTask();
-        obj.setVisible(true);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_addTaskMouseClicked
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         MainMenu obj = new MainMenu();
-        obj.setVisible(true);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
 

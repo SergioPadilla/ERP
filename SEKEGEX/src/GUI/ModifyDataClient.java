@@ -6,6 +6,8 @@
 package GUI;
 
 import DataType.DataClient;
+import Utils.TypeClient;
+import com.aeat.valida.Validador;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sekegex.Client;
@@ -29,7 +31,6 @@ public class ModifyDataClient extends javax.swing.JFrame {
         surname.setText(client.surname+" ");
         email.setText(client.email);
         dni.setText(client.dni);
-        type.setText(client.type.toString());
         id_client.setText(data.idToString());
     }
 
@@ -50,13 +51,11 @@ public class ModifyDataClient extends javax.swing.JFrame {
         name_label = new javax.swing.JLabel();
         surname_label = new javax.swing.JLabel();
         dni_label = new javax.swing.JLabel();
-        type_label = new javax.swing.JLabel();
         email_label = new javax.swing.JLabel();
         date_label = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
         surname = new javax.swing.JTextField();
         dni = new javax.swing.JTextField();
-        type = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         id_client = new javax.swing.JLabel();
         date = new javax.swing.JLabel();
@@ -72,8 +71,6 @@ public class ModifyDataClient extends javax.swing.JFrame {
         surname_label.setText("Apellidos");
 
         dni_label.setText("DNI");
-
-        type_label.setText("Tipo de Cliente");
 
         email_label.setText("Email");
 
@@ -109,6 +106,11 @@ public class ModifyDataClient extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(save_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(back_button)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -116,38 +118,24 @@ public class ModifyDataClient extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(id_client))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(name_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(surname_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(type_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(date_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(75, 75, 75)
                         .addComponent(date))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dni_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dni))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(email_label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(email)))
-                        .addGap(72, 72, 72)))
+                            .addComponent(surname_label)
+                            .addComponent(name_label)
+                            .addComponent(dni_label))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(surname, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                            .addComponent(dni)
+                            .addComponent(name)))
+                    .addComponent(date_label)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(email_label)
+                        .addGap(37, 37, 37)
+                        .addComponent(email)))
                 .addContainerGap(343, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(save_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(back_button)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,23 +156,19 @@ public class ModifyDataClient extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dni_label)
                     .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(type_label)
-                    .addComponent(type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(email_label)
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(date_label)
-                    .addComponent(date))
                 .addGap(18, 18, 18)
+                .addComponent(date_label)
+                .addGap(24, 24, 24)
+                .addComponent(date)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save_button)
                     .addComponent(back_button))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,32 +184,50 @@ public class ModifyDataClient extends javax.swing.JFrame {
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         DataClientView obj = new DataClientView(client);
-        obj.setVisible(true);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
         JFrame frame = new JFrame();
-        final String typenew = type.getText().toString();
-        if (typenew.contentEquals("freelance")||typenew.contentEquals("business")||typenew.contentEquals("BUSINESS")||typenew.contentEquals("FREELANCE")){
+            Validador validador = new Validador();
             final String dninew = dni.getText().toString();
+            if (validador.checkNif(dninew)>0){
+            TypeClient typenew=null;
+            
+            if(Character.isDigit(dninew.charAt(0))){
+                typenew=TypeClient.FREELANCE;
+            }
+            else{
+                typenew=TypeClient.BUSINESS;
+            }
             final String namenew = name.getText().toString();
             final String surnamenew = surname.getText().toString();
             final String emailnew = email.getText().toString();
 
             Client c = new Client(client.id);
-
-            if(c.modifyClient(typenew, namenew, surnamenew, dninew, emailnew)){
+            int res=c.modifyClient(typenew, namenew, surnamenew, dninew, emailnew);
+            if(res>1){
                 JOptionPane.showMessageDialog(frame, "La modificación se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
                 repaint();
                 client = c.getData();
+                DataClientView obj = new DataClientView(client);
+                obj.setSize(getSize());
+                obj.setLocation(getLocation());
+                obj.setVisible(true);
+                dispose();
+            }
+            else if(res>0){
+                JOptionPane.showMessageDialog(frame, "El DNI ies ncorrecto", "ERROR DUPLICACION DNI", JOptionPane.ERROR_MESSAGE);
             }
             else{
                 JOptionPane.showMessageDialog(frame, "No tienes permisos para modificar clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
-                JOptionPane.showMessageDialog(frame, "El tipo de cliente elegido no es correcto", "Solo es valido freelance o business", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "DNI incorrecto", "ERROR DATOS INVALIDOS", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_save_buttonMouseClicked
 
@@ -281,7 +283,5 @@ public class ModifyDataClient extends javax.swing.JFrame {
     private javax.swing.JButton save_button;
     public javax.swing.JTextField surname;
     private javax.swing.JLabel surname_label;
-    private javax.swing.JTextField type;
-    private javax.swing.JLabel type_label;
     // End of variables declaration//GEN-END:variables
 }
