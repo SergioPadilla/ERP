@@ -56,12 +56,6 @@ public class TaskView extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
-        hour_estimated_label = new javax.swing.JLabel();
-        hour_estimated_bar = new javax.swing.JProgressBar();
-        hour_worked_label = new javax.swing.JLabel();
-        hour_worked_bar = new javax.swing.JProgressBar();
-        hour_remaining_label = new javax.swing.JLabel();
-        hour_remaining_bar = new javax.swing.JProgressBar();
         jScrollPane2 = new javax.swing.JScrollPane();
         subTasks_list = new javax.swing.JList<>();
         subtasks_label = new javax.swing.JLabel();
@@ -92,18 +86,6 @@ public class TaskView extends javax.swing.JFrame {
         description.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         description.setRows(5);
         jScrollPane1.setViewportView(description);
-
-        hour_estimated_label.setBackground(new java.awt.Color(51, 102, 255));
-        hour_estimated_label.setForeground(new java.awt.Color(255, 255, 255));
-        hour_estimated_label.setText("Horas Estimadas");
-
-        hour_worked_label.setBackground(new java.awt.Color(51, 102, 255));
-        hour_worked_label.setForeground(new java.awt.Color(255, 255, 255));
-        hour_worked_label.setText("Horas Trabajadas");
-
-        hour_remaining_label.setBackground(new java.awt.Color(51, 102, 255));
-        hour_remaining_label.setForeground(new java.awt.Color(255, 255, 255));
-        hour_remaining_label.setText("Horas Restantes");
 
         subTasks_list.setBackground(new java.awt.Color(51, 153, 255));
         subTasks_list.setModel(new javax.swing.AbstractListModel<String>() {
@@ -207,27 +189,18 @@ public class TaskView extends javax.swing.JFrame {
                         .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(delete_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 746, Short.MAX_VALUE)
                         .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(updateTask))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(hour_remaining_label)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(hour_estimated_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(hour_estimated_label)
-                                        .addComponent(hour_worked_label))
-                                    .addComponent(hour_worked_bar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(hour_remaining_bar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(status_label)
-                            .addComponent(status))))
+                            .addComponent(status))
+                        .addGap(53, 53, 53))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -241,20 +214,7 @@ public class TaskView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(status)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(hour_estimated_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hour_estimated_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hour_worked_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hour_worked_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(hour_remaining_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hour_remaining_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -436,15 +396,9 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JButton addComment_button;
     private javax.swing.JButton back_button;
     private javax.swing.JLabel comments_label;
-    private javax.swing.JButton delete_button;
     private javax.swing.JList<String> comments_list;
+    private javax.swing.JButton delete_button;
     private javax.swing.JTextArea description;
-    private javax.swing.JProgressBar hour_estimated_bar;
-    private javax.swing.JLabel hour_estimated_label;
-    private javax.swing.JProgressBar hour_remaining_bar;
-    private javax.swing.JLabel hour_remaining_label;
-    private javax.swing.JProgressBar hour_worked_bar;
-    private javax.swing.JLabel hour_worked_label;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

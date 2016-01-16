@@ -264,11 +264,11 @@ public class User {
     /**
      * Insert new task
      */
-    public Boolean insertTask(String title, String description, Time time_estimated,Date date,int id_employee){
+    public Boolean insertTask(String title, String description, Date date,int id_employee){
         Boolean ok = true;
 
         if(licence.contains(100))
-            DB.insertTask(title, description, time_estimated,date,id_employee);
+            DB.insertTask(title, description, date,id_employee);
         else
             ok = false;
 
@@ -278,11 +278,11 @@ public class User {
     /**
      * Insert new SubTask
      */
-    public Boolean insertSubTask(String title, String description, Time time_estimated, Date date,int id_employee, int id_task_father){
+    public Boolean insertSubTask(String title, String description, Date date,int id_employee, int id_task_father){
         Boolean ok = true;
 
         if(licence.contains(100))
-            DB.insertSubTask(title, description, time_estimated,date,id_employee,id_task_father);
+            DB.insertSubTask(title, description, date,id_employee,id_task_father);
         else
             ok = false;
 
@@ -340,25 +340,6 @@ public class User {
         }
 
         return tasks;
-    }
-
-    //"REGISTROS" table
-
-    /**
-     * Insert new register
-     */
-    public void insertRegister(int id_employee, Time time_worked, String description, Date date){
-        //description could be null
-    }
-
-     /**
-     * Get the data of register with id specified
-     * @param id_register
-     * @return
-     */
-
-    public DataRegisters consultRegister(int id_register){
-        return null;
     }
 
     //"COMENTARIOS" table
