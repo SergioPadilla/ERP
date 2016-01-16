@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import DataType.DataComment;
+import sekegex.User;
+
 /**
  *
  * @author SergioPadilla
@@ -14,11 +17,11 @@ public class CommentView extends javax.swing.JFrame {
     /**
      * Creates new form CommentView
      */
-    public CommentView(int task, String comment) {
+    public CommentView(DataComment c) {
         initComponents();
-        this.comment.setText(comment);
-        this.task = task;
-        this.com = comment;
+        this.comment.setText(c.text);
+        this.com = c;
+        usr = User.getInstance();
     }
 
     /**
@@ -50,6 +53,11 @@ public class CommentView extends javax.swing.JFrame {
         });
 
         delete_button.setText("Borrar");
+        delete_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                delete_buttonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,10 +89,14 @@ public class CommentView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        TaskView obj = new TaskView(task);
+        TaskView obj = new TaskView(com.id_task);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
+
+    private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
+        
+    }//GEN-LAST:event_delete_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -116,13 +128,13 @@ public class CommentView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CommentView(task,com).setVisible(true);
+                new CommentView(com).setVisible(true);
             }
         });
     }
     
-    private static int task;
-    private static String com;
+    private static DataComment com;
+    private User usr;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
     private javax.swing.JTextArea comment;
