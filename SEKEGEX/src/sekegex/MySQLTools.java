@@ -128,7 +128,7 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE facturas (id_factura INT NOT NULL PRIMARY KEY AUTO_INCREMENT, fecha DATETIME,id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente) ON DELETE CASCADE)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE compras (id_producto INT, id_factura INT,precio FLOAT, PRIMARY KEY(id_producto,id_factura),FOREIGN KEY (id_factura) REFERENCES facturas (id_factura) ON DELETE CASCADE)");
+           stmt = con.prepareStatement("CREATE TABLE compras (id_producto INT, id_factura INT,precio FLOAT,cantidad INT DEFAULT 0, PRIMARY KEY(id_producto,id_factura),FOREIGN KEY (id_factura) REFERENCES facturas (id_factura) ON DELETE CASCADE)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE servidores (id_servidor INT NOT NULL PRIMARY KEY AUTO_INCREMENT, id_cliente INT, nombre TEXT,  ruta_de_acceso TEXT, usuario_ftp TEXT, password_ftp TEXT, usuario_host TEXT, password_host TEXT, FOREIGN KEY (id_cliente) REFERENCES clientes (id_cliente) ON DELETE CASCADE)");
            stmt.executeUpdate();
@@ -1072,12 +1072,14 @@ public class MySQLTools {
             con = DriverManager.getConnection(sURL,user,pass);
             DataProduct P = consultProduct(id_product);
 
-            StringBuilder query = new StringBuilder("INSERT INTO compras (id_factura,id_producto,precio) VALUES(");
+            StringBuilder query = new StringBuilder("INSERT INTO compras (id_factura,id_producto,precio,cantidad) VALUES(");
             query.append(id_bill);
             query.append(",");
             query.append(id_product);
             query.append(",");
             query.append(P.amount);
+            query.append(",");
+            query.append(1);
             query.append(");");
 
             String queryfinal = new String(query);
@@ -1111,7 +1113,143 @@ public class MySQLTools {
            }
         }
     }
+         public DataPurchase consultPurchase(int id_bill, int id_product){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        float total=0;
+        int cantidadi=0;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            
+            StringBuilder query = new StringBuilder("SELECT precio,cantidad FROM compras WHERE id_factura='");
+            query.append(id_bill);
+            query.append("' AND id_producto='");
+            query.append(id_product);
+            query.append("'");
+
+            String queryfinal = new String(query);
+
+            stmt = con.prepareStatement(queryfinal);
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+             if(rs.next()){
+                cantidadi=rs.getInt("cantidad");
+                total=rs.getFloat("precio");
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+            }
+            return new DataPurchase(id_bill,id_product,total,cantidadi);
+
+        }
+    }
+    void lessPurchase(int id_bill,int id_product){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            DataProduct P = consultProduct(id_product);
+            
+            StringBuilder query = new StringBuilder("UPDATE compras SET cantidad=cantidad-1 WHERE id_factura=");
+            query.append(id_bill);
+            query.append(" and id_producto=");
+            query.append(id_product);
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+            query = new StringBuilder("UPDATE productos SET ventas=ventas-1 WHERE id_producto='");
+            query.append(id_product);
+            query.append("'");
+
+            queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
+    }
+    void addPurchase(int id_bill,int id_product){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+            DataProduct P = consultProduct(id_product);
+            
+            StringBuilder query = new StringBuilder("UPDATE compras SET cantidad=cantidad+1 WHERE id_factura=");
+            query.append(id_bill);
+            query.append(" and id_producto=");
+            query.append(id_product);
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+            query = new StringBuilder("UPDATE productos SET ventas=ventas+1 WHERE id_producto='");
+            query.append(id_product);
+            query.append("'");
+
+            queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+              try{
+                 stmt.close();
+                 con.close();
+              } catch(Exception e){
+                 e.printStackTrace();
+              }
+           }
+        }
+    }
     /**
      * Erase a product of a purchase
      */

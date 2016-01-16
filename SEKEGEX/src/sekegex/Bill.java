@@ -52,7 +52,31 @@ public class Bill {
     }
     public void insertPurchase(int idProduct){
         if(activeEmployee.hasLicence(402)){
-            DB.insertPurchase(data.id_bill, idProduct);
+            if(DB.consultPurchase(data.id_bill, idProduct).quantity>0){
+                DB.addPurchase(data.id_bill, idProduct);
+            }
+            else{
+                DB.insertPurchase(data.id_bill, idProduct);           
+            }
+        }
+
+    }
+    
+    public DataPurchase consultPurchase(int idProduct){
+        if(activeEmployee.hasLicence(603))
+            return DB.consultPurchase(data.id_bill, idProduct);
+        else
+            return null;
+    }
+    
+    public void deletePurchase(int idProduct){
+        if(activeEmployee.hasLicence(402)){
+            if(DB.consultPurchase(data.id_bill, idProduct).quantity>1){
+                DB.lessPurchase(data.id_bill, idProduct);
+            }
+            else{
+                DB.removePurchase(data.id_bill, idProduct);           
+            }
         }
 
     }
