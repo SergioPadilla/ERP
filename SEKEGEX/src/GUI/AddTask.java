@@ -276,6 +276,21 @@ public class AddTask extends javax.swing.JFrame {
                 if(usr.insertSubTask(titlenew, descriptionnew, time_estimated,date,id_employee, id_task_father)){
                     JOptionPane.showMessageDialog(this, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
                 }else{
+                    JOptionPane.showMessageDialog(this, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                Time time_estimated = new Time(hournew, minutesnew, 0);
+                Date date=new Date(dateChooserCombo1.getSelectedDate().getTimeInMillis());
+                boolean encontrado=false;
+                int id_employee=0;
+                for(int i = 0; i < employees.size() && !encontrado; i++){
+                    DataEmployee employee = (DataEmployee) employees.get(i);
+                    encontrado=combo_employees.getSelectedItem().equals(employee.name);
+                    id_employee=employee.id_employee;
+                }
+                if(usr.insertSubTask(titlenew, descriptionnew, time_estimated,date,id_employee, id_task_father)){
+                    JOptionPane.showMessageDialog(this, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
+                }else{
                     JOptionPane.showMessageDialog(frame, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
