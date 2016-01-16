@@ -136,9 +136,7 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE empleados (id_empleado INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dni varchar(9) UNIQUE NOT NULL,  nombre TEXT, password TEXT, apellidos TEXT, rol INT)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT, estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT,FOREIGN KEY (empleado_asignado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
-           stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT,id_tarea INT, horas_trabajadas TIME, descripcion TEXT, fecha DATE,FOREIGN KEY (id_tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE");
+           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, empleado_asignado INT, estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT, FOREIGN KEY (empleado_asignado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT,id_empleado INT,FOREIGN KEY (tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE)");
            stmt.executeUpdate();
@@ -1605,14 +1603,6 @@ public class MySQLTools {
 
             stmt.executeUpdate();
 
-            query = new StringBuilder("UPDATE registros SET id_empleado=0 WHERE id_empleado='");
-            query.append(id_employee);
-            query.append("'");
-
-            queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
-            stmt.executeUpdate();
-
             query = new StringBuilder("UPDATE comentarios SET id_empleado=0 WHERE id_empleado='");
             query.append(id_employee);
             query.append("'");
@@ -2203,159 +2193,6 @@ public class MySQLTools {
                 }
            }
         }
-    }
-
-    //"REGISTROS" table
-
-    /**
-     * Insert new register
-     */
-    void insertRegister(int id_employee, Time time_worked, String description, Date date){
-        Connection con = null;
-        PreparedStatement stmt = null;
-
-        try{
-           Class.forName(sDriver).newInstance();
-           con = DriverManager.getConnection(sURL,user,pass);
-
-           stmt = con.prepareStatement("INSERT INTO registros (id_empleado, horas_trabajadas, descripcion, fecha) VALUES(?,?,?,?);");
-
-           stmt.setInt(1, id_employee);
-           stmt.setTime(2, time_worked);
-           stmt.setString(3, description);
-           stmt.setDate(4, date);
-
-           stmt.executeUpdate();
-
-        } catch (SQLException sqle){
-           System.out.println("SQLState: " + sqle.getSQLState());
-           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-           sqle.printStackTrace();
-        } catch (Exception e){
-           e.printStackTrace();
-        } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
-        }
-    }
-
-    /**
-     * Modify register
-     */
-    void modifyRegister(int id_register, int id_employee, Time time_worked, String description, Date date){
-        Connection con = null;
-        PreparedStatement stmt = null;
-
-        try{
-            StringBuilder query = new StringBuilder("UPDATE registros SET ");
-            boolean first=true;
-
-            if(id_employee != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("id_empleado = '");
-                query.append(id_employee);
-                query.append("'");
-                first=false;
-            }
-            if(!time_worked.equals("")){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("horas_trabajadas = '");
-                query.append(time_worked);
-                query.append("'");
-                first=false;
-            }
-            if(!description.equals("")){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("descripcion ='");
-                query.append(description);
-                query.append("'");
-                first=false;
-            }
-            if(!date.equals("")){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("fecha = '");
-                query.append(date);
-                query.append("'");
-                first=false;
-            }
-
-            query.append(" WHERE id_registro = ");
-            query.append(id_register);
-
-            String queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
-
-            stmt.executeUpdate();
-
-        } catch (SQLException sqle){
-           System.out.println("SQLState: " + sqle.getSQLState());
-           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-           sqle.printStackTrace();
-        } catch (Exception e){
-           e.printStackTrace();
-        } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
-        }
-    }
-
-    /**
-     * Erase register
-     */
-    void removeRegister(int id_register){
-        Connection con = null;
-        PreparedStatement stmt = null;
-
-        try{
-            Class.forName(sDriver).newInstance();
-            con = DriverManager.getConnection(sURL,user,pass);
-
-            StringBuilder query = new StringBuilder("DELETE FROM registros WHERE id_registro='");
-            query.append(id_register);
-            query.append("'");
-
-            String queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
-
-            stmt.executeUpdate();
-
-        }   catch (SQLException sqle){
-            System.out.println("SQLState: " + sqle.getSQLState());
-            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-            sqle.printStackTrace();
-        }catch (Exception e){
-           e.printStackTrace();
-        } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
-        }
-
     }
 
     //"COMENTARIOS" table

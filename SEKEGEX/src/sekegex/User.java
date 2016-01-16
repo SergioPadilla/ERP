@@ -342,25 +342,6 @@ public class User {
         return tasks;
     }
 
-    //"REGISTROS" table
-
-    /**
-     * Insert new register
-     */
-    public void insertRegister(int id_employee, Time time_worked, String description, Date date){
-        //description could be null
-    }
-
-     /**
-     * Get the data of register with id specified
-     * @param id_register
-     * @return
-     */
-
-    public DataRegisters consultRegister(int id_register){
-        return null;
-    }
-
     //"COMENTARIOS" table
 
     /**
