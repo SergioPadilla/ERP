@@ -253,10 +253,10 @@ public class MySQLTools {
     /**
      * Insert new client in the table
      */
-    boolean insertClient(String type, String name, String surname, String dni, String email){
+    int insertClient(TypeClient type, String name, String surname, String dni, String email){
         Connection con = null;
         PreparedStatement stmt = null;
-        int res=0;
+        int res=2;
 
         try{
            Class.forName(sDriver).newInstance();
@@ -264,16 +264,16 @@ public class MySQLTools {
 
            stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellidos, nif, email,fecha_alta) VALUES(?,?,?,?,?,UTC_TIMESTAMP());");
 
-           stmt.setString(1, type);
+           stmt.setString(1, type.toString());
            stmt.setString(2, name);
            stmt.setString(3, surname);
            stmt.setString(4, dni);
            stmt.setString(5, email);
 
-           res=stmt.executeUpdate();
-           System.out.println("stoy en db respuesta: "+res);
+           stmt.executeUpdate();
 
         } catch (SQLException sqle){
+            res=1;
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
            sqle.printStackTrace();
@@ -290,16 +290,16 @@ public class MySQLTools {
            }
         }
 
-        return res==1;
+        return res;
     }
 
     /**
      * Modify client with the params specified
      */
-     boolean modifyClient(int id_client, String type, String name, String surname, String dni, String email){
+     int modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
         Connection con = null;
         PreparedStatement stmt = null;
-        boolean res=false;
+        int res=2;
 
         try{
             Class.forName(sDriver).newInstance();
@@ -309,7 +309,7 @@ public class MySQLTools {
 
             if(!type.equals("")){
                 query.append("tipo='");
-                query.append(type);
+                query.append(type.toString());
                 query.append("'");
                 first=false;
             }
@@ -358,10 +358,11 @@ public class MySQLTools {
             String queryfinal = new String(query);
             stmt = con.prepareStatement(queryfinal);
 
-            res=stmt.execute();
+            stmt.execute();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
+           res=1;
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
            sqle.printStackTrace();
         } catch (Exception e){
