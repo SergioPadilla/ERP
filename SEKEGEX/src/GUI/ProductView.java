@@ -45,9 +45,7 @@ public class ProductView extends javax.swing.JFrame {
                 int index = ((JList) e.getSource()).getSelectedIndex();
                 
                 DataProductView obj = new DataProductView((DataProduct) products.get(index));
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+                obj.setVisible(true);
                 dispose();
             }
         });
@@ -148,18 +146,14 @@ public class ProductView extends javax.swing.JFrame {
     private void nuevoProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoProductoMouseClicked
         // TODO add your handling code here:
         CreateDataProduct obj = new CreateDataProduct();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_nuevoProductoMouseClicked
 
     private void volverMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMenuMouseClicked
         // TODO add your handling code here:
         MainMenu obj = new MainMenu();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_volverMenuMouseClicked
 

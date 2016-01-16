@@ -113,39 +113,41 @@ public class ModifyDataServer extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userHOST_label)
-                                    .addComponent(passHOST_label))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(passHOST, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                    .addComponent(userHOST)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(passFTP_label)
-                                    .addComponent(userFTP_label))
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userFTP)
-                                    .addComponent(passFTP))))
-                        .addGap(402, 402, 402))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ip_label)
-                            .addComponent(ID_client_label)
-                            .addComponent(name_label)
-                            .addComponent(id_label))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ip, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                            .addComponent(id_client)
-                            .addComponent(name)
-                            .addComponent(id_server))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(name_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ip_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ip))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(userFTP_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(userFTP))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(passFTP_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(passFTP))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(passHOST_label)
+                        .addGap(26, 26, 26)
+                        .addComponent(passHOST))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(ID_client_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(id_client))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(id_label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(id_server, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
+                            .addComponent(userHOST_label, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(userHOST, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(365, Short.MAX_VALUE)
                 .addComponent(save_button)
@@ -215,11 +217,6 @@ public class ModifyDataServer extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, "La modificación se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
             repaint();
             server = v.getData();
-            DataServerView obj = new DataServerView(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-        dispose();
         }
         else{
             JOptionPane.showMessageDialog(frame, "No tienes permisos para modificar clientes", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
@@ -228,9 +225,7 @@ public class ModifyDataServer extends javax.swing.JFrame {
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         DataServerView obj = new DataServerView(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
 

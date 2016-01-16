@@ -108,6 +108,7 @@ public class DataProductView extends javax.swing.JFrame {
 
         idProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        descriptionProduct.setEditable(false);
         descriptionProduct.setColumns(20);
         descriptionProduct.setRows(5);
         jScrollPane3.setViewportView(descriptionProduct);
@@ -195,18 +196,14 @@ public class DataProductView extends javax.swing.JFrame {
     private void volverAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverAtrasMouseClicked
         // TODO add your handling code here:
         ProductView obj = new ProductView();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_volverAtrasMouseClicked
 
     private void modifyProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyProductMouseClicked
         // TODO add your handling code here:
         ModifyDataProduct obj = new ModifyDataProduct(this.product);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_modifyProductMouseClicked
 

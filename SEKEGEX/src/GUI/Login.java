@@ -6,6 +6,8 @@
 package GUI;
 
 import Utils.CheckLogin;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sekegex.User;
@@ -14,7 +16,7 @@ import sekegex.User;
  *
  * @author Sergio
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame implements KeyListener {
 
     /**
      * Creates new form Login
@@ -62,6 +64,11 @@ public class Login extends javax.swing.JFrame {
         login_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 login_buttonMouseClicked(evt);
+            }
+        });
+        login_button.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                login_buttonKeyPressed(evt);
             }
         });
 
@@ -113,26 +120,14 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_userActionPerformed
 
     private void login_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseClicked
-        final String dni = user.getText().toString();
-        System.out.println(dni);
-        final String pass = password.getText().toString();
-        javax.swing.JOptionPane error = new javax.swing.JOptionPane();
-        CheckLogin check = new CheckLogin(dni, pass);
-        
-        JFrame frame = new JFrame();
-        
-        if(!check.isDniInDB()){
-            JOptionPane.showMessageDialog(frame, "El DNI introducido no se encuentra registrado", "DNI INCORRECTO", JOptionPane.ERROR_MESSAGE);
-        }
-        else if(usr.login(dni,pass)){
-            MainMenu obj = new MainMenu();
-            obj.setVisible(true);
-            dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(frame, "Contraseña incorrecta", "ERROR CONTRASEÑA", JOptionPane.ERROR_MESSAGE);
-        }
+        login();
     }//GEN-LAST:event_login_buttonMouseClicked
+
+    private void login_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_login_buttonKeyPressed
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            login();
+        }
+    }//GEN-LAST:event_login_buttonKeyPressed
 
     /**
      * @param args the command line arguments
@@ -169,6 +164,28 @@ public class Login extends javax.swing.JFrame {
         });
     }
     
+    private void login(){
+        final String dni = user.getText().toString();
+        System.out.println(dni);
+        final String pass = password.getText().toString();
+        javax.swing.JOptionPane error = new javax.swing.JOptionPane();
+        CheckLogin check = new CheckLogin(dni, pass);
+        
+        JFrame frame = new JFrame();
+        
+        if(!check.isDniInDB()){
+            JOptionPane.showMessageDialog(frame, "El DNI introducido no se encuentra registrado", "DNI INCORRECTO", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(usr.login(dni,pass)){
+            MainMenu obj = new MainMenu();
+            obj.setVisible(true);
+            dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "Contraseña incorrecta", "ERROR CONTRASEÑA", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private User usr;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton login_button;
@@ -177,4 +194,17 @@ public class Login extends javax.swing.JFrame {
     private java.awt.TextField user;
     private java.awt.Label user_label;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == e.VK_ENTER){
+            login();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
 }
