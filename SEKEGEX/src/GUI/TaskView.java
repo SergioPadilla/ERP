@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import DataType.DataComment;
 import DataType.DataTask;
 import Utils.StatusTask;
 import java.awt.Color;
@@ -30,6 +31,15 @@ public class TaskView extends javax.swing.JFrame {
         this.setTitle("Tarea");
         this.getContentPane().setBackground(Color.BLUE);
         usr = User.getInstance();
+        update();
+    }
+    
+    public TaskView(int task){
+        initComponents();
+        usr = User.getInstance();
+        this.task = usr.consultTask(task);
+        this.setTitle("Tarea");
+        this.getContentPane().setBackground(Color.BLUE);
         update();
     }
 
@@ -396,12 +406,16 @@ public class TaskView extends javax.swing.JFrame {
         
         this.comments_list.setModel(modelc);
         
-        /*this.comments_list.addListSelectionListener(new ListSelectionListener(){
+        this.comments_list.addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                CommentView obj = new CommentView(((DataComment) comments.get(index)).id_task,((DataComment) comments.get(index)).text);
+                obj.setVisible(true);
+                dispose();
             }
-        });*/
+        });
     }
 
     public static DataTask task;
