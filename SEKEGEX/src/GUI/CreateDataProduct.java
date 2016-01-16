@@ -43,11 +43,11 @@ public class CreateDataProduct extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
-        amount = new javax.swing.JTextField();
         volverAtras = new javax.swing.JButton();
         guardarProducto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
+        amount = new javax.swing.JFormattedTextField();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -93,6 +93,8 @@ public class CreateDataProduct extends javax.swing.JFrame {
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
+        amount.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,8 +115,8 @@ public class CreateDataProduct extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(amount, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,13 +162,25 @@ public class CreateDataProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nombre = name.getText().toString();
         String descripcion = description.getText().toString();
-        String importe = amount.getText().toString();
-        float f = Float.parseFloat(importe);
-        
+        float f = 0;
+        if(!amount.getText().equals("")){
+            String importe = amount.getText();
+            f = Float.parseFloat(amount.getText().replace(",", ".").toString());
+        }
         usr = User.getInstance();
         JFrame frame = new JFrame();
         
-        if (usr.hasLicence(500)){
+        if(nombre.equals("")){
+            JOptionPane.showMessageDialog(this, "El campo NOMBRE no puede estar vacío", "NOMBRE Vacío", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(descripcion.equals("")){
+            JOptionPane.showMessageDialog(this, "El campo DESCRIPCIÓN no puede estar vacío", "DESCRIPCIÓN Vacía", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(f == 0){
+            JOptionPane.showMessageDialog(this, "El IMPORTE no puede ser vacío ni contener letras", "IMPORTE Vacío", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else if (usr.hasLicence(500)){
             usr.insertProduct(nombre, descripcion, f);
             JOptionPane.showMessageDialog(frame, "La creación se ha realizado con éxito", "Datos actualizados", JOptionPane.INFORMATION_MESSAGE);
             repaint();
@@ -214,7 +228,7 @@ public class CreateDataProduct extends javax.swing.JFrame {
     private static DataProduct product;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField amount;
+    private javax.swing.JFormattedTextField amount;
     private javax.swing.JTextArea description;
     private javax.swing.JButton guardarProducto;
     private javax.swing.JLabel jLabel1;
