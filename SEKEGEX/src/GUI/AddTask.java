@@ -84,15 +84,15 @@ public class AddTask extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        title_label.setText("Título*");
+        title_label.setText("Título");
 
         description.setColumns(20);
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
-        description_label.setText("Descripción*");
+        description_label.setText("Descripción");
 
-        time_label.setText("Tiempo Estimado*");
+        time_label.setText("Tiempo Estimado");
 
         h_label.setText("H");
 
@@ -155,7 +155,7 @@ public class AddTask extends javax.swing.JFrame {
                                         .addComponent(minutes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(3, 3, 3)
                                         .addComponent(minute_label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 454, Short.MAX_VALUE)))))
+                                .addGap(0, 460, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -223,11 +223,13 @@ public class AddTask extends javax.swing.JFrame {
         String descriptionnew = description.getText();
         int hournew = 0;
         int minutesnew = 0;
-        if(!hour.getText().equals("") && !hour.getText().equals("")){
+        if(!hour.getText().equals("")){
+            hournew = Integer.parseInt(hour.getText());
+        }
+        if(!minutes.getText().equals("")){
             hournew = Integer.parseInt(hour.getText());
             minutesnew = Integer.parseInt(minutes.getText());
         }
-
 
         /**
          * Checking Data and add task
@@ -244,7 +246,15 @@ public class AddTask extends javax.swing.JFrame {
         else{
             if(this.id_task_father != 0){
                 Time time_estimated = new Time(hournew, minutesnew, 0);
-                if(usr.insertSubTask(titlenew, descriptionnew, time_estimated, id_task_father)){
+                Date date=new Date(dateChooserCombo1.getSelectedDate().getTimeInMillis());
+                boolean encontrado=false;
+                int id_employee=0;
+                for(int i = 0; i < employees.size() && !encontrado; i++){
+                    DataEmployee employee = (DataEmployee) employees.get(i);
+                    encontrado=combo_employees.getSelectedItem().equals(employee.name);
+                    id_employee=employee.id_employee;
+                }
+                if(usr.insertSubTask(titlenew, descriptionnew, time_estimated,date,id_employee, id_task_father)){
                     JOptionPane.showMessageDialog(this, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(this, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);

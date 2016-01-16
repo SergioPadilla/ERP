@@ -37,10 +37,15 @@ public class Task {
      * @param due_date
      * @param status
      */
-    public void modifyTask(String title, String description, Time time_estimated, Date due_date, StatusTask status){
+    public Boolean modifyTask(String title, String description, Time time_estimated, Date due_date, StatusTask status){
+        Boolean ok = true;
         if (activeEmployee.hasLicence(102)){
             DB.modifyTask(getData().id_task, title, description, time_estimated, due_date, getData().id_employee, status);
         }
+        else
+            ok = false;
+        
+        return ok;
     }
     
     /**

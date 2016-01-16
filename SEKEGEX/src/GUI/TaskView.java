@@ -5,7 +5,9 @@
  */
 package GUI;
 
+import DataType.DataComment;
 import DataType.DataTask;
+import Utils.StatusTask;
 import java.awt.Color;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
@@ -28,35 +30,17 @@ public class TaskView extends javax.swing.JFrame {
         this.task = task;
         this.setTitle("Tarea");
         this.getContentPane().setBackground(Color.BLUE);
-        
         usr = User.getInstance();
-        this.title.setText(task.title);
-        this.description.setText(task.description);
-        //this.status.setText(this.task.status);
+        update();
+    }
     
-        //Get the comments to show it
-        subTasks = usr.listSubTasks(task.id_task);
-        
-        //Create the model and add it the title of the task
-        DefaultListModel model = new DefaultListModel();
-        
-        for(int i = 0; i < subTasks.size(); i++){
-            DataTask subtask =(DataTask) subTasks.get(i);
-            model.addElement(subtask.title);
-        }
-        
-        this.subTasks_list.setModel(model);
-        
-        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = ((JList) e.getSource()).getSelectedIndex();
-                
-                TaskView obj = new TaskView((DataTask) subTasks.get(index));
-                obj.setVisible(true);
-                dispose();
-            }
-        });
+    public TaskView(int task){
+        initComponents();
+        usr = User.getInstance();
+        this.task = usr.consultTask(task);
+        this.setTitle("Tarea");
+        this.getContentPane().setBackground(Color.BLUE);
+        update();
     }
 
     /**
@@ -85,7 +69,7 @@ public class TaskView extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         comments_label = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        comments_list = new javax.swing.JList<>();
         addComment_button = new javax.swing.JButton();
         back_button = new javax.swing.JButton();
         modify_button = new javax.swing.JButton();
@@ -147,13 +131,13 @@ public class TaskView extends javax.swing.JFrame {
 
         jScrollPane3.setBackground(new java.awt.Color(51, 153, 255));
 
-        jList1.setBackground(new java.awt.Color(51, 153, 255));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        comments_list.setBackground(new java.awt.Color(51, 153, 255));
+        comments_list.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(comments_list);
 
         addComment_button.setText("Nuevo Comentario");
         addComment_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -304,7 +288,9 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_newSubTask_buttonMouseClicked
 
     private void addComment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addComment_buttonMouseClicked
-        // TODO add your handling code here:
+        AddComment obj = new AddComment(task.id_task);
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_addComment_buttonMouseClicked
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
@@ -327,34 +313,7 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_modify_buttonMouseClicked
 
     private void updateTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateTaskMouseClicked
-        this.task = usr.consultTask(this.task.id_task);
-
-        this.title.setText(task.title);
-        this.description.setText(task.description);
-
-        //Get the comments to show it
-        subTasks = usr.listSubTasks(task.id_task);
-        
-        //Create the model and add it the title of the task
-        DefaultListModel model = new DefaultListModel();
-        
-        for(int i = 0; i < subTasks.size(); i++){
-            DataTask subtask =(DataTask) subTasks.get(i);
-            model.addElement(subtask.title);
-        }
-        
-        this.subTasks_list.setModel(model);
-        
-        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = ((JList) e.getSource()).getSelectedIndex();
-                
-                TaskView obj = new TaskView((DataTask) subTasks.get(index));
-                obj.setVisible(true);
-                dispose();
-            }
-        });
+        update();
     }//GEN-LAST:event_updateTaskMouseClicked
 
     private void workLog_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workLog_buttonMouseClicked
@@ -395,14 +354,79 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void update(){
+        this.task = usr.consultTask(this.task.id_task);
+
+        this.title.setText(task.title);
+        this.description.setText(task.description);
+        
+        if(this.task.status == StatusTask.TO_DO){
+            this.status.setText("Por hacer");
+        } else if(this.task.status == StatusTask.DEVELOPMENT){
+            this.status.setText("En desarrollo");
+        } else if(this.task.status == StatusTask.DONE){
+            this.status.setText("Terminada");
+        }
+
+        //Get the comments to show it
+        subTasks = usr.listSubTasks(task.id_task);
+        
+        //Create the model and add it the title of the task
+        DefaultListModel model = new DefaultListModel();
+        
+        for(int i = 0; i < subTasks.size(); i++){
+            DataTask subtask =(DataTask) subTasks.get(i);
+            model.addElement(subtask.title);
+        }
+        
+        this.subTasks_list.setModel(model);
+        
+        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                TaskView obj = new TaskView((DataTask) subTasks.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
+        
+        //Get the comments of the task to show it
+        comments = usr.listComments(task.id_task);
+        
+        //Create the model and add it the title of the task
+        DefaultListModel modelc = new DefaultListModel();
+        
+        for(int i = 0; i < comments.size(); i++){
+            DataTask comment =(DataTask) comments.get(i);
+            model.addElement(comment.title);
+        }
+        
+        this.comments_list.setModel(modelc);
+        
+        this.comments_list.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                CommentView obj = new CommentView((DataComment) comments.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
+    }
 
     public static DataTask task;
     private User usr;
     Vector subTasks;
+    Vector comments;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addComment_button;
     private javax.swing.JButton back_button;
     private javax.swing.JLabel comments_label;
+    private javax.swing.JList<String> comments_list;
     private javax.swing.JTextArea description;
     private javax.swing.JProgressBar hour_estimated_bar;
     private javax.swing.JLabel hour_estimated_label;
@@ -410,7 +434,6 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JLabel hour_remaining_label;
     private javax.swing.JProgressBar hour_worked_bar;
     private javax.swing.JLabel hour_worked_label;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

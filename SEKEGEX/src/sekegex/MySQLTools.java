@@ -1878,7 +1878,7 @@ public class MySQLTools {
     /**
      * Insert new SubTask
      */
-    void insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+    void insertSubTask(String title, String description, Time time_estimated,Date date,int id_employee, int id_task_father){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1886,12 +1886,15 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas, id_tarea_padre) VALUES(?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas,fecha,empleado_asignado,estado, id_tarea_padre) VALUES(?,?,?,?,?,?,?);");
 
            stmt.setString(1, title);
            stmt.setString(2, description);
            stmt.setTime(3, time_estimated);
-           stmt.setInt(4, id_task_father);
+           stmt.setDate(4, date);
+           stmt.setInt(5, id_employee);
+           stmt.setString(6, "TO_DO");
+           stmt.setInt(7, id_task_father);
 
            stmt.executeUpdate();
 
@@ -2417,6 +2420,55 @@ public class MySQLTools {
                 }
            }
         }
+    }
+    
+    /**
+     * 
+     * @param id_tarea
+     * @return 
+     */
+    public Vector listComments(int id_tarea){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector comments = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("SELECT * FROM comentarios WHERE tarea=");
+            query.append(id_tarea);
+            query.append("'");
+            
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                comments.add(new DataComment(rs.getInt("id_comentario"),
+                        rs.getString("comment"),
+                        rs.getInt("id_tarea")
+                ));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return comments;
     }
 
     /**

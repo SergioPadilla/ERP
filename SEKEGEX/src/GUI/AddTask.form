@@ -66,7 +66,7 @@
                                       <Component id="minute_label" min="-2" pref="14" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="454" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="460" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -130,7 +130,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="title_label">
       <Properties>
-        <Property name="text" type="java.lang.String" value="T&#xed;tulo*"/>
+        <Property name="text" type="java.lang.String" value="T&#xed;tulo"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -150,14 +150,14 @@
     </Container>
     <Component class="javax.swing.JLabel" name="description_label">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Descripci&#xf3;n*"/>
+        <Property name="text" type="java.lang.String" value="Descripci&#xf3;n"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="title">
     </Component>
     <Component class="javax.swing.JLabel" name="time_label">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Tiempo Estimado*"/>
+        <Property name="text" type="java.lang.String" value="Tiempo Estimado"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="h_label">
