@@ -265,11 +265,11 @@ public class User {
     /**
      * Insert new SubTask
      */
-    public Boolean insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+    public Boolean insertSubTask(String title, String description, Time time_estimated, Date date,int id_employee, int id_task_father){
         Boolean ok = true;
 
         if(licence.contains(100))
-            DB.insertSubTask(title, description, time_estimated, id_task_father);
+            DB.insertSubTask(title, description, time_estimated,date,id_employee,id_task_father);
         else
             ok = false;
 
