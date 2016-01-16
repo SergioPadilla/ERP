@@ -7,6 +7,7 @@ package sekegex;
 
 import DataType.*;
 import Utils.StatusTask;
+import Utils.TypeClient;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
@@ -121,10 +122,13 @@ public class User {
     /**
      * Insert new client in the table
      */
-    public boolean insertClient(String type, String name, String surname, String dni, String email){
-        boolean res=false;
+    public int insertClient(TypeClient type, String name, String surname, String dni, String email){
+        int res=0;
         if(licence.contains(300)){
             res=DB.insertClient(type, name, surname, dni, email);
+        }
+        else{
+            res=-1;
         }
         System.out.println("as: "+res);
         return res;
@@ -188,7 +192,16 @@ public class User {
         }
         return res;
     }
-
+    public int insertBill(int id_client){
+        int res=0;
+        if(licence.contains(400)){
+            res=DB.insertBill(id_client);
+        }
+        else{
+            res=-1;
+        }
+        return res;
+    }
     //"SERVIDORES" table
 
     /**
@@ -265,11 +278,11 @@ public class User {
     /**
      * Insert new SubTask
      */
-    public Boolean insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+    public Boolean insertSubTask(String title, String description, Time time_estimated, Date date,int id_employee, int id_task_father){
         Boolean ok = true;
 
         if(licence.contains(100))
-            DB.insertSubTask(title, description, time_estimated, id_task_father);
+            DB.insertSubTask(title, description, time_estimated,date,id_employee,id_task_father);
         else
             ok = false;
 
@@ -353,8 +366,47 @@ public class User {
     /**
      * Insert Comment
      */
-    public void insertComment(int id_tarea, String comment){
+    public Boolean insertComment(int id_tarea, String comment){
+        Boolean ok = true;
 
+        if(licence.contains(200))
+            DB.insertComment(id_tarea,comment);
+        else
+            ok = false;
+
+        return ok;
+    }
+    
+    /**
+     * 
+     * @param id_comment
+     * @param id_task
+     * @param comment 
+     */
+    public Boolean modifyComment(int id_comment, int id_task, String comment){
+        Boolean ok = true;
+
+        if(licence.contains(202))
+            DB.modifyComment(id_comment,id_task,comment);
+        else
+            ok = false;
+
+        return ok;
+    }
+    
+    /**
+     * 
+     * @param id_tarea
+     * @return 
+     */
+    public Vector listComments(int id_task){
+        Vector comments = null;
+
+        if(licence.contains(203)){
+            comments = DB.listSubTasks(id_task);
+        }
+
+        return comments;
     }
 
     /**
