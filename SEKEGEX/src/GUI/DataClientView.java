@@ -118,11 +118,11 @@ public class DataClientView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Factura", "Fecha", "Ver", "Borrar"
+                "ID Factura", "Fecha", "Ver Productos"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -131,12 +131,9 @@ public class DataClientView extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(2).setMinWidth(70);
-            jTable3.getColumnModel().getColumn(2).setPreferredWidth(70);
-            jTable3.getColumnModel().getColumn(2).setMaxWidth(70);
-            jTable3.getColumnModel().getColumn(3).setMinWidth(70);
-            jTable3.getColumnModel().getColumn(3).setPreferredWidth(70);
-            jTable3.getColumnModel().getColumn(3).setMaxWidth(70);
+            jTable3.getColumnModel().getColumn(2).setMinWidth(120);
+            jTable3.getColumnModel().getColumn(2).setPreferredWidth(120);
+            jTable3.getColumnModel().getColumn(2).setMaxWidth(120);
         }
 
         jButtonAddServer.setText("Añadir Servidor");
@@ -147,11 +144,6 @@ public class DataClientView extends javax.swing.JFrame {
         });
 
         jButton2.setText("Añadir Factura");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,8 +191,6 @@ public class DataClientView extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         ClientView obj = new ClientView();
-        obj.setSize(getSize());
-        obj.setLocation(getLocation());
         obj.setVisible(true);
             dispose();    }//GEN-LAST:event_jButton1MouseClicked
 
@@ -210,14 +200,8 @@ public class DataClientView extends javax.swing.JFrame {
         obj.setLocation(getLocation());
         obj.setVisible(true);                    
         dispose();
-    }//GEN-LAST:event_jButtonAddServerMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        CreateBillView obj = new CreateBillView(clienti);
-        obj.setSize(getSize());
-        obj.setLocation(getLocation());
-        obj.setVisible(true);
-        dispose();    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jButtonAddServerMouseClicked
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
@@ -274,6 +258,7 @@ public class DataClientView extends javax.swing.JFrame {
             CreateBillView obj = new CreateBillView(clienti,idBill);
             obj.setSize(getSize());
             obj.setLocation(getLocation());
+
             obj.setVisible(true);
             dispose(); 
         }
@@ -304,6 +289,7 @@ public class DataClientView extends javax.swing.JFrame {
             /*IMPLEMENTAR EL BORRADO*/ 
         }
     }; 
+
         
     private void setFilas() {
         DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
@@ -337,8 +323,6 @@ public class DataClientView extends javax.swing.JFrame {
         
         
         ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verProductos, 2);
-        buttonColumn4.setMnemonic(KeyEvent.VK_D);
-        ButtonColumn buttonColumn5 = new ButtonColumn(jTable3, borrarProductos, 3);
         buttonColumn4.setMnemonic(KeyEvent.VK_D);
     }
     
