@@ -152,7 +152,9 @@ public class CreateDataProduct extends javax.swing.JFrame {
     private void volverAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverAtrasMouseClicked
         // TODO add your handling code here:
         ProductView obj = new ProductView();
-        obj.setVisible(true);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_volverAtrasMouseClicked
 

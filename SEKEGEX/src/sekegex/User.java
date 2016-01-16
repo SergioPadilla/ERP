@@ -7,6 +7,7 @@ package sekegex;
 
 import DataType.*;
 import Utils.StatusTask;
+import Utils.TypeClient;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
@@ -121,10 +122,13 @@ public class User {
     /**
      * Insert new client in the table
      */
-    public boolean insertClient(String type, String name, String surname, String dni, String email){
-        boolean res=false;
+    public int insertClient(TypeClient type, String name, String surname, String dni, String email){
+        int res=0;
         if(licence.contains(300)){
             res=DB.insertClient(type, name, surname, dni, email);
+        }
+        else{
+            res=-1;
         }
         System.out.println("as: "+res);
         return res;
@@ -188,6 +192,16 @@ public class User {
         }
         return res;
     }
+    public int insertBill(int id_client){
+        int res=0;
+        if(licence.contains(400)){
+            res=DB.insertBill(id_client);
+        }
+        else{
+            res=-1;
+        }
+        return res;
+    }
 
     //"SERVIDORES" table
 
@@ -226,9 +240,9 @@ public class User {
     public DataEmployee consultEmployee(int id_employee){
         DataEmployee employee = null;
 
-        if(licence.contains(903)){
+        //if(licence.contains(903)){
             employee = DB.consultEmployee(id_employee);
-        }
+        //}
 
         return employee;
     }
@@ -251,11 +265,11 @@ public class User {
     /**
      * Insert new task
      */
-    public Boolean insertTask(String title, String description, Time time_estimated,Date date,int id_employee){
+    public Boolean insertTask(String title, String description, Time time_estimated){
         Boolean ok = true;
 
         if(licence.contains(100))
-            DB.insertTask(title, description, time_estimated,date,id_employee);
+            DB.insertTask(title, description, time_estimated);
         else
             ok = false;
 

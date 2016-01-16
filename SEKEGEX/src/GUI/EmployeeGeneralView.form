@@ -55,11 +55,6 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="GUI.ListEmployee" name="listEmployee3">
-          <Properties>
-            <Property name="window" type="GUI.EmployeeView" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="default"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

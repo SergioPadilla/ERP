@@ -253,10 +253,10 @@ public class MySQLTools {
     /**
      * Insert new client in the table
      */
-    boolean insertClient(String type, String name, String surname, String dni, String email){
+    int insertClient(TypeClient type, String name, String surname, String dni, String email){
         Connection con = null;
         PreparedStatement stmt = null;
-        int res=0;
+        int res=2;
 
         try{
            Class.forName(sDriver).newInstance();
@@ -264,16 +264,16 @@ public class MySQLTools {
 
            stmt = con.prepareStatement("INSERT INTO clientes (tipo, nombre, apellidos, nif, email,fecha_alta) VALUES(?,?,?,?,?,UTC_TIMESTAMP());");
 
-           stmt.setString(1, type);
+           stmt.setString(1, type.toString());
            stmt.setString(2, name);
            stmt.setString(3, surname);
            stmt.setString(4, dni);
            stmt.setString(5, email);
 
-           res=stmt.executeUpdate();
-           System.out.println("stoy en db respuesta: "+res);
+           stmt.executeUpdate();
 
         } catch (SQLException sqle){
+            res=1;
            System.out.println("SQLState: " + sqle.getSQLState());
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
            sqle.printStackTrace();
@@ -290,16 +290,16 @@ public class MySQLTools {
            }
         }
 
-        return res==1;
+        return res;
     }
 
     /**
      * Modify client with the params specified
      */
-     boolean modifyClient(int id_client, String type, String name, String surname, String dni, String email){
+     int modifyClient(int id_client, TypeClient type, String name, String surname, String dni, String email){
         Connection con = null;
         PreparedStatement stmt = null;
-        boolean res=false;
+        int res=2;
 
         try{
             Class.forName(sDriver).newInstance();
@@ -309,7 +309,7 @@ public class MySQLTools {
 
             if(!type.equals("")){
                 query.append("tipo='");
-                query.append(type);
+                query.append(type.toString());
                 query.append("'");
                 first=false;
             }
@@ -358,10 +358,11 @@ public class MySQLTools {
             String queryfinal = new String(query);
             stmt = con.prepareStatement(queryfinal);
 
-            res=stmt.execute();
+            stmt.execute();
 
         } catch (SQLException sqle){
            System.out.println("SQLState: " + sqle.getSQLState());
+           res=1;
            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
            sqle.printStackTrace();
         } catch (Exception e){
@@ -1604,15 +1605,16 @@ public class MySQLTools {
 
             stmt.executeUpdate();
 
-            query = new StringBuilder("UPDATE registros SET id_empleado=0 WHERE id_empleado='");
+            query = new StringBuilder("UPDATE registros id_empleado=0 SET WHERE id_empleado='");
             query.append(id_employee);
             query.append("'");
 
             queryfinal = new String(query);
             stmt = con.prepareStatement(queryfinal);
+
             stmt.executeUpdate();
 
-            query = new StringBuilder("UPDATE comentarios SET id_empleado=0 WHERE id_empleado='");
+            query = new StringBuilder("UPDATE comentarios id_empleado=0 SET WHERE id_empleado='");
             query.append(id_employee);
             query.append("'");
 
@@ -1698,8 +1700,8 @@ public class MySQLTools {
 
             while(rs.next()){
                 employees.add(new DataEmployee(rs.getInt("id_empleado"),
-                        rs.getString("nombre"),
                         rs.getString("dni"),
+                        rs.getString("nombre"),
                         rs.getString("password"),
                         rs.getString("apellidos"),
                         rs.getInt("rol")));
@@ -1837,7 +1839,7 @@ public class MySQLTools {
     /**
      * Insert new task
      */
-    void insertTask(String title, String description, Time time_estimated,Date date,int id_employee){
+    void insertTask(String title, String description, Time time_estimated){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1845,14 +1847,11 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas,fecha,empleado_asignado,estado) VALUES(?,?,?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas) VALUES(?,?,?);");
 
            stmt.setString(1, title);
            stmt.setString(2, description);
            stmt.setTime(3, time_estimated);
-           stmt.setDate(4, date);
-           stmt.setInt(5, id_employee);
-           stmt.setString(6, "TO_DO");
 
            stmt.executeUpdate();
 
