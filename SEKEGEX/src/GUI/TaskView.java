@@ -29,66 +29,8 @@ public class TaskView extends javax.swing.JFrame {
         this.task = task;
         this.setTitle("Tarea");
         this.getContentPane().setBackground(Color.BLUE);
-        
         usr = User.getInstance();
-        this.title.setText(task.title);
-        this.description.setText(task.description);
-        
-        if(this.task.status == StatusTask.TO_DO){
-            this.status.setText("Por hacer");
-        } else if(this.task.status == StatusTask.DEVELOPMENT){
-            this.status.setText("En desarrollo");
-        } else if(this.task.status == StatusTask.DONE){
-            this.status.setText("Terminada");
-        }
-    
-        //Get the subtasks to show it
-        subTasks = usr.listSubTasks(task.id_task);
-        
-        //Create the model and add it the title of the task
-        DefaultListModel model = new DefaultListModel();
-        
-        for(int i = 0; i < subTasks.size(); i++){
-            DataTask subtask =(DataTask) subTasks.get(i);
-            model.addElement(subtask.title);
-        }
-        
-        this.subTasks_list.setModel(model);
-        
-        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = ((JList) e.getSource()).getSelectedIndex();
-                
-                TaskView obj = new TaskView((DataTask) subTasks.get(index));
-                obj.setVisible(true);
-                dispose();
-            }
-        });
-        
-        //Get the comments of the task to show it
-        comments = usr.listComments(task.id_task);
-        
-        //Create the model and add it the title of the task
-        DefaultListModel modelc = new DefaultListModel();
-        
-        for(int i = 0; i < comments.size(); i++){
-            DataTask comment =(DataTask) comments.get(i);
-            model.addElement(comment.title);
-        }
-        
-        this.comments_list.setModel(modelc);
-        
-        this.comments_list.addListSelectionListener(new ListSelectionListener(){
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = ((JList) e.getSource()).getSelectedIndex();
-                
-                TaskView obj = new TaskView((DataTask) comments.get(index));
-                obj.setVisible(true);
-                dispose();
-            }
-        });
+        update();
     }
 
     /**
@@ -336,8 +278,7 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_newSubTask_buttonMouseClicked
 
     private void addComment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addComment_buttonMouseClicked
-        AddComment obj = new AddComment();
-        obj.id_task = task.id_task;
+        AddComment obj = new AddComment(task.id_task);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_addComment_buttonMouseClicked
@@ -362,34 +303,7 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_modify_buttonMouseClicked
 
     private void updateTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateTaskMouseClicked
-        this.task = usr.consultTask(this.task.id_task);
-
-        this.title.setText(task.title);
-        this.description.setText(task.description);
-
-        //Get the comments to show it
-        subTasks = usr.listSubTasks(task.id_task);
-        
-        //Create the model and add it the title of the task
-        DefaultListModel model = new DefaultListModel();
-        
-        for(int i = 0; i < subTasks.size(); i++){
-            DataTask subtask =(DataTask) subTasks.get(i);
-            model.addElement(subtask.title);
-        }
-        
-        this.subTasks_list.setModel(model);
-        
-        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = ((JList) e.getSource()).getSelectedIndex();
-                
-                TaskView obj = new TaskView((DataTask) subTasks.get(index));
-                obj.setVisible(true);
-                dispose();
-            }
-        });
+        update();
     }//GEN-LAST:event_updateTaskMouseClicked
 
     private void workLog_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workLog_buttonMouseClicked
@@ -429,6 +343,65 @@ public class TaskView extends javax.swing.JFrame {
                 new TaskView(task).setVisible(true);
             }
         });
+    }
+    
+    private void update(){
+        this.task = usr.consultTask(this.task.id_task);
+
+        this.title.setText(task.title);
+        this.description.setText(task.description);
+        
+        if(this.task.status == StatusTask.TO_DO){
+            this.status.setText("Por hacer");
+        } else if(this.task.status == StatusTask.DEVELOPMENT){
+            this.status.setText("En desarrollo");
+        } else if(this.task.status == StatusTask.DONE){
+            this.status.setText("Terminada");
+        }
+
+        //Get the comments to show it
+        subTasks = usr.listSubTasks(task.id_task);
+        
+        //Create the model and add it the title of the task
+        DefaultListModel model = new DefaultListModel();
+        
+        for(int i = 0; i < subTasks.size(); i++){
+            DataTask subtask =(DataTask) subTasks.get(i);
+            model.addElement(subtask.title);
+        }
+        
+        this.subTasks_list.setModel(model);
+        
+        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                TaskView obj = new TaskView((DataTask) subTasks.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
+        
+        //Get the comments of the task to show it
+        comments = usr.listComments(task.id_task);
+        
+        //Create the model and add it the title of the task
+        DefaultListModel modelc = new DefaultListModel();
+        
+        for(int i = 0; i < comments.size(); i++){
+            DataTask comment =(DataTask) comments.get(i);
+            model.addElement(comment.title);
+        }
+        
+        this.comments_list.setModel(modelc);
+        
+        /*this.comments_list.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+            }
+        });*/
     }
 
     public static DataTask task;

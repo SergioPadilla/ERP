@@ -18,8 +18,9 @@ public class AddComment extends javax.swing.JFrame {
     /**
      * Creates new form AddComment
      */
-    public AddComment() {
+    public AddComment(int id_task) {
         initComponents();
+        this.id_task = id_task;
         usr = User.getInstance();
     }
 
@@ -89,14 +90,20 @@ public class AddComment extends javax.swing.JFrame {
     private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
         final String commentNew = comment.getText().toString();
         
-        if(usr.insertComment(id_task, commentNew)){
-            DataTask task = usr.consultTask(id_task);
-            TaskView obj = new TaskView(task);
-            obj.setVisible(true);
-            dispose();
+        if(commentNew.equals("")){
+            if(usr.insertComment(id_task, commentNew)){
+                DataTask task = usr.consultTask(id_task);
+                TaskView obj = new TaskView(task);
+                obj.setVisible(true);
+                dispose();
+            }
+            else
+                JOptionPane.showMessageDialog(this, "No tienes permisos para escribir comentarios", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);        
         }
-        else
-            JOptionPane.showMessageDialog(this, "No tienes permisos para escribir comentarios", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);        
+        else{
+            JOptionPane.showMessageDialog(this, "El comentario no puede estar vacío", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+            
     }//GEN-LAST:event_save_buttonMouseClicked
 
     private void back_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_back_buttonKeyPressed
@@ -136,13 +143,13 @@ public class AddComment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddComment().setVisible(true);
+                new AddComment(id_task).setVisible(true);
             }
         });
     }
 
     private User usr;
-    public int id_task;
+    private static int id_task;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back_button;
     private javax.swing.JTextArea comment;
