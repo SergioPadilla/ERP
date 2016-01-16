@@ -25,51 +25,51 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="userHOST_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="passHOST_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="passHOST" pref="155" max="32767" attributes="0"/>
-                                  <Component id="userHOST" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="passFTP_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="userFTP_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="userFTP" max="32767" attributes="0"/>
-                                  <Component id="passFTP" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="402" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="name_label" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="name" min="-2" pref="144" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="ip_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="ID_client_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="name_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="id_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="ip_label" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="ip" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="userFTP_label" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="userFTP" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="passFTP_label" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="passFTP" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="passHOST_label" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="passHOST" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="ID_client_label" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="id_client" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="id_label" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="id_server" pref="52" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="userHOST_label" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ip" pref="155" max="32767" attributes="0"/>
-                          <Component id="id_client" alignment="0" max="32767" attributes="0"/>
-                          <Component id="name" alignment="0" max="32767" attributes="0"/>
-                          <Component id="id_server" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="userHOST" min="-2" pref="111" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="365" max="32767" attributes="0"/>

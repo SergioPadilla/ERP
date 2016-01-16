@@ -261,9 +261,7 @@ public class ModifyTask extends javax.swing.JFrame {
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         TaskView obj = new TaskView(this.task);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
 

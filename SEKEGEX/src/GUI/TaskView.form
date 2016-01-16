@@ -30,9 +30,32 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="title" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jSeparator2" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
+                  <Component id="addComment_button" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="subtasks_label" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="comments_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="modify_button" min="-2" pref="103" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="workLog_button" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="back_button" min="-2" pref="103" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="updateTask" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jScrollPane1" pref="852" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="title" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="1022" max="32767" attributes="0"/>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
@@ -47,28 +70,9 @@
                               </Group>
                           </Group>
                           <Component id="hour_remaining_bar" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="status_label" min="-2" max="-2" attributes="0"/>
+                          <Component id="status" min="-2" max="-2" attributes="0"/>
                       </Group>
-                  </Group>
-                  <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jSeparator2" max="32767" attributes="0"/>
-                  <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
-                  <Component id="addComment_button" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="subtasks_label" min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="comments_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="modify_button" min="-2" pref="103" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="back_button" min="-2" pref="103" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="updateTask" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="workLog_button" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -79,7 +83,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="title" min="-2" pref="50" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="title" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="status_label" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="status" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
@@ -110,16 +121,17 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="comments_label" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane3" min="-2" pref="92" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane3" pref="198" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="addComment_button" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="back_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="modify_button" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="updateTask" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="back_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="workLog_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="updateTask" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -133,6 +145,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="AppleGothic" size="18" style="0"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="T&#xed;tulo"/>
       </Properties>
     </Component>
@@ -145,6 +160,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="description">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="0"/>
@@ -159,6 +175,9 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="66" red="33" type="rgb"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Horas Estimadas"/>
       </Properties>
     </Component>
@@ -169,6 +188,9 @@
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="66" red="33" type="rgb"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Horas Trabajadas"/>
       </Properties>
     </Component>
@@ -178,6 +200,9 @@
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="66" red="33" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Horas Restantes"/>
       </Properties>
@@ -220,6 +245,9 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="SubTareas"/>
       </Properties>
     </Component>
@@ -242,6 +270,9 @@
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Comentarios"/>
       </Properties>
@@ -318,6 +349,28 @@
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="workLog_buttonMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="status_label">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="66" red="33" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="ESTADO"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="status">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="99" red="33" type="rgb"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel2"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

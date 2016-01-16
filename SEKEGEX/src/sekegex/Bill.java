@@ -50,12 +50,6 @@ public class Bill {
             update();
         }
     }
-    public void insertPurchase(int idProduct){
-        if(activeEmployee.hasLicence(402)){
-            DB.insertPurchase(data.id_bill, idProduct);
-        }
-
-    }
     
     public void removeBill(){
         if(activeEmployee.hasLicence(403)){

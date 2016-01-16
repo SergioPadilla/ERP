@@ -7,7 +7,6 @@ package sekegex;
 
 import DataType.*;
 import Utils.StatusTask;
-import Utils.TypeClient;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
@@ -122,13 +121,10 @@ public class User {
     /**
      * Insert new client in the table
      */
-    public int insertClient(TypeClient type, String name, String surname, String dni, String email){
-        int res=0;
+    public boolean insertClient(String type, String name, String surname, String dni, String email){
+        boolean res=false;
         if(licence.contains(300)){
             res=DB.insertClient(type, name, surname, dni, email);
-        }
-        else{
-            res=-1;
         }
         System.out.println("as: "+res);
         return res;
@@ -192,16 +188,6 @@ public class User {
         }
         return res;
     }
-    public int insertBill(int id_client){
-        int res=0;
-        if(licence.contains(400)){
-            res=DB.insertBill(id_client);
-        }
-        else{
-            res=-1;
-        }
-        return res;
-    }
 
     //"SERVIDORES" table
 
@@ -240,9 +226,9 @@ public class User {
     public DataEmployee consultEmployee(int id_employee){
         DataEmployee employee = null;
 
-        //if(licence.contains(903)){
+        if(licence.contains(903)){
             employee = DB.consultEmployee(id_employee);
-        //}
+        }
 
         return employee;
     }
@@ -265,11 +251,11 @@ public class User {
     /**
      * Insert new task
      */
-    public Boolean insertTask(String title, String description, Time time_estimated){
+    public Boolean insertTask(String title, String description, Time time_estimated,Date date,int id_employee){
         Boolean ok = true;
 
         if(licence.contains(100))
-            DB.insertTask(title, description, time_estimated);
+            DB.insertTask(title, description, time_estimated,date,id_employee);
         else
             ok = false;
 
@@ -279,11 +265,11 @@ public class User {
     /**
      * Insert new SubTask
      */
-    public Boolean insertSubTask(String title, String description, Time time_estimated,Date date,int id_employee, int id_task_father){
+    public Boolean insertSubTask(String title, String description, Time time_estimated, int id_task_father){
         Boolean ok = true;
 
         if(licence.contains(100))
-            DB.insertSubTask(title, description, time_estimated,date,id_employee,id_task_father);
+            DB.insertSubTask(title, description, time_estimated, id_task_father);
         else
             ok = false;
 

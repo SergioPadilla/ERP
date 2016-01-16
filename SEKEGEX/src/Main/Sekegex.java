@@ -216,18 +216,18 @@ public class Sekegex {
                     if(opcC.equals("m")){
                         Client ClientO= new Client(Id);
                         if(type==1){
-                            ClientO.modifyClient(TypeClient.BUSINESS, name, surname, nif, email);
+                            ClientO.modifyClient("BUSINESS", name, surname, nif, email);
                         }if(type==2){
-                            ClientO.modifyClient(TypeClient.FREELANCE, name, surname, nif, email);
+                            ClientO.modifyClient("FREELANCE", name, surname, nif, email);
                         }else{
-                            ClientO.modifyClient(null, name, surname, nif, email);
+                            ClientO.modifyClient("", name, surname, nif, email);
                         }
 
                     }else{
                         if(type==1){
-                            activeEmployee.insertClient(TypeClient.BUSINESS, name, surname, nif, email);
+                            activeEmployee.insertClient("BUSINESS", name, surname, nif, email);
                         }else{
-                            activeEmployee.insertClient(TypeClient.FREELANCE, name, surname, nif, email);
+                            activeEmployee.insertClient("FREELANCE", name, surname, nif, email);
                         }
                     }
                 

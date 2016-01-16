@@ -19,9 +19,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="32767" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+              <EmptySpace pref="91" max="32767" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="119" max="32767" attributes="0"/>
               <Component id="showButton" min="-2" pref="41" max="-2" attributes="0"/>
@@ -37,7 +37,7 @@
           <Component id="deleteButton" alignment="0" max="32767" attributes="0"/>
           <Component id="editButton" alignment="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -99,7 +99,9 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="2"/>
         <Property name="text" type="java.lang.String" value="jLabel2"/>
+        <Property name="horizontalTextPosition" type="int" value="2"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
