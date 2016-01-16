@@ -2024,7 +2024,7 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
-            StringBuilder query = new StringBuilder("SELECT * FROM empleados WHERE id_tarea='");
+            StringBuilder query = new StringBuilder("SELECT * FROM tareas WHERE id_tarea='");
             query.append(id_task);
             query.append("'");
 
