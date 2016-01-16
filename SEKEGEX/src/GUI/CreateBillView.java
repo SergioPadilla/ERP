@@ -31,7 +31,8 @@ public class CreateBillView extends javax.swing.JFrame {
     public CreateBillView(DataClient data, int idBill) {
         initComponents();
         clienti = data;
-        this.setTitle("Modificaion de factura para cliente: " + clienti.name);        
+        this.setTitle("Modificaion de factura para cliente: " + clienti.name);
+        borrar=false;
         User usr = User.getInstance();
         billi=new Bill(idBill);
         products = usr.listProducts();
@@ -46,6 +47,7 @@ public class CreateBillView extends javax.swing.JFrame {
         this.setTitle("Cracion de factura para cliente: " + clienti.name);        
         User usr = User.getInstance();
         int idBill=usr.insertBill(data.id);
+        borrar=true;
         billi=new Bill(idBill);
         products = usr.listProducts();
         setFilas1();
@@ -107,6 +109,11 @@ public class CreateBillView extends javax.swing.JFrame {
         });
         jTablelist.setRowHeight(32);
         jScrollPane3.setViewportView(jTablelist);
+        if (jTablelist.getColumnModel().getColumnCount() > 0) {
+            jTablelist.getColumnModel().getColumn(3).setMinWidth(20);
+            jTablelist.getColumnModel().getColumn(3).setPreferredWidth(20);
+            jTablelist.getColumnModel().getColumn(3).setMaxWidth(20);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,7 +146,10 @@ public class CreateBillView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void returnButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnButtonMouseClicked
-       DataClientView obj = new DataClientView(clienti);
+       if(borrar||jTablelist.getRowCount()<1){
+            billi.removeBill();
+       }
+        DataClientView obj = new DataClientView(clienti);
        obj.setSize(getSize());
        obj.setLocation(getLocation());
        obj.setVisible(true);
@@ -153,11 +163,13 @@ public class CreateBillView extends javax.swing.JFrame {
             int modelRow = Integer.valueOf(e.getActionCommand()); 
             DataProduct prodi=(DataProduct)products.elementAt(modelRow);
             billi.insertPurchase(prodi.id);
+            
             CreateBillView obj = new CreateBillView(clienti,billi.getData().id_bill);
             obj.setSize(getSize());
             obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
+            
         }
     };
         
@@ -167,7 +179,7 @@ public class CreateBillView extends javax.swing.JFrame {
             
             int modelRow = Integer.valueOf(e.getActionCommand()); 
             DefaultTableModel modelo1 = (DefaultTableModel) jTablelist.getModel();
-            modelo1.setValueAt((Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString())-1), modelRow, 2);           
+            billi.deletePurchase(Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString()));           
             CreateBillView obj = new CreateBillView(clienti,billi.getData().id_bill);
             obj.setSize(getSize());
             obj.setLocation(getLocation());
@@ -192,22 +204,9 @@ public class CreateBillView extends javax.swing.JFrame {
             DataProduct prodi,prodj;
         for(int i=0;i<billproducts.size();i++){
              prodi=(DataProduct)billproducts.elementAt(i);
-            Object[] datos2 = {prodi.id,prodi.name,1};
-            /*
-            int j=i;
-            int count=1;
-            while (j<billproducts.size()){
-                prodj=(DataPurchase)billproducts.elementAt(j);
-                if(prodj.equals(prodi)){
-                    count++;
-                    billproducts.removeElementAt(j);
-                    datos2[2]=count;              
-                }
-                else{
-                    j++;
-                }
-            }
-            */
+            Object[] datos2 = {prodi.id,prodi.name,billi.consultPurchase(prodi.id).quantity,"-"};
+            System.out.println("cantidad: "+billi.consultPurchase(prodi.id).quantity);
+            
             modelo2.addRow(datos2);            
         }
         
@@ -249,10 +248,12 @@ public class CreateBillView extends javax.swing.JFrame {
         });
     }
 
+    
     public static DataClient clienti;
     public Vector products;
     public Vector billproducts=null;
     public static Bill billi;
+    public boolean borrar=true;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
