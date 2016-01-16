@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataTask;
+import Utils.StatusTask;
 import java.awt.Color;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
@@ -32,7 +33,17 @@ public class TaskView extends javax.swing.JFrame {
         usr = User.getInstance();
         this.title.setText(task.title);
         this.description.setText(task.description);
-        //this.status.setText(this.task.status);
+        
+        //Update status task view
+        if(this.task.status == StatusTask.TO_DO){
+            this.status.setText("Por hacer");
+        }
+        else if(this.task.status == StatusTask.DEVELOPMENT){
+            this.status.setText("En desarrollo");
+        }
+        else if(this.task.status == StatusTask.DONE){
+            this.status.setText("Terminada");
+        }
     
         //Get the comments to show it
         subTasks = usr.listSubTasks(task.id_task);
