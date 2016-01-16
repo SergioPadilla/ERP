@@ -91,6 +91,8 @@ public class CommentView extends javax.swing.JFrame {
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         TaskView obj = new TaskView(com.id_task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
@@ -99,6 +101,8 @@ public class CommentView extends javax.swing.JFrame {
         Comment comment = new Comment(com.id_comment);
         comment.removeComment();
         TaskView obj = new TaskView(com.id_task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_delete_buttonMouseClicked

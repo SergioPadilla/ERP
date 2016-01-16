@@ -63,17 +63,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="combo_employees" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="103" pref="103" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="due_date_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="employee_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="combo_employees" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="due_date_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="employee_label" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="dateChooserCombo1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>

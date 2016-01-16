@@ -94,6 +94,8 @@ public class AddComment extends javax.swing.JFrame {
             if(usr.insertComment(id_task, commentNew)){
                 DataTask task = usr.consultTask(id_task);
                 TaskView obj = new TaskView(task);
+                obj.setSize(getSize());
+                obj.setLocation(getLocation());
                 obj.setVisible(true);
                 dispose();
             }
@@ -109,6 +111,8 @@ public class AddComment extends javax.swing.JFrame {
     private void back_buttonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_back_buttonKeyPressed
         DataTask task = usr.consultTask(id_task);
         TaskView obj = new TaskView(task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonKeyPressed
