@@ -223,11 +223,13 @@ public class AddTask extends javax.swing.JFrame {
         String descriptionnew = description.getText();
         int hournew = 0;
         int minutesnew = 0;
-        if(!hour.getText().equals("") && !hour.getText().equals("")){
+        if(!hour.getText().equals("")){
+            hournew = Integer.parseInt(hour.getText());
+        }
+        if(!minutes.getText().equals("")){
             hournew = Integer.parseInt(hour.getText());
             minutesnew = Integer.parseInt(minutes.getText());
         }
-
 
         /**
          * Checking Data and add task

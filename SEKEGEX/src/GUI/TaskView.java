@@ -38,7 +38,7 @@ public class TaskView extends javax.swing.JFrame {
             this.status.setText("Por hacer");
         } else if(this.task.status == StatusTask.DEVELOPMENT){
             this.status.setText("En desarrollo");
-        }else if(this.task.status == StatusTask.DONE){
+        } else if(this.task.status == StatusTask.DONE){
             this.status.setText("Terminada");
         }
     
