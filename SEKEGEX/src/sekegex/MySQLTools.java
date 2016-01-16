@@ -2420,6 +2420,55 @@ public class MySQLTools {
            }
         }
     }
+    
+    /**
+     * 
+     * @param id_tarea
+     * @return 
+     */
+    public Vector listComments(int id_tarea){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector comments = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("SELECT * FROM comentarios WHERE tarea=");
+            query.append(id_tarea);
+            query.append("'");
+            
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                comments.add(new DataComment(rs.getInt("id_comentario"),
+                        rs.getString("comment"),
+                        rs.getInt("id_tarea")
+                ));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return comments;
+    }
 
     /**
      * Erase Comment

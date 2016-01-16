@@ -353,8 +353,47 @@ public class User {
     /**
      * Insert Comment
      */
-    public void insertComment(int id_tarea, String comment){
+    public Boolean insertComment(int id_tarea, String comment){
+        Boolean ok = true;
 
+        if(licence.contains(200))
+            DB.insertComment(id_tarea,comment);
+        else
+            ok = false;
+
+        return ok;
+    }
+    
+    /**
+     * 
+     * @param id_comment
+     * @param id_task
+     * @param comment 
+     */
+    public Boolean modifyComment(int id_comment, int id_task, String comment){
+        Boolean ok = true;
+
+        if(licence.contains(202))
+            DB.modifyComment(id_comment,id_task,comment);
+        else
+            ok = false;
+
+        return ok;
+    }
+    
+    /**
+     * 
+     * @param id_tarea
+     * @return 
+     */
+    public Vector listComments(int id_task){
+        Vector comments = null;
+
+        if(licence.contains(203)){
+            comments = DB.listSubTasks(id_task);
+        }
+
+        return comments;
     }
 
     /**
