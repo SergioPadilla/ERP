@@ -411,7 +411,7 @@ public class TaskView extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 int index = ((JList) e.getSource()).getSelectedIndex();
                 
-                CommentView obj = new CommentView(((DataComment) comments.get(index)).id_task,((DataComment) comments.get(index)).text);
+                CommentView obj = new CommentView((DataComment) comments.get(index));
                 obj.setVisible(true);
                 dispose();
             }

@@ -84,15 +84,15 @@ public class AddTask extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        title_label.setText("Título*");
+        title_label.setText("Título");
 
         description.setColumns(20);
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
-        description_label.setText("Descripción*");
+        description_label.setText("Descripción");
 
-        time_label.setText("Tiempo Estimado*");
+        time_label.setText("Tiempo Estimado");
 
         h_label.setText("H");
 
@@ -155,7 +155,7 @@ public class AddTask extends javax.swing.JFrame {
                                         .addComponent(minutes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(3, 3, 3)
                                         .addComponent(minute_label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 454, Short.MAX_VALUE)))))
+                                .addGap(0, 460, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
