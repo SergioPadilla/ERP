@@ -33,7 +33,6 @@ public class TaskView extends javax.swing.JFrame {
         usr = User.getInstance();
         this.title.setText(task.title);
         this.description.setText(task.description);
-
         //Update status task view
         if(this.task.status == StatusTask.TO_DO){
             this.status.setText("Por hacer");
@@ -44,7 +43,6 @@ public class TaskView extends javax.swing.JFrame {
         else if(this.task.status == StatusTask.DONE){
             this.status.setText("Terminada");
         }
-
         //Get the comments to show it
         subTasks = usr.listSubTasks(task.id_task);
 
