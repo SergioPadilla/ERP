@@ -12,6 +12,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import sekegex.Task;
 import sekegex.User;
 
 /**
@@ -90,7 +91,7 @@ public class TaskView extends javax.swing.JFrame {
         back_button = new javax.swing.JButton();
         modify_button = new javax.swing.JButton();
         updateTask = new javax.swing.JButton();
-        workLog_button = new javax.swing.JButton();
+        delete_button = new javax.swing.JButton();
         status_label = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
 
@@ -169,6 +170,7 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
 
+        modify_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         modify_button.setText("Modificar");
         modify_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -183,10 +185,11 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
 
-        workLog_button.setText("Registros de trabajo");
-        workLog_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        delete_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/trash.png"))); // NOI18N
+        delete_button.setText("Borrar");
+        delete_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                workLog_buttonMouseClicked(evt);
+                delete_buttonMouseClicked(evt);
             }
         });
 
@@ -219,7 +222,7 @@ public class TaskView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(workLog_button)
+                        .addComponent(delete_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -281,14 +284,14 @@ public class TaskView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comments_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addComment_button)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(modify_button)
                     .addComponent(back_button)
-                    .addComponent(workLog_button)
+                    .addComponent(delete_button)
                     .addComponent(updateTask))
                 .addContainerGap())
         );
@@ -308,16 +311,7 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_addComment_buttonMouseClicked
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        if(this.task.id_task_father != 0){
-            DataTask taskFather = usr.consultTask(this.task.id_task_father);
-            TaskView obj = new TaskView(taskFather);
-            obj.setVisible(true);
-            dispose();
-        }else{
-            Workflow obj = new Workflow();
-            obj.setVisible(true);
-            dispose();
-        }
+        back();
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void modify_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modify_buttonMouseClicked
@@ -357,9 +351,11 @@ public class TaskView extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_updateTaskMouseClicked
 
-    private void workLog_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workLog_buttonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_workLog_buttonMouseClicked
+    private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
+        Task task = new Task(this.task.id_task);
+        task.eraseTask();
+        back();
+    }//GEN-LAST:event_delete_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -395,6 +391,19 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void back(){
+        if(this.task.id_task_father != 0){
+            DataTask taskFather = usr.consultTask(this.task.id_task_father);
+            TaskView obj = new TaskView(taskFather);
+            obj.setVisible(true);
+            dispose();
+        }else{
+            Workflow obj = new Workflow();
+            obj.setVisible(true);
+            dispose();
+        }
+    }
 
     public static DataTask task;
     private User usr;
@@ -403,6 +412,7 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JButton addComment_button;
     private javax.swing.JButton back_button;
     private javax.swing.JLabel comments_label;
+    private javax.swing.JButton delete_button;
     private javax.swing.JTextArea description;
     private javax.swing.JProgressBar hour_estimated_bar;
     private javax.swing.JLabel hour_estimated_label;
@@ -424,6 +434,5 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JLabel subtasks_label;
     private javax.swing.JLabel title;
     private javax.swing.JButton updateTask;
-    private javax.swing.JButton workLog_button;
     // End of variables declaration//GEN-END:variables
 }

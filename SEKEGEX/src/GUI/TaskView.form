@@ -45,7 +45,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="modify_button" min="-2" pref="103" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="workLog_button" min="-2" max="-2" attributes="0"/>
+                      <Component id="delete_button" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="back_button" min="-2" pref="103" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -121,14 +121,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="comments_label" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane3" pref="198" max="32767" attributes="0"/>
+              <Component id="jScrollPane3" pref="187" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="addComment_button" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="modify_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="back_button" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="workLog_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="delete_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="updateTask" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -328,6 +328,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="modify_button">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Images/edit.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Modificar"/>
       </Properties>
       <Events>
@@ -342,12 +345,15 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="updateTaskMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="workLog_button">
+    <Component class="javax.swing.JButton" name="delete_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Registros de trabajo"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Images/trash.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Borrar"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="workLog_buttonMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="delete_buttonMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="status_label">
