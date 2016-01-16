@@ -16,6 +16,7 @@ import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sekegex.Bill;
 import sekegex.Client;
 import sekegex.Server;
 import sekegex.User;
@@ -117,11 +118,11 @@ public class DataClientView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Factura", "Fecha", "Ver Productos"
+                "ID Factura", "Fecha", "Ver", "Borrar"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -130,9 +131,12 @@ public class DataClientView extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(2).setMinWidth(120);
-            jTable3.getColumnModel().getColumn(2).setPreferredWidth(120);
-            jTable3.getColumnModel().getColumn(2).setMaxWidth(120);
+            jTable3.getColumnModel().getColumn(2).setMinWidth(70);
+            jTable3.getColumnModel().getColumn(2).setPreferredWidth(70);
+            jTable3.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTable3.getColumnModel().getColumn(3).setMinWidth(70);
+            jTable3.getColumnModel().getColumn(3).setPreferredWidth(70);
+            jTable3.getColumnModel().getColumn(3).setMaxWidth(70);
         }
 
         jButtonAddServer.setText("Añadir Servidor");
@@ -143,30 +147,34 @@ public class DataClientView extends javax.swing.JFrame {
         });
 
         jButton2.setText("Añadir Factura");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addGap(355, 355, 355)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 697, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonAddServer)
-                        .addGap(27, 27, 27))))
+                    .addComponent(jButtonAddServer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,14 +182,14 @@ public class DataClientView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jButtonAddServer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonAddServer, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -191,20 +199,33 @@ public class DataClientView extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         ClientView obj = new ClientView();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
             dispose();    }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButtonAddServerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddServerMouseClicked
             CreateServerView obj = new CreateServerView(clienti);
-            obj.setVisible(true);
-            dispose();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);                    
+        dispose();
     }//GEN-LAST:event_jButtonAddServerMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        CreateBillView obj = new CreateBillView(clienti);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();    }//GEN-LAST:event_jButton2MouseClicked
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
             ModifyDataClient obj = new ModifyDataClient(clienti);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
             obj.setVisible(true);
-            dispose(); 
+        dispose(); 
         }
     };
     Action ver = new AbstractAction() {
@@ -212,6 +233,8 @@ public class DataClientView extends javax.swing.JFrame {
             javax.swing.JTable table = (javax.swing.JTable)e.getSource();
             int modelRow = Integer.valueOf(e.getActionCommand()); 
             DataServerView obj = new DataServerView((DataServer) servers.elementAt(modelRow));
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose(); 
         }
@@ -243,11 +266,44 @@ public class DataClientView extends javax.swing.JFrame {
     
     Action verProductos = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            ModifyDataClient obj = new ModifyDataClient(clienti);
+            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+            int modelRow = Integer.valueOf(e.getActionCommand());
+            DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
+            
+            int idBill=Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString());
+            CreateBillView obj = new CreateBillView(clienti,idBill);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose(); 
         }
     };
+    
+    
+        Action borrarProductos = new AbstractAction() {
+        public void actionPerformed(ActionEvent e) {
+        javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+        int modelRow = Integer.valueOf(e.getActionCommand());
+        DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
+
+        
+        JFrame frame = new JFrame();
+        int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar la factura con id: "
+                +Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString())+"?");
+        if (confirmacion==JOptionPane.YES_OPTION){    
+            Bill billo=new Bill(Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString()));
+            billo.removeBill();
+            DataClientView obj = new DataClientView(clienti);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+            
+        }
+
+            /*IMPLEMENTAR EL BORRADO*/ 
+        }
+    }; 
         
     private void setFilas() {
         DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
@@ -281,6 +337,8 @@ public class DataClientView extends javax.swing.JFrame {
         
         
         ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verProductos, 2);
+        buttonColumn4.setMnemonic(KeyEvent.VK_D);
+        ButtonColumn buttonColumn5 = new ButtonColumn(jTable3, borrarProductos, 3);
         buttonColumn4.setMnemonic(KeyEvent.VK_D);
     }
     
