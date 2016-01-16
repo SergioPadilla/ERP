@@ -110,9 +110,15 @@ public class CreateBillView extends javax.swing.JFrame {
         jTablelist.setRowHeight(32);
         jScrollPane3.setViewportView(jTablelist);
         if (jTablelist.getColumnModel().getColumnCount() > 0) {
-            jTablelist.getColumnModel().getColumn(3).setMinWidth(20);
-            jTablelist.getColumnModel().getColumn(3).setPreferredWidth(20);
-            jTablelist.getColumnModel().getColumn(3).setMaxWidth(20);
+            jTablelist.getColumnModel().getColumn(0).setMinWidth(70);
+            jTablelist.getColumnModel().getColumn(0).setPreferredWidth(70);
+            jTablelist.getColumnModel().getColumn(0).setMaxWidth(70);
+            jTablelist.getColumnModel().getColumn(2).setMinWidth(70);
+            jTablelist.getColumnModel().getColumn(2).setPreferredWidth(70);
+            jTablelist.getColumnModel().getColumn(2).setMaxWidth(70);
+            jTablelist.getColumnModel().getColumn(3).setMinWidth(50);
+            jTablelist.getColumnModel().getColumn(3).setPreferredWidth(50);
+            jTablelist.getColumnModel().getColumn(3).setMaxWidth(50);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
