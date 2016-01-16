@@ -29,21 +29,21 @@ public class AddTask extends javax.swing.JFrame {
     public AddTask() {
         initComponents();
         this.setTitle("Añadir Tarea");
-        usr = User.getInstance();        
+        usr = User.getInstance();
         Vector employees = usr.listEmployees();
 
         for(int i = 0; i < employees.size(); i++){
             DataEmployee employee = (DataEmployee) employees.get(i);
             combo_employees.addItem(employee.name);
         }
-        
+
         this.combo_employees.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox)e.getSource();
                 name = (String) cb.getSelectedItem();
             }
-        }); 
+        });
     }
 
     /**
@@ -248,7 +248,7 @@ public class AddTask extends javax.swing.JFrame {
         final String daynew = day.getText().toString();
         final String monthnew = month.getText().toString();
         final String yearnew = year.getText().toString();
-        
+
         /**
          * Checking Data and add task
          */
@@ -265,8 +265,16 @@ public class AddTask extends javax.swing.JFrame {
         else{
             if(this.id_task_father != 0){
                 Time time_estimated = new Time(hournew, minutesnew, 0);
-                if(usr.insertSubTask(titlenew, descriptionnew, time_estimated, id_task_father)){
-                    JOptionPane.showMessageDialog(frame, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
+                Date date=new Date(dateChooserCombo1.getSelectedDate().getTimeInMillis());
+                boolean encontrado=false;
+                int id_employee=0;
+                for(int i = 0; i < employees.size() && !encontrado; i++){
+                    DataEmployee employee = (DataEmployee) employees.get(i);
+                    encontrado=combo_employees.getSelectedItem().equals(employee.name);
+                    id_employee=employee.id_employee;
+                }
+                if(usr.insertSubTask(titlenew, descriptionnew, time_estimated,date,id_employee, id_task_father)){
+                    JOptionPane.showMessageDialog(this, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     JOptionPane.showMessageDialog(frame, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
                 }
@@ -288,7 +296,7 @@ public class AddTask extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

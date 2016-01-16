@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataTask;
+import Utils.StatusTask;
 import java.awt.Color;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
@@ -28,29 +29,40 @@ public class TaskView extends javax.swing.JFrame {
         this.task = task;
         this.setTitle("Tarea");
         this.getContentPane().setBackground(Color.BLUE);
-        
+
         usr = User.getInstance();
         this.title.setText(task.title);
         this.description.setText(task.description);
-    
+
+        //Update status task view
+        if(this.task.status == StatusTask.TO_DO){
+            this.status.setText("Por hacer");
+        }
+        else if(this.task.status == StatusTask.DEVELOPMENT){
+            this.status.setText("En desarrollo");
+        }
+        else if(this.task.status == StatusTask.DONE){
+            this.status.setText("Terminada");
+        }
+
         //Get the comments to show it
         subTasks = usr.listSubTasks(task.id_task);
-        
+
         //Create the model and add it the title of the task
         DefaultListModel model = new DefaultListModel();
-        
+
         for(int i = 0; i < subTasks.size(); i++){
             DataTask subtask =(DataTask) subTasks.get(i);
             model.addElement(subtask.title);
         }
-        
+
         this.subTasks_list.setModel(model);
-        
+
         this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int index = ((JList) e.getSource()).getSelectedIndex();
-                
+
                 TaskView obj = new TaskView((DataTask) subTasks.get(index));
                 obj.setSize(getSize());
                 obj.setLocation(getLocation());
@@ -317,22 +329,22 @@ public class TaskView extends javax.swing.JFrame {
 
         //Get the comments to show it
         subTasks = usr.listSubTasks(task.id_task);
-        
+
         //Create the model and add it the title of the task
         DefaultListModel model = new DefaultListModel();
-        
+
         for(int i = 0; i < subTasks.size(); i++){
             DataTask subtask =(DataTask) subTasks.get(i);
             model.addElement(subtask.title);
         }
-        
+
         this.subTasks_list.setModel(model);
-        
+
         this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int index = ((JList) e.getSource()).getSelectedIndex();
-                
+
                 TaskView obj = new TaskView((DataTask) subTasks.get(index));
             obj.setSize(getSize());
             obj.setLocation(getLocation());
@@ -353,7 +365,7 @@ public class TaskView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
