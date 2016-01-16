@@ -363,7 +363,8 @@ public class TaskView extends javax.swing.JFrame {
             obj.setVisible(true);
             dispose();
         }
-
+    }
+    
     private void update(){
         this.task = usr.consultTask(this.task.id_task);
 

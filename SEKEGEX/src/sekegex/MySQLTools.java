@@ -2171,7 +2171,38 @@ public class MySQLTools {
      * Erase task
      */
     void eraseTask(int id_task){
+        Connection con = null;
+        PreparedStatement stmt = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM tareas WHERE id_tarea='");
+            query.append(id_task);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+           if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+           }
+        }
     }
 
     //"REGISTROS" table
