@@ -1828,7 +1828,7 @@ public class MySQLTools {
     /**
      * Insert new task
      */
-    void insertTask(String title, String description, Time time_estimated,Date date,int id_employee){
+    void insertTask(String title, String description, Date date, int id_employee){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1836,14 +1836,13 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas,fecha,empleado_asignado,estado) VALUES(?,?,?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, fecha,empleado_asignado,estado) VALUES(?,?,?,?,?);");
 
            stmt.setString(1, title);
            stmt.setString(2, description);
-           stmt.setTime(3, time_estimated);
-           stmt.setDate(4, date);
-           stmt.setInt(5, id_employee);
-           stmt.setString(6, "TO_DO");
+           stmt.setDate(3, date);
+           stmt.setInt(4, id_employee);
+           stmt.setString(5, "TO_DO");
 
            stmt.executeUpdate();
 
@@ -1868,7 +1867,7 @@ public class MySQLTools {
     /**
      * Insert new SubTask
      */
-    void insertSubTask(String title, String description, Time time_estimated,Date date,int id_employee, int id_task_father){
+    void insertSubTask(String title, String description, Date date, int id_employee, int id_task_father){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1876,15 +1875,14 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas,fecha,empleado_asignado,estado, id_tarea_padre) VALUES(?,?,?,?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, fecha,empleado_asignado,estado, id_tarea_padre) VALUES(?,?,?,?,?,?);");
 
            stmt.setString(1, title);
            stmt.setString(2, description);
-           stmt.setTime(3, time_estimated);
-           stmt.setDate(4, date);
-           stmt.setInt(5, id_employee);
-           stmt.setString(6, "TO_DO");
-           stmt.setInt(7, id_task_father);
+           stmt.setDate(3, date);
+           stmt.setInt(4, id_employee);
+           stmt.setString(5, "TO_DO");
+           stmt.setInt(6, id_task_father);
 
            stmt.executeUpdate();
 
@@ -1909,7 +1907,7 @@ public class MySQLTools {
     /**
      * Modify task
      */
-    void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_employee, StatusTask status){
+    void modifyTask(int id_task, String title, String description, Date due_date, int id_employee, StatusTask status){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1950,15 +1948,6 @@ public class MySQLTools {
                 }
                 query.append("estado = '");
                 query.append(status);
-                query.append("'");
-                first=false;
-            }
-            if(!time_estimated.equals(new Time(0,0,0))){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("horas_estimadas = '");
-                query.append(time_estimated);
                 query.append("'");
                 first=false;
             }
