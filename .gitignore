@@ -161,4 +161,4 @@ sympy-plots-for-*.tex/
 /SEKEGEX/dist/
 
 *nbproject*
-*.DSstore*
+*.DS_Store*
