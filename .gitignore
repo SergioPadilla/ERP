@@ -159,6 +159,4 @@ sympy-plots-for-*.tex/
 /SEKEGEX/nbproject/private/
 /SEKEGEX/build/
 /SEKEGEX/dist/
-
-*nbproject*
-*.DS_Store*
+.DS_Store
