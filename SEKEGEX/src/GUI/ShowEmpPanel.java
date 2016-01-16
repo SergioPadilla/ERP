@@ -86,7 +86,7 @@ public class ShowEmpPanel extends javax.swing.JPanel {
                             .addComponent(jLabel8)
                             .addComponent(jLabel9)))
                     .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

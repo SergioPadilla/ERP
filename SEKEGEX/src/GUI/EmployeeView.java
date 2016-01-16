@@ -118,7 +118,6 @@ public class EmployeeView extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(600, 450));
 
         backButton1.setText("Volver");
         backButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -173,11 +172,6 @@ public class EmployeeView extends javax.swing.JFrame {
 
     private void backButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton1ActionPerformed
         // TODO add your handling code here:
-        MainMenu obj = new MainMenu();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose();
     }//GEN-LAST:event_backButton1ActionPerformed
 
     private void createEmpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEmpButtonActionPerformed
@@ -189,11 +183,11 @@ public class EmployeeView extends javax.swing.JFrame {
         createEmpPanel1.clear();
         createEmpPanel1.setLocation((getWidth()-createEmpPanel1.getWidth())/2,20 );
         add(createEmpPanel1);
-        backButton2.setSize(backButton2.getPreferredSize());
-        backButton2.setLocation(createEmpPanel1.getX()+createEmpPanel1.getWidth()-backButton2.getPreferredSize().width,createEmpPanel1.getY()+createEmpPanel1.getHeight()+6);
+        backButton2.setSize(63, 23);
+        backButton2.setLocation(createEmpPanel1.getX()+createEmpPanel1.getWidth()-63,createEmpPanel1.getY()+createEmpPanel1.getHeight()+6);
         add(backButton2);
-        saveButton.setSize(saveButton.getPreferredSize());
-        saveButton.setLocation(createEmpPanel1.getX()+createEmpPanel1.getWidth()-backButton2.getPreferredSize().width-18-saveButton.getPreferredSize().width,createEmpPanel1.getY()+createEmpPanel1.getHeight()+6);
+        saveButton.setSize(59, 23);
+        saveButton.setLocation(createEmpPanel1.getX()+createEmpPanel1.getWidth()-81-59,createEmpPanel1.getY()+createEmpPanel1.getHeight()+6);
         add(saveButton);
         paintAll(getGraphics());
         repaint();
@@ -202,8 +196,8 @@ public class EmployeeView extends javax.swing.JFrame {
     private void createEmpPanel1AncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_createEmpPanel1AncestorResized
         // TODO add your handling code here:
         createEmpPanel1.setLocation((getWidth()-createEmpPanel1.getWidth())/2,20 );
-        backButton2.setLocation(createEmpPanel1.getX()+createEmpPanel1.getWidth()-backButton2.getPreferredSize().width,createEmpPanel1.getY()+createEmpPanel1.getHeight()+6);
-        saveButton.setLocation(createEmpPanel1.getX()+createEmpPanel1.getWidth()-backButton2.getPreferredSize().width-18-saveButton.getPreferredSize().width,createEmpPanel1.getY()+createEmpPanel1.getHeight()+6);
+        backButton2.setLocation(createEmpPanel1.getX()+createEmpPanel1.getWidth()-63,createEmpPanel1.getY()+createEmpPanel1.getHeight()+6);
+        saveButton.setLocation(createEmpPanel1.getX()+createEmpPanel1.getWidth()-81-59,createEmpPanel1.getY()+createEmpPanel1.getHeight()+6);
     }//GEN-LAST:event_createEmpPanel1AncestorResized
 
     private void backButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton2ActionPerformed
@@ -221,14 +215,14 @@ public class EmployeeView extends javax.swing.JFrame {
     private void employeeGeneralView1AncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_employeeGeneralView1AncestorResized
         // TODO add your handling code here
         employeeGeneralView1.setLocation((getWidth()-employeeGeneralView1.getWidth())/2,11 );
-        backButton1.setLocation(employeeGeneralView1.getX()+employeeGeneralView1.getWidth()-backButton1.getPreferredSize().width,employeeGeneralView1.getY()+employeeGeneralView1.getHeight()+6);
-        createEmpButton.setLocation(employeeGeneralView1.getX()+employeeGeneralView1.getWidth()-backButton1.getPreferredSize().width-18-createEmpButton.getPreferredSize().width,employeeGeneralView1.getY()+employeeGeneralView1.getHeight()+6);
+        backButton1.setLocation(employeeGeneralView1.getX()+employeeGeneralView1.getWidth()-63,employeeGeneralView1.getY()+employeeGeneralView1.getHeight()+6);
+        createEmpButton.setLocation(employeeGeneralView1.getX()+employeeGeneralView1.getWidth()-81-107,employeeGeneralView1.getY()+employeeGeneralView1.getHeight()+6);
     }//GEN-LAST:event_employeeGeneralView1AncestorResized
 
     private void showEmpPanel1AncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_showEmpPanel1AncestorResized
         // TODO add your handling code here:
         showEmpPanel1.setLocation((getWidth()-showEmpPanel1.getWidth())/2,11 );
-        backButton3.setLocation(showEmpPanel1.getX()+showEmpPanel1.getWidth()/2,showEmpPanel1.getY()+showEmpPanel1.getHeight()+6);
+        backButton3.setLocation(showEmpPanel1.getX()+showEmpPanel1.getWidth()-63,showEmpPanel1.getY()+showEmpPanel1.getHeight()+6);
     }//GEN-LAST:event_showEmpPanel1AncestorResized
 
     private void backButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton3ActionPerformed
@@ -245,8 +239,8 @@ public class EmployeeView extends javax.swing.JFrame {
     private void modifyEmpPanel1AncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_modifyEmpPanel1AncestorResized
         // TODO add your handling code here:
         modifyEmpPanel1.setLocation((getWidth()-modifyEmpPanel1.getWidth())/2,11 );
-        backButton4.setLocation(modifyEmpPanel1.getX()+modifyEmpPanel1.getWidth()/2,modifyEmpPanel1.getY()+modifyEmpPanel1.getHeight()+6);
-        saveButton1.setLocation(modifyEmpPanel1.getX()+modifyEmpPanel1.getWidth()/2-18-saveButton1.getPreferredSize().width,modifyEmpPanel1.getY()+modifyEmpPanel1.getHeight()+6);
+        backButton4.setLocation(modifyEmpPanel1.getX()+modifyEmpPanel1.getWidth()-63,modifyEmpPanel1.getY()+modifyEmpPanel1.getHeight()+6);
+        saveButton1.setLocation(modifyEmpPanel1.getX()+modifyEmpPanel1.getWidth()-81-80,modifyEmpPanel1.getY()+modifyEmpPanel1.getHeight()+6);
 
     }//GEN-LAST:event_modifyEmpPanel1AncestorResized
 
@@ -290,7 +284,7 @@ public class EmployeeView extends javax.swing.JFrame {
             paintAll(getGraphics());
             repaint();
         }else{
-            JOptionPane.showMessageDialog(this,"Tienes que rellenar oblidatoriamente los campos Nombre, Apellidos y Dni(9 caracteres máximo)");
+            JOptionPane.showMessageDialog(this,"Tienes que rellenar oblidatoriamente los campos Nombre, Apellidos y Dni");
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
@@ -298,12 +292,12 @@ public class EmployeeView extends javax.swing.JFrame {
         remove(employeeGeneralView1);
         remove(backButton1);
         remove(createEmpButton);
-        showEmpPanel1.setSize(500, 162);
+        showEmpPanel1.setSize(157, 162);
         showEmpPanel1.setLocation((getWidth()-showEmpPanel1.getWidth())/2,11 );
         showEmpPanel1.set(emp.getData());
         add(showEmpPanel1);
-        backButton3.setSize(backButton3.getPreferredSize());
-        backButton3.setLocation(showEmpPanel1.getX()+showEmpPanel1.getWidth()/2,showEmpPanel1.getY()+showEmpPanel1.getHeight()+6);
+        backButton3.setSize(63, 23);
+        backButton3.setLocation(showEmpPanel1.getX()+showEmpPanel1.getWidth()-63,showEmpPanel1.getY()+showEmpPanel1.getHeight()+6);
         add(backButton3);
         paintAll(getGraphics());
         repaint();
@@ -313,16 +307,16 @@ public class EmployeeView extends javax.swing.JFrame {
         remove(employeeGeneralView1);
         remove(backButton1);
         remove(createEmpButton);
-        modifyEmpPanel1.setSize(500,modifyEmpPanel1.getPreferredSize().height);
+        modifyEmpPanel1.setSize(198, 320);
         modifyEmpPanel1.clear();
         modifyEmpPanel1.setLocation((getWidth()-modifyEmpPanel1.getWidth())/2,11 );
         modifyEmpPanel1.set(emp);
         add(modifyEmpPanel1);
-        backButton4.setSize(backButton4.getPreferredSize());
-        backButton4.setLocation(modifyEmpPanel1.getX()+modifyEmpPanel1.getWidth()/2,modifyEmpPanel1.getY()+modifyEmpPanel1.getHeight()+6);
+        backButton4.setSize(63, 23);
+        backButton4.setLocation(modifyEmpPanel1.getX()+modifyEmpPanel1.getWidth()-63,modifyEmpPanel1.getY()+modifyEmpPanel1.getHeight()+6);
         add(backButton4);
-        saveButton1.setSize(saveButton1.getPreferredSize());
-        saveButton1.setLocation(modifyEmpPanel1.getX()+modifyEmpPanel1.getWidth()/2-18-saveButton1.getPreferredSize().width,modifyEmpPanel1.getY()+modifyEmpPanel1.getHeight()+6);
+        saveButton1.setSize(80, 23);
+        saveButton1.setLocation(modifyEmpPanel1.getX()+modifyEmpPanel1.getWidth()-81-80,modifyEmpPanel1.getY()+modifyEmpPanel1.getHeight()+6);
         add(saveButton1);
         paintAll(getGraphics());
         repaint();

@@ -134,7 +134,9 @@ public class ModifyDataProduct extends javax.swing.JFrame {
     private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelButtonMouseClicked
         // TODO add your handling code here:
         DataProductView obj = new DataProductView(producto);
-        obj.setVisible(true);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_cancelButtonMouseClicked
 
