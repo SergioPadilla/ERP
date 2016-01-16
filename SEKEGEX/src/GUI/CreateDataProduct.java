@@ -93,7 +93,7 @@ public class CreateDataProduct extends javax.swing.JFrame {
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
-        amount.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        amount.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -162,10 +162,10 @@ public class CreateDataProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nombre = name.getText().toString();
         String descripcion = description.getText().toString();
-        float f =0;
+        float f = 0;
         if(!amount.getText().equals("")){
-            String importe = amount.getText().toString();
-            f = Float.parseFloat(importe);
+            String importe = amount.getText();
+            f = Float.parseFloat(amount.getText().replace(",", ".").toString());
         }
         usr = User.getInstance();
         JFrame frame = new JFrame();
