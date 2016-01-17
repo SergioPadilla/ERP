@@ -2208,14 +2208,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -2290,7 +2290,7 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
 
-            StringBuilder query = new StringBuilder("SELECT * FROM comentarios WHERE tarea=");
+            StringBuilder query = new StringBuilder("SELECT * FROM comentarios WHERE tarea='");
             query.append(id_tarea);
             query.append("'");
             
@@ -2300,8 +2300,8 @@ public class MySQLTools {
 
             while(rs.next()){
                 comments.add(new DataComment(rs.getInt("id_comentario"),
-                        rs.getString("comment"),
-                        rs.getInt("id_tarea")
+                        rs.getString("texto"),
+                        rs.getInt("tarea")
                 ));
             }
 

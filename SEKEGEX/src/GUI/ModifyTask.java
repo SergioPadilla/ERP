@@ -227,7 +227,7 @@ public class ModifyTask extends javax.swing.JFrame {
         
         Task task = new Task(this.task.id_task);
         if(task.modifyTask(titlenew, descriptionnew, date, status)){
-            TaskView obj = new TaskView(this.task.id_task);
+            TaskView obj = new TaskView(this.task);
             obj.setSize(getSize());
             obj.setLocation(getLocation());
             obj.setVisible(true);
