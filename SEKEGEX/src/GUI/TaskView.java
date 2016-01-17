@@ -35,15 +35,6 @@ public class TaskView extends javax.swing.JFrame {
         update();
     }
 
-    public TaskView(int task){
-        initComponents();
-        usr = User.getInstance();
-        this.task = usr.consultTask(task);
-        this.setTitle("Tarea");
-        this.getContentPane().setBackground(Color.BLUE);
-        update();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,7 +120,7 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
 
-        back_button.setText("Atrás");
+        back_button.setText("Volver");
         back_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back_buttonMouseClicked(evt);
@@ -246,12 +237,16 @@ public class TaskView extends javax.swing.JFrame {
     private void newSubTask_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newSubTask_buttonMouseClicked
         AddTask obj = new AddTask();
         obj.id_task_father = task.id_task;
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_newSubTask_buttonMouseClicked
 
     private void addComment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addComment_buttonMouseClicked
         AddComment obj = new AddComment(task.id_task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_addComment_buttonMouseClicked
@@ -262,6 +257,8 @@ public class TaskView extends javax.swing.JFrame {
 
     private void modify_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modify_buttonMouseClicked
         ModifyTask obj = new ModifyTask(this.task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_modify_buttonMouseClicked
@@ -316,10 +313,14 @@ public class TaskView extends javax.swing.JFrame {
         if(this.task.id_task_father != 0){
             DataTask taskFather = usr.consultTask(this.task.id_task_father);
             TaskView obj = new TaskView(taskFather);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
         }else{
             Workflow obj = new Workflow();
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
         }
@@ -370,8 +371,8 @@ public class TaskView extends javax.swing.JFrame {
         DefaultListModel modelc = new DefaultListModel();
 
         for(int i = 0; i < comments.size(); i++){
-            DataTask comment =(DataTask) comments.get(i);
-            model.addElement(comment.title);
+            DataComment comment =(DataComment) comments.get(i);
+            modelc.addElement(comment.text);
         }
 
         this.comments_list.setModel(modelc);
@@ -382,6 +383,8 @@ public class TaskView extends javax.swing.JFrame {
                 int index = ((JList) e.getSource()).getSelectedIndex();
 
                 CommentView obj = new CommentView((DataComment) comments.get(index));
+                obj.setSize(getSize());
+                obj.setLocation(getLocation());
                 obj.setVisible(true);
                 dispose();
             }

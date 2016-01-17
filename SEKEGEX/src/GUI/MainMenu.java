@@ -83,16 +83,13 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(logOut_button))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jButton1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(clients_button, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                    .addComponent(clients_button, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(products_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(products_button, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                     .addComponent(workflow_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28))
         );
@@ -116,7 +113,9 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void clients_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clients_buttonMouseClicked
         ClientView obj = new ClientView();
-        obj.setVisible(true);//Crear vista para clientes
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_clients_buttonMouseClicked
@@ -124,12 +123,16 @@ public class MainMenu extends javax.swing.JFrame {
     private void products_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_products_buttonMouseClicked
         //Crear vista para productos
         ProductView obj = new ProductView();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_products_buttonMouseClicked
 
     private void workflow_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workflow_buttonMouseClicked
         Workflow obj = new Workflow();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_workflow_buttonMouseClicked
@@ -137,13 +140,16 @@ public class MainMenu extends javax.swing.JFrame {
     private void logOut_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOut_buttonMouseClicked
         Login obj = new Login();
         obj.setVisible(true);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         dispose();
     }//GEN-LAST:event_logOut_buttonMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         EmployeeView obj = new EmployeeView();
-        obj.setVisible(true);//Crear vista para empleados
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
         dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed

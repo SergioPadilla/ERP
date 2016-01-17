@@ -6,6 +6,8 @@
 package GUI;
 
 import Utils.CheckLogin;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
@@ -178,6 +180,8 @@ public class Login extends javax.swing.JFrame implements KeyListener {
         }
         else if(usr.login(dni,pass)){
             MainMenu obj = new MainMenu();
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
             obj.setVisible(true);
             dispose();
         }

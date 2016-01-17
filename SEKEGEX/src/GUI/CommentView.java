@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataComment;
+import DataType.DataTask;
 import sekegex.Comment;
 import sekegex.User;
 
@@ -90,17 +91,14 @@ public class CommentView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        TaskView obj = new TaskView(com.id_task);
-        obj.setVisible(true);
-        dispose();
+        DataTask task = usr.consultTask(com.id_task);
+        back();
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
         Comment comment = new Comment(com.id_comment);
         comment.removeComment();
-        TaskView obj = new TaskView(com.id_task);
-        obj.setVisible(true);
-        dispose();
+        back();
     }//GEN-LAST:event_delete_buttonMouseClicked
 
     /**
@@ -136,6 +134,15 @@ public class CommentView extends javax.swing.JFrame {
                 new CommentView(com).setVisible(true);
             }
         });
+    }
+    
+    private void back(){
+        DataTask task = usr.consultTask(com.id_task);
+        TaskView obj = new TaskView(task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
     }
     
     private static DataComment com;

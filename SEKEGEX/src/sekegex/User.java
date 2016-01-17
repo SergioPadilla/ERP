@@ -384,7 +384,7 @@ public class User {
         Vector comments = null;
 
         if(licence.contains(203)){
-            comments = DB.listSubTasks(id_task);
+            comments = DB.listComments(id_task);
         }
 
         return comments;

@@ -253,7 +253,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="back_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Atr&#xe1;s"/>
+        <Property name="text" type="java.lang.String" value="Volver"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="back_buttonMouseClicked"/>
