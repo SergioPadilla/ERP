@@ -9,6 +9,7 @@ import DataType.DataClient;
 import DataType.DataProduct;
 import DataType.DataPurchase;
 import static GUI.DataClientView.clienti;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
@@ -33,6 +34,8 @@ public class CreateBillView extends javax.swing.JFrame {
         clienti = data;
         this.setTitle("Modificaion de factura para cliente: " + clienti.name);
         borrar=false;
+                this.getContentPane().setBackground(Color.BLACK);
+
         User usr = User.getInstance();
         billi=new Bill(idBill);
         products = usr.listProducts();
