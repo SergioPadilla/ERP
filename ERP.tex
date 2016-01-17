@@ -19,6 +19,7 @@
 \usepackage[spanish,es-noquoting,es-lcroman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{graphicx}
 \selectlanguage{spanish}
 
 %----------------------------------------------------------------------------------------
@@ -974,7 +975,7 @@ CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\
 CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9) UNIQUE NOT NULL,  nombre TEXT, password TEXT, apellidos TEXT, permisos INT)
 
 \subsection{TAREAS}
-CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, descripcion TEXT, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'))
+CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, descripcion TEXT, id\_tarea\_padre INT, horas\_estimadas TIME, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM('TO\_DO', 'DEVELOPMENT', 'DONE'))
 
 \subsection{REGISTROS}
 CREATE TABLE registros (id\_registro INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_empleado INT REFERENCES empleados (id\_empleado), horas\_trabajadas TIME, descripción TEXT, fecha DATE)
@@ -984,5 +985,88 @@ CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMEN
 
 \subsection{ROL}
 CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
+
+
+\section{DISEÑO}
+\subsection {Diagrama de flujo de datos y esquemas externos}
+\subsubsection* {Esquema de caja negra: ~\ref{fig:cajanegra}}
+\subsubsection* {Diagrama armazón F: ~\ref{fig:armazonF}}
+\subsubsection* {Esquemas externos para el diagrama armazón F: ~\ref{fig:exArmazonF}}
+\subsubsection* {Diagrama armazón D: ~\ref{fig:armazonD}}
+\subsubsection* {Primer refinamiento del diagrama F: ~\ref{fig:primerRefF}}
+\subsubsection* {Esquemas externos del plano de refinamiento F: ~\ref{fig:EsqExtF}}
+\subsubsection* {Primer refinamiento del diagrama D: ~\ref{fig:PrimerRefD}}
+\subsubsection* {Segundo refinamiento del diagrama F: ~\ref{fig:SegundoRefF}}
+\subsubsection* {Esquemas externos del plano de refinamiento F: ~\ref{fig:EsqExtF_2}}
+\subsubsection* {Segundo refinamiento del diagrama D: ~\ref{fig:SegundoRefD}}
+\subsubsection* {Plano final: ~\ref{fig:PlanoFinal}}
+
+
+\begin{figure}
+	\includegraphics{ERP_EMEGEX.png}
+	\caption{}
+	\label{fig:cajanegra}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.25\textwidth]{ArmazonF.png}
+	\caption{}
+	\label{fig:armazonF}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.25\textwidth]{exArmazonF.png}
+	\caption{}
+	\label{fig:exArmazonF}
+\end{figure}
+
+\begin{figure}
+	\includegraphics{ArmazonD.png}
+	\caption{}
+	\label{fig:armazonD}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.20\textwidth]{PrimerRefF.png}
+	\caption{}
+	\label{fig:primerRefF}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.25\textwidth]{EsqExtF.png}
+	\caption{}
+	\label{fig:EsqExtF}
+\end{figure}
+
+\begin{figure}
+	\includegraphics{PrimerRefD.png}
+	\caption{}
+	\label{fig:PrimerRefD}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.25\textwidth]{SegundoRefF.png}
+	\caption{}
+	\label{fig:SegundoRefF}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.20\textwidth]{EsqExtF_2.png}
+	\caption{}
+	\label{fig:EsqExtF_2}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.20\textwidth]{SegundoRefD.png}
+	\caption{}
+	\label{fig:SegundoRefD}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.20\textwidth]{PlanoFinal.png}
+	\caption{}
+	\label{fig:PlanoFinal}
+\end{figure}
+
 
 \end{document}
