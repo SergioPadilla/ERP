@@ -8,6 +8,7 @@ package GUI;
 import DataType.DataEmployee;
 import DataType.DataTask;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,8 @@ public class AddTask extends javax.swing.JFrame {
      */
     public AddTask() {
         initComponents();
+                this.getContentPane().setBackground(Color.BLACK);
+
         dateChooserCombo1.setCalendarPreferredSize(new Dimension(jButton1.getPreferredSize().width*8,dateChooserCombo1.getCalendarPreferredSize().height));
 
         this.setTitle("Añadir Tarea");
@@ -133,14 +136,9 @@ public class AddTask extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(combo_employees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(103, 103, 103))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(due_date_label)
-                            .addComponent(employee_label))
-                        .addGap(34, 34, 34))
+                    .addComponent(combo_employees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(due_date_label)
+                    .addComponent(employee_label)
                     .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

@@ -7,6 +7,7 @@ package GUI;
 
 import DataType.DataComment;
 import DataType.DataTask;
+import java.awt.Color;
 import sekegex.Comment;
 import sekegex.User;
 
@@ -24,6 +25,8 @@ public class CommentView extends javax.swing.JFrame {
         this.comment.setText(c.text);
         this.com = c;
         usr = User.getInstance();
+                this.getContentPane().setBackground(Color.BLACK);
+
         
         if(!usr.hasLicence(201))
             delete_button.setVisible(false);

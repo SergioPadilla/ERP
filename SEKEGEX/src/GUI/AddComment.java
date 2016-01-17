@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataTask;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import sekegex.User;
 
@@ -22,6 +23,8 @@ public class AddComment extends javax.swing.JFrame {
         initComponents();
         this.id_task = id_task;
         usr = User.getInstance();
+                this.getContentPane().setBackground(Color.BLACK);
+
     }
 
     /**
