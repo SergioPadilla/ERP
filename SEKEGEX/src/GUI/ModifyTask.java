@@ -8,12 +8,14 @@ package GUI;
 import DataType.DataEmployee;
 import DataType.DataTask;
 import Utils.StatusTask;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Vector;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import sekegex.Task;
 import sekegex.User;
 
@@ -28,6 +30,7 @@ public class ModifyTask extends javax.swing.JFrame {
      */
     public ModifyTask(DataTask task) {
         initComponents();
+        this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Modificar Tarea");
         this.task = task;
         
@@ -51,7 +54,7 @@ public class ModifyTask extends javax.swing.JFrame {
         this.combo_status.addItem("En desarrollo");
         this.combo_status.addItem("Terminada");
         
-        this.combo_employees.addActionListener(new ActionListener(){
+        this.combo_status.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 JComboBox cb = (JComboBox)e.getSource();
@@ -61,11 +64,6 @@ public class ModifyTask extends javax.swing.JFrame {
         
         title.setText(task.title);
         description.setText(task.description);
-        day.setText(task.due_date.toString().substring(8));
-        hour.setText(task.time_estimated.toString().substring(0,2));
-        minutes.setText(task.time_estimated.toString().substring(3,5));
-        month.setText(task.due_date.toString().substring(5,7));
-        year.setText(task.due_date.toString().substring(0,4));
     }
 
     /**
@@ -77,35 +75,21 @@ public class ModifyTask extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        minutes = new javax.swing.JFormattedTextField();
-        hour = new javax.swing.JFormattedTextField();
         back_button = new javax.swing.JButton();
         combo_employees = new javax.swing.JComboBox<>();
         save_button = new javax.swing.JButton();
-        minute_label = new javax.swing.JLabel();
         due_date_label = new javax.swing.JLabel();
-        time_label = new javax.swing.JLabel();
-        h_label = new javax.swing.JLabel();
         title_label = new javax.swing.JLabel();
-        day_label = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
         employee_label = new javax.swing.JLabel();
-        year_label = new javax.swing.JLabel();
         title = new javax.swing.JTextField();
-        month_label = new javax.swing.JLabel();
         description_label = new javax.swing.JLabel();
-        day = new javax.swing.JFormattedTextField();
-        month = new javax.swing.JFormattedTextField();
-        year = new javax.swing.JFormattedTextField();
         status_label = new javax.swing.JLabel();
         combo_status = new javax.swing.JComboBox<>();
+        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        minutes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
-
-        hour.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
 
         back_button.setText("Volver");
         back_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,33 +105,29 @@ public class ModifyTask extends javax.swing.JFrame {
             }
         });
 
-        minute_label.setText("M");
-
+        due_date_label.setBackground(new java.awt.Color(0, 0, 0));
+        due_date_label.setForeground(new java.awt.Color(255, 255, 255));
         due_date_label.setText("Fecha final");
 
-        time_label.setText("Tiempo Estimado");
-
-        h_label.setText("H");
-
+        title_label.setBackground(new java.awt.Color(0, 0, 0));
+        title_label.setForeground(new java.awt.Color(255, 255, 255));
         title_label.setText("Título");
-
-        day_label.setText("DD");
 
         description.setColumns(20);
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
+        employee_label.setBackground(new java.awt.Color(0, 0, 0));
+        employee_label.setForeground(new java.awt.Color(255, 255, 255));
         employee_label.setText("Asignar Empleado");
 
-        year_label.setText("AAAA");
-
-        month_label.setText("MM");
-
+        description_label.setBackground(new java.awt.Color(0, 0, 0));
+        description_label.setForeground(new java.awt.Color(255, 255, 255));
         description_label.setText("Descripción");
 
+        status_label.setBackground(new java.awt.Color(0, 0, 0));
+        status_label.setForeground(new java.awt.Color(255, 255, 255));
         status_label.setText("Estado");
-
-        combo_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,72 +137,56 @@ public class ModifyTask extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 350, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(status_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(save_button))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(combo_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 400, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(back_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(save_button, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(employee_label)
+                            .addComponent(combo_employees, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(status_label)
+                            .addComponent(due_date_label))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(10, 10, 10)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(title)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(title_label)
-                                .addComponent(time_label)
-                                .addComponent(description_label)
-                                .addComponent(due_date_label)
-                                .addComponent(employee_label)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(38, 38, 38)
-                                            .addComponent(day_label))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(hour, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(h_label, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(minutes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(3, 3, 3)
-                                            .addComponent(minute_label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(month_label)
-                                    .addGap(88, 88, 88)
-                                    .addComponent(year_label))
-                                .addComponent(combo_employees, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(description_label))
+                            .addGap(0, 467, Short.MAX_VALUE)))
                     .addGap(11, 11, 11)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(295, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(day, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(month, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(year, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
+                .addContainerGap(199, Short.MAX_VALUE)
+                .addComponent(due_date_label)
+                .addGap(18, 18, 18)
+                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(employee_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(combo_employees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(status_label)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(status_label)
-                    .addComponent(save_button))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(back_button)
-                    .addComponent(combo_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(save_button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(back_button))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(combo_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -234,26 +198,7 @@ public class ModifyTask extends javax.swing.JFrame {
                     .addComponent(description_label)
                     .addGap(18, 18, 18)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(time_label)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(h_label)
-                        .addComponent(minute_label)
-                        .addComponent(hour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(minutes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(18, 18, 18)
-                    .addComponent(due_date_label)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(day_label)
-                        .addComponent(month_label)
-                        .addComponent(year_label))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(employee_label)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(combo_employees, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(67, Short.MAX_VALUE)))
+                    .addContainerGap(265, Short.MAX_VALUE)))
         );
 
         pack();
@@ -261,6 +206,8 @@ public class ModifyTask extends javax.swing.JFrame {
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         TaskView obj = new TaskView(this.task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
@@ -268,22 +215,18 @@ public class ModifyTask extends javax.swing.JFrame {
     private void save_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_save_buttonMouseClicked
         String titlenew = title.getText().toString();
         String descriptionnew = description.getText().toString();
-        int hournew = (int) hour.getValue();
-        int minutesnew = (int) minutes.getValue();
-        int daynew = (int) day.getValue();
-        int monthnew = (int) month.getValue();
-        int yearnew = (int) year.getValue();
-        Time time_estimated = new Time(hournew, minutesnew, 0);
-        Date due_date = new Date(daynew, monthnew, yearnew);
+        Date date=new Date(dateChooserCombo1.getSelectedDate().getTimeInMillis());
         StatusTask status;
         
         //Check data and modify task
         if(titlenew.equals(this.task.title)){
             titlenew = "";
         }
+        
         if(descriptionnew.equals(this.task.description)){
             descriptionnew = "";
         }
+        
         if(this.statusSelected.equals("Por hacer")){
             status = StatusTask.TO_DO;
         }else if(this.statusSelected.equals("En desarrollo")){
@@ -295,7 +238,15 @@ public class ModifyTask extends javax.swing.JFrame {
         }
         
         Task task = new Task(this.task.id_task);
-        task.modifyTask(titlenew, descriptionnew, time_estimated, due_date, status);
+        if(task.modifyTask(titlenew, descriptionnew, date, status)){
+            TaskView obj = new TaskView(this.task);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "No tienes permisos para modificar tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_save_buttonMouseClicked
 
     /**
@@ -341,25 +292,15 @@ public class ModifyTask extends javax.swing.JFrame {
     private javax.swing.JButton back_button;
     private javax.swing.JComboBox<String> combo_employees;
     private javax.swing.JComboBox<String> combo_status;
-    private javax.swing.JFormattedTextField day;
-    private javax.swing.JLabel day_label;
+    private datechooser.beans.DateChooserCombo dateChooserCombo1;
     private javax.swing.JTextArea description;
     private javax.swing.JLabel description_label;
     private javax.swing.JLabel due_date_label;
     private javax.swing.JLabel employee_label;
-    private javax.swing.JLabel h_label;
-    private javax.swing.JFormattedTextField hour;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel minute_label;
-    private javax.swing.JFormattedTextField minutes;
-    private javax.swing.JFormattedTextField month;
-    private javax.swing.JLabel month_label;
     private javax.swing.JButton save_button;
     private javax.swing.JLabel status_label;
-    private javax.swing.JLabel time_label;
     private javax.swing.JTextField title;
     private javax.swing.JLabel title_label;
-    private javax.swing.JFormattedTextField year;
-    private javax.swing.JLabel year_label;
     // End of variables declaration//GEN-END:variables
 }

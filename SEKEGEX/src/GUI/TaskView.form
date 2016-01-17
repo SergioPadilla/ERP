@@ -45,35 +45,22 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="modify_button" min="-2" pref="103" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="workLog_button" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="delete_button" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="746" max="32767" attributes="0"/>
                       <Component id="back_button" min="-2" pref="103" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="updateTask" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="title" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" pref="1022" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="title" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="hour_remaining_label" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="hour_estimated_bar" min="-2" max="-2" attributes="0"/>
-                                      <Component id="hour_estimated_label" min="-2" max="-2" attributes="0"/>
-                                      <Component id="hour_worked_label" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="hour_worked_bar" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="hour_remaining_bar" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="status_label" min="-2" max="-2" attributes="0"/>
                           <Component id="status" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -92,22 +79,7 @@
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="hour_estimated_label" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="hour_estimated_bar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="hour_worked_label" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="hour_worked_bar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="hour_remaining_label" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="hour_remaining_bar" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-              </Group>
+              <Component id="jScrollPane1" min="-2" pref="144" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -121,14 +93,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="comments_label" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane3" pref="198" max="32767" attributes="0"/>
+              <Component id="jScrollPane3" pref="187" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="addComment_button" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="modify_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="back_button" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="workLog_button" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="delete_button" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="updateTask" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -170,45 +142,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="hour_estimated_label">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="66" red="33" type="rgb"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Horas Estimadas"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JProgressBar" name="hour_estimated_bar">
-    </Component>
-    <Component class="javax.swing.JLabel" name="hour_worked_label">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="66" red="33" type="rgb"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Horas Trabajadas"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JProgressBar" name="hour_worked_bar">
-    </Component>
-    <Component class="javax.swing.JLabel" name="hour_remaining_label">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="66" red="33" type="rgb"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Horas Restantes"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JProgressBar" name="hour_remaining_bar">
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -289,7 +222,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JList" name="jList1">
+        <Component class="javax.swing.JList" name="comments_list">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="99" red="33" type="rgb"/>
@@ -320,7 +253,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="back_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Atr&#xe1;s"/>
+        <Property name="text" type="java.lang.String" value="Volver"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="back_buttonMouseClicked"/>
@@ -328,6 +261,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="modify_button">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Images/edit.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Modificar"/>
       </Properties>
       <Events>
@@ -342,12 +278,15 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="updateTaskMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="workLog_button">
+    <Component class="javax.swing.JButton" name="delete_button">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Registros de trabajo"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Images/trash.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Borrar"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="workLog_buttonMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="delete_buttonMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="status_label">

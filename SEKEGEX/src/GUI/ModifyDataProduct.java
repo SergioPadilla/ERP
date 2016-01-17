@@ -7,6 +7,7 @@
 package GUI;
 
 import DataType.DataProduct;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sekegex.User;
@@ -24,6 +25,7 @@ public class ModifyDataProduct extends javax.swing.JFrame {
      */
     public ModifyDataProduct(DataProduct product) {
         initComponents();
+        this.getContentPane().setBackground(Color.BLACK);
         producto = product;
         this.setTitle("Modificar producto");
         usr = User.getInstance(); 
@@ -47,21 +49,27 @@ public class ModifyDataProduct extends javax.swing.JFrame {
         newName = new javax.swing.JTextField();
         description = new javax.swing.JLabel();
         price = new javax.swing.JLabel();
-        newPrice = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         newDescription = new javax.swing.JTextArea();
+        newPrice = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        name.setBackground(new java.awt.Color(0, 0, 0));
         name.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
         name.setText("Nuevo nombre:");
 
+        description.setBackground(new java.awt.Color(0, 0, 0));
         description.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        description.setForeground(new java.awt.Color(255, 255, 255));
         description.setText("Nueva descripción:");
 
+        price.setBackground(new java.awt.Color(0, 0, 0));
         price.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        price.setForeground(new java.awt.Color(255, 255, 255));
         price.setText("Nuevo precio:");
 
         saveButton.setText("Guardar");
@@ -82,6 +90,8 @@ public class ModifyDataProduct extends javax.swing.JFrame {
         newDescription.setRows(5);
         jScrollPane1.setViewportView(newDescription);
 
+        newPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,8 +102,8 @@ public class ModifyDataProduct extends javax.swing.JFrame {
                     .addComponent(description)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(price)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(newPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(newPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(cancelButton)
@@ -144,23 +154,31 @@ public class ModifyDataProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nuevoNombre = newName.getText().toString();
         String nuevaDescripcion = newDescription.getText().toString();
-        String nuevoPrecio = newPrice.getText().toString();
-        float nuevoPrecioF = Float.parseFloat(nuevoPrecio);
-        
-        //Check data and modify task
-        if(nuevoNombre.equals(producto.name)){
-            nuevoNombre = "";
+        float nuevoPrecioF = 0;
+        if(!newPrice.getText().equals("")){
+            //String nuevoPrecio = newPrice.getText().toString();
+            nuevoPrecioF = Float.parseFloat(newPrice.getText().replace(",", ".").toString());
         }
-        if(nuevaDescripcion.equals(producto.description)){
-            nuevaDescripcion = "";
-        }
-        
         Product product = new Product(producto.id);
-        JFrame frame = new JFrame();
-        if(usr.hasLicence(500)){
+        JFrame frame = new JFrame();        
+        
+        if(nuevoNombre.equals("")){
+            JOptionPane.showMessageDialog(this, "El campo NOMBRE no puede estar vacío", "NOMBRE Vacío", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(nuevaDescripcion.equals("")){
+            JOptionPane.showMessageDialog(this, "El campo DESCRIPCIÓN no puede estar vacío", "DESCRIPCIÓN Vacía", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(nuevoPrecioF == 0){
+            JOptionPane.showMessageDialog(this, "El IMPORTE no puede ser vacío ni contener letras", "IMPORTE Vacío", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        else if(usr.hasLicence(500)){
             product.modifyProduct(nuevoNombre,nuevaDescripcion,nuevoPrecioF);
             JOptionPane.showMessageDialog(frame, "La modificación se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
             producto = product.getData();
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "No tiene permisos para crear productos", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_saveButtonMouseClicked
 
@@ -207,7 +225,7 @@ public class ModifyDataProduct extends javax.swing.JFrame {
     private javax.swing.JLabel name;
     private javax.swing.JTextArea newDescription;
     private javax.swing.JTextField newName;
-    private javax.swing.JTextField newPrice;
+    private javax.swing.JFormattedTextField newPrice;
     private javax.swing.JLabel price;
     private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables

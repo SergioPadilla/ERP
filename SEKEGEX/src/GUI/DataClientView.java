@@ -8,6 +8,7 @@ package GUI;
 import DataType.DataBill;
 import DataType.DataClient;
 import DataType.DataServer;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
@@ -31,14 +32,20 @@ public class DataClientView extends javax.swing.JFrame {
     public DataClientView(DataClient client) {
         initComponents();
         this.setTitle("Cliente: " + client.name);
-        
+                        this.getContentPane().setBackground(Color.BLACK);
+
         clienti = client;
 
-        User usr = User.getInstance();
+        usr = User.getInstance();
         Client clientO= new Client(clienti.id);
         servers = clientO.listServers();
         bills = clientO.listBills();
         setFilas();
+        
+        if(!usr.hasLicence(700))
+            jButtonAddServer.setVisible(false);
+        if(!usr.hasLicence(400))
+            jButton2.setVisible(false);
     }
 
     /**
@@ -61,6 +68,7 @@ public class DataClientView extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -205,7 +213,7 @@ public class DataClientView extends javax.swing.JFrame {
             dispose();    }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButtonAddServerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddServerMouseClicked
-            CreateServerView obj = new CreateServerView(clienti);
+        CreateServerView obj = new CreateServerView(clienti);
         obj.setSize(getSize());
         obj.setLocation(getLocation());
         obj.setVisible(true);                    
@@ -221,11 +229,13 @@ public class DataClientView extends javax.swing.JFrame {
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            ModifyDataClient obj = new ModifyDataClient(clienti);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-        dispose(); 
+            if(usr.hasLicence(302)){
+                ModifyDataClient obj = new ModifyDataClient(clienti);
+                obj.setSize(getSize());
+                obj.setLocation(getLocation());
+                obj.setVisible(true);
+                dispose(); 
+            }
         }
     };
     Action ver = new AbstractAction() {
@@ -242,29 +252,29 @@ public class DataClientView extends javax.swing.JFrame {
     
         Action borrar = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-        javax.swing.JTable table = (javax.swing.JTable)e.getSource();
-        int modelRow = Integer.valueOf(e.getActionCommand());
-        DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
+            if(usr.hasLicence(701)){
+                javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+                int modelRow = Integer.valueOf(e.getActionCommand());
+                DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
 
-        
-        JFrame frame = new JFrame();
-        int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el servidor con id: "+Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
-        if (confirmacion==JOptionPane.YES_OPTION){    
-            Server servero=new Server(Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
-            servero.removeServer();
-            DataClientView obj = new DataClientView(clienti);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose();
-            
-        }
+                JFrame frame = new JFrame();
+                int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el servidor con id: "+Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
 
-            /*IMPLEMENTAR EL BORRADO*/ 
+                if (confirmacion==JOptionPane.YES_OPTION){    
+                    Server servero=new Server(Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+                    servero.removeServer();
+                    DataClientView obj = new DataClientView(clienti);
+                    obj.setSize(getSize());
+                    obj.setLocation(getLocation());
+                    obj.setVisible(true);
+                    dispose();
+
+                }
+            }
         }
     }; 
     
-    Action verProductos = new AbstractAction() {
+    Action verFacturas = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
             javax.swing.JTable table = (javax.swing.JTable)e.getSource();
             int modelRow = Integer.valueOf(e.getActionCommand());
@@ -280,28 +290,27 @@ public class DataClientView extends javax.swing.JFrame {
     };
     
     
-        Action borrarProductos = new AbstractAction() {
+        Action borrarFacturas = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-        javax.swing.JTable table = (javax.swing.JTable)e.getSource();
-        int modelRow = Integer.valueOf(e.getActionCommand());
-        DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
+            if(usr.hasLicence(401)){
+                javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+                int modelRow = Integer.valueOf(e.getActionCommand());
+                DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
 
-        
-        JFrame frame = new JFrame();
-        int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar la factura con id: "
-                +Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString())+"?");
-        if (confirmacion==JOptionPane.YES_OPTION){    
-            Bill billo=new Bill(Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString()));
-            billo.removeBill();
-            DataClientView obj = new DataClientView(clienti);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose();
-            
-        }
 
-            /*IMPLEMENTAR EL BORRADO*/ 
+                JFrame frame = new JFrame();
+                int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar la factura con id: "
+                        +Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString())+"?");
+                if (confirmacion==JOptionPane.YES_OPTION){    
+                    Bill billo=new Bill(Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString()));
+                    billo.removeBill();
+                    DataClientView obj = new DataClientView(clienti);
+                    obj.setSize(getSize());
+                    obj.setLocation(getLocation());
+                    obj.setVisible(true);
+                    dispose();
+                }
+            }
         }
     }; 
         
@@ -336,9 +345,9 @@ public class DataClientView extends javax.swing.JFrame {
         }
         
         
-        ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verProductos, 2);
+        ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verFacturas, 2);
         buttonColumn4.setMnemonic(KeyEvent.VK_D);
-        ButtonColumn buttonColumn5 = new ButtonColumn(jTable3, borrarProductos, 3);
+        ButtonColumn buttonColumn5 = new ButtonColumn(jTable3, borrarFacturas, 3);
         buttonColumn4.setMnemonic(KeyEvent.VK_D);
     }
     
@@ -381,6 +390,7 @@ public class DataClientView extends javax.swing.JFrame {
     public static DataClient clienti;
     public Vector servers;
     public Vector bills;
+    private User usr;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

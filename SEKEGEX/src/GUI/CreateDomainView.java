@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataServer;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sekegex.Server;
@@ -23,6 +24,8 @@ public class CreateDomainView extends javax.swing.JFrame {
     public CreateDomainView(DataServer data) {
         server=data;
         initComponents();
+                        this.getContentPane().setBackground(Color.BLACK);
+
     }
 
     /**
@@ -41,6 +44,8 @@ public class CreateDomainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Web:");
 
         jButton2.setText("Guardar");

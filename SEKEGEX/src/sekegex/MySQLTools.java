@@ -136,9 +136,7 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE empleados (id_empleado INT NOT NULL PRIMARY KEY AUTO_INCREMENT, dni varchar(9) UNIQUE NOT NULL,  nombre TEXT, password TEXT, apellidos TEXT, rol INT)");
            stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, horas_estimadas TIME, empleado_asignado INT, estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT,FOREIGN KEY (empleado_asignado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
-           stmt.executeUpdate();
-           stmt = con.prepareStatement("CREATE TABLE registros (id_registro INT NOT NULL PRIMARY KEY AUTO_INCREMENT,id_tarea INT, horas_trabajadas TIME, descripcion TEXT, fecha DATE,FOREIGN KEY (id_tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE");
+           stmt = con.prepareStatement("CREATE TABLE tareas (id_tarea INT NOT NULL PRIMARY KEY AUTO_INCREMENT,titulo TEXT, fecha DATE, id_tarea_padre INT, empleado_asignado INT, estado ENUM('TO_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT, FOREIGN KEY (empleado_asignado) REFERENCES empleados (id_empleado) ON DELETE CASCADE)");
            stmt.executeUpdate();
            stmt = con.prepareStatement("CREATE TABLE comentarios (id_comentario INT NOT NULL PRIMARY KEY AUTO_INCREMENT, texto TEXT, tarea INT,id_empleado INT,FOREIGN KEY (tarea) REFERENCES tareas (id_tarea) ON DELETE CASCADE)");
            stmt.executeUpdate();
@@ -280,14 +278,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
 
         return res;
@@ -426,12 +424,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return new DataClient(id_client,type,name,surname,nif,email,date);
         }
@@ -485,12 +483,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -536,12 +534,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -575,12 +573,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -715,12 +713,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -764,12 +762,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -891,12 +889,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return new DataProduct(id_product,name,description,amount,nSold);
         }
@@ -930,12 +928,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1050,12 +1048,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1106,12 +1104,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1151,12 +1149,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return new DataPurchase(id_bill,id_product,total,cantidadi);
 
@@ -1198,12 +1196,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1243,12 +1241,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1291,12 +1289,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1337,12 +1335,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
         return res==1;
@@ -1439,12 +1437,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1496,12 +1494,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -1554,12 +1552,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -1593,12 +1591,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1636,12 +1634,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1713,12 +1711,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1743,14 +1741,6 @@ public class MySQLTools {
 
             stmt.executeUpdate();
 
-            query = new StringBuilder("UPDATE registros SET id_empleado=0 WHERE id_empleado='");
-            query.append(id_employee);
-            query.append("'");
-
-            queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
-            stmt.executeUpdate();
-
             query = new StringBuilder("UPDATE comentarios SET id_empleado=0 WHERE id_empleado='");
             query.append(id_employee);
             query.append("'");
@@ -1768,12 +1758,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
 
@@ -1976,7 +1966,7 @@ public class MySQLTools {
     /**
      * Insert new task
      */
-    void insertTask(String title, String description, Time time_estimated,Date date,int id_employee){
+    void insertTask(String title, String description, Date date, int id_employee){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -1984,14 +1974,13 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas,fecha,empleado_asignado,estado) VALUES(?,?,?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, fecha,empleado_asignado,estado) VALUES(?,?,?,?,?);");
 
            stmt.setString(1, title);
            stmt.setString(2, description);
-           stmt.setTime(3, time_estimated);
-           stmt.setDate(4, date);
-           stmt.setInt(5, id_employee);
-           stmt.setString(6, "TO_DO");
+           stmt.setDate(3, date);
+           stmt.setInt(4, id_employee);
+           stmt.setString(5, "TO_DO");
 
            stmt.executeUpdate();
 
@@ -2016,7 +2005,7 @@ public class MySQLTools {
     /**
      * Insert new SubTask
      */
-    void insertSubTask(String title, String description, Time time_estimated, int id_task_father){
+    void insertSubTask(String title, String description, Date date, int id_employee, int id_task_father){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -2024,12 +2013,14 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, horas_estimadas, id_tarea_padre) VALUES(?,?,?,?);");
+           stmt = con.prepareStatement("INSERT INTO tareas (titulo, descripcion, fecha,empleado_asignado,estado, id_tarea_padre) VALUES(?,?,?,?,?,?);");
 
            stmt.setString(1, title);
            stmt.setString(2, description);
-           stmt.setTime(3, time_estimated);
-           stmt.setInt(4, id_task_father);
+           stmt.setDate(3, date);
+           stmt.setInt(4, id_employee);
+           stmt.setString(5, "TO_DO");
+           stmt.setInt(6, id_task_father);
 
            stmt.executeUpdate();
 
@@ -2054,7 +2045,7 @@ public class MySQLTools {
     /**
      * Modify task
      */
-    void modifyTask(int id_task, String title, String description, Time time_estimated, Date due_date, int id_employee, StatusTask status){
+    void modifyTask(int id_task, String title, String description, Date due_date, int id_employee, StatusTask status){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -2098,15 +2089,6 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(!time_estimated.equals(new Time(0,0,0))){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("horas_estimadas = '");
-                query.append(time_estimated);
-                query.append("'");
-                first=false;
-            }
             if(!due_date.equals(new Date(0,0,0))){
                 if(!first){
                     query.append(",");
@@ -2133,12 +2115,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -2174,7 +2156,6 @@ public class MySQLTools {
                 title=rs.getString("titulo");
                 due_date=rs.getDate("fecha");
                 id_task_father=rs.getInt("id_tarea_padre");
-                time_estimated=rs.getTime("horas_estimadas");
                 id_employee=rs.getInt("empleado_asignado");
                 status=StatusTask.valueOf(rs.getString("estado"));
                 description=rs.getString("descripcion");
@@ -2189,16 +2170,16 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
         }
 
-        return new DataTask(id_task, title, due_date, id_task_father, time_estimated, id_employee, status, description);
+        return new DataTask(id_task, title, due_date, id_task_father, id_employee, status, description);
     }
 
     /**
@@ -2223,7 +2204,6 @@ public class MySQLTools {
                         rs.getString("titulo"),
                         rs.getDate("fecha"),
                         rs.getInt("id_tarea_padre"),
-                        rs.getTime("horas_estimadas"),
                         rs.getInt("empleado_asignado"),
                         StatusTask.valueOf(rs.getString("estado")),
                         rs.getString("descripcion")
@@ -2275,7 +2255,6 @@ public class MySQLTools {
                         rs.getString("titulo"),
                         rs.getDate("fecha"),
                         rs.getInt("id_tarea_padre"),
-                        rs.getTime("horas_estimadas"),
                         rs.getInt("empleado_asignado"),
                         StatusTask.valueOf(rs.getString("estado")),
                         rs.getString("descripcion")
@@ -2306,127 +2285,6 @@ public class MySQLTools {
      * Erase task
      */
     void eraseTask(int id_task){
-
-    }
-
-    //"REGISTROS" table
-
-    /**
-     * Insert new register
-     */
-    void insertRegister(int id_employee, Time time_worked, String description, Date date){
-        Connection con = null;
-        PreparedStatement stmt = null;
-
-        try{
-           Class.forName(sDriver).newInstance();
-           con = DriverManager.getConnection(sURL,user,pass);
-
-           stmt = con.prepareStatement("INSERT INTO registros (id_empleado, horas_trabajadas, descripcion, fecha) VALUES(?,?,?,?);");
-
-           stmt.setInt(1, id_employee);
-           stmt.setTime(2, time_worked);
-           stmt.setString(3, description);
-           stmt.setDate(4, date);
-
-           stmt.executeUpdate();
-
-        } catch (SQLException sqle){
-           System.out.println("SQLState: " + sqle.getSQLState());
-           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-           sqle.printStackTrace();
-        } catch (Exception e){
-           e.printStackTrace();
-        } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
-        }
-    }
-
-    /**
-     * Modify register
-     */
-    void modifyRegister(int id_register, int id_employee, Time time_worked, String description, Date date){
-        Connection con = null;
-        PreparedStatement stmt = null;
-
-        try{
-            StringBuilder query = new StringBuilder("UPDATE registros SET ");
-            boolean first=true;
-
-            if(id_employee != -1){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("id_empleado = '");
-                query.append(id_employee);
-                query.append("'");
-                first=false;
-            }
-            if(!time_worked.equals("")){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("horas_trabajadas = '");
-                query.append(time_worked);
-                query.append("'");
-                first=false;
-            }
-            if(!description.equals("")){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("descripcion ='");
-                query.append(description);
-                query.append("'");
-                first=false;
-            }
-            if(!date.equals("")){
-                if(!first){
-                    query.append(",");
-                }
-                query.append("fecha = '");
-                query.append(date);
-                query.append("'");
-                first=false;
-            }
-
-            query.append(" WHERE id_registro = ");
-            query.append(id_register);
-
-            String queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
-
-            stmt.executeUpdate();
-
-        } catch (SQLException sqle){
-           System.out.println("SQLState: " + sqle.getSQLState());
-           System.out.println("SQLErrorCode: " + sqle.getErrorCode());
-           sqle.printStackTrace();
-        } catch (Exception e){
-           e.printStackTrace();
-        } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
-        }
-    }
-
-    /**
-     * Erase register
-     */
-    void removeRegister(int id_register){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -2434,8 +2292,8 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
 
-            StringBuilder query = new StringBuilder("DELETE FROM registros WHERE id_registro='");
-            query.append(id_register);
+            StringBuilder query = new StringBuilder("DELETE FROM tareas WHERE id_tarea='");
+            query.append(id_task);
             query.append("'");
 
             String queryfinal = new String(query);
@@ -2450,16 +2308,15 @@ public class MySQLTools {
         }catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
-
     }
 
     //"COMENTARIOS" table
@@ -2489,14 +2346,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -2556,6 +2413,55 @@ public class MySQLTools {
            }
         }
     }
+    
+    /**
+     * 
+     * @param id_tarea
+     * @return 
+     */
+    public Vector listComments(int id_tarea){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector comments = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("SELECT * FROM comentarios WHERE tarea='");
+            query.append(id_tarea);
+            query.append("'");
+            
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                comments.add(new DataComment(rs.getInt("id_comentario"),
+                        rs.getString("texto"),
+                        rs.getInt("tarea")
+                ));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return comments;
+    }
 
     /**
      * Erase Comment
@@ -2584,14 +2490,14 @@ public class MySQLTools {
         }catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -2622,14 +2528,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -2754,14 +2660,14 @@ public class MySQLTools {
         }catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
 
     }
@@ -2845,12 +2751,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }

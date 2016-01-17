@@ -6,9 +6,11 @@
 
 package GUI;
 import DataType.DataProduct;
+import java.awt.Color;
 import java.util.Vector;
 import sekegex.User;
 import javax.swing.event.ListSelectionListener;
+import sekegex.Product;
 
 /**
  *
@@ -21,6 +23,8 @@ public class DataProductView extends javax.swing.JFrame {
      */
     public DataProductView(DataProduct producto) {
         initComponents();
+                        this.getContentPane().setBackground(Color.BLACK);
+
         this.product = producto;
         this.setTitle("Producto");
         usr = User.getInstance();
@@ -32,6 +36,11 @@ public class DataProductView extends javax.swing.JFrame {
         this.priceProduct.setText(s2);
         String s3 = Integer.toString(product.id);
         this.idProduct.setText(s3);
+        
+        if(!usr.hasLicence(502))
+            modifyProduct.setVisible(false);
+        if(!usr.hasLicence(501))
+            delete_button.setVisible(false);
     }
 
     /**
@@ -55,13 +64,13 @@ public class DataProductView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         volverAtras = new javax.swing.JButton();
         modifyProduct = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         nameProduct = new javax.swing.JLabel();
         idProduct = new javax.swing.JLabel();
         priceProduct = new javax.swing.JLabel();
         soldsProduct = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         descriptionProduct = new javax.swing.JTextArea();
+        delete_button = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jTextPane1);
 
@@ -72,20 +81,31 @@ public class DataProductView extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Descripción:");
 
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Producto:");
 
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Precio:");
 
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Número de ventas:");
 
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("ID:");
 
         volverAtras.setText("Volver");
@@ -95,14 +115,13 @@ public class DataProductView extends javax.swing.JFrame {
             }
         });
 
+        modifyProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         modifyProduct.setText("Modificar");
         modifyProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 modifyProductMouseClicked(evt);
             }
         });
-
-        jButton2.setText("Ver facturas");
 
         nameProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
@@ -113,6 +132,14 @@ public class DataProductView extends javax.swing.JFrame {
         descriptionProduct.setRows(5);
         jScrollPane3.setViewportView(descriptionProduct);
 
+        delete_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/trash.png"))); // NOI18N
+        delete_button.setText("Borrar");
+        delete_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                delete_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,9 +149,9 @@ public class DataProductView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(volverAtras)
+                        .addGap(101, 101, 101)
+                        .addComponent(delete_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
                         .addComponent(modifyProduct)
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
@@ -172,7 +199,7 @@ public class DataProductView extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -186,7 +213,7 @@ public class DataProductView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(volverAtras)
                     .addComponent(modifyProduct)
-                    .addComponent(jButton2))
+                    .addComponent(delete_button))
                 .addGap(27, 27, 27))
         );
 
@@ -194,18 +221,24 @@ public class DataProductView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void volverAtrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverAtrasMouseClicked
-        // TODO add your handling code here:
         ProductView obj = new ProductView();
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_volverAtrasMouseClicked
 
     private void modifyProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyProductMouseClicked
-        // TODO add your handling code here:
         ModifyDataProduct obj = new ModifyDataProduct(this.product);
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_modifyProductMouseClicked
+
+    private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
+        Product product = new Product(this.product.id);
+        product.removeProduct();
+        ProductView obj = new ProductView();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_delete_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -244,9 +277,9 @@ public class DataProductView extends javax.swing.JFrame {
     public static DataProduct product;
     private User usr;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton delete_button;
     private javax.swing.JTextArea descriptionProduct;
     private javax.swing.JLabel idProduct;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

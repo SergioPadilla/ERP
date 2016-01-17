@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataTask;
+import java.awt.Color;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -27,8 +28,12 @@ public class Workflow extends javax.swing.JFrame {
      */
     public Workflow() {
         initComponents();
+        this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Tareas");
         usr = User.getInstance();
+        
+        if(!usr.hasLicence(100))
+            addTask.setVisible(false);
         
         //Get the tasks to show it
         tasks = usr.listTasks();
@@ -126,12 +131,16 @@ public class Workflow extends javax.swing.JFrame {
 
     private void addTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addTaskMouseClicked
         AddTask obj = new AddTask();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_addTaskMouseClicked
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         MainMenu obj = new MainMenu();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked

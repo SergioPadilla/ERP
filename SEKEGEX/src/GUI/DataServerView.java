@@ -10,6 +10,7 @@ import DataType.DataClient;
 import DataType.DataDomain;
 import DataType.DataServer;
 import static GUI.DataClientView.clienti;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
@@ -33,12 +34,15 @@ public class DataServerView extends javax.swing.JFrame {
      */
     public DataServerView(DataServer data) {
         initComponents();
+        this.getContentPane().setBackground(Color.BLACK);
         usr = User.getInstance();
         server = data;
         Server servidor= new Server(server.id_server);
         domains=servidor.listDomains();
         setFilas();
 
+        if(!usr.hasLicence(800))
+            jButtonCreateDomain.setVisible(false);
     }
 
     /**
@@ -56,8 +60,11 @@ public class DataServerView extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButtonCreateDomain = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
 
         jButtonVolver.setText("Volver");
         jButtonVolver.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,41 +126,62 @@ public class DataServerView extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Ver Servidor");
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/jrQlLrZf.jpeg"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1))
+                .addGap(360, 360, 360)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(jButtonVolver))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
+                        .addGap(33, 33, 33)
                         .addComponent(jButtonCreateDomain)))
                 .addGap(0, 32, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCreateDomain, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)))
-                .addComponent(jButtonVolver)
-                .addGap(47, 47, 47))
+                        .addGap(0, 46, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButtonCreateDomain, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(68, 68, 68))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addComponent(jButtonVolver)
+                        .addGap(47, 47, 47))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -165,52 +193,51 @@ public class DataServerView extends javax.swing.JFrame {
 
     private void jButtonVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVolverMouseClicked
         DataClientView obj = new DataClientView(usr.consultClient(server.id_client));
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
         dispose();
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonVolverMouseClicked
 
     private void jButtonCreateDomainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateDomainMouseClicked
         CreateDomainView obj = new CreateDomainView(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCreateDomainMouseClicked
 
         Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            
-            ModifyDataServer obj = new ModifyDataServer(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose(); 
-            
+            if(usr.hasLicence(702)){
+                ModifyDataServer obj = new ModifyDataServer(server);
+                obj.setSize(getSize());
+                obj.setLocation(getLocation());
+                obj.setVisible(true);
+                dispose(); 
+            }
         }
     };
     Action borrar = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
-            int modelRow = Integer.valueOf(e.getActionCommand());
-            DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
+            if(usr.hasLicence(801)){
+                javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+                int modelRow = Integer.valueOf(e.getActionCommand());
+                DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
 
 
-            JFrame frame = new JFrame();
-            int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el Dominio con id: "+Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
-            if (confirmacion==JOptionPane.YES_OPTION){    
-                Domain domaino=new Domain(Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
-                domaino.removeDomain();
-                DataServerView obj = new DataServerView(server);
-                obj.setSize(getSize());
-                obj.setLocation(getLocation());
-                obj.setVisible(true);
-                dispose();
-            
-        }
-            /*IMPLEMENTAR EL BORRADO*/ 
+                JFrame frame = new JFrame();
+                int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el Dominio con id: "+Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+                if (confirmacion==JOptionPane.YES_OPTION){    
+                    Domain domaino=new Domain(Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+                    domaino.removeDomain();
+                    DataServerView obj = new DataServerView(server);
+                    obj.setSize(getSize());
+                    obj.setLocation(getLocation());
+                    obj.setVisible(true);
+                    dispose();
+                }
+            }
         }
     };      
         
@@ -232,9 +259,7 @@ public class DataServerView extends javax.swing.JFrame {
         }
         
         ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, borrar, 2);
-        buttonColumn2.setMnemonic(KeyEvent.VK_D);
-        
-        
+        buttonColumn2.setMnemonic(KeyEvent.VK_D);    
     }
     /**
      * @param args the command line arguments
@@ -277,6 +302,8 @@ public class DataServerView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCreateDomain;
     private javax.swing.JButton jButtonVolver;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

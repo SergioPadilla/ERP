@@ -5,13 +5,16 @@
  */
 package GUI;
 
+import DataType.DataComment;
 import DataType.DataTask;
+import Utils.StatusTask;
 import java.awt.Color;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import sekegex.Task;
 import sekegex.User;
 
 /**
@@ -28,35 +31,17 @@ public class TaskView extends javax.swing.JFrame {
         this.task = task;
         this.setTitle("Tarea");
         this.getContentPane().setBackground(Color.BLUE);
-        
         usr = User.getInstance();
-        this.title.setText(task.title);
-        this.description.setText(task.description);
-        //this.status.setText(this.task.status);
-    
-        //Get the comments to show it
-        subTasks = usr.listSubTasks(task.id_task);
+        update();
         
-        //Create the model and add it the title of the task
-        DefaultListModel model = new DefaultListModel();
-        
-        for(int i = 0; i < subTasks.size(); i++){
-            DataTask subtask =(DataTask) subTasks.get(i);
-            model.addElement(subtask.title);
-        }
-        
-        this.subTasks_list.setModel(model);
-        
-        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = ((JList) e.getSource()).getSelectedIndex();
-                
-                TaskView obj = new TaskView((DataTask) subTasks.get(index));
-                obj.setVisible(true);
-                dispose();
-            }
-        });
+        if(!usr.hasLicence(102))
+            modify_button.setVisible(false);
+        if(!usr.hasLicence(101))
+            delete_button.setVisible(false);
+        if(!usr.hasLicence(100))
+            newSubTask_button.setVisible(false);
+        if(!usr.hasLicence(200))
+            addComment_button.setVisible(false);
     }
 
     /**
@@ -71,12 +56,6 @@ public class TaskView extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         description = new javax.swing.JTextArea();
-        hour_estimated_label = new javax.swing.JLabel();
-        hour_estimated_bar = new javax.swing.JProgressBar();
-        hour_worked_label = new javax.swing.JLabel();
-        hour_worked_bar = new javax.swing.JProgressBar();
-        hour_remaining_label = new javax.swing.JLabel();
-        hour_remaining_bar = new javax.swing.JProgressBar();
         jScrollPane2 = new javax.swing.JScrollPane();
         subTasks_list = new javax.swing.JList<>();
         subtasks_label = new javax.swing.JLabel();
@@ -85,12 +64,12 @@ public class TaskView extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         comments_label = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        comments_list = new javax.swing.JList<>();
         addComment_button = new javax.swing.JButton();
         back_button = new javax.swing.JButton();
         modify_button = new javax.swing.JButton();
         updateTask = new javax.swing.JButton();
-        workLog_button = new javax.swing.JButton();
+        delete_button = new javax.swing.JButton();
         status_label = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
 
@@ -107,18 +86,6 @@ public class TaskView extends javax.swing.JFrame {
         description.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         description.setRows(5);
         jScrollPane1.setViewportView(description);
-
-        hour_estimated_label.setBackground(new java.awt.Color(51, 102, 255));
-        hour_estimated_label.setForeground(new java.awt.Color(255, 255, 255));
-        hour_estimated_label.setText("Horas Estimadas");
-
-        hour_worked_label.setBackground(new java.awt.Color(51, 102, 255));
-        hour_worked_label.setForeground(new java.awt.Color(255, 255, 255));
-        hour_worked_label.setText("Horas Trabajadas");
-
-        hour_remaining_label.setBackground(new java.awt.Color(51, 102, 255));
-        hour_remaining_label.setForeground(new java.awt.Color(255, 255, 255));
-        hour_remaining_label.setText("Horas Restantes");
 
         subTasks_list.setBackground(new java.awt.Color(51, 153, 255));
         subTasks_list.setModel(new javax.swing.AbstractListModel<String>() {
@@ -147,13 +114,13 @@ public class TaskView extends javax.swing.JFrame {
 
         jScrollPane3.setBackground(new java.awt.Color(51, 153, 255));
 
-        jList1.setBackground(new java.awt.Color(51, 153, 255));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        comments_list.setBackground(new java.awt.Color(51, 153, 255));
+        comments_list.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(comments_list);
 
         addComment_button.setText("Nuevo Comentario");
         addComment_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -162,13 +129,14 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
 
-        back_button.setText("Atrás");
+        back_button.setText("Volver");
         back_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back_buttonMouseClicked(evt);
             }
         });
 
+        modify_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         modify_button.setText("Modificar");
         modify_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -183,10 +151,11 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
 
-        workLog_button.setText("Registros de trabajo");
-        workLog_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        delete_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/trash.png"))); // NOI18N
+        delete_button.setText("Borrar");
+        delete_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                workLog_buttonMouseClicked(evt);
+                delete_buttonMouseClicked(evt);
             }
         });
 
@@ -219,28 +188,19 @@ public class TaskView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(workLog_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(delete_button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 746, Short.MAX_VALUE)
                         .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(updateTask))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(hour_remaining_label)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(hour_estimated_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(hour_estimated_label)
-                                        .addComponent(hour_worked_label))
-                                    .addComponent(hour_worked_bar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(hour_remaining_bar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(status_label)
-                            .addComponent(status))))
+                            .addComponent(status))
+                        .addGap(53, 53, 53))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -254,20 +214,7 @@ public class TaskView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(status)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(hour_estimated_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hour_estimated_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hour_worked_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hour_worked_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(hour_remaining_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hour_remaining_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -281,14 +228,14 @@ public class TaskView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comments_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addComment_button)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(modify_button)
                     .addComponent(back_button)
-                    .addComponent(workLog_button)
+                    .addComponent(delete_button)
                     .addComponent(updateTask))
                 .addContainerGap())
         );
@@ -299,67 +246,41 @@ public class TaskView extends javax.swing.JFrame {
     private void newSubTask_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newSubTask_buttonMouseClicked
         AddTask obj = new AddTask();
         obj.id_task_father = task.id_task;
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_newSubTask_buttonMouseClicked
 
     private void addComment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addComment_buttonMouseClicked
-        // TODO add your handling code here:
+        AddComment obj = new AddComment(task.id_task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_addComment_buttonMouseClicked
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        if(this.task.id_task_father != 0){
-            DataTask taskFather = usr.consultTask(this.task.id_task_father);
-            TaskView obj = new TaskView(taskFather);
-            obj.setVisible(true);
-            dispose();
-        }else{
-            Workflow obj = new Workflow();
-            obj.setVisible(true);
-            dispose();
-        }
+        back();
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void modify_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modify_buttonMouseClicked
         ModifyTask obj = new ModifyTask(this.task);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_modify_buttonMouseClicked
 
     private void updateTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateTaskMouseClicked
-        this.task = usr.consultTask(this.task.id_task);
-
-        this.title.setText(task.title);
-        this.description.setText(task.description);
-
-        //Get the comments to show it
-        subTasks = usr.listSubTasks(task.id_task);
-        
-        //Create the model and add it the title of the task
-        DefaultListModel model = new DefaultListModel();
-        
-        for(int i = 0; i < subTasks.size(); i++){
-            DataTask subtask =(DataTask) subTasks.get(i);
-            model.addElement(subtask.title);
-        }
-        
-        this.subTasks_list.setModel(model);
-        
-        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = ((JList) e.getSource()).getSelectedIndex();
-                
-                TaskView obj = new TaskView((DataTask) subTasks.get(index));
-                obj.setVisible(true);
-                dispose();
-            }
-        });
+        update();
     }//GEN-LAST:event_updateTaskMouseClicked
 
-    private void workLog_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workLog_buttonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_workLog_buttonMouseClicked
+    private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
+        Task task = new Task(this.task.id_task);
+        task.eraseTask();
+        back();
+    }//GEN-LAST:event_delete_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -368,7 +289,7 @@ public class TaskView extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -396,21 +317,102 @@ public class TaskView extends javax.swing.JFrame {
         });
     }
 
+
+    private void back(){
+        if(this.task.id_task_father != 0){
+            DataTask taskFather = usr.consultTask(this.task.id_task_father);
+            TaskView obj = new TaskView(taskFather);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+        }else{
+            Workflow obj = new Workflow();
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+        }
+    }
+    
+    private void update(){
+        this.task = usr.consultTask(this.task.id_task);
+
+        this.title.setText(task.title);
+        this.description.setText(task.description);
+
+        if(this.task.status == StatusTask.TO_DO){
+            this.status.setText("Por hacer");
+        } else if(this.task.status == StatusTask.DEVELOPMENT){
+            this.status.setText("En desarrollo");
+        } else if(this.task.status == StatusTask.DONE){
+            this.status.setText("Terminada");
+        }
+
+        //Get the comments to show it
+        subTasks = usr.listSubTasks(task.id_task);
+
+        //Create the model and add it the title of the task
+        DefaultListModel model = new DefaultListModel();
+
+        for(int i = 0; i < subTasks.size(); i++){
+            DataTask subtask =(DataTask) subTasks.get(i);
+            model.addElement(subtask.title);
+        }
+
+        this.subTasks_list.setModel(model);
+
+        this.subTasks_list.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+
+                TaskView obj = new TaskView((DataTask) subTasks.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
+
+        if(usr.hasLicence(203)){
+            //Get the comments of the task to show it
+            comments = usr.listComments(task.id_task);
+
+            //Create the model and add it the title of the task
+            DefaultListModel modelc = new DefaultListModel();
+
+            for(int i = 0; i < comments.size(); i++){
+                DataComment comment =(DataComment) comments.get(i);
+                modelc.addElement(comment.text);
+            }
+
+            this.comments_list.setModel(modelc);
+
+            this.comments_list.addListSelectionListener(new ListSelectionListener(){
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    int index = ((JList) e.getSource()).getSelectedIndex();
+
+                    CommentView obj = new CommentView((DataComment) comments.get(index));
+                    obj.setSize(getSize());
+                    obj.setLocation(getLocation());
+                    obj.setVisible(true);
+                    dispose();
+                }
+            });
+        }
+    }
+
     public static DataTask task;
     private User usr;
     Vector subTasks;
+    Vector comments;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addComment_button;
     private javax.swing.JButton back_button;
     private javax.swing.JLabel comments_label;
+    private javax.swing.JList<String> comments_list;
+    private javax.swing.JButton delete_button;
     private javax.swing.JTextArea description;
-    private javax.swing.JProgressBar hour_estimated_bar;
-    private javax.swing.JLabel hour_estimated_label;
-    private javax.swing.JProgressBar hour_remaining_bar;
-    private javax.swing.JLabel hour_remaining_label;
-    private javax.swing.JProgressBar hour_worked_bar;
-    private javax.swing.JLabel hour_worked_label;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -424,6 +426,5 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JLabel subtasks_label;
     private javax.swing.JLabel title;
     private javax.swing.JButton updateTask;
-    private javax.swing.JButton workLog_button;
     // End of variables declaration//GEN-END:variables
 }

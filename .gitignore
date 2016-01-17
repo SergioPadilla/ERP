@@ -161,3 +161,4 @@ sympy-plots-for-*.tex/
 /SEKEGEX/dist/
 .DS_Store
 /SEKEGEX/.DS_Store
+*.DS_S*
