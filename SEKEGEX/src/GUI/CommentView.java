@@ -24,6 +24,9 @@ public class CommentView extends javax.swing.JFrame {
         this.comment.setText(c.text);
         this.com = c;
         usr = User.getInstance();
+        
+        if(!usr.hasLicence(201))
+            delete_button.setVisible(false);
     }
 
     /**

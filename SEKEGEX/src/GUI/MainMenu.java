@@ -19,7 +19,16 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
         this.setTitle("Menú Principal");
-        User usr = User.getInstance();
+        usr = User.getInstance();
+        
+        if(!usr.hasLicence(103))
+            workflow_button.setVisible(false);
+        if(!usr.hasLicence(303))
+            clients_button.setVisible(false);
+        if(!usr.hasLicence(503))
+            products_button.setVisible(false);
+        if(!usr.hasLicence(903))
+            jButton1.setVisible(false);
     }
 
     /**
@@ -189,6 +198,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
     }
 
+    private User usr;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton clients_button;
     private javax.swing.JButton jButton1;
