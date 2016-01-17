@@ -82,16 +82,24 @@ public class AddTask extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        title_label.setBackground(new java.awt.Color(0, 0, 0));
+        title_label.setForeground(new java.awt.Color(255, 255, 255));
         title_label.setText("Título");
 
         description.setColumns(20);
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
+        description_label.setBackground(new java.awt.Color(0, 0, 0));
+        description_label.setForeground(new java.awt.Color(255, 255, 255));
         description_label.setText("Descripción");
 
+        due_date_label.setBackground(new java.awt.Color(0, 0, 0));
+        due_date_label.setForeground(new java.awt.Color(255, 255, 255));
         due_date_label.setText("Fecha final");
 
+        employee_label.setBackground(new java.awt.Color(0, 0, 0));
+        employee_label.setForeground(new java.awt.Color(255, 255, 255));
         employee_label.setText("Asignar Empleado");
 
         back_button.setText("Volver");

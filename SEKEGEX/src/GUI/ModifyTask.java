@@ -8,6 +8,7 @@ package GUI;
 import DataType.DataEmployee;
 import DataType.DataTask;
 import Utils.StatusTask;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -29,6 +30,7 @@ public class ModifyTask extends javax.swing.JFrame {
      */
     public ModifyTask(DataTask task) {
         initComponents();
+        this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Modificar Tarea");
         this.task = task;
         
@@ -103,18 +105,28 @@ public class ModifyTask extends javax.swing.JFrame {
             }
         });
 
+        due_date_label.setBackground(new java.awt.Color(0, 0, 0));
+        due_date_label.setForeground(new java.awt.Color(255, 255, 255));
         due_date_label.setText("Fecha final");
 
+        title_label.setBackground(new java.awt.Color(0, 0, 0));
+        title_label.setForeground(new java.awt.Color(255, 255, 255));
         title_label.setText("Título");
 
         description.setColumns(20);
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
+        employee_label.setBackground(new java.awt.Color(0, 0, 0));
+        employee_label.setForeground(new java.awt.Color(255, 255, 255));
         employee_label.setText("Asignar Empleado");
 
+        description_label.setBackground(new java.awt.Color(0, 0, 0));
+        description_label.setForeground(new java.awt.Color(255, 255, 255));
         description_label.setText("Descripción");
 
+        status_label.setBackground(new java.awt.Color(0, 0, 0));
+        status_label.setForeground(new java.awt.Color(255, 255, 255));
         status_label.setText("Estado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
