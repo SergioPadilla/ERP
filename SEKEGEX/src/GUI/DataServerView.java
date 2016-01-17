@@ -39,6 +39,8 @@ public class DataServerView extends javax.swing.JFrame {
         domains=servidor.listDomains();
         setFilas();
 
+        if(!usr.hasLicence(800))
+            jButtonCreateDomain.setVisible(false);
     }
 
     /**
@@ -165,52 +167,51 @@ public class DataServerView extends javax.swing.JFrame {
 
     private void jButtonVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVolverMouseClicked
         DataClientView obj = new DataClientView(usr.consultClient(server.id_client));
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
         dispose();
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonVolverMouseClicked
 
     private void jButtonCreateDomainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateDomainMouseClicked
         CreateDomainView obj = new CreateDomainView(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButtonCreateDomainMouseClicked
 
         Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            
-            ModifyDataServer obj = new ModifyDataServer(server);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose(); 
-            
+            if(!usr.hasLicence(702)){
+                ModifyDataServer obj = new ModifyDataServer(server);
+                obj.setSize(getSize());
+                obj.setLocation(getLocation());
+                obj.setVisible(true);
+                dispose(); 
+            }
         }
     };
     Action borrar = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            javax.swing.JTable table = (javax.swing.JTable)e.getSource();
-            int modelRow = Integer.valueOf(e.getActionCommand());
-            DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
+            if(!usr.hasLicence(801)){
+                javax.swing.JTable table = (javax.swing.JTable)e.getSource();
+                int modelRow = Integer.valueOf(e.getActionCommand());
+                DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
 
 
-            JFrame frame = new JFrame();
-            int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el Dominio con id: "+Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
-            if (confirmacion==JOptionPane.YES_OPTION){    
-                Domain domaino=new Domain(Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
-                domaino.removeDomain();
-                DataServerView obj = new DataServerView(server);
-                obj.setSize(getSize());
-                obj.setLocation(getLocation());
-                obj.setVisible(true);
-                dispose();
-            
-        }
-            /*IMPLEMENTAR EL BORRADO*/ 
+                JFrame frame = new JFrame();
+                int confirmacion=JOptionPane.showConfirmDialog(frame, "¿ Quieres borrar el Dominio con id: "+Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+                if (confirmacion==JOptionPane.YES_OPTION){    
+                    Domain domaino=new Domain(Integer.valueOf(modelo2.getValueAt(modelRow, 0).toString()));
+                    domaino.removeDomain();
+                    DataServerView obj = new DataServerView(server);
+                    obj.setSize(getSize());
+                    obj.setLocation(getLocation());
+                    obj.setVisible(true);
+                    dispose();
+                }
+            }
         }
     };      
         
@@ -232,9 +233,7 @@ public class DataServerView extends javax.swing.JFrame {
         }
         
         ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, borrar, 2);
-        buttonColumn2.setMnemonic(KeyEvent.VK_D);
-        
-        
+        buttonColumn2.setMnemonic(KeyEvent.VK_D);    
     }
     /**
      * @param args the command line arguments

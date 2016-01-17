@@ -33,6 +33,15 @@ public class TaskView extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.BLUE);
         usr = User.getInstance();
         update();
+        
+        if(!usr.hasLicence(102))
+            modify_button.setVisible(false);
+        if(!usr.hasLicence(101))
+            delete_button.setVisible(false);
+        if(!usr.hasLicence(100))
+            newSubTask_button.setVisible(false);
+        if(!usr.hasLicence(200))
+            addComment_button.setVisible(false);
     }
 
     /**
@@ -364,31 +373,33 @@ public class TaskView extends javax.swing.JFrame {
             }
         });
 
-        //Get the comments of the task to show it
-        comments = usr.listComments(task.id_task);
+        if(usr.hasLicence(203)){
+            //Get the comments of the task to show it
+            comments = usr.listComments(task.id_task);
 
-        //Create the model and add it the title of the task
-        DefaultListModel modelc = new DefaultListModel();
+            //Create the model and add it the title of the task
+            DefaultListModel modelc = new DefaultListModel();
 
-        for(int i = 0; i < comments.size(); i++){
-            DataComment comment =(DataComment) comments.get(i);
-            modelc.addElement(comment.text);
-        }
-
-        this.comments_list.setModel(modelc);
-
-        this.comments_list.addListSelectionListener(new ListSelectionListener(){
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int index = ((JList) e.getSource()).getSelectedIndex();
-
-                CommentView obj = new CommentView((DataComment) comments.get(index));
-                obj.setSize(getSize());
-                obj.setLocation(getLocation());
-                obj.setVisible(true);
-                dispose();
+            for(int i = 0; i < comments.size(); i++){
+                DataComment comment =(DataComment) comments.get(i);
+                modelc.addElement(comment.text);
             }
-        });
+
+            this.comments_list.setModel(modelc);
+
+            this.comments_list.addListSelectionListener(new ListSelectionListener(){
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    int index = ((JList) e.getSource()).getSelectedIndex();
+
+                    CommentView obj = new CommentView((DataComment) comments.get(index));
+                    obj.setSize(getSize());
+                    obj.setLocation(getLocation());
+                    obj.setVisible(true);
+                    dispose();
+                }
+            });
+        }
     }
 
     public static DataTask task;

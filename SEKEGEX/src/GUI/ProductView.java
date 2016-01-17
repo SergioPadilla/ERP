@@ -30,6 +30,9 @@ public class ProductView extends javax.swing.JFrame {
         usr = User.getInstance();
         products = usr.listProducts();
         
+        if(!usr.hasLicence(500))
+            nuevoProducto.setVisible(false);
+        
         DefaultListModel model = new DefaultListModel();
         
         for(int i = 0; i < products.size(); i++){
@@ -136,22 +139,18 @@ public class ProductView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoProductoActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_nuevoProductoActionPerformed
 
     private void volverMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverMenuActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_volverMenuActionPerformed
 
     private void nuevoProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoProductoMouseClicked
-        // TODO add your handling code here:
         CreateDataProduct obj = new CreateDataProduct();
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_nuevoProductoMouseClicked
 
     private void volverMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMenuMouseClicked
-        // TODO add your handling code here:
         MainMenu obj = new MainMenu();
         obj.setVisible(true);
         dispose();

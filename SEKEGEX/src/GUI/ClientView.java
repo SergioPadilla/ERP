@@ -34,6 +34,9 @@ public class ClientView extends javax.swing.JFrame {
         usr = User.getInstance();
         clients = usr.listClients();
         setFilas();
+        
+        if(!usr.hasLicence(300))
+            jButton1.setVisible(false);
     }
 
     /**
@@ -135,17 +138,17 @@ public class ClientView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CreateClientView obj = new CreateClientView();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         MainMenu obj = new MainMenu();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2MouseClicked
 

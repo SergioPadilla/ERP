@@ -30,6 +30,9 @@ public class Workflow extends javax.swing.JFrame {
         this.setTitle("Tareas");
         usr = User.getInstance();
         
+        if(!usr.hasLicence(100))
+            addTask.setVisible(false);
+        
         //Get the tasks to show it
         tasks = usr.listTasks();
         
