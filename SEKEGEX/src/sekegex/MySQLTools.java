@@ -278,14 +278,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
 
         return res;
@@ -424,12 +424,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return new DataClient(id_client,type,name,surname,nif,email,date);
         }
@@ -483,12 +483,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -534,12 +534,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -573,12 +573,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -713,12 +713,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -762,12 +762,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -889,12 +889,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return new DataProduct(id_product,name,description,amount,nSold);
         }
@@ -928,12 +928,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1048,12 +1048,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1104,12 +1104,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1149,12 +1149,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return new DataPurchase(id_bill,id_product,total,cantidadi);
 
@@ -1196,12 +1196,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1241,12 +1241,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1289,12 +1289,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1335,12 +1335,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
         return res==1;
@@ -1437,12 +1437,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1494,12 +1494,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -1552,12 +1552,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
@@ -1591,12 +1591,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1634,12 +1634,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1711,12 +1711,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -1758,12 +1758,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
 
@@ -2115,12 +2115,12 @@ public class MySQLTools {
            e.printStackTrace();
         } finally {
            if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
            }
         }
     }
@@ -2170,12 +2170,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
         }
 
@@ -2308,14 +2308,14 @@ public class MySQLTools {
         }catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
+            if (con != null) {
                 try{
                    stmt.close();
                    con.close();
                 } catch(Exception e){
                    e.printStackTrace();
                 }
-           }
+            }
         }
     }
 
@@ -2490,14 +2490,14 @@ public class MySQLTools {
         }catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -2528,14 +2528,14 @@ public class MySQLTools {
         } catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -2660,14 +2660,14 @@ public class MySQLTools {
         }catch (Exception e){
            e.printStackTrace();
         } finally {
-           if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
-           }
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
         }
 
     }
@@ -2751,12 +2751,12 @@ public class MySQLTools {
             e.printStackTrace();
         } finally {
             if (con != null) {
-              try{
-                 stmt.close();
-                 con.close();
-              } catch(Exception e){
-                 e.printStackTrace();
-              }
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
             }
             return res;
         }
