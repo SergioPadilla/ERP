@@ -7,6 +7,7 @@
 package GUI;
 
 import DataType.DataProduct;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sekegex.User;
@@ -24,6 +25,7 @@ public class ModifyDataProduct extends javax.swing.JFrame {
      */
     public ModifyDataProduct(DataProduct product) {
         initComponents();
+        this.getContentPane().setBackground(Color.BLACK);
         producto = product;
         this.setTitle("Modificar producto");
         usr = User.getInstance(); 
@@ -55,13 +57,19 @@ public class ModifyDataProduct extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        name.setBackground(new java.awt.Color(0, 0, 0));
         name.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
         name.setText("Nuevo nombre:");
 
+        description.setBackground(new java.awt.Color(0, 0, 0));
         description.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        description.setForeground(new java.awt.Color(255, 255, 255));
         description.setText("Nueva descripción:");
 
+        price.setBackground(new java.awt.Color(0, 0, 0));
         price.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        price.setForeground(new java.awt.Color(255, 255, 255));
         price.setText("Nuevo precio:");
 
         saveButton.setText("Guardar");

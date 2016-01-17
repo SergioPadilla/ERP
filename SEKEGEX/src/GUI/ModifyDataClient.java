@@ -8,6 +8,7 @@ package GUI;
 import DataType.DataClient;
 import Utils.TypeClient;
 import com.aeat.valida.Validador;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import sekegex.Client;
@@ -24,14 +25,19 @@ public class ModifyDataClient extends javax.swing.JFrame {
      */
     public ModifyDataClient(DataClient data) {
         initComponents();
+                        this.getContentPane().setBackground(Color.BLACK);
+
         usr = User.getInstance();
         client = data;
-        date.setText(client.registration.toString());
-        name.setText(client.name);
+        id.setText(client.name);
+        jTextField1.setText(" "+client.id+" ");
+                jTextField2.setText(client.registration.toString());
+
         surname.setText(client.surname+" ");
         email.setText(client.email);
         dni.setText(client.dni);
         id_client.setText(data.idToString());
+        id_client.setBackground(Color.red);
     }
 
     ModifyDataClient() {
@@ -53,7 +59,6 @@ public class ModifyDataClient extends javax.swing.JFrame {
         dni_label = new javax.swing.JLabel();
         email_label = new javax.swing.JLabel();
         date_label = new javax.swing.JLabel();
-        name = new javax.swing.JTextField();
         surname = new javax.swing.JTextField();
         dni = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
@@ -61,26 +66,37 @@ public class ModifyDataClient extends javax.swing.JFrame {
         date = new javax.swing.JLabel();
         save_button = new javax.swing.JButton();
         back_button = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        id = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        id_label.setBackground(new java.awt.Color(0, 0, 0));
+        id_label.setForeground(new java.awt.Color(255, 255, 255));
         id_label.setText("ID");
 
+        name_label.setBackground(new java.awt.Color(0, 0, 0));
+        name_label.setForeground(new java.awt.Color(255, 255, 255));
         name_label.setText("Nombre");
 
+        surname_label.setBackground(new java.awt.Color(0, 0, 0));
+        surname_label.setForeground(new java.awt.Color(255, 255, 255));
         surname_label.setText("Apellidos");
 
+        dni_label.setBackground(new java.awt.Color(0, 0, 0));
+        dni_label.setForeground(new java.awt.Color(255, 255, 255));
         dni_label.setText("DNI");
 
+        email_label.setBackground(new java.awt.Color(0, 0, 0));
+        email_label.setForeground(new java.awt.Color(255, 255, 255));
         email_label.setText("Email");
 
+        date_label.setBackground(new java.awt.Color(0, 0, 0));
+        date_label.setForeground(new java.awt.Color(255, 255, 255));
         date_label.setText("Fecha alta");
-
-        name.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nameActionPerformed(evt);
-            }
-        });
 
         save_button.setText("Guardar");
         save_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -101,82 +117,125 @@ public class ModifyDataClient extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/jrQlLrZf.jpeg"))); // NOI18N
+
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Modificar Cliente");
+
+        id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(new java.awt.Color(0, 0, 0));
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jTextField2.setEditable(false);
+        jTextField2.setBackground(new java.awt.Color(0, 0, 0));
+        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(save_button)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(back_button)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(81, 81, 81)
+                            .addComponent(date))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel7)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(id_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(id_client))
+                        .addGap(32, 32, 32)
+                        .addComponent(id_client)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(date))
-                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(surname_label)
-                            .addComponent(name_label)
-                            .addComponent(dni_label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(surname, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                            .addComponent(dni)
-                            .addComponent(name)))
-                    .addComponent(date_label)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(save_button)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(back_button))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(date_label)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(email_label)
+                                .addGap(37, 37, 37)
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(surname_label)
+                                    .addComponent(name_label)
+                                    .addComponent(dni_label)
+                                    .addComponent(id_label))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(surname, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                        .addComponent(dni))
+                                    .addComponent(id, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(email_label)
-                        .addGap(37, 37, 37)
-                        .addComponent(email)))
-                .addContainerGap(343, Short.MAX_VALUE))
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel9)))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(id_client)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel7)
+                        .addGap(92, 92, 92)
+                        .addComponent(date))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(id_label)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(name_label)
+                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(surname_label)
+                            .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dni_label)
+                            .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(email_label)
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id_label)
-                    .addComponent(id_client))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(name_label)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(surname_label)
-                    .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dni_label)
-                    .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(email_label)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addComponent(date)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(date_label)
-                .addGap(12, 12, 12)
+                    .addComponent(date_label)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(save_button)
                     .addComponent(back_button))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nameActionPerformed
 
     private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
         // TODO add your handling code here:
@@ -203,7 +262,7 @@ public class ModifyDataClient extends javax.swing.JFrame {
             else{
                 typenew=TypeClient.BUSINESS;
             }
-            final String namenew = name.getText().toString();
+            final String namenew = id.getText().toString();
             final String surnamenew = surname.getText().toString();
             final String emailnew = email.getText().toString();
 
@@ -230,6 +289,10 @@ public class ModifyDataClient extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, "DNI incorrecto", "ERROR DATOS INVALIDOS", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_save_buttonMouseClicked
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,9 +339,13 @@ public class ModifyDataClient extends javax.swing.JFrame {
     private javax.swing.JLabel dni_label;
     public javax.swing.JTextField email;
     private javax.swing.JLabel email_label;
+    public javax.swing.JTextField id;
     public javax.swing.JLabel id_client;
     private javax.swing.JLabel id_label;
-    public javax.swing.JTextField name;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel name_label;
     private javax.swing.JButton save_button;
     public javax.swing.JTextField surname;

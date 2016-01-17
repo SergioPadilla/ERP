@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataTask;
+import java.awt.Color;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -27,6 +28,7 @@ public class Workflow extends javax.swing.JFrame {
      */
     public Workflow() {
         initComponents();
+        this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Tareas");
         usr = User.getInstance();
         

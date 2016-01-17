@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import sekegex.Client;
 import sekegex.User;
 import Utils.TypeClient;
+import java.awt.Color;
 
 /**
  *
@@ -25,6 +26,8 @@ public class CreateClientView extends javax.swing.JFrame {
     public CreateClientView() {
         initComponents();
         this.setTitle("Crear Cliente");
+                        this.getContentPane().setBackground(Color.BLACK);
+
     }
 
     /**
@@ -56,12 +59,20 @@ public class CreateClientView extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre:");
 
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Apellidos:");
 
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("NIF:");
 
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Email:");
 
         jButton2.setText("Guardar");

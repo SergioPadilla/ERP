@@ -8,6 +8,7 @@ package GUI;
 import DataType.DataBill;
 import DataType.DataClient;
 import DataType.DataServer;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Vector;
@@ -31,7 +32,8 @@ public class DataClientView extends javax.swing.JFrame {
     public DataClientView(DataClient client) {
         initComponents();
         this.setTitle("Cliente: " + client.name);
-        
+                        this.getContentPane().setBackground(Color.BLACK);
+
         clienti = client;
 
         usr = User.getInstance();
@@ -66,6 +68,7 @@ public class DataClientView extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -226,7 +229,7 @@ public class DataClientView extends javax.swing.JFrame {
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            if(!usr.hasLicence(302)){
+            if(usr.hasLicence(302)){
                 ModifyDataClient obj = new ModifyDataClient(clienti);
                 obj.setSize(getSize());
                 obj.setLocation(getLocation());
@@ -249,7 +252,7 @@ public class DataClientView extends javax.swing.JFrame {
     
         Action borrar = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            if(!usr.hasLicence(701)){
+            if(usr.hasLicence(701)){
                 javax.swing.JTable table = (javax.swing.JTable)e.getSource();
                 int modelRow = Integer.valueOf(e.getActionCommand());
                 DefaultTableModel modelo2 = (DefaultTableModel) jTable2.getModel();
@@ -289,7 +292,7 @@ public class DataClientView extends javax.swing.JFrame {
     
         Action borrarFacturas = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
-            if(!usr.hasLicence(401)){
+            if(usr.hasLicence(401)){
                 javax.swing.JTable table = (javax.swing.JTable)e.getSource();
                 int modelRow = Integer.valueOf(e.getActionCommand());
                 DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
