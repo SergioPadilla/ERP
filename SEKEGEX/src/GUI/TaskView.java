@@ -29,9 +29,9 @@ public class TaskView extends javax.swing.JFrame {
     public TaskView(DataTask task) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.BLACK);
         this.task = task;
         this.setTitle("Tarea");
-        this.getContentPane().setBackground(Color.BLUE);
         usr = User.getInstance();
         update();
         
@@ -88,7 +88,6 @@ public class TaskView extends javax.swing.JFrame {
         description.setRows(5);
         jScrollPane1.setViewportView(description);
 
-        subTasks_list.setBackground(new java.awt.Color(51, 153, 255));
         subTasks_list.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -115,7 +114,6 @@ public class TaskView extends javax.swing.JFrame {
 
         jScrollPane3.setBackground(new java.awt.Color(51, 153, 255));
 
-        comments_list.setBackground(new java.awt.Color(51, 153, 255));
         comments_list.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -187,10 +185,10 @@ public class TaskView extends javax.swing.JFrame {
                             .addComponent(comments_label))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(delete_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 746, Short.MAX_VALUE)
+                        .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 657, Short.MAX_VALUE)
                         .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(updateTask))
