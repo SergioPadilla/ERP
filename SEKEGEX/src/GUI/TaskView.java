@@ -75,7 +75,7 @@ public class TaskView extends javax.swing.JFrame {
         status = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(51, 102, 255));
+        setBackground(new java.awt.Color(0, 0, 0));
 
         title.setBackground(new java.awt.Color(51, 102, 255));
         title.setFont(new java.awt.Font("AppleGothic", 0, 18)); // NOI18N
