@@ -109,22 +109,22 @@ public class Workflow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 411, Short.MAX_VALUE)
                         .addComponent(addTask)
                         .addGap(18, 18, 18)
-                        .addComponent(back_button)
-                        .addGap(0, 411, Short.MAX_VALUE)))
+                        .addComponent(back_button)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addTask)
-                    .addComponent(back_button))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(back_button)
+                    .addComponent(addTask))
+                .addContainerGap())
         );
 
         pack();
