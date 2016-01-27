@@ -26,6 +26,7 @@ public class Login extends javax.swing.JFrame implements KeyListener {
      */
     public Login() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         usr = User.getInstance();
         this.getContentPane().setBackground(Color.BLACK);
     }

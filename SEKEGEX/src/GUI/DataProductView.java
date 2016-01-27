@@ -23,7 +23,8 @@ public class DataProductView extends javax.swing.JFrame {
      */
     public DataProductView(DataProduct producto) {
         initComponents();
-                        this.getContentPane().setBackground(Color.BLACK);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.BLACK);
 
         this.product = producto;
         this.setTitle("Producto");

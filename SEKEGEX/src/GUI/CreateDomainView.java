@@ -24,8 +24,8 @@ public class CreateDomainView extends javax.swing.JFrame {
     public CreateDomainView(DataServer data) {
         server=data;
         initComponents();
-                        this.getContentPane().setBackground(Color.BLACK);
-
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.BLACK);
     }
 
     /**

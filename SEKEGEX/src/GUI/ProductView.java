@@ -27,6 +27,7 @@ public class ProductView extends javax.swing.JFrame {
      */
     public ProductView() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Productos");
         usr = User.getInstance();

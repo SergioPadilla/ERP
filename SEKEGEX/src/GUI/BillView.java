@@ -20,8 +20,9 @@ public class BillView extends javax.swing.JFrame {
      */
     public BillView(DataClient data) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         clienti = data;
-                this.getContentPane().setBackground(Color.BLACK);
+        this.getContentPane().setBackground(Color.BLACK);
 
         this.setTitle("Cliente: " + clienti.name);        
         User usr = User.getInstance();

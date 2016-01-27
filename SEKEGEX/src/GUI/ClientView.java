@@ -29,6 +29,7 @@ public class ClientView extends javax.swing.JFrame {
      */
     public ClientView() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("Clientes");
         this.getContentPane().setBackground(Color.BLACK);
         usr = User.getInstance();

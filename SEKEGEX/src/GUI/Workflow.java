@@ -28,6 +28,7 @@ public class Workflow extends javax.swing.JFrame {
      */
     public Workflow() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Tareas");
         usr = User.getInstance();

@@ -25,6 +25,7 @@ public class CreateClientView extends javax.swing.JFrame {
      */
     public CreateClientView() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("Crear Cliente");
                         this.getContentPane().setBackground(Color.BLACK);
 

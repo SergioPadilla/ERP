@@ -25,7 +25,8 @@ public class ModifyDataClient extends javax.swing.JFrame {
      */
     public ModifyDataClient(DataClient data) {
         initComponents();
-                        this.getContentPane().setBackground(Color.BLACK);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.BLACK);
 
         usr = User.getInstance();
         client = data;
