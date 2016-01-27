@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.Box;
 import javax.swing.JFrame;
@@ -21,6 +22,9 @@ public class EmployeeGeneralView extends javax.swing.JPanel {
      */
     public EmployeeGeneralView() {
         initComponents();
+        this.setBackground(Color.BLACK);
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
     }
     
     public void update(){

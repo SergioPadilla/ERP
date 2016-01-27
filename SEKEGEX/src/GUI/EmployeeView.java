@@ -6,6 +6,7 @@
 package GUI;
 
 import DataType.DataEmployee;
+import java.awt.Color;
 import static java.awt.image.ImageObserver.WIDTH;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -24,8 +25,16 @@ public class EmployeeView extends javax.swing.JFrame {
      */
     public EmployeeView() {
         initComponents();
+        this.getContentPane().setBackground(Color.BLACK);
+        logo= new javax.swing.JLabel();
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/jrQlLrZf.jpeg"))); // NOI18N
+        logo.setSize(100,100);
+        logo.setLocation(20, 20);
+        add(logo);
         this.setExtendedState(MAXIMIZED_BOTH);
         employeeGeneralView1.setWindow(this);
+        paintAll(getGraphics());
+        repaint();
     }
     
     public void update(){
@@ -364,6 +373,7 @@ public class EmployeeView extends javax.swing.JFrame {
     }
 
     private Employee activeEmployee;
+    private javax.swing.JLabel logo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton1;
     private javax.swing.JButton backButton2;
