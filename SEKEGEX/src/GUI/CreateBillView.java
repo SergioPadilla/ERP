@@ -32,11 +32,8 @@ public class CreateBillView extends javax.swing.JFrame {
     public CreateBillView(DataClient data, int idBill) {
         initComponents();
         clienti = data;
-<<<<<<< HEAD
-        this.setTitle("Modificacoin de factura para cliente: " + clienti.name);
-=======
+
         this.setTitle("Modificacion de factura para cliente: " + clienti.name);
->>>>>>> master
         borrar=false;
                 this.getContentPane().setBackground(Color.BLACK);
 
