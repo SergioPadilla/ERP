@@ -34,6 +34,7 @@ public class DataServerView extends javax.swing.JFrame {
      */
     public DataServerView(DataServer data) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setBackground(Color.BLACK);
         usr = User.getInstance();
         server = data;

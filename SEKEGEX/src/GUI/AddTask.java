@@ -33,7 +33,8 @@ public class AddTask extends javax.swing.JFrame {
      */
     public AddTask() {
         initComponents();
-                this.getContentPane().setBackground(Color.BLACK);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.BLACK);
 
         dateChooserCombo1.setCalendarPreferredSize(new Dimension(jButton1.getPreferredSize().width*8,dateChooserCombo1.getCalendarPreferredSize().height));
 

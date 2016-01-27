@@ -25,6 +25,7 @@ public class ModifyDataProduct extends javax.swing.JFrame {
      */
     public ModifyDataProduct(DataProduct product) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setBackground(Color.BLACK);
         producto = product;
         this.setTitle("Modificar producto");

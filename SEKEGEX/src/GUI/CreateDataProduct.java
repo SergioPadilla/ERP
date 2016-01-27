@@ -25,7 +25,8 @@ public class CreateDataProduct extends javax.swing.JFrame {
      */
     public CreateDataProduct() {
         initComponents();
-                        this.getContentPane().setBackground(Color.BLACK);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.BLACK);
 
         this.setTitle("Añadir Tarea");
         usr = User.getInstance();

@@ -28,6 +28,7 @@ public class TaskView extends javax.swing.JFrame {
      */
     public TaskView(DataTask task) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.task = task;
         this.setTitle("Tarea");
         this.getContentPane().setBackground(Color.BLUE);

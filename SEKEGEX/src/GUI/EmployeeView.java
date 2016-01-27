@@ -24,6 +24,7 @@ public class EmployeeView extends javax.swing.JFrame {
      */
     public EmployeeView() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         employeeGeneralView1.setWindow(this);
     }
     

@@ -21,10 +21,10 @@ public class AddComment extends javax.swing.JFrame {
      */
     public AddComment(int id_task) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.id_task = id_task;
         usr = User.getInstance();
                 this.getContentPane().setBackground(Color.BLACK);
-
     }
 
     /**

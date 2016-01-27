@@ -31,8 +31,9 @@ public class DataClientView extends javax.swing.JFrame {
 
     public DataClientView(DataClient client) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("Cliente: " + client.name);
-                        this.getContentPane().setBackground(Color.BLACK);
+        this.getContentPane().setBackground(Color.BLACK);
 
         clienti = client;
 

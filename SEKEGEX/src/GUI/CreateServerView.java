@@ -24,7 +24,8 @@ public class CreateServerView extends javax.swing.JFrame {
      */
     public CreateServerView(DataClient data) {
         initComponents();
-                        this.getContentPane().setBackground(Color.BLACK);
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.BLACK);
 
         client = data;
     }

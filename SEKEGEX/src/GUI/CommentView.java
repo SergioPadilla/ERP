@@ -22,6 +22,7 @@ public class CommentView extends javax.swing.JFrame {
      */
     public CommentView(DataComment c) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.comment.setText(c.text);
         this.com = c;
         usr = User.getInstance();

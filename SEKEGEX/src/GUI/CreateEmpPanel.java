@@ -19,9 +19,7 @@ public class CreateEmpPanel extends javax.swing.JPanel {
     /**
      * Creates new form CerateEmpPanel
      */
-    public CreateEmpPanel() {
-                                
-
+    public CreateEmpPanel() {                              
         initComponents();
         
         usr=User.getInstance();

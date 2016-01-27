@@ -30,6 +30,7 @@ public class ModifyTask extends javax.swing.JFrame {
      */
     public ModifyTask(DataTask task) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Modificar Tarea");
         this.task = task;

@@ -19,6 +19,7 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.setTitle("Menú Principal");
         usr = User.getInstance();
                 this.getContentPane().setBackground(Color.BLACK);

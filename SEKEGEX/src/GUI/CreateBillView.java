@@ -31,6 +31,7 @@ public class CreateBillView extends javax.swing.JFrame {
      */
     public CreateBillView(DataClient data, int idBill) {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
         clienti = data;
 
         this.setTitle("Modificacion de factura para cliente: " + clienti.name);
