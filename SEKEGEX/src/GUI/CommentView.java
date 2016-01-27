@@ -77,9 +77,9 @@ public class CommentView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(back_button, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delete_button, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)))
+                        .addComponent(delete_button, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
