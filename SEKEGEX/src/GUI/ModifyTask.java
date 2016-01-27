@@ -64,6 +64,7 @@ public class ModifyTask extends javax.swing.JFrame {
         
         title.setText(task.title);
         description.setText(task.description);
+        statusSelected="";
     }
 
     /**

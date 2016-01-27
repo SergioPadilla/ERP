@@ -2050,6 +2050,8 @@ public class MySQLTools {
         PreparedStatement stmt = null;
 
         try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
             StringBuilder query = new StringBuilder("UPDATE tareas SET ");
             boolean first=true;
 
@@ -2084,7 +2086,7 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("estado = '");
+                query.append("estado='");
                 query.append(status);
                 query.append("'");
                 first=false;
@@ -2093,16 +2095,18 @@ public class MySQLTools {
                 if(!first){
                     query.append(",");
                 }
-                query.append("fecha = '");
+                query.append("fecha='");
                 query.append(due_date);
                 query.append("'");
                 first=false;
             }
 
-            query.append(" WHERE id_tareas = ");
+            query.append(" WHERE id_tarea='");
             query.append(id_task);
-
+            query.append("'");
+            
             String queryfinal = new String(query);
+            System.out.println(queryfinal);
             stmt = con.prepareStatement(queryfinal);
 
             stmt.executeUpdate();
