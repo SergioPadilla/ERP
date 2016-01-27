@@ -9,6 +9,7 @@ import DataType.DataEmployee;
 import DataType.DataTask;
 import Utils.StatusTask;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -30,6 +31,7 @@ public class ModifyTask extends javax.swing.JFrame {
      */
     public ModifyTask(DataTask task) {
         initComponents();
+        dateChooserCombo1.setCalendarPreferredSize(new Dimension(jButton1.getPreferredSize().width*8,dateChooserCombo1.getCalendarPreferredSize().height));
         this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Modificar Tarea");
@@ -77,6 +79,7 @@ public class ModifyTask extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         back_button = new javax.swing.JButton();
         combo_employees = new javax.swing.JComboBox<>();
         save_button = new javax.swing.JButton();
@@ -90,6 +93,8 @@ public class ModifyTask extends javax.swing.JFrame {
         status_label = new javax.swing.JLabel();
         combo_status = new javax.swing.JComboBox<>();
         dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
+
+        jButton1.setText("31");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,7 +175,7 @@ public class ModifyTask extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(199, Short.MAX_VALUE)
+                .addGap(199, 199, 199)
                 .addComponent(due_date_label)
                 .addGap(18, 18, 18)
                 .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,6 +304,7 @@ public class ModifyTask extends javax.swing.JFrame {
     private javax.swing.JLabel description_label;
     private javax.swing.JLabel due_date_label;
     private javax.swing.JLabel employee_label;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton save_button;
     private javax.swing.JLabel status_label;
