@@ -2187,6 +2187,56 @@ public class MySQLTools {
     }
 
     /**
+     * Get tasks by id
+     * @return
+     */
+    public Vector listTasksById(int id){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector tasks = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            stmt = con.prepareStatement("SELECT * FROM tareas WHERE id_tarea_padre=?");
+
+            stmt.setInt(1, id);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                tasks.add(new DataTask(rs.getInt("id_tarea"),
+                        rs.getString("titulo"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_tarea_padre"),
+                        rs.getInt("empleado_asignado"),
+                        StatusTask.valueOf(rs.getString("estado")),
+                        rs.getString("descripcion")
+                ));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return tasks;
+    }
+    
+    /**
      * Get tasks
      * @return
      */
@@ -2285,6 +2335,46 @@ public class MySQLTools {
         return tasks;
     }
 
+    /**
+     * Erase task
+     */
+    void eraseTaskAndSubtask(int id_task){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM tareas WHERE id_tarea='");
+            query.append(id_task);
+            query.append("' OR id_tarea_padre='");
+            query.append(id_task);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+        }
+    }
+    
     /**
      * Erase task
      */

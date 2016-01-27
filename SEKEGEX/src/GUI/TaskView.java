@@ -30,7 +30,7 @@ public class TaskView extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.getContentPane().setBackground(Color.BLACK);
-        this.task = task;
+        this.task = new DataTask(task);
         this.setTitle("Tarea");
         usr = User.getInstance();
         update();
@@ -279,6 +279,7 @@ public class TaskView extends javax.swing.JFrame {
         Task task = new Task(this.task.id_task);
         task.eraseTask();
         back();
+        this.task = null;
     }//GEN-LAST:event_delete_buttonMouseClicked
 
     /**

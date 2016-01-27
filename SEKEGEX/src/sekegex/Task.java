@@ -9,6 +9,7 @@ import Utils.StatusTask;
 import DataType.DataTask;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Vector;
 
 
 /**
@@ -53,7 +54,7 @@ public class Task {
      */
     public void eraseTask(){
         if (activeEmployee.hasLicence(101)){
-            DB.eraseTask(getData().id_task);
+            eraseTask(getData().id_task);
         }
     }
 
@@ -62,5 +63,19 @@ public class Task {
      */
     public DataTask getData() {
         return data;
-    } 
+    }
+    
+    /**
+     *  Remove subtask
+     * @param id 
+     */
+    private void eraseTask(int id){
+        Vector subtasks = DB.listTasksById(id);
+        
+        for(int i = 0; i < subtasks.size(); i++){
+            eraseTask(((DataTask) subtasks.get(i)).id_task);
+        }
+        
+        DB.eraseTaskAndSubtask(id);
+    }
 }

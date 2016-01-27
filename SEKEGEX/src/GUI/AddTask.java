@@ -185,20 +185,7 @@ public class AddTask extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
-        if(this.id_task_father != 0){
-            DataTask taskFather = usr.consultTask(this.id_task_father);
-            TaskView obj = new TaskView(taskFather);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose();
-        } else{
-            Workflow obj = new Workflow();
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose();
-        }
+        back();
     }//GEN-LAST:event_back_buttonMouseClicked
 
     private void new_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_new_buttonMouseClicked
@@ -226,6 +213,7 @@ public class AddTask extends javax.swing.JFrame {
                 }
                 if(usr.insertSubTask(titlenew, descriptionnew, date, id_employee, id_task_father)){
                     JOptionPane.showMessageDialog(this, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
+                    back();
                 }else{
                     JOptionPane.showMessageDialog(this, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
                 }
@@ -240,6 +228,7 @@ public class AddTask extends javax.swing.JFrame {
                 }
                 if(usr.insertTask(titlenew, descriptionnew, date, id_employee)){
                     JOptionPane.showMessageDialog(this, "La tarea se ha creado con éxito", "Tarea Creada", JOptionPane.INFORMATION_MESSAGE);
+                    back();
                 }else{
                     JOptionPane.showMessageDialog(this, "No tienes permisos para crear tareas", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
                 }
@@ -283,6 +272,23 @@ public class AddTask extends javax.swing.JFrame {
         });
     }
 
+    private void back(){
+        if(this.id_task_father != 0){
+            DataTask taskFather = usr.consultTask(this.id_task_father);
+            TaskView obj = new TaskView(taskFather);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+        } else{
+            Workflow obj = new Workflow();
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+        }
+    }
+    
     User usr;
     private String name;
     public int id_task_father = 0;
