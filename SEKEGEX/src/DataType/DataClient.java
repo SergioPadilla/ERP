@@ -37,4 +37,15 @@ public class DataClient {
         String idstring = new String(""+id);
         return idstring;
     }
+    public String typeToString(){
+        String typestring; 
+            
+        if(type.compareTo(TypeClient.BUSINESS)!=0){
+           typestring = new String("Particular");
+        }
+        else{
+           typestring = new String("Empresa");
+        }
+        return typestring;
+    }
 }

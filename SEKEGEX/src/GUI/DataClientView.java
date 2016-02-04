@@ -320,7 +320,7 @@ public class DataClientView extends javax.swing.JFrame {
         DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
 
         
-        Object[] datos1 = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
+        Object[] datos1 = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.typeToString(),clienti.registration}; // Cantidad de columnas de la tabla
         modelo1.addRow(datos1);
         
         ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
