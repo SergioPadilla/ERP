@@ -6,7 +6,12 @@
 package GUI;
 
 import DataType.DataClient;
+import DataType.DataProduct;
 import java.awt.Color;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import sekegex.Bill;
+import sekegex.Client;
 import sekegex.User;
 
 /**
@@ -18,14 +23,18 @@ public class BillView extends javax.swing.JFrame {
     /**
      * Creates new form BillView
      */
-    public BillView(DataClient data) {
+    public BillView(DataClient data, int idBill) {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         clienti = data;
         this.getContentPane().setBackground(Color.BLACK);
-
+        id_Bill=idBill;
         this.setTitle("Cliente: " + clienti.name);        
         User usr = User.getInstance();
+        Client clientO= new Client(clienti.id);
+        billO= new Bill(id_Bill);
+        products=billO.listProductsforbill();
+        setFilas();
 
     }
 
@@ -40,6 +49,8 @@ public class BillView extends javax.swing.JFrame {
 
         returnButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,28 +63,49 @@ public class BillView extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/jrQlLrZf.jpeg"))); // NOI18N
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id Producto", "Nombre", "Cantidad", "Precio"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(returnButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
+                .addComponent(returnButton))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addComponent(returnButton)
-                .addGap(27, 27, 27))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                        .addGap(43, 43, 43))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(returnButton)
+                        .addGap(18, 18, 18))))
         );
 
         pack();
@@ -87,6 +119,18 @@ public class BillView extends javax.swing.JFrame {
            dispose();
     }//GEN-LAST:event_returnButtonMouseClicked
 
+    
+        private void setFilas() {
+        DefaultTableModel modelo1 = (DefaultTableModel) jTable1.getModel();
+
+        for(int i=0;i<products.size();i++){
+            DataProduct prodi=(DataProduct)products.elementAt(i);
+            Object[] datos2 = {prodi.id,prodi.name,billO.consultPurchase(prodi.id).quantity,prodi.amount}; 
+            modelo1.addRow(datos2);
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -117,14 +161,19 @@ public class BillView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BillView(clienti).setVisible(true);
+                new BillView(clienti,id_Bill).setVisible(true);
             }
         });
     }
-    public static DataClient clienti;
+    public Vector products;
 
+    public static DataClient clienti;
+    public static int id_Bill;
+    public static Bill billO;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton returnButton;
     // End of variables declaration//GEN-END:variables
 }
