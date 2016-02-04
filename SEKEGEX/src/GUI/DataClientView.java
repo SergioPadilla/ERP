@@ -46,7 +46,7 @@ public class DataClientView extends javax.swing.JFrame {
         if(!usr.hasLicence(700))
             jButtonAddServer.setVisible(false);
         if(!usr.hasLicence(400))
-            jButton2.setVisible(false);
+            jButtonAddBill.setVisible(false);
     }
 
     /**
@@ -66,7 +66,7 @@ public class DataClientView extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jButtonAddServer = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAddBill = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -155,10 +155,10 @@ public class DataClientView extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Añadir Factura");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButtonAddBill.setText("Añadir Factura");
+        jButtonAddBill.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+                jButtonAddBillMouseClicked(evt);
             }
         });
 
@@ -180,7 +180,7 @@ public class DataClientView extends javax.swing.JFrame {
                             .addComponent(jScrollPane2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAddBill, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonAddServer, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -196,7 +196,7 @@ public class DataClientView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonAddBill, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(jButton1)
                 .addGap(14, 14, 14))
@@ -220,11 +220,12 @@ public class DataClientView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButtonAddServerMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void jButtonAddBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddBillMouseClicked
         CreateBillView obj = new CreateBillView(clienti);
+        obj.setSize(getSize());    // corregido
         obj.setLocation(getLocation());
         obj.setVisible(true);
-        dispose();    }//GEN-LAST:event_jButton2MouseClicked
+        dispose();    }//GEN-LAST:event_jButtonAddBillMouseClicked
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
@@ -393,7 +394,7 @@ public class DataClientView extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAddBill;
     private javax.swing.JButton jButtonAddServer;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
