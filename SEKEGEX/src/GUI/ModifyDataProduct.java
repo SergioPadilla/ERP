@@ -179,6 +179,11 @@ public class ModifyDataProduct extends javax.swing.JFrame {
             product.modifyProduct(nuevoNombre,nuevaDescripcion,nuevoPrecioF);
             JOptionPane.showMessageDialog(frame, "La modificación se ha realizado con éxito", "Datos Actualizados", JOptionPane.INFORMATION_MESSAGE);
             producto = product.getData();
+            DataProductView obj = new DataProductView(producto);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose(); 
         }
         else{
             JOptionPane.showMessageDialog(frame, "No tiene permisos para crear productos", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);

@@ -124,9 +124,19 @@ public class DataProductView extends javax.swing.JFrame {
             }
         });
 
+        nameProduct.setBackground(new java.awt.Color(0, 0, 0));
         nameProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nameProduct.setForeground(new java.awt.Color(255, 255, 255));
 
+        idProduct.setBackground(new java.awt.Color(0, 0, 0));
         idProduct.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        idProduct.setForeground(new java.awt.Color(255, 255, 255));
+
+        priceProduct.setBackground(new java.awt.Color(0, 0, 0));
+        priceProduct.setForeground(new java.awt.Color(255, 255, 255));
+
+        soldsProduct.setBackground(new java.awt.Color(0, 0, 0));
+        soldsProduct.setForeground(new java.awt.Color(255, 255, 255));
 
         descriptionProduct.setEditable(false);
         descriptionProduct.setColumns(20);

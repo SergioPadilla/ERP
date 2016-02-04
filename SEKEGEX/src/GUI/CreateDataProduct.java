@@ -209,8 +209,9 @@ public class CreateDataProduct extends javax.swing.JFrame {
         else if (usr.hasLicence(500)){
             usr.insertProduct(nombre, descripcion, f);
             JOptionPane.showMessageDialog(frame, "La creación se ha realizado con éxito", "Datos actualizados", JOptionPane.INFORMATION_MESSAGE);
-            repaint();
-        }
+            ProductView obj = new ProductView();
+            obj.setVisible(true);
+            dispose();        }
         else{
             JOptionPane.showMessageDialog(frame, "No tiene permisos para crear productos", "ERROR PERMISOS", JOptionPane.ERROR_MESSAGE);
         }
