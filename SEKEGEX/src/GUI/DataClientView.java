@@ -222,7 +222,6 @@ public class DataClientView extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         CreateBillView obj = new CreateBillView(clienti);
-        obj.setSize(getSize());
         obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();    }//GEN-LAST:event_jButton2MouseClicked
@@ -281,7 +280,7 @@ public class DataClientView extends javax.swing.JFrame {
             DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
             
             int idBill=Integer.valueOf(modelo3.getValueAt(modelRow, 0).toString());
-            CreateBillView obj = new CreateBillView(clienti,idBill);
+            BillView obj = new BillView(clienti,idBill);
             obj.setSize(getSize());
             obj.setLocation(getLocation());
             obj.setVisible(true);
