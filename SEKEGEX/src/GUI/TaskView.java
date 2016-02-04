@@ -6,12 +6,15 @@
 package GUI;
 
 import DataType.DataComment;
+import DataType.DataEmployee;
 import DataType.DataTask;
 import Utils.StatusTask;
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import sekegex.Task;
@@ -34,15 +37,15 @@ public class TaskView extends javax.swing.JFrame {
         this.setTitle("Tarea");
         usr = User.getInstance();
         update();
-        
+        cambiando=false;
         if(!usr.hasLicence(102))
-            modify_button.setVisible(false);
+            modify_button.setEnabled(false);
         if(!usr.hasLicence(101))
-            delete_button.setVisible(false);
+            delete_button.setEnabled(false);
         if(!usr.hasLicence(100))
-            newSubTask_button.setVisible(false);
+            newSubTask_button.setEnabled(false);
         if(!usr.hasLicence(200))
-            addComment_button.setVisible(false);
+            addComment_button.setEnabled(false);
     }
 
     /**
@@ -73,6 +76,7 @@ public class TaskView extends javax.swing.JFrame {
         delete_button = new javax.swing.JButton();
         status_label = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
+        newcomment = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -121,7 +125,7 @@ public class TaskView extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(comments_list);
 
-        addComment_button.setText("Nuevo Comentario");
+        addComment_button.setText("Comentar");
         addComment_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addComment_buttonMouseClicked(evt);
@@ -171,20 +175,16 @@ public class TaskView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(newSubTask_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jSeparator1)
-                    .addComponent(jSeparator2)
-                    .addComponent(jScrollPane3)
-                    .addComponent(addComment_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(subtasks_label, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comments_label))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(newcomment)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addComment_button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(modify_button, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(delete_button, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,14 +192,19 @@ public class TaskView extends javax.swing.JFrame {
                         .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(updateTask))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(status_label)
                             .addComponent(status))
                         .addGap(53, 53, 53))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(subtasks_label, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comments_label))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -227,7 +232,9 @@ public class TaskView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comments_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(newcomment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addComment_button)
                 .addGap(18, 18, 18)
@@ -252,11 +259,17 @@ public class TaskView extends javax.swing.JFrame {
     }//GEN-LAST:event_newSubTask_buttonMouseClicked
 
     private void addComment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addComment_buttonMouseClicked
-        AddComment obj = new AddComment(task.id_task);
-        obj.setSize(getSize());
-        obj.setLocation(getLocation());
-        obj.setVisible(true);
-        dispose();
+        if(!newcomment.getText().equals("")){
+            if(!usr.insertComment(this.task.id_task, newcomment.getText())){
+                JOptionPane.showMessageDialog(this,"No tienes permiso");
+            }else{
+                newcomment.setText("");
+                update();
+            }
+        }else{
+            JOptionPane.showMessageDialog(this,"Almenos tiene que tener un carácter.");
+        }
+        
     }//GEN-LAST:event_addComment_buttonMouseClicked
 
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
@@ -379,10 +392,25 @@ public class TaskView extends javax.swing.JFrame {
 
             //Create the model and add it the title of the task
             DefaultListModel modelc = new DefaultListModel();
-
+            HashMap<Integer, DataEmployee> Commenters = new HashMap<Integer, DataEmployee>();
+            DataEmployee employee=null;
             for(int i = 0; i < comments.size(); i++){
                 DataComment comment =(DataComment) comments.get(i);
-                modelc.addElement(comment.text);
+                
+                StringBuilder comenttext = new StringBuilder(comment.text);
+                if(usr.hasLicence(900)){
+                    if(Commenters.containsKey(comment.id_employee)){
+                        employee=Commenters.get(comment.id_employee);
+                    }else{
+                        employee=usr.consultEmployee(comment.id_employee);
+                        Commenters.put(comment.id_employee, employee);
+                    }
+                    comenttext.append("---->");
+                    comenttext.append(employee.name);
+                    comenttext.append(" ");
+                    comenttext.append(employee.surname);
+                }
+                modelc.addElement(new String(comenttext));
             }
 
             this.comments_list.setModel(modelc);
@@ -391,12 +419,15 @@ public class TaskView extends javax.swing.JFrame {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                     int index = ((JList) e.getSource()).getSelectedIndex();
-
-                    CommentView obj = new CommentView((DataComment) comments.get(index));
-                    obj.setSize(getSize());
-                    obj.setLocation(getLocation());
-                    obj.setVisible(true);
-                    dispose();
+                    if(!cambiando){
+                        cambiando=true;
+                        CommentView obj = new CommentView((DataComment) comments.get(index));
+                        obj.setSize(getSize());
+                        obj.setLocation(getLocation());
+                        obj.setVisible(true);
+                        dispose();
+                    }
+                    
                 }
             });
         }
@@ -406,6 +437,7 @@ public class TaskView extends javax.swing.JFrame {
     private User usr;
     Vector subTasks;
     Vector comments;
+    boolean cambiando;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addComment_button;
     private javax.swing.JButton back_button;
@@ -420,6 +452,7 @@ public class TaskView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton modify_button;
     private javax.swing.JButton newSubTask_button;
+    private javax.swing.JTextField newcomment;
     private javax.swing.JLabel status;
     private javax.swing.JLabel status_label;
     private javax.swing.JList<String> subTasks_list;
