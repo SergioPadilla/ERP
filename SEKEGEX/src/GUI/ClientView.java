@@ -97,7 +97,7 @@ public class ClientView extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Atrás");
+        jButton2.setText("Volver");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
