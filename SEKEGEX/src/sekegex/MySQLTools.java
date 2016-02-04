@@ -224,6 +224,22 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("INSERT INTO empleados (id_empleado , dni,  nombre, password, apellidos, rol) VALUES (NULL,'root','Admin','cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e','',1)");
            stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,100)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,101)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,102)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,103)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,200)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,201)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,202)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,203)");
+           stmt.executeUpdate();
 
 
         } catch (SQLException sqle){
@@ -2418,7 +2434,7 @@ public class MySQLTools {
     /**
      * Insert Comment
      */
-    void insertComment(int id_tarea, String comment){
+    void insertComment(int id_tarea, String comment,int id_employee){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -2426,10 +2442,11 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO comentarios (tarea, texto) VALUES(?,?);");
+           stmt = con.prepareStatement("INSERT INTO comentarios (tarea, texto,id_empleado) VALUES(?,?,?);");
 
            stmt.setInt(1, id_tarea);
            stmt.setString(2, comment);
+           stmt.setInt(3, id_employee);
 
            stmt.executeUpdate();
 
@@ -2450,7 +2467,56 @@ public class MySQLTools {
             }
         }
     }
+    /**
+     * consult Comment
+     */
+    DataComment consultComment(int id_comment){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int id_task = 0;
+        int id_employee=0;
+        String text = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("SELECT * FROM clientes WHERE id_cliente='");
+            query.append(id_comment);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            if(rs.next()){
+
+                text=rs.getString("texto");
+                id_task=rs.getInt("tarea");
+                id_employee=rs.getInt("id_empleado");
+ 
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+            return new DataComment(id_comment,text,id_task,id_employee);
+        }
+    }
     /**
      * Modify Comment
      */
@@ -2533,7 +2599,8 @@ public class MySQLTools {
             while(rs.next()){
                 comments.add(new DataComment(rs.getInt("id_comentario"),
                         rs.getString("texto"),
-                        rs.getInt("tarea")
+                        rs.getInt("tarea"),
+                        rs.getInt("id_empleado")
                 ));
             }
 

@@ -24,14 +24,14 @@ public class CommentView extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.comment.setText(c.text);
-        this.com = c;
+        this.com=new DataComment(c);
         usr = User.getInstance();
                 this.getContentPane().setBackground(Color.BLACK);
 
         
         if(!usr.hasLicence(201))
-            delete_button.setVisible(false);
-    }
+            delete_button.setEnabled(false);
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.

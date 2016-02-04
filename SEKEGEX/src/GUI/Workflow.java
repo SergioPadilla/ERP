@@ -34,18 +34,35 @@ public class Workflow extends javax.swing.JFrame {
         usr = User.getInstance();
         
         if(!usr.hasLicence(100))
-            addTask.setVisible(false);
+            addTask.setEnabled(false);
         
         //Get the tasks to show it
         tasks = usr.listTasks();
         
         //Create the model and add it the title of the task
         DefaultListModel model = new DefaultListModel();
+        DefaultListModel modelMyTask = new DefaultListModel();
         
         for(int i = 0; i < tasks.size(); i++){
             DataTask task =(DataTask) tasks.get(i);
             model.addElement(task.title);
+            if(task.id_employee==usr.getId()){
+                modelMyTask.addElement(task.title);
+            }
         }
+        
+        listMyTasks.setModel(modelMyTask);
+        
+        listMyTasks.addListSelectionListener(new ListSelectionListener(){
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int index = ((JList) e.getSource()).getSelectedIndex();
+                
+                TaskView obj = new TaskView((DataTask) tasks.get(index));
+                obj.setVisible(true);
+                dispose();
+            }
+        });
         
         listTasks.setModel(model);
         
@@ -74,6 +91,10 @@ public class Workflow extends javax.swing.JFrame {
         listTasks = new javax.swing.JList<>();
         addTask = new javax.swing.JButton();
         back_button = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listMyTasks = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +121,23 @@ public class Workflow extends javax.swing.JFrame {
             }
         });
 
+        listMyTasks.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listMyTasks);
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Mis tareas");
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Todas las tareas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,19 +150,31 @@ public class Workflow extends javax.swing.JFrame {
                         .addGap(0, 411, Short.MAX_VALUE)
                         .addComponent(addTask)
                         .addGap(18, 18, 18)
-                        .addComponent(back_button)))
+                        .addComponent(back_button))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(9, 9, 9)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back_button)
                     .addComponent(addTask))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -187,7 +237,11 @@ public class Workflow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addTask;
     private javax.swing.JButton back_button;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listMyTasks;
     private javax.swing.JList<String> listTasks;
     // End of variables declaration//GEN-END:variables
 }

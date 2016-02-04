@@ -25,13 +25,13 @@ public class MainMenu extends javax.swing.JFrame {
                 this.getContentPane().setBackground(Color.BLACK);
 
         if(!usr.hasLicence(103))
-            workflow_button.setVisible(false);
+            workflow_button.setEnabled(false);
         if(!usr.hasLicence(303))
-            clients_button.setVisible(false);
+            clients_button.setEnabled(false);
         if(!usr.hasLicence(503))
-            products_button.setVisible(false);
+            products_button.setEnabled(false);
         if(!usr.hasLicence(903))
-            jButton1.setVisible(false);
+            jButton1.setEnabled(false);
     }
 
     /**
