@@ -37,7 +37,7 @@ public class ClientView extends javax.swing.JFrame {
         setFilas();
         
         if(!usr.hasLicence(300))
-            jButton1.setVisible(false);
+            jButton1.setEnabled(false);
     }
 
     /**
@@ -65,16 +65,9 @@ public class ClientView extends javax.swing.JFrame {
                 "Id Cliente", "Nombre", "Apellido", "Ver", "Borrar"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, true, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -97,7 +90,7 @@ public class ClientView extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Atrás");
+        jButton2.setText("Volver");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
@@ -191,8 +184,10 @@ public class ClientView extends javax.swing.JFrame {
 
         ButtonColumn buttonColumn0 = new ButtonColumn(jTable1, see, 3);
         buttonColumn0.setMnemonic(KeyEvent.VK_D);
-        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, delete, 4);
-        buttonColumn0.setMnemonic(KeyEvent.VK_D);
+        if(usr.hasLicence(301)){
+            ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, delete, 4);
+            buttonColumn0.setMnemonic(KeyEvent.VK_D);
+        }
     }
     
     /**

@@ -43,10 +43,12 @@ public class DataClientView extends javax.swing.JFrame {
         bills = clientO.listBills();
         setFilas();
         
-        if(!usr.hasLicence(700))
-            jButtonAddServer.setVisible(false);
-        if(!usr.hasLicence(400))
-            jButton2.setVisible(false);
+        if(!usr.hasLicence(700)){
+            jButtonAddServer.setEnabled(false);
+        }
+        if(!usr.hasLicence(400)){
+            jButtonAddBill.setEnabled(false);
+        }
     }
 
     /**
@@ -66,7 +68,7 @@ public class DataClientView extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jButtonAddServer = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonAddBill = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -89,7 +91,7 @@ public class DataClientView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Atrás");
+        jButton1.setText("Volver");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -149,16 +151,16 @@ public class DataClientView extends javax.swing.JFrame {
         }
 
         jButtonAddServer.setText("Añadir Servidor");
-        jButtonAddServer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAddServerMouseClicked(evt);
+        jButtonAddServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddServerActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Añadir Factura");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
+        jButtonAddBill.setText("Añadir Factura");
+        jButtonAddBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddBillActionPerformed(evt);
             }
         });
 
@@ -180,7 +182,7 @@ public class DataClientView extends javax.swing.JFrame {
                             .addComponent(jScrollPane2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAddBill, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonAddServer, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -196,7 +198,7 @@ public class DataClientView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonAddBill, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(jButton1)
                 .addGap(14, 14, 14))
@@ -212,19 +214,23 @@ public class DataClientView extends javax.swing.JFrame {
         obj.setVisible(true);
             dispose();    }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButtonAddServerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddServerMouseClicked
+    private void jButtonAddBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddBillActionPerformed
+        // TODO add your handling code here:
+        CreateBillView obj = new CreateBillView(clienti);
+        obj.setSize(getSize());    // corregido
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonAddBillActionPerformed
+
+    private void jButtonAddServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddServerActionPerformed
+        // TODO add your handling code here:
         CreateServerView obj = new CreateServerView(clienti);
         obj.setSize(getSize());
         obj.setLocation(getLocation());
         obj.setVisible(true);                    
         dispose();
-    }//GEN-LAST:event_jButtonAddServerMouseClicked
-
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        CreateBillView obj = new CreateBillView(clienti);
-        obj.setLocation(getLocation());
-        obj.setVisible(true);
-        dispose();    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_jButtonAddServerActionPerformed
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
@@ -319,35 +325,47 @@ public class DataClientView extends javax.swing.JFrame {
         DefaultTableModel modelo3 = (DefaultTableModel) jTable3.getModel();
 
         
-        Object[] datos1 = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
+        Object[] datos1 = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.typeToString(),clienti.registration}; // Cantidad de columnas de la tabla
         modelo1.addRow(datos1);
+        if(usr.hasLicence(302)){
+            ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
+            buttonColumn1.setMnemonic(KeyEvent.VK_D); 
+        }
         
-        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
-        buttonColumn1.setMnemonic(KeyEvent.VK_D); 
-        
+        if(usr.hasLicence(703)){
+            for(int i=0;i<servers.size();i++){
+                DataServer servi=(DataServer)servers.elementAt(i);
+                Object[] datos2 = {servi.id_server,servi.name}; 
+                modelo2.addRow(datos2);
+            }
 
-        for(int i=0;i<servers.size();i++){
-            DataServer servi=(DataServer)servers.elementAt(i);
-            Object[] datos2 = {servi.id_server,servi.name}; 
+            ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, ver, 2);
+            buttonColumn2.setMnemonic(KeyEvent.VK_D); 
+            if(usr.hasLicence(701)){
+                ButtonColumn buttonColumn3 = new ButtonColumn(jTable2, borrar, 3);
+                buttonColumn3.setMnemonic(KeyEvent.VK_D); 
+            }
+        }else{
+            Object[] datos2 = {0,"No tiene permisos","",""};
             modelo2.addRow(datos2);
         }
-        
-        ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, ver, 2);
-        buttonColumn2.setMnemonic(KeyEvent.VK_D); 
-        ButtonColumn buttonColumn3 = new ButtonColumn(jTable2, borrar, 3);
-        buttonColumn3.setMnemonic(KeyEvent.VK_D); 
-        
-        for(int i=0;i<bills.size();i++){
-            DataBill billi=(DataBill)bills.elementAt(i);
-            Object[] datos3 = {billi.id_bill,billi.date}; 
+        if(usr.hasLicence(403)){
+            for(int i=0;i<bills.size();i++){
+                DataBill billi=(DataBill)bills.elementAt(i);
+                Object[] datos3 = {billi.id_bill,billi.date}; 
+                modelo3.addRow(datos3);
+            }
+
+            ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verFacturas, 2);
+            buttonColumn4.setMnemonic(KeyEvent.VK_D);
+            if(usr.hasLicence(401)){
+                ButtonColumn buttonColumn5 = new ButtonColumn(jTable3, borrarFacturas, 3);
+                buttonColumn5.setMnemonic(KeyEvent.VK_D);
+            }
+        }else{
+            Object[] datos3 = {0,"No tiene permisos","",""};
             modelo3.addRow(datos3);
         }
-        
-        
-        ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verFacturas, 2);
-        buttonColumn4.setMnemonic(KeyEvent.VK_D);
-        ButtonColumn buttonColumn5 = new ButtonColumn(jTable3, borrarFacturas, 3);
-        buttonColumn4.setMnemonic(KeyEvent.VK_D);
     }
     
     /**
@@ -393,7 +411,7 @@ public class DataClientView extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAddBill;
     private javax.swing.JButton jButtonAddServer;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

@@ -24,14 +24,14 @@ public class CommentView extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.comment.setText(c.text);
-        this.com = c;
+        this.com=new DataComment(c);
         usr = User.getInstance();
                 this.getContentPane().setBackground(Color.BLACK);
 
         
         if(!usr.hasLicence(201))
-            delete_button.setVisible(false);
-    }
+            delete_button.setEnabled(false);
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,9 +62,9 @@ public class CommentView extends javax.swing.JFrame {
         });
 
         delete_button.setText("Borrar");
-        delete_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                delete_buttonMouseClicked(evt);
+        delete_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delete_buttonActionPerformed(evt);
             }
         });
 
@@ -102,11 +102,12 @@ public class CommentView extends javax.swing.JFrame {
         back();
     }//GEN-LAST:event_back_buttonMouseClicked
 
-    private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
+    private void delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_buttonActionPerformed
+        // TODO add your handling code here:
         Comment comment = new Comment(com.id_comment);
         comment.removeComment();
         back();
-    }//GEN-LAST:event_delete_buttonMouseClicked
+    }//GEN-LAST:event_delete_buttonActionPerformed
 
     /**
      * @param args the command line arguments
