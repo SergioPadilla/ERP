@@ -109,9 +109,9 @@ public class Workflow extends javax.swing.JFrame {
         jScrollPane.setViewportView(listTasks);
 
         addTask.setText("Nueva");
-        addTask.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addTaskMouseClicked(evt);
+        addTask.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addTaskActionPerformed(evt);
             }
         });
 
@@ -187,14 +187,6 @@ public class Workflow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addTaskMouseClicked
-        AddTask obj = new AddTask();
-        obj.setSize(getSize());
-        obj.setLocation(getLocation());
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_addTaskMouseClicked
-
     private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
         MainMenu obj = new MainMenu();
         obj.setSize(getSize());
@@ -202,6 +194,15 @@ public class Workflow extends javax.swing.JFrame {
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_back_buttonMouseClicked
+
+    private void addTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTaskActionPerformed
+        // TODO add your handling code here:
+        AddTask obj = new AddTask();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_addTaskActionPerformed
 
     /**
      * @param args the command line arguments

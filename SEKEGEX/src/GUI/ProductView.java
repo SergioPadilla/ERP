@@ -34,7 +34,7 @@ public class ProductView extends javax.swing.JFrame {
         products = usr.listProducts();
         
         if(!usr.hasLicence(500))
-            nuevoProducto.setVisible(false);
+            nuevoProducto.setEnabled(false);
         
         DefaultListModel model = new DefaultListModel();
         
@@ -83,11 +83,6 @@ public class ProductView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listProducts);
 
         nuevoProducto.setText("Nuevo producto");
-        nuevoProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nuevoProductoMouseClicked(evt);
-            }
-        });
         nuevoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nuevoProductoActionPerformed(evt);
@@ -156,23 +151,21 @@ public class ProductView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoProductoActionPerformed
-    }//GEN-LAST:event_nuevoProductoActionPerformed
-
     private void volverMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverMenuActionPerformed
     }//GEN-LAST:event_volverMenuActionPerformed
-
-    private void nuevoProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nuevoProductoMouseClicked
-        CreateDataProduct obj = new CreateDataProduct();
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_nuevoProductoMouseClicked
 
     private void volverMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_volverMenuMouseClicked
         MainMenu obj = new MainMenu();
         obj.setVisible(true);
         dispose();
     }//GEN-LAST:event_volverMenuMouseClicked
+
+    private void nuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoProductoActionPerformed
+        // TODO add your handling code here:
+        CreateDataProduct obj = new CreateDataProduct();
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_nuevoProductoActionPerformed
 
     /**
      * @param args the command line arguments

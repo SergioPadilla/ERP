@@ -24,14 +24,18 @@ public class MainMenu extends javax.swing.JFrame {
         usr = User.getInstance();
                 this.getContentPane().setBackground(Color.BLACK);
 
-        if(!usr.hasLicence(103))
+        if(!usr.hasLicence(103)){
             workflow_button.setEnabled(false);
-        if(!usr.hasLicence(303))
+        }
+        if(!usr.hasLicence(303)){
             clients_button.setEnabled(false);
-        if(!usr.hasLicence(503))
+        }
+        if(!usr.hasLicence(503)){
             products_button.setEnabled(false);
-        if(!usr.hasLicence(903))
+        }
+        if(!usr.hasLicence(903)){
             jButton1.setEnabled(false);
+        }
     }
 
     /**
@@ -53,23 +57,23 @@ public class MainMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         clients_button.setText("Clientes");
-        clients_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clients_buttonMouseClicked(evt);
+        clients_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clients_buttonActionPerformed(evt);
             }
         });
 
         products_button.setText("Productos");
-        products_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                products_buttonMouseClicked(evt);
+        products_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                products_buttonActionPerformed(evt);
             }
         });
 
         workflow_button.setText("Tareas");
-        workflow_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                workflow_buttonMouseClicked(evt);
+        workflow_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                workflow_buttonActionPerformed(evt);
             }
         });
 
@@ -100,16 +104,15 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clients_button, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(99, 99, 99)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(products_button, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(workflow_button, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(clients_button, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(99, 99, 99)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(products_button, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(workflow_button, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -132,32 +135,6 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void clients_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clients_buttonMouseClicked
-        ClientView obj = new ClientView();
-        obj.setSize(getSize());
-        obj.setLocation(getLocation());
-        obj.setVisible(true);
-        dispose();
-
-    }//GEN-LAST:event_clients_buttonMouseClicked
-
-    private void products_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_products_buttonMouseClicked
-        //Crear vista para productos
-        ProductView obj = new ProductView();
-        obj.setSize(getSize());
-        obj.setLocation(getLocation());
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_products_buttonMouseClicked
-
-    private void workflow_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_workflow_buttonMouseClicked
-        Workflow obj = new Workflow();
-        obj.setSize(getSize());
-        obj.setLocation(getLocation());
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_workflow_buttonMouseClicked
-
     private void logOut_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOut_buttonMouseClicked
         SEKEGEX obj = new SEKEGEX();
         obj.setVisible(true);
@@ -174,6 +151,33 @@ public class MainMenu extends javax.swing.JFrame {
         dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void products_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_products_buttonActionPerformed
+        // TODO add your handling code here:
+        ProductView obj = new ProductView();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_products_buttonActionPerformed
+
+    private void clients_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clients_buttonActionPerformed
+        // TODO add your handling code here:
+        ClientView obj = new ClientView();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_clients_buttonActionPerformed
+
+    private void workflow_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workflow_buttonActionPerformed
+        // TODO add your handling code here:
+        Workflow obj = new Workflow();
+        obj.setSize(getSize());
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_workflow_buttonActionPerformed
 
     /**
      * @param args the command line arguments

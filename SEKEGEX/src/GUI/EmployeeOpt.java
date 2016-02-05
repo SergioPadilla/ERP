@@ -35,6 +35,12 @@ public class EmployeeOpt extends javax.swing.JPanel {
         sb.append("");
         sb.append(emp.id_employee);
         String id = sb.toString();
+        if(!User.getInstance().hasLicence(901)){
+            deleteButton.setEnabled(false);
+        }
+        if(!User.getInstance().hasLicence(902)){
+            editButton.setEnabled(false);
+        }
         jLabel1.setText(id);
         jLabel2.setText(emp.name);
         jLabel3.setText(emp.surname);

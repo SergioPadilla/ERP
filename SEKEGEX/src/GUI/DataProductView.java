@@ -39,9 +39,9 @@ public class DataProductView extends javax.swing.JFrame {
         this.idProduct.setText(s3);
         
         if(!usr.hasLicence(502))
-            modifyProduct.setVisible(false);
+            modifyProduct.setEnabled(false);
         if(!usr.hasLicence(501))
-            delete_button.setVisible(false);
+            delete_button.setEnabled(false);
     }
 
     /**
@@ -118,9 +118,9 @@ public class DataProductView extends javax.swing.JFrame {
 
         modifyProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         modifyProduct.setText("Modificar");
-        modifyProduct.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modifyProductMouseClicked(evt);
+        modifyProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyProductActionPerformed(evt);
             }
         });
 
@@ -145,9 +145,9 @@ public class DataProductView extends javax.swing.JFrame {
 
         delete_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/trash.png"))); // NOI18N
         delete_button.setText("Borrar");
-        delete_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                delete_buttonMouseClicked(evt);
+        delete_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delete_buttonActionPerformed(evt);
             }
         });
 
@@ -233,19 +233,21 @@ public class DataProductView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_volverAtrasMouseClicked
 
-    private void modifyProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modifyProductMouseClicked
-        ModifyDataProduct obj = new ModifyDataProduct(this.product);
-        obj.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_modifyProductMouseClicked
-
-    private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
+    private void delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_buttonActionPerformed
+        // TODO add your handling code here:
         Product product = new Product(this.product.id);
         product.removeProduct();
         ProductView obj = new ProductView();
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_delete_buttonMouseClicked
+    }//GEN-LAST:event_delete_buttonActionPerformed
+
+    private void modifyProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyProductActionPerformed
+        // TODO add your handling code here:
+        ModifyDataProduct obj = new ModifyDataProduct(this.product);
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_modifyProductActionPerformed
 
     /**
      * @param args the command line arguments
