@@ -380,17 +380,17 @@ Salida: Lista de clientes (pudiendo aparecer una lista vacía)
 	Procesamiento: Consulta una de las facturas ya creadas
 
 	Salida: RD20
-	
+
 	\setlength{\parindent}{0em}
 	\textbf{RF22: \textit{Eliminar factura}}
 	\setlength{\parindent}{2em}
-	
+
 	Actor: Empleado
-	
+
 	Entrada: RD18
-	
+
 	Procesamiento: Borra la factura indicada
-	
+
 	Salida: Ninguna
 
 
@@ -810,7 +810,7 @@ Tipos de permisos:
 \newline    Delete Bill               --> 401
 \newline    Modify Bill               --> 402
 \newline    List and Consult Bill     --> 403
-    
+
 \item PERMISOS RELATIVOS A PRODUCTOS:
 \newline    Create Products           --> 500
 \newline    Delete Products           --> 501
@@ -840,7 +840,7 @@ Tipos de permisos:
 \newline    Delete Employee            --> 901
 \newline    Modify Employee            --> 902
 \newline    List and Consult Employee  --> 903
-    
+
 \end{itemize}
 
 \setlength{\parindent}{0em}
@@ -861,40 +861,8 @@ Al eliminar un servidor se eliminarán también los dominios asociados a ese ser
 
 El estado de cada tarea puede ser uno de los tres siguientes: 'por hacer', 'en desarrollo' o 'hecho'.
 
-\section{Diseño Físico}
-\subsection{CLIENTES}
-CREATE TABLE clientes (id\_cliente INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, tipo ENUM(‘particular’, ‘empresa’),  nombre TEXT,  apellidos TEXT, nif varchar(10) UNIQUE , email TEXT, fecha\_alta DATETIME)
-
-\subsection{PRODUCTOS}
-CREATE TABLE productos (id\_producto INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)
-
-\subsection{FACTURAS}
-CREATE TABLE facturas (id\_factura INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, fecha DATETIME, id\_cliente INT REFERENCES clientes (id\_cliente))
-
-\subsection{COMPRAS}
-CREATE TABLE compras (id\_producto INT REFERENCES productos (id\_producto), id\_factura INT REFERENCES facturas (id\_factura), precio FLOAT, cantidad INT DEFAULT 0, PRIMARY KEY(id\_producto,id\_factura))
-
-\subsection{SERVIDORES}
-CREATE TABLE servidores (id\_servidor INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_cliente INT REFERENCES clientes (id\_cliente), nombre TEXT,  ruta\_de\_acceso TEXT, usuario\_ftp TEXT, password\_ftp TEXT, usuario\_host TEXT, password\_host TEXT)
-
-\subsection{DOMINIOS}
-CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_servidor INT REFERENCES servidores (id\_servidor), web TEXT)
-
-\subsection{EMPLEADOS}
-CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9) UNIQUE NOT NULL,  nombre TEXT, password TEXT, apellidos TEXT, rol INT)
-
-\subsection{TAREAS}
-CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, id\_tarea\_padre INT, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM('TO\_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT, FOREIGN KEY (empleado\_asignado) REFERENCES empleados (id\_empleado) ON DELETE CASCADE)")
-
-\subsection{COMENTARIOS}
-CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, texto TEXT, tarea INT, id\_empleado INT,FOREIGN KEY (tarea) REFERENCES tareas (id\_tarea) ON DELETE CASCADE)")
-
-\subsection{ROL}
-CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
-
-
-\section{DISEÑO}
-\subsection {Diagrama de flujo de datos y esquemas externos}
+\section{Diseño}
+\subsection{Diagrama de flujo de datos y esquemas externos}
 \subsubsection* {Esquema de caja negra: ~\ref{fig:cajanegra}}
 \subsubsection* {Diagrama armazón F: ~\ref{fig:armazonF}}
 \subsubsection* {Esquemas externos para el diagrama armazón F: ~\ref{fig:exArmazonF}}
@@ -905,15 +873,70 @@ CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
 \subsubsection* {Segundo refinamiento del diagrama F: ~\ref{fig:SegundoRefF}}
 \subsubsection* {Esquemas externos del plano de refinamiento F: ~\ref{fig:EsqExtF_2}}
 \subsubsection* {Segundo refinamiento del diagrama D: ~\ref{fig:SegundoRefD}}
-\subsubsection* {Plano final: ~\ref{fig:PlanoFinal}}
+\subsubsection* {Plano final:
+~\ref{fig:PlanoFinal}}
 
-\subsection {Esquemas de navegación}
-\subsubsection* {Esquema de navegación para CREAR: ~\ref{fig:NavCrear}}
-\subsubsection* {Esquema de navegación para CONSULTAR: ~\ref{fig:NavConsultar}}
-\subsubsection* {Esquema de navegación para MODIFICAR: ~\ref{fig:NavModificar}}
-\subsubsection* {Esquema de navegación para BORRAR: ~\ref{fig:NavBorrar}}
+\subsection{Operaciones de datos, esquemas de operación y esquemas de navegación}
+\subsubsection{Operaciones de datos}
+\begin{itemize}
+    \item CREAR
+    \item CONSULTAR
+    \item MODIFICAR
+    \item BORRAR
+\end{itemize}
 
+\subsubsection{Esquemas de operación}
+\begin{itemize}
+\item Esquema de operación para CREAR: ~\ref{fig:OpCrear}
+\item Esquema de operación para CONSULTAR: ~\ref{fig:OpConsultar}
+\item Esquema de operación para MODIFICAR: ~\ref{fig:OpModificar}
+\item Esquema de operación para BORRAR: ~\ref{fig:OpBorrar}
+\end{itemize}
 
+\subsubsection{Esquemas de navegación}
+\begin{itemize}
+\item Esquema de navegación para CREAR: ~\ref{fig:NavCrear}
+\item Esquema de navegación para CONSULTAR: ~\ref{fig:NavConsultar}
+\item Esquema de navegación para MODIFICAR: ~\ref{fig:NavModificar}
+\item Esquema de navegación para BORRAR: ~\ref{fig:NavBorrar}
+\end{itemize}
+
+\subsection{Diseño Físico}
+\subsubsection{CLIENTES}
+CREATE TABLE clientes (id\_cliente INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, tipo ENUM(‘particular’, ‘empresa’),  nombre TEXT,  apellidos TEXT, nif varchar(10) UNIQUE , email TEXT, fecha\_alta DATETIME)
+
+\subsubsection{PRODUCTOS}
+CREATE TABLE productos (id\_producto INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)
+
+\subsubsection{FACTURAS}
+CREATE TABLE facturas (id\_factura INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, fecha DATETIME, id\_cliente INT REFERENCES clientes (id\_cliente))
+
+\subsubsection{COMPRAS}
+CREATE TABLE compras (id\_producto INT REFERENCES productos (id\_producto), id\_factura INT REFERENCES facturas (id\_factura), precio FLOAT, cantidad INT DEFAULT 0, PRIMARY KEY(id\_producto,id\_factura))
+
+\subsubsection{SERVIDORES}
+CREATE TABLE servidores (id\_servidor INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_cliente INT REFERENCES clientes (id\_cliente), nombre TEXT,  ruta\_de\_acceso TEXT, usuario\_ftp TEXT, password\_ftp TEXT, usuario\_host TEXT, password\_host TEXT)
+
+\subsubsection{DOMINIOS}
+CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_servidor INT REFERENCES servidores (id\_servidor), web TEXT)
+
+\subsubsection{EMPLEADOS}
+CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9) UNIQUE NOT NULL,  nombre TEXT, password TEXT, apellidos TEXT, rol INT)
+
+\subsubsection{TAREAS}
+CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, id\_tarea\_padre INT, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM('TO\_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT, FOREIGN KEY (empleado\_asignado) REFERENCES empleados (id\_empleado) ON DELETE CASCADE)")
+
+\subsubsection{COMENTARIOS}
+CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, texto TEXT, tarea INT, id\_empleado INT,FOREIGN KEY (tarea) REFERENCES tareas (id\_tarea) ON DELETE CASCADE)")
+
+\subsubsection{ROL}
+CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
+
+\section{Descripción de la solución implementada}
+La implementación del proyecto se ha realizado mediante el uso de NetBeans, programando en Java y en MySQL.
+
+\section{Anexo: Imágenes de esquemas}
+\newpage
 \begin{figure}
 	\includegraphics{ERP_EMEGEX.png}
 	\caption{}
@@ -1002,6 +1025,30 @@ CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
 	\includegraphics[width=1.20\textwidth]{NavBorrar.png}
 	\caption{}
 	\label{fig:NavBorrar}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.20\textwidth]{EsquemaOperacion_Crear.png}
+	\caption{}
+	\label{fig:OpCrear}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.20\textwidth]{EsquemaOperacion_Consultar.png}
+	\caption{}
+	\label{fig:OpConsultar}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.20\textwidth]{EsquemaOperacion_Modificar.png}
+	\caption{}
+	\label{fig:OpModificar}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=1.20\textwidth]{EsquemaOperacion_Borrar.png}
+	\caption{}
+	\label{fig:OpBorrar}
 \end{figure}
 
 \end{document}
