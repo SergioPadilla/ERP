@@ -15,6 +15,8 @@ import java.awt.event.KeyEvent;
 import java.util.Vector;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sekegex.Bill;
 import sekegex.Client;
@@ -29,22 +31,6 @@ public class CreateBillView extends javax.swing.JFrame {
     /**
      * Creates new form CreateBillView
      */
-    public CreateBillView(DataClient data, int idBill) {
-        initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
-        clienti = data;
-
-        this.setTitle("Modificacion de factura para cliente: " + clienti.name);
-        borrar=false;
-        this.getContentPane().setBackground(Color.BLACK);
-
-        User usr = User.getInstance();
-        billi=new Bill(idBill);
-        products = usr.listProducts();
-        billproducts=billi.listProductsforbill();
-        setFilas1();
-        setFilas2();
-    }
     
     public CreateBillView(DataClient data) {
         initComponents();
@@ -54,10 +40,10 @@ public class CreateBillView extends javax.swing.JFrame {
                         this.getContentPane().setBackground(Color.BLACK);
 
         User usr = User.getInstance();
-        int idBill=usr.insertBill(data.id);
-        borrar=true;
-        billi=new Bill(idBill);
         products = usr.listProducts();
+        DataProduct prodi=(DataProduct)products.lastElement();
+        tam=prodi.id+1;
+        productslocal =new int[tam];
         setFilas1();
     }
     /**
@@ -69,6 +55,9 @@ public class CreateBillView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         returnButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableAdd = new javax.swing.JTable();
@@ -77,6 +66,16 @@ public class CreateBillView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         totalBill = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jButtonSave = new javax.swing.JButton();
+
+        jTextField1.setText("jTextField1");
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,9 +97,6 @@ public class CreateBillView extends javax.swing.JFrame {
         jTableAdd.setIntercellSpacing(new java.awt.Dimension(2, 2));
         jTableAdd.setRowHeight(32);
         jScrollPane1.setViewportView(jTableAdd);
-        if (jTableAdd.getColumnModel().getColumnCount() > 0) {
-            jTableAdd.getColumnModel().getColumn(0).setHeaderValue("Añadir Productos");
-        }
 
         jTablelist.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -138,32 +134,39 @@ public class CreateBillView extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/jrQlLrZf.jpeg"))); // NOI18N
 
+        jButtonSave.setText("Guardar");
+        jButtonSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonSaveMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(returnButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(10, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(42, 42, 42)
-                                .addComponent(totalBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)))
-                        .addGap(0, 65, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 83, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(returnButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonSave)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(totalBill, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -175,12 +178,14 @@ public class CreateBillView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSave))
                 .addContainerGap())
         );
 
@@ -188,9 +193,6 @@ public class CreateBillView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void returnButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnButtonMouseClicked
-       if(borrar||jTablelist.getRowCount()<1){
-            billi.removeBill();
-       }
         DataClientView obj = new DataClientView(clienti);
        obj.setSize(getSize());
        obj.setLocation(getLocation());
@@ -198,20 +200,42 @@ public class CreateBillView extends javax.swing.JFrame {
        dispose();
     }//GEN-LAST:event_returnButtonMouseClicked
 
+    private void jButtonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonSaveMouseClicked
+        JFrame frame = new JFrame();
+        DefaultTableModel modelo2 = (DefaultTableModel) jTablelist.getModel();    
+
+        if(modelo2.getRowCount()>0){
+            User usr = User.getInstance();
+            int idBill=usr.insertBill(clienti.id);
+            billi=new Bill(idBill);
+            DataProduct prodi=null;
+            for(int i=0;i<products.size();i++){
+                prodi=(DataProduct)products.elementAt(i);
+                for(int j=0;j<productslocal[prodi.id];j++){
+                    billi.insertPurchase(prodi.id);
+                }
+            }
+            JOptionPane.showMessageDialog(frame, "La Creacion se ha realizado con éxito", "Factura Guardada", JOptionPane.INFORMATION_MESSAGE);
+
+            DataClientView obj = new DataClientView(clienti);
+            obj.setSize(getSize());
+            obj.setLocation(getLocation());
+            obj.setVisible(true);
+            dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "La factura esta vacia", "No se ha guardado", JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_jButtonSaveMouseClicked
+
         Action add = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
             javax.swing.JTable table = (javax.swing.JTable)e.getSource();
             
             int modelRow = Integer.valueOf(e.getActionCommand()); 
             DataProduct prodi=(DataProduct)products.elementAt(modelRow);
-            billi.insertPurchase(prodi.id);
-            
-            CreateBillView obj = new CreateBillView(clienti,billi.getData().id_bill);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);
-            dispose();
-            
+            productslocal[prodi.id]=productslocal[prodi.id]+1;
+            setFilas2();  
         }
     };
         
@@ -221,42 +245,46 @@ public class CreateBillView extends javax.swing.JFrame {
             
             int modelRow = Integer.valueOf(e.getActionCommand()); 
             DefaultTableModel modelo1 = (DefaultTableModel) jTablelist.getModel();
-            billi.deletePurchase(Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString()));           
-            CreateBillView obj = new CreateBillView(clienti,billi.getData().id_bill);
-            obj.setSize(getSize());
-            obj.setLocation(getLocation());
-            obj.setVisible(true);        }
+            modelo1.getValueAt(modelRow, 0);
+            int indice=Integer.valueOf(modelo1.getValueAt(modelRow, 0).toString());
+            productslocal[indice]=productslocal[indice]-1;
+            setFilas2();
+        }
     };
         private void setFilas1() {
-        User usr = User.getInstance();
-        DefaultTableModel modelo1 = (DefaultTableModel) jTableAdd.getModel();    
-
-        for(int i=0;i<products.size();i++){
-            DataProduct prodi=(DataProduct)products.elementAt(i);
-            Object[] datos1 = {prodi.name}; 
-            modelo1.addRow(datos1);
+            User usr = User.getInstance();
+            DefaultTableModel modelo1 = (DefaultTableModel) jTableAdd.getModel(); 
+            DataProduct prodi=(DataProduct)products.lastElement();
+            for (int i=0;i<=prodi.id;i++){
+                productslocal[i]=0;
+            }
+            for(int i=0;i<products.size();i++){
+                prodi=(DataProduct)products.elementAt(i);
+                Object[] datos1 = {prodi.name}; 
+                modelo1.addRow(datos1);
+            }
+            ButtonColumn buttonColumn1 = new ButtonColumn(jTableAdd, add, 0);
+            buttonColumn1.setMnemonic(KeyEvent.VK_D); 
         }
         
-        ButtonColumn buttonColumn1 = new ButtonColumn(jTableAdd, add, 0);
-        buttonColumn1.setMnemonic(KeyEvent.VK_D); 
-        }
         private void setFilas2(){
             float ganancia=0;
-        User usr = User.getInstance();
-        DefaultTableModel modelo2 = (DefaultTableModel) jTablelist.getModel();    
-            DataProduct prodi,prodj;
-        for(int i=0;i<billproducts.size();i++){
-             prodi=(DataProduct)billproducts.elementAt(i);
-            Object[] datos2 = {prodi.id,prodi.name,billi.consultPurchase(prodi.id).quantity,"-"};
-            ganancia=ganancia+prodi.amount*Integer.valueOf(datos2[2].toString());
-           
+            User usr = User.getInstance();
+            DefaultTableModel modelo2 = (DefaultTableModel) jTablelist.getModel();    
+            DataProduct prodi;               
+            while(modelo2.getRowCount()>0)modelo2.removeRow(0);
+            for(int i=0;i<products.size();i++){
+                prodi=(DataProduct)products.elementAt(i);
+                if (productslocal[prodi.id]>0){
+                    Object[] datos2 = {prodi.id,prodi.name,productslocal[prodi.id],"-"};
+                    ganancia=ganancia+prodi.amount*Integer.valueOf(datos2[2].toString());
+                    modelo2.addRow(datos2); 
+                    }
+            }
             totalBill.setText(Float.toString(ganancia));
-            modelo2.addRow(datos2);            
+            ButtonColumn buttonColumn2 = new ButtonColumn(jTablelist, less, 3);
+            buttonColumn2.setMnemonic(KeyEvent.VK_D); 
         }
-        
-        ButtonColumn buttonColumn2 = new ButtonColumn(jTablelist, less, 3);
-        buttonColumn2.setMnemonic(KeyEvent.VK_D); 
-    }
     /**
      * @param args the command line arguments
      */
@@ -287,7 +315,7 @@ public class CreateBillView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateBillView(clienti,billi.getData().id_bill).setVisible(true);
+                new CreateBillView(clienti).setVisible(true);
             }
         });
     }
@@ -295,17 +323,21 @@ public class CreateBillView extends javax.swing.JFrame {
     
     public static DataClient clienti;
     public Vector products;
-    public Vector billproducts=null;
     public static Bill billi;
     public boolean borrar=false;
-
+    public int[] productslocal ;
+    public int tam=-1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableAdd;
     private javax.swing.JTable jTablelist;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton returnButton;
     private javax.swing.JTextField totalBill;
     // End of variables declaration//GEN-END:variables
