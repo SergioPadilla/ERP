@@ -59,17 +59,17 @@ public class ModifyDataProduct extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         name.setBackground(new java.awt.Color(0, 0, 0));
-        name.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        name.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         name.setForeground(new java.awt.Color(255, 255, 255));
         name.setText("Nombre:");
 
         description.setBackground(new java.awt.Color(0, 0, 0));
-        description.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        description.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         description.setForeground(new java.awt.Color(255, 255, 255));
         description.setText("Descripción:");
 
         price.setBackground(new java.awt.Color(0, 0, 0));
-        price.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        price.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         price.setForeground(new java.awt.Color(255, 255, 255));
         price.setText("Precio:");
 
@@ -98,14 +98,14 @@ public class ModifyDataProduct extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(saveButton))
+                        .addComponent(saveButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cancelButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(30, Short.MAX_VALUE)
+                        .addGap(0, 50, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -116,13 +116,13 @@ public class ModifyDataProduct extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                             .addComponent(newPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(newName))
-                        .addGap(0, 149, Short.MAX_VALUE)))
+                        .addGap(0, 50, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(newName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

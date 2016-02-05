@@ -20,6 +20,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{listings}
 \selectlanguage{spanish}
 
 %----------------------------------------------------------------------------------------
@@ -902,35 +903,63 @@ El estado de cada tarea puede ser uno de los tres siguientes: 'por hacer', 'en d
 \end{itemize}
 
 \subsection{Diseño Físico}
-\subsubsection{CLIENTES}
+\subsubsection{Instrucciones para la creación de la base de datos relacional}
+\subsubsection *{CLIENTES}
 CREATE TABLE clientes (id\_cliente INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, tipo ENUM(‘particular’, ‘empresa’),  nombre TEXT,  apellidos TEXT, nif varchar(10) UNIQUE , email TEXT, fecha\_alta DATETIME)
 
-\subsubsection{PRODUCTOS}
+\subsubsection *{PRODUCTOS}
 CREATE TABLE productos (id\_producto INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, nombre TEXT,  descripcion TEXT,  importe FLOAT, ventas INT DEFAULT 0)
 
-\subsubsection{FACTURAS}
+\subsubsection *{FACTURAS}
 CREATE TABLE facturas (id\_factura INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, fecha DATETIME, id\_cliente INT REFERENCES clientes (id\_cliente))
 
-\subsubsection{COMPRAS}
+\subsubsection *{COMPRAS}
 CREATE TABLE compras (id\_producto INT REFERENCES productos (id\_producto), id\_factura INT REFERENCES facturas (id\_factura), precio FLOAT, cantidad INT DEFAULT 0, PRIMARY KEY(id\_producto,id\_factura))
 
-\subsubsection{SERVIDORES}
+\subsubsection *{SERVIDORES}
 CREATE TABLE servidores (id\_servidor INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_cliente INT REFERENCES clientes (id\_cliente), nombre TEXT,  ruta\_de\_acceso TEXT, usuario\_ftp TEXT, password\_ftp TEXT, usuario\_host TEXT, password\_host TEXT)
 
-\subsubsection{DOMINIOS}
+\subsubsection *{DOMINIOS}
 CREATE TABLE dominios (id\_dominio INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, id\_servidor INT REFERENCES servidores (id\_servidor), web TEXT)
 
-\subsubsection{EMPLEADOS}
+\subsubsection *{EMPLEADOS}
 CREATE TABLE empleados (id\_empleado INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, dni varchar(9) UNIQUE NOT NULL,  nombre TEXT, password TEXT, apellidos TEXT, rol INT)
 
-\subsubsection{TAREAS}
+\subsubsection *{TAREAS}
 CREATE TABLE tareas (id\_tarea INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, titulo TEXT, fecha DATE, id\_tarea\_padre INT, empleado\_asignado INT REFERENCES empleados (id\_empleado), estado ENUM('TO\_DO', 'DEVELOPMENT', 'DONE'), descripcion TEXT, FOREIGN KEY (empleado\_asignado) REFERENCES empleados (id\_empleado) ON DELETE CASCADE)")
 
-\subsubsection{COMENTARIOS}
+\subsubsection *{COMENTARIOS}
 CREATE TABLE comentarios (id\_comentario INT NOT NULL PRIMARY KEY AUTO\_INCREMENT, texto TEXT, tarea INT, id\_empleado INT,FOREIGN KEY (tarea) REFERENCES tareas (id\_tarea) ON DELETE CASCADE)")
 
-\subsubsection{ROL}
+\subsubsection *{ROL}
 CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
+
+\subsubsection{DISPARADORES}
+DISPARADOR 1:
+\lstset{language=C, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+    public void insertBill(Vector products){
+        if(activeEmployee.hasLicence(400)){
+            int Id_db=0;
+            Id_db=DB.insertBill(data.id);
+            for(int i=0;i<products.size();i++){
+                DB.insertPurchase(Id_db,(int) products.elementAt(i));
+            }
+        }
+    }
+\end{lstlisting}
+\newpage
+DISPARADOR 2:
+\lstset{language=C, breaklines=true, basicstyle=\footnotesize}
+\begin{lstlisting}[frame=single]
+    private void eraseTask(int id){
+        Vector subtasks = DB.listTasksById(id);
+        for(int i = 0; i < subtasks.size(); i++){
+            eraseTask(((DataTask) subtasks.get(i)).id_task);
+        }
+        DB.eraseTaskAndSubtask(id);
+    }
+\end{lstlisting}
 
 \section{Descripción de la solución implementada}
 La implementación del proyecto se ha realizado mediante el uso de NetBeans, programando en Java y en MySQL.
