@@ -184,7 +184,6 @@ public class SEKEGEX extends javax.swing.JFrame implements KeyListener {
     
     private void login(){
         final String dni = user.getText().toString();
-        System.out.println(dni);
         final String pass = password.getText().toString();
         javax.swing.JOptionPane error = new javax.swing.JOptionPane();
         CheckLogin check = new CheckLogin(dni, pass);

@@ -224,6 +224,243 @@ public class MySQLTools {
            stmt.executeUpdate();
            stmt = con.prepareStatement("INSERT INTO empleados (id_empleado , dni,  nombre, password, apellidos, rol) VALUES (NULL,'root','Admin','cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e','',1)");
            stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,100)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,101)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,102)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,103)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,200)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,201)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,202)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,203)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,500)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,501)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,502)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(2,503)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,100)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,101)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,102)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,103)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,200)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,201)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,202)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,203)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,300)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,301)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,302)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,303)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,700)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,701)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,702)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,703)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,800)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,801)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,802)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,803)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,400)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,401)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,402)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,403)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,600)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,601)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,602)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,603)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,500)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,501)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,502)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,503)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(3,903)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,100)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,101)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,102)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,103)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,200)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,201)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,202)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,203)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,300)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,301)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,302)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,303)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,700)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,701)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,702)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,703)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,800)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,801)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,802)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,803)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,400)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,401)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,402)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,403)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,600)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,601)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,602)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,603)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,503)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(4,903)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,100)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,101)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,102)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,103)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,200)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,201)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,202)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,203)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,300)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,301)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,302)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,303)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,700)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,701)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,702)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,703)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,800)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,801)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,802)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,803)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(5,903)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,100)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,101)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,102)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,103)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,200)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,201)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,202)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,203)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,300)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,301)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,302)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,303)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(6,903)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,100)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,101)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,102)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,103)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,200)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,201)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,202)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,203)");
+           stmt.executeUpdate();
+           stmt = con.prepareStatement("INSERT INTO rol (rol, permiso) VALUES(7,903)");
+           stmt.executeUpdate();
+           
 
 
         } catch (SQLException sqle){
@@ -2187,6 +2424,56 @@ public class MySQLTools {
     }
 
     /**
+     * Get tasks by id
+     * @return
+     */
+    public Vector listTasksById(int id){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        Vector tasks = new Vector();
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            stmt = con.prepareStatement("SELECT * FROM tareas WHERE id_tarea_padre=?");
+
+            stmt.setInt(1, id);
+            
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                tasks.add(new DataTask(rs.getInt("id_tarea"),
+                        rs.getString("titulo"),
+                        rs.getDate("fecha"),
+                        rs.getInt("id_tarea_padre"),
+                        rs.getInt("empleado_asignado"),
+                        StatusTask.valueOf(rs.getString("estado")),
+                        rs.getString("descripcion")
+                ));
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                    stmt.close();
+                    con.close();
+                } catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return tasks;
+    }
+    
+    /**
      * Get tasks
      * @return
      */
@@ -2288,6 +2575,46 @@ public class MySQLTools {
     /**
      * Erase task
      */
+    void eraseTaskAndSubtask(int id_task){
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("DELETE FROM tareas WHERE id_tarea='");
+            query.append(id_task);
+            query.append("' OR id_tarea_padre='");
+            query.append(id_task);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            stmt.executeUpdate();
+
+        }   catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        }catch (Exception e){
+           e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    /**
+     * Erase task
+     */
     void eraseTask(int id_task){
         Connection con = null;
         PreparedStatement stmt = null;
@@ -2328,7 +2655,7 @@ public class MySQLTools {
     /**
      * Insert Comment
      */
-    void insertComment(int id_tarea, String comment){
+    void insertComment(int id_tarea, String comment,int id_employee){
         Connection con = null;
         PreparedStatement stmt = null;
 
@@ -2336,10 +2663,11 @@ public class MySQLTools {
            Class.forName(sDriver).newInstance();
            con = DriverManager.getConnection(sURL,user,pass);
 
-           stmt = con.prepareStatement("INSERT INTO comentarios (tarea, texto) VALUES(?,?);");
+           stmt = con.prepareStatement("INSERT INTO comentarios (tarea, texto,id_empleado) VALUES(?,?,?);");
 
            stmt.setInt(1, id_tarea);
            stmt.setString(2, comment);
+           stmt.setInt(3, id_employee);
 
            stmt.executeUpdate();
 
@@ -2360,7 +2688,56 @@ public class MySQLTools {
             }
         }
     }
+    /**
+     * consult Comment
+     */
+    DataComment consultComment(int id_comment){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        int id_task = 0;
+        int id_employee=0;
+        String text = null;
 
+        try{
+            Class.forName(sDriver).newInstance();
+            con = DriverManager.getConnection(sURL,user,pass);
+
+            StringBuilder query = new StringBuilder("SELECT * FROM clientes WHERE id_cliente='");
+            query.append(id_comment);
+            query.append("'");
+
+            String queryfinal = new String(query);
+            stmt = con.prepareStatement(queryfinal);
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            if(rs.next()){
+
+                text=rs.getString("texto");
+                id_task=rs.getInt("tarea");
+                id_employee=rs.getInt("id_empleado");
+ 
+            }
+
+        } catch (SQLException sqle){
+            System.out.println("SQLState: " + sqle.getSQLState());
+            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
+            sqle.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            if (con != null) {
+                try{
+                   stmt.close();
+                   con.close();
+                } catch(Exception e){
+                   e.printStackTrace();
+                }
+            }
+            return new DataComment(id_comment,text,id_task,id_employee);
+        }
+    }
     /**
      * Modify Comment
      */
@@ -2443,7 +2820,8 @@ public class MySQLTools {
             while(rs.next()){
                 comments.add(new DataComment(rs.getInt("id_comentario"),
                         rs.getString("texto"),
-                        rs.getInt("tarea")
+                        rs.getInt("tarea"),
+                        rs.getInt("id_empleado")
                 ));
             }
 

@@ -130,7 +130,6 @@ public class User {
         else{
             res=-1;
         }
-        System.out.println("as: "+res);
         return res;
     }
 
@@ -347,11 +346,11 @@ public class User {
     /**
      * Insert Comment
      */
-    public Boolean insertComment(int id_tarea, String comment){
-        Boolean ok = true;
+    public boolean insertComment(int id_tarea, String comment){
+        boolean ok = true;
 
         if(licence.contains(200))
-            DB.insertComment(id_tarea,comment);
+            DB.insertComment(id_tarea,comment,id_employee);
         else
             ok = false;
 
@@ -397,7 +396,13 @@ public class User {
      */
 
     public DataComment consultComment(int id_comment){
-        return null;
+        DataComment comment = null;
+
+        if(licence.contains(203)){
+            comment = DB.consultComment(id_comment);
+        }
+
+        return comment;
     }
 
      /**

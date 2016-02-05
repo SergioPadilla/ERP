@@ -31,4 +31,14 @@ public class DataTask {
         this.status = status;
         this.description = description;
     }
+    
+    public DataTask(DataTask task){
+        this.id_task = task.id_task;
+        this.title = task.title;
+        this.due_date = task.due_date;
+        this.id_task_father = task.id_task_father;
+        this.id_employee = task.id_employee;
+        this.status = task.status;
+        this.description = task.description;
+    }
 }

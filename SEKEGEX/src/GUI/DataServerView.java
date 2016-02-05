@@ -43,8 +43,8 @@ public class DataServerView extends javax.swing.JFrame {
         setFilas();
 
         if(!usr.hasLicence(800))
-            jButtonCreateDomain.setVisible(false);
-    }
+            jButtonCreateDomain.setEnabled(false);
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,11 +71,6 @@ public class DataServerView extends javax.swing.JFrame {
         jButtonVolver.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonVolverMouseClicked(evt);
-            }
-        });
-        jButtonVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVolverActionPerformed(evt);
             }
         });
 
@@ -121,9 +116,9 @@ public class DataServerView extends javax.swing.JFrame {
         }
 
         jButtonCreateDomain.setText("Crear Dominio");
-        jButtonCreateDomain.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonCreateDomainMouseClicked(evt);
+        jButtonCreateDomain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCreateDomainActionPerformed(evt);
             }
         });
 
@@ -186,10 +181,6 @@ public class DataServerView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonVolverActionPerformed
-
     private void jButtonVolverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonVolverMouseClicked
         DataClientView obj = new DataClientView(usr.consultClient(server.id_client));
         obj.setSize(getSize());
@@ -198,13 +189,14 @@ public class DataServerView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButtonVolverMouseClicked
 
-    private void jButtonCreateDomainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCreateDomainMouseClicked
+    private void jButtonCreateDomainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateDomainActionPerformed
+        // TODO add your handling code here:
         CreateDomainView obj = new CreateDomainView(server);
         obj.setSize(getSize());
         obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButtonCreateDomainMouseClicked
+    }//GEN-LAST:event_jButtonCreateDomainActionPerformed
 
         Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
@@ -247,9 +239,10 @@ public class DataServerView extends javax.swing.JFrame {
         
         Object[] datos1 = {server.id_server,server.id_client,server.name,server.ip,server.user_ftp,server.pass_ftp,server.user_host,server.pass_host}; // Cantidad de columnas de la tabla
         modelo1.addRow(datos1);
-        
-        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 8);
-        buttonColumn1.setMnemonic(KeyEvent.VK_D); 
+        if(usr.hasLicence(702)){  
+            ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 8);
+            buttonColumn1.setMnemonic(KeyEvent.VK_D); 
+        }
         
         for(int i=0;i<domains.size();i++){
             DataDomain domi=(DataDomain)domains.elementAt(i);
@@ -257,8 +250,10 @@ public class DataServerView extends javax.swing.JFrame {
             modelo2.addRow(datos2);
         }
         
-        ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, borrar, 2);
-        buttonColumn2.setMnemonic(KeyEvent.VK_D);    
+        if(usr.hasLicence(800)){   
+            ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, borrar, 2);
+            buttonColumn2.setMnemonic(KeyEvent.VK_D);  
+        }
     }
     /**
      * @param args the command line arguments

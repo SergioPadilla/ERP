@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 import static javax.swing.JComponent.TOOL_TIP_TEXT_KEY;
 import javax.swing.JOptionPane;
 import sekegex.Employee;
+import sekegex.User;
 
 /**
  *
@@ -30,6 +31,9 @@ public class EmployeeView extends javax.swing.JFrame {
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/jrQlLrZf.jpeg"))); // NOI18N
         logo.setSize(100,100);
         logo.setLocation(20, 20);
+        if(!User.getInstance().hasLicence(900)){
+            createEmpButton.setEnabled(false);
+        }
         add(logo);
         this.setExtendedState(MAXIMIZED_BOTH);
         employeeGeneralView1.setWindow(this);
