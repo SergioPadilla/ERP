@@ -130,7 +130,6 @@ public class User {
         else{
             res=-1;
         }
-        System.out.println("as: "+res);
         return res;
     }
 
