@@ -37,7 +37,7 @@ public class ClientView extends javax.swing.JFrame {
         setFilas();
         
         if(!usr.hasLicence(300))
-            jButton1.setVisible(false);
+            jButton1.setEnabled(false);
     }
 
     /**
@@ -191,8 +191,10 @@ public class ClientView extends javax.swing.JFrame {
 
         ButtonColumn buttonColumn0 = new ButtonColumn(jTable1, see, 3);
         buttonColumn0.setMnemonic(KeyEvent.VK_D);
-        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, delete, 4);
-        buttonColumn0.setMnemonic(KeyEvent.VK_D);
+        if(usr.hasLicence(301)){
+            ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, delete, 4);
+            buttonColumn0.setMnemonic(KeyEvent.VK_D);
+        }
     }
     
     /**

@@ -105,9 +105,9 @@ public class TaskView extends javax.swing.JFrame {
         subtasks_label.setText("SubTareas");
 
         newSubTask_button.setText("Crear Subtarea");
-        newSubTask_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                newSubTask_buttonMouseClicked(evt);
+        newSubTask_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newSubTask_buttonActionPerformed(evt);
             }
         });
 
@@ -126,9 +126,9 @@ public class TaskView extends javax.swing.JFrame {
         jScrollPane3.setViewportView(comments_list);
 
         addComment_button.setText("Comentar");
-        addComment_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addComment_buttonMouseClicked(evt);
+        addComment_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addComment_buttonActionPerformed(evt);
             }
         });
 
@@ -141,9 +141,9 @@ public class TaskView extends javax.swing.JFrame {
 
         modify_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/edit.png"))); // NOI18N
         modify_button.setText("Modificar");
-        modify_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                modify_buttonMouseClicked(evt);
+        modify_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modify_buttonActionPerformed(evt);
             }
         });
 
@@ -156,9 +156,9 @@ public class TaskView extends javax.swing.JFrame {
 
         delete_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/trash.png"))); // NOI18N
         delete_button.setText("Borrar");
-        delete_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                delete_buttonMouseClicked(evt);
+        delete_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delete_buttonActionPerformed(evt);
             }
         });
 
@@ -249,16 +249,26 @@ public class TaskView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void newSubTask_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newSubTask_buttonMouseClicked
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+        back();
+    }//GEN-LAST:event_back_buttonMouseClicked
+
+    private void updateTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateTaskMouseClicked
+        update();
+    }//GEN-LAST:event_updateTaskMouseClicked
+
+    private void newSubTask_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSubTask_buttonActionPerformed
+        // TODO add your handling code here:
         AddTask obj = new AddTask();
         obj.id_task_father = task.id_task;
         obj.setSize(getSize());
         obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_newSubTask_buttonMouseClicked
+    }//GEN-LAST:event_newSubTask_buttonActionPerformed
 
-    private void addComment_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addComment_buttonMouseClicked
+    private void addComment_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addComment_buttonActionPerformed
+        // TODO add your handling code here:
         if(!newcomment.getText().equals("")){
             if(!usr.insertComment(this.task.id_task, newcomment.getText())){
                 JOptionPane.showMessageDialog(this,"No tienes permiso");
@@ -269,31 +279,24 @@ public class TaskView extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(this,"Almenos tiene que tener un carácter.");
         }
-        
-    }//GEN-LAST:event_addComment_buttonMouseClicked
+    }//GEN-LAST:event_addComment_buttonActionPerformed
 
-    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+    private void delete_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delete_buttonActionPerformed
+        // TODO add your handling code here:
+        Task task = new Task(this.task.id_task);
+        task.eraseTask();
         back();
-    }//GEN-LAST:event_back_buttonMouseClicked
+        this.task = null;
+    }//GEN-LAST:event_delete_buttonActionPerformed
 
-    private void modify_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modify_buttonMouseClicked
+    private void modify_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modify_buttonActionPerformed
+        // TODO add your handling code here:
         ModifyTask obj = new ModifyTask(this.task);
         obj.setSize(getSize());
         obj.setLocation(getLocation());
         obj.setVisible(true);
         dispose();
-    }//GEN-LAST:event_modify_buttonMouseClicked
-
-    private void updateTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateTaskMouseClicked
-        update();
-    }//GEN-LAST:event_updateTaskMouseClicked
-
-    private void delete_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_buttonMouseClicked
-        Task task = new Task(this.task.id_task);
-        task.eraseTask();
-        back();
-        this.task = null;
-    }//GEN-LAST:event_delete_buttonMouseClicked
+    }//GEN-LAST:event_modify_buttonActionPerformed
 
     /**
      * @param args the command line arguments

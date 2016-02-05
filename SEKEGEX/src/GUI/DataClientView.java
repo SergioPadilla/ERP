@@ -43,10 +43,12 @@ public class DataClientView extends javax.swing.JFrame {
         bills = clientO.listBills();
         setFilas();
         
-        if(!usr.hasLicence(700))
-            jButtonAddServer.setVisible(false);
-        if(!usr.hasLicence(400))
-            jButtonAddBill.setVisible(false);
+        if(!usr.hasLicence(700)){
+            jButtonAddServer.setEnabled(false);
+        }
+        if(!usr.hasLicence(400)){
+            jButtonAddBill.setEnabled(false);
+        }
     }
 
     /**
@@ -149,16 +151,16 @@ public class DataClientView extends javax.swing.JFrame {
         }
 
         jButtonAddServer.setText("Añadir Servidor");
-        jButtonAddServer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAddServerMouseClicked(evt);
+        jButtonAddServer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddServerActionPerformed(evt);
             }
         });
 
         jButtonAddBill.setText("Añadir Factura");
-        jButtonAddBill.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButtonAddBillMouseClicked(evt);
+        jButtonAddBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddBillActionPerformed(evt);
             }
         });
 
@@ -212,20 +214,23 @@ public class DataClientView extends javax.swing.JFrame {
         obj.setVisible(true);
             dispose();    }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButtonAddServerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddServerMouseClicked
+    private void jButtonAddBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddBillActionPerformed
+        // TODO add your handling code here:
+        CreateBillView obj = new CreateBillView(clienti);
+        obj.setSize(getSize());    // corregido
+        obj.setLocation(getLocation());
+        obj.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonAddBillActionPerformed
+
+    private void jButtonAddServerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddServerActionPerformed
+        // TODO add your handling code here:
         CreateServerView obj = new CreateServerView(clienti);
         obj.setSize(getSize());
         obj.setLocation(getLocation());
         obj.setVisible(true);                    
         dispose();
-    }//GEN-LAST:event_jButtonAddServerMouseClicked
-
-    private void jButtonAddBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonAddBillMouseClicked
-        CreateBillView obj = new CreateBillView(clienti);
-        obj.setSize(getSize());    // corregido
-        obj.setLocation(getLocation());
-        obj.setVisible(true);
-        dispose();    }//GEN-LAST:event_jButtonAddBillMouseClicked
+    }//GEN-LAST:event_jButtonAddServerActionPerformed
 
     Action modify = new AbstractAction() {
         public void actionPerformed(ActionEvent e) {
@@ -322,33 +327,45 @@ public class DataClientView extends javax.swing.JFrame {
         
         Object[] datos1 = {clienti.id,clienti.name,clienti.surname,clienti.email,clienti.dni,clienti.type,clienti.registration}; // Cantidad de columnas de la tabla
         modelo1.addRow(datos1);
+        if(usr.hasLicence(302)){
+            ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
+            buttonColumn1.setMnemonic(KeyEvent.VK_D); 
+        }
         
-        ButtonColumn buttonColumn1 = new ButtonColumn(jTable1, modify, 7);
-        buttonColumn1.setMnemonic(KeyEvent.VK_D); 
-        
+        if(usr.hasLicence(703)){
+            for(int i=0;i<servers.size();i++){
+                DataServer servi=(DataServer)servers.elementAt(i);
+                Object[] datos2 = {servi.id_server,servi.name}; 
+                modelo2.addRow(datos2);
+            }
 
-        for(int i=0;i<servers.size();i++){
-            DataServer servi=(DataServer)servers.elementAt(i);
-            Object[] datos2 = {servi.id_server,servi.name}; 
+            ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, ver, 2);
+            buttonColumn2.setMnemonic(KeyEvent.VK_D); 
+            if(usr.hasLicence(701)){
+                ButtonColumn buttonColumn3 = new ButtonColumn(jTable2, borrar, 3);
+                buttonColumn3.setMnemonic(KeyEvent.VK_D); 
+            }
+        }else{
+            Object[] datos2 = {0,"No tiene permisos","",""};
             modelo2.addRow(datos2);
         }
-        
-        ButtonColumn buttonColumn2 = new ButtonColumn(jTable2, ver, 2);
-        buttonColumn2.setMnemonic(KeyEvent.VK_D); 
-        ButtonColumn buttonColumn3 = new ButtonColumn(jTable2, borrar, 3);
-        buttonColumn3.setMnemonic(KeyEvent.VK_D); 
-        
-        for(int i=0;i<bills.size();i++){
-            DataBill billi=(DataBill)bills.elementAt(i);
-            Object[] datos3 = {billi.id_bill,billi.date}; 
+        if(usr.hasLicence(403)){
+            for(int i=0;i<bills.size();i++){
+                DataBill billi=(DataBill)bills.elementAt(i);
+                Object[] datos3 = {billi.id_bill,billi.date}; 
+                modelo3.addRow(datos3);
+            }
+
+            ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verFacturas, 2);
+            buttonColumn4.setMnemonic(KeyEvent.VK_D);
+            if(usr.hasLicence(401)){
+                ButtonColumn buttonColumn5 = new ButtonColumn(jTable3, borrarFacturas, 3);
+                buttonColumn5.setMnemonic(KeyEvent.VK_D);
+            }
+        }else{
+            Object[] datos3 = {0,"No tiene permisos","",""};
             modelo3.addRow(datos3);
         }
-        
-        
-        ButtonColumn buttonColumn4 = new ButtonColumn(jTable3, verFacturas, 2);
-        buttonColumn4.setMnemonic(KeyEvent.VK_D);
-        ButtonColumn buttonColumn5 = new ButtonColumn(jTable3, borrarFacturas, 3);
-        buttonColumn4.setMnemonic(KeyEvent.VK_D);
     }
     
     /**
