@@ -936,6 +936,8 @@ CREATE TABLE rol (rol INT NOT NULL , permiso INT, PRIMARY KEY(rol,permiso))
 
 \subsubsection{DISPARADORES}
 DISPARADOR 1:
+\newline
+Al añadir una factura nueva, automáticamente se añade la respectiva compra en la tabla COMPRAS.
 \lstset{language=C, breaklines=true, basicstyle=\footnotesize}
 \begin{lstlisting}[frame=single]
     public void insertBill(Vector products){
@@ -950,6 +952,8 @@ DISPARADOR 1:
 \end{lstlisting}
 \newpage
 DISPARADOR 2:
+\newline
+Al borrar una tarea, automáticamente se borran las subtareas relacionadas.
 \lstset{language=C, breaklines=true, basicstyle=\footnotesize}
 \begin{lstlisting}[frame=single]
     private void eraseTask(int id){
