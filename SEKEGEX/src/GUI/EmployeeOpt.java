@@ -182,7 +182,7 @@ public class EmployeeOpt extends javax.swing.JPanel {
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
         
-        int selection = JOptionPane.showOptionDialog(window, "¿Estas seguro de quere borrar este empleado?", "Advertencia", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null, new Object[] { "Aceptar", "Cancelar" }, null);
+        int selection = JOptionPane.showOptionDialog(window, "¿Estas seguro de querer borrar este empleado?", "Advertencia", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null, new Object[] { "Aceptar", "Cancelar" }, null);
         if(selection==0){
             if(employee==null){
                 employee=new Employee(dataEmp.id_employee);

@@ -2310,7 +2310,7 @@ public class MySQLTools {
                 query.append("'");
                 first=false;
             }
-            if(id_employee != -1){
+            if(id_employee != 0){
                 if(!first){
                     query.append(",");
                 }
@@ -2385,12 +2385,10 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
-            StringBuilder query = new StringBuilder("SELECT * FROM tareas WHERE id_tarea='");
-            query.append(id_task);
-            query.append("'");
 
-            String queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
+            stmt = con.prepareStatement("SELECT * FROM tareas WHERE id_tarea=?");
+            stmt.setInt(1, id_task);
+            
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
@@ -2533,12 +2531,9 @@ public class MySQLTools {
         try{
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
-            StringBuilder query = new StringBuilder("SELECT * FROM tareas WHERE id_tarea_padre='");
-            query.append(id_task_father);
-            query.append("'");
-
-            String queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
+            
+            stmt = con.prepareStatement("SELECT * FROM tareas WHERE id_tarea_padre=?");
+            stmt.setInt(1,id_task_father);
             ResultSet rs = stmt.executeQuery();
 
             while(rs.next()){
@@ -2583,14 +2578,9 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
 
-            StringBuilder query = new StringBuilder("DELETE FROM tareas WHERE id_tarea='");
-            query.append(id_task);
-            query.append("' OR id_tarea_padre='");
-            query.append(id_task);
-            query.append("'");
-
-            String queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
+            stmt = con.prepareStatement("DELETE FROM tareas WHERE id_tarea=? OR id_tarea_padre=?");
+            stmt.setInt(1, id_task);
+            stmt.setInt(2, id_task);
 
             stmt.executeUpdate();
 
@@ -2623,12 +2613,8 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
 
-            StringBuilder query = new StringBuilder("DELETE FROM tareas WHERE id_tarea='");
-            query.append(id_task);
-            query.append("'");
-
-            String queryfinal = new String(query);
-            stmt = con.prepareStatement(queryfinal);
+            stmt = con.prepareStatement("DELETE FROM tareas WHERE id_tarea=?");
+            stmt.setInt(1, id_task);
 
             stmt.executeUpdate();
 
@@ -2702,10 +2688,10 @@ public class MySQLTools {
             Class.forName(sDriver).newInstance();
             con = DriverManager.getConnection(sURL,user,pass);
 
-            StringBuilder query = new StringBuilder("SELECT * FROM clientes WHERE id_cliente='");
+            StringBuilder query = new StringBuilder("SELECT * FROM comentarios WHERE id_comentario='");
             query.append(id_comment);
             query.append("'");
-
+            
             String queryfinal = new String(query);
             stmt = con.prepareStatement(queryfinal);
 

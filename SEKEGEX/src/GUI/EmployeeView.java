@@ -141,7 +141,7 @@ public class EmployeeView extends javax.swing.JFrame {
             }
         });
 
-        createEmpButton.setText("Crear Empeado");
+        createEmpButton.setText("Crear Empleado");
         createEmpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createEmpButtonActionPerformed(evt);
